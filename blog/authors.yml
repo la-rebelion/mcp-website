@@ -1,25 +1,12 @@
-yangshun:
-  name: Yangshun Tay
-  title: Ex-Meta Staff Engineer, Co-founder GreatFrontEnd
-  url: https://linkedin.com/in/yangshun
-  image_url: https://github.com/yangshun.png
+adrian:
+  name: Adrian Escutia
+  title: La Rebelion Founder
+  url: https://adrian.escutia.me
+  image_url: https://github.com/adrianescutia.png
   page: true
   socials:
-    x: yangshunz
-    linkedin: yangshun
-    github: yangshun
-    newsletter: https://www.greatfrontend.com
-
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
-  page:
-    # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
-  socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com
+    x: ades_mx
+    linkedin: adrianescutia
+    github: adrianescutia
+    newsletter: https://rebelion.la
+  bio: "Adrian is the founder of La Rebelion, a newsletter about AI, technology, and the future. He is also a software engineer and entrepreneur."
