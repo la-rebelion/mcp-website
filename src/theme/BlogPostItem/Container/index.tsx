@@ -6,10 +6,5 @@ export default function BlogPostItemContainer({
   children,
   className,
 }: Props): ReactNode {
-  return (
-    <article className={clsx('card shadow--sm', className)}>
-      <div className="card__body">{children}</div>
-    </article>
-  );
+  return <article className={clsx('card shadow--sm', className)}>{children}</article>;
 }
-

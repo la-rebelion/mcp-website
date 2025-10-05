@@ -1,19 +1,28 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+mcp:
+  label: MCP
+  permalink: /mcp
+  description: >
+      MCP is an open protocol for connecting LLM apps to external data sources and tools, enabling seamless integration and interoperability.
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+oas:
+  label: OAS
+  permalink: /oas
+  description: OpenAPI Specification—industry standard for describing RESTful APIs and enabling interoperability.
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+arazzo:
+  label: Arazzo
+  permalink: /arazzo
+  description: >
+    Arazzo defines API workflows—sequences of calls and dependencies—to deliver outcomes using API specs like OpenAPI.
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+swagger:
+  label: Swagger
+  permalink: /swagger
+  description: >
+    Swagger is a suite of tools for designing, building, documenting, and consuming RESTful APIs, built around the OpenAPI Specification.
+
+api:
+  label: API
+  permalink: /api
+  description: >
+    An API (Application Programming Interface) is a set of rules and protocols that allows different software applications to communicate and interact with each other.
