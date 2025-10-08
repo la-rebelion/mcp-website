@@ -353,7 +353,7 @@ function BlogListPageContent(props: Props): ReactNode {
                     {autoInfinite ? 'Load more' : 'Load more (enable auto)'}
                   </button>
                 ) : (
-                  <span className="mcpNoMore">You’ve reached the end</span>
+                  <span className="mcpNoMore">You've reached the end</span>
                 )}
               </div>
               <div ref={sentinelRef} className="mcpSentinel" aria-hidden />
