@@ -26,3 +26,27 @@ api:
   permalink: /api
   description: >
     An API (Application Programming Interface) is a set of rules and protocols that allows different software applications to communicate and interact with each other.
+
+security:
+  label: Security
+  permalink: /security
+  description: >
+    Security involves protecting systems, networks, and data from digital attacks, unauthorized access, and damage
+
+ai:
+  label: AI
+  permalink: /ai
+  description: >
+    Artificial Intelligence (AI) is the simulation of human intelligence in machines that are programmed to think and learn like humans.
+
+llm:
+  label: LLM
+  permalink: /llm
+  description: >
+    Large Language Models (LLMs) are advanced AI models trained on vast text data to understand and generate human-like language.
+
+rest:
+  label: REST
+  permalink: /rest
+  description: >
+    REST (Representational State Transfer) is an architectural style for designing networked applications, using stateless communication and standard HTTP methods.
