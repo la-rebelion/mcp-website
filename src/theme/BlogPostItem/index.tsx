@@ -36,7 +36,7 @@ export default function BlogPostItem({children, className}: Props): ReactNode {
     );
   }
 
-  const fallbackImg = '/img/logo.svg';
+  const fallbackImg = '/img/logo.png';
   const imgSrc = hero || fallbackImg;
 
   const onShare = async () => {
@@ -63,19 +63,19 @@ export default function BlogPostItem({children, className}: Props): ReactNode {
             <div className="mcpAvatar" aria-hidden>{avatarLetter}</div>
             <div>
               <h3 className="mcpPostTitle"><Link to={permalink}>{title}</Link></h3>
-              <div className="mcpPostMeta">{formattedDate}</div>
+              {/* <div className="mcpPostMeta">{formattedDate}</div> */}
             </div>
           </div>
           <button className="mcpShareBtn" type="button" aria-label="Share" onClick={onShare}>
             <ShareIcon />
           </button>
         </div>
-      </div>
       <div className="card__image mcpCardImage">
         <Link to={permalink}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imgSrc} alt="" loading="lazy" />
         </Link>
+      </div>
       </div>
       <div className="card__body">
         <div className="mcpExcerpt">
@@ -86,4 +86,3 @@ export default function BlogPostItem({children, className}: Props): ReactNode {
     </BlogPostItemContainer>
   );
 }
-
