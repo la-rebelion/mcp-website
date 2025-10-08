@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmcp_ai=self.webpackChunkmcp_ai||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[]}')}}]);
