@@ -39,6 +39,7 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  trailingSlash: false,
 
   presets: [
     [
@@ -60,6 +61,7 @@ const config: Config = {
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
+          blogSidebarCount: 0,
         },
         theme: {
           customCss: './src/css/custom.css',
