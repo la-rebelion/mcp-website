@@ -50,3 +50,15 @@ rest:
   permalink: /rest
   description: >
     REST (Representational State Transfer) is an architectural style for designing networked applications, using stateless communication and standard HTTP methods.
+
+tool-calling:
+  label: Tool Calling
+  permalink: /tool-calling
+  description: >
+    Tool calling refers to the ability of AI models to invoke external tools or APIs to perform specific tasks or retrieve information, enhancing their functionality and capabilities.
+
+openai:
+  label: OpenAI
+  permalink: /openai
+  description: >
+    OpenAI is an AI research and deployment company focused on ensuring that artificial general intelligence benefits all of humanity.
