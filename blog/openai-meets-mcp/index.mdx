@@ -7,17 +7,20 @@ tags:
   - mcp
   - openai
   - tool-calling
-  - tutorial
   - oas
+image: https://cdn.gamma.app/z3n406kubdfbysb/generated-images/ibH5HhVl1c3OZPUlUBXBp.png
 ---
 import ReactPlayer from 'react-player'
 
-MCP, or Model Context Protocol, is a framework that enhances how AI models interact with their operational context. By integrating MCP, you ensure your AI models are not only aware of the data they process but also the environment in which they operate. This leads to more accurate and contextually relevant outputs.
+An evolution of tool calling with MCP, thanks to OpenAI's latest SDK updates.
 
-**Summary:**  
-You will learn how OpenAI's MCP integration empowers models to deliver smarter, context-aware results by connecting them to their operational environment.
+Step-by-step, I'll guide you through setting up an MCP server, integrating it with the OpenAI SDK, and running a complete example that showcases **dynamic tool calling**. By the end of this post, you'll be equipped to leverage MCP in your own OpenAI-powered applications.
+
+End-to-End Example, Setting Up an MCP Server, Integrating with OpenAI LLM, and Running some tests to see it in action.
 
 <!-- truncate -->
+
+MCP, or Model Context Protocol, is a framework that enhances how AI models interact with their operational context. By integrating MCP, you ensure your AI models are not only aware of the data they process but also the environment in which they operate. This leads to more accurate and contextually relevant outputs.
 
 ## Why Integrate OpenAI with MCP?
 
@@ -37,9 +40,12 @@ The OpenAI's MCP integration is currently in beta, so expect some rough edges. H
 
 You have three main ways to implement tool calling:
 
-1. **Direct Tool Calling:** Use LLMs that support tool calling directly, such as Llama 3, GPT-4o, and others. You provide tools to the model manually (programmatically).
-2. **MCP Clients:** Use applications that fetch tools from MCP servers and provide them to LLMs. MCP Clients act as intermediaries, enabling dynamic tool retrieval based on user queries.
-3. **LLMs with Native MCP Support:** OpenAI now integrates native MCP support in their models, letting them fetch and use tools from MCP servers directly. Just plug in the MCP Server URL, and the model handles the rest.
+| Approach                   | Description                                                          | Key Strength                                  |
+| -------------------------- | -------------------------------------------------------------------- | --------------------------------------------- |
+| **MCP Clients**            | Intermediary applications bridging models and external tool servers. | Dynamic retrieval and adaptation              |
+| **Direct Tool Calling**    | LLMs with built-in function calling via structured JSON.             | Precise programmatic control                  |
+| **Native MCP Integration** | OpenAI’s latest approach combining both worlds.                      | Automatic discovery and zero-config operation |
+
 
 When choosing, remember: Direct Tool Calling is easy to set up but requires manual tool management. MCP Clients offer dynamic adaptability, fetching tools as needed and calling them for the user. LLMs with Native MCP Support provide the most seamless experience, automatically integrating and using tools from MCP Servers, though you may need some upfront knowledge about OpenAI's system and SDKs.
 
