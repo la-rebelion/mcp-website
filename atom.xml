@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mcp.com.ai</id>
-    <title>MCP — Model Context Protocol Blog</title>
+    <title>MCP AI Blog Blog</title>
     <updated>2025-10-09T12:02:09.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mcp.com.ai"/>
-    <subtitle>MCP — Model Context Protocol Blog</subtitle>
+    <subtitle>MCP AI Blog Blog</subtitle>
     <icon>https://mcp.com.ai/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[OpenAI SDK Meets MCP (Model Context Protocol)]]></title>
@@ -13,9 +13,10 @@
         <link href="https://mcp.com.ai/openai-meets-mcp"/>
         <updated>2025-10-09T12:02:09.000Z</updated>
         <summary type="html"><![CDATA[A comprehensive guide on how to integrate OpenAI's SDK with MCP (Model Context Protocol) to enhance AI model interactions through dynamic tool calling.]]></summary>
-        <content type="html"><![CDATA[<p>MCP, or Model Context Protocol, is a framework that enhances how AI models interact with their operational context. By integrating MCP, you ensure your AI models are not only aware of the data they process but also the environment in which they operate. This leads to more accurate and contextually relevant outputs.</p>
-<p><strong>Summary:</strong><br>
-<!-- -->You will learn how OpenAI's MCP integration empowers models to deliver smarter, context-aware results by connecting them to their operational environment.</p>
+        <content type="html"><![CDATA[<p>An evolution of tool calling with MCP, thanks to OpenAI's latest SDK updates.</p>
+<p>Step-by-step, I'll guide you through setting up an MCP server, integrating it with the OpenAI SDK, and running a complete example that showcases <strong>dynamic tool calling</strong>. By the end of this post, you'll be equipped to leverage MCP in your own OpenAI-powered applications.</p>
+<p>End-to-End Example, Setting Up an MCP Server, Integrating with OpenAI LLM, and Running some tests to see it in action.</p>
+<p>MCP, or Model Context Protocol, is a framework that enhances how AI models interact with their operational context. By integrating MCP, you ensure your AI models are not only aware of the data they process but also the environment in which they operate. This leads to more accurate and contextually relevant outputs.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-integrate-openai-with-mcp">Why Integrate OpenAI with MCP?<a href="https://mcp.com.ai/openai-meets-mcp#why-integrate-openai-with-mcp" class="hash-link" aria-label="Direct link to Why Integrate OpenAI with MCP?" title="Direct link to Why Integrate OpenAI with MCP?" translate="no">​</a></h2>
 <p>OpenAI's powerful language models take tool calling to the next level when you leverage MCP. This integration enables dynamic interactions, letting you build applications that adapt to various scenarios and user needs. I explained <a href="https://mcp.com.ai/oas-v4-is-out#how-does-mcp-work-for-mere-mortals">how MCP tool calling works</a> in a previous post. Now, I'll show you how OpenAI's implementation impressed me.</p>
 <p>With a simple, clever setup, you create applications that understand user queries in natural language and fetch relevant tools from MCP servers. This is extremely powerful—it enables seamless, efficient interactions with AI models, making them more useful in real-world applications. Imagine an automated customer-support bot using MCP: it instantly retrieves necessary tools from MCP servers to resolve complex queries, such as billing discrepancies or technical troubleshooting, on the first call. This opens new possibilities for building intelligent applications that respond to user needs with greater precision and context-awareness.</p>
@@ -24,11 +25,7 @@
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The OpenAI's MCP integration is currently in beta, so expect some rough edges. However, the potential is immense, and I'm excited to see how this evolves.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="three-approaches-to-tool-calling">Three Approaches to Tool Calling<a href="https://mcp.com.ai/openai-meets-mcp#three-approaches-to-tool-calling" class="hash-link" aria-label="Direct link to Three Approaches to Tool Calling" title="Direct link to Three Approaches to Tool Calling" translate="no">​</a></h2>
 <p>You have three main ways to implement tool calling:</p>
-<ol>
-<li><strong>Direct Tool Calling:</strong> Use LLMs that support tool calling directly, such as Llama 3, GPT-4o, and others. You provide tools to the model manually (programmatically).</li>
-<li><strong>MCP Clients:</strong> Use applications that fetch tools from MCP servers and provide them to LLMs. MCP Clients act as intermediaries, enabling dynamic tool retrieval based on user queries.</li>
-<li><strong>LLMs with Native MCP Support:</strong> OpenAI now integrates native MCP support in their models, letting them fetch and use tools from MCP servers directly. Just plug in the MCP Server URL, and the model handles the rest.</li>
-</ol>
+<table><thead><tr><th>Approach</th><th>Description</th><th>Key Strength</th></tr></thead><tbody><tr><td><strong>MCP Clients</strong></td><td>Intermediary applications bridging models and external tool servers.</td><td>Dynamic retrieval and adaptation</td></tr><tr><td><strong>Direct Tool Calling</strong></td><td>LLMs with built-in function calling via structured JSON.</td><td>Precise programmatic control</td></tr><tr><td><strong>Native MCP Integration</strong></td><td>OpenAI’s latest approach combining both worlds.</td><td>Automatic discovery and zero-config operation</td></tr></tbody></table>
 <p>When choosing, remember: Direct Tool Calling is easy to set up but requires manual tool management. MCP Clients offer dynamic adaptability, fetching tools as needed and calling them for the user. LLMs with Native MCP Support provide the most seamless experience, automatically integrating and using tools from MCP Servers, though you may need some upfront knowledge about OpenAI's system and SDKs.</p>
 <p><strong>Summary:</strong><br>
 <!-- -->Select the approach that best fits your workflow—manual, dynamic, or fully automated tool integration.</p>
@@ -81,7 +78,6 @@
         <category label="MCP" term="MCP"/>
         <category label="OpenAI" term="OpenAI"/>
         <category label="Tool Calling" term="Tool Calling"/>
-        <category label="tutorial" term="tutorial"/>
         <category label="OAS" term="OAS"/>
     </entry>
     <entry>
