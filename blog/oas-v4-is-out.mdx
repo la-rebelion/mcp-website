@@ -44,24 +44,27 @@ Complex, right? Let's see it in a sequence diagram:
 
 ```mermaid
 sequenceDiagram
+  participant U as User
   participant C as Client
   participant L as LLM
   participant S as Server
+  U->>C: User input<br/>(e.g., "What tacos do you have in the menu?")
   C->>S: Fetch API spec (tools/list)
   S-->>C: API spec (tools [list])
-  C->>L: API spec (tools [list])
-  C->>L: User input
   alt LLM supports tool calling
-    L->>S: API call
-    S-->>L: API response
-    L-->>C: Result to user
-  else LLM does not support tool calling
-    L->>C: Tool selection/instruction
+    C->>L: API spec (tools [list])
+    C->>L: User input & context<br/>(user preference, etc)
+    L-->>C: Tool selection<br/>(assistant suggests a function call)
     C->>S: API call
-    S-->>C: API response
-    C-->>L: API response
-    L-->>C: Result to user
+  else LLM does not support tool calling
+    C->>L: User input, tools [list] & context<br/>(user preference, etc)
+    L-->>C: Tool selection
+    C->>S: API call<br/>(Client decides protocol, auth, etc)
   end
+  S-->>C: API response
+  C-->>L: API response
+  L-->>C: Result to user
+  C-->>U: Final response
 ```
 
 The LLM receives a prompt with a description of the [available tools](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#listing-tools). This tool list can be [mapped from the OpenAPI spec](https://rebelion.la/you-dont-need-to-implement-mcp-servers-a-contract-first-approach-to-ai-tool-integration?showSharer=true#heading-example-conversion-openapi-mcp). The LLM then chooses which tool to use and how to use it. The client simply passes the user input to the LLM, which decides what to do next. Some LLMs, like GPT-4-turbo and Llama2, support tool calling natively. Others, like Claude, do not, so the client calls the tool directly, based on the LLM's instruction.

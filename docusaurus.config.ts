@@ -8,7 +8,7 @@ const hubspot = {
 };
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 const config: Config = {
-  title: 'MCP — Model Context Protocol',
+  title: 'MCP AI Blog',
   tagline:
     'Understanding limitations and misconceptions • Practical guidance for real-world MCP',
   favicon: 'img/favicon.ico',

@@ -6,6 +6,7 @@ authors:
 tags:
   - mcp
   - security
+image: https://cdn.gamma.app/z3n406kubdfbysb/generated-images/trv8ZioPQIQ84iK46Bd8B.png
 ---
 
 # MCP Threats and Prompt Injection: What You Must Know
