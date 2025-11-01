@@ -62,3 +62,27 @@ openai:
   permalink: /openai
   description: >
     OpenAI is an AI research and deployment company focused on ensuring that artificial general intelligence benefits all of humanity.
+
+guide:
+  label: Guide
+  permalink: /guide
+  description: >
+    Curated instructions or documentation designed to help users understand and implement specific use cases around MCP and related technologies.
+
+api-first:
+  label: API-First
+  permalink: /api-first
+  description: >
+    API-First is a design approach that prioritizes the development of APIs before building the actual application, ensuring better integration and scalability.
+
+ai-integration:
+  label: AI Integration
+  permalink: /ai-integration
+  description: >
+    AI Integration involves incorporating artificial intelligence technologies into existing systems and workflows to enhance functionality and performance.
+
+mcp-gateway:
+  label: MCP Gateway
+  permalink: /mcp-gateway
+  description: >
+    An MCP Gateway acts as a bridge between existing APIs and the Model Context Protocol, enabling seamless integration of legacy systems with AI applications.
