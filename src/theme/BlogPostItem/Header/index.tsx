@@ -10,9 +10,21 @@ export default function BlogPostItemHeader(): ReactNode {
   return (
     <header>
       {isBlogPostPage && hero && (
-        <div className="mcpPostHero">
+        <div className="mcpPostHero" style={{ maxHeight: 280, overflow: 'hidden', marginBottom: 24 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={hero} alt="" loading="eager" />
+          <img
+            src={hero}
+            alt=""
+            loading="eager"
+            style={{
+              width: '100%',
+              height: 'auto',
+              maxHeight: 280,
+              objectFit: 'cover',
+              display: 'block',
+              margin: 0,
+            }}
+          />
         </div>
       )}
       <BlogPostItemHeaderTitle />
