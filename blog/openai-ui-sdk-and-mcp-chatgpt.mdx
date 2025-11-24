@@ -1,0 +1,164 @@
+---
+title: "Integrate the OpenAI UI SDK for ChatGPT With HAPI MCP in 60 Seconds"
+description: Step-by-step guide to turn any OpenAPI 3.0+ spec into a ChatGPT-ready MCP server using HAPI MCP and the OpenAI UI SDK. Fast deployment, validation, and optimization for Generative and Answer Engine search.
+tags: [mcp, openai, api-first, llm, guide, ai-integration]
+authors:
+  - adrian
+image: /img/make-mcp-hapi.png
+---
+
+You want your API to be instantly usable inside AI assistants like ChatGPT, and Web UIs. The OpenAI UI SDK plus the Model Context Protocol (MCP) lets you expose your API as structured tools that large language models can call directly.
+
+In this hands-on guide, you deploy a fully functional MCP server from any OpenAPI 3.0 specification and make it usable by ChatGPT and other MCP-aware clients in under a minute using HAPI MCP. You learn to deploy using cloud and on‑premises workflows.
+
+<!-- truncate -->
+
+Just two months ago, I wrote about how [OpenAI announced the custom MCP](https://rebelion.la/chatgpt-meets-custom-mcps) (Model Context Protocol) interface to allow developers to integrate their APIs directly into ChatGPT, but there was [this caveat](https://rebelion.la/chatgpt-meets-custom-mcps#heading-the-caveat-search-and-fetch): Developers would need to implement two tools, a "search" tool to find relevant information and a "fetch" tool to retrieve that information. Today, with the OpenAI UI SDK, that process is greatly simplified.
+
+## Why Integrate Your API With the OpenAI UI SDK via MCP?
+
+* You expose real-time, authoritative data to ChatGPT and other MCP-aware clients.
+* You eliminate brittle prompt engineering for retrieval and action execution.
+* You accelerate feature delivery—turn any supported OpenAPI spec into tool metadata.
+
+## Architecture Overview
+
+The deployment flow:
+
+1. Provide an OpenAPI 3.0+ JSON or YAML spec.
+2. HAPI MCP ingests paths, methods, parameters, and schemas.
+3. Tools are generated with typed argument definitions.
+4. The MCP server exposes a JSON-RPC style interface consumable by the OpenAI UI SDK or other MCP-clients.
+5. Clients query available tools, then issue structured calls.
+
+### Key Components
+
+| Component | Role |
+| :-- | :-- |
+| OpenAPI Spec | Source of truth for endpoints, params, schemas |
+| HAPI MCP CLI / Cloud | Transforms spec → MCP tool registry |
+| MCP Server | Serves tool metadata and handles invocations |
+| Client Runtime | ChatGPT / custom app calling tools |
+
+## Prerequisites
+
+* An OpenAPI 3.0+ spec URL or local file (JSON or YAML).
+* A workstation with terminal access, only if you plan to use the HAPI MCP CLI (on-premises deployment).
+* Basic familiarity with REST API concepts (no MCP experience required).
+* Optional: A converted OAS 2.0 (Swagger) spec if you start from legacy format.
+
+## Quick Answer: What Is the Fastest Way to Get an API Inside ChatGPT?
+
+Provide an OpenAPI 3.0 spec to HAPI MCP (cloud or CLI), start the MCP server, then [connect ChatGPT](https://developers.openai.com/apps-sdk/deploy/connect-chatgpt) custom tools configuration at the generated endpoint.
+
+## Cloud Deployment (Fastest Path)
+
+1. Open the run portal: `https://run.mcp.com.ai/?oas=<YOUR_OPENAPI_SPEC_URL>&apiServer=<OPTIONAL_BASE_URL>`
+2. Replace `<YOUR_OPENAPI_SPEC_URL>` with a direct spec URL (must be publicly accessible).
+3. (Optional) Replace `<OPTIONAL_BASE_URL>` with your API server base URL if needed - not all specs include server definitions.
+4. Wait for provisioning; you receive an MCP server endpoint URL.
+5. Use that URL in the ChatGPT Apps & Connectors settings.
+6. Validate tool listing (see Validation section below).
+
+### Example URL
+
+```console
+https://run.mcp.com.ai/?oas=https://example.com/openapi.json
+```
+
+## On-Premises Deployment With HAPI MCP CLI
+
+1. Install the CLI
+[Download the latest release](https://github.com/la-rebelion/hapimcp/releases) and install the HAPI MCP CLI executable, depending on your OS. 
+
+Or install via Bun/npm:
+```bash
+bun install -g @la-rebelion/hapimcp
+```
+2. Verify installation:
+```bash
+hapi --version
+```
+1. Start a local MCP server (using a spec alias - located in `HAPI_HOME/specs`):
+```bash
+hapi serve petstore --headless
+```
+1. Or specify a direct spec URL:
+```bash
+hapi serve my-api --openapi="https://example.com/openapi.json" --headless
+```
+1. Capture the printed MCP server endpoint (e.g., `http://localhost:3000/mcp`).
+2. Add that URL to ChatGPT Apps & Connectors settings.
+
+## Deploy to Cloud via CLI
+
+1. Run:
+```bash
+hapi deploy strava --var HAPI_OPENAPI:"https://docs.mcp.com.ai/apis/openapi/strava.json"
+```
+1. Use `--dry-run` to inspect generated YAML or JSON before committing:
+```bash
+hapi deploy strava --var HAPI_OPENAPI:"https://docs.mcp.com.ai/apis/openapi/strava.json" --dry-run
+```
+1. Store returned endpoint URL for ChatGPT integration.
+
+## Converting Swagger (OAS 2.0) to OpenAPI 3.0+
+
+Don't have an OpenAPI 3.0+ spec? Convert from Swagger (OAS 2.0) using these steps:
+
+1. Use the official online converter:
+```bash
+curl -X POST -H "Content-Type: application/json" \
+  -d @swagger.json https://converter.swagger.io/api/convert \
+  -o openapi3.json
+```
+1. Confirm version:
+```bash
+grep '"openapi"' openapi3.json
+```
+1. Fix any `schema` vs `definitions` mismatches manually if needed.
+1. Retry deployment with the new file.
+
+## Validating Your MCP Server
+
+1. List tools:
+```bash
+curl -s https://your-mcp-endpoint.example/mcp/tools | jq
+```
+1. Call a tool (example POST body):
+```bash
+curl -X POST https://your-mcp-endpoint.example/mcp/call \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "tool":"getPetById",
+    "params":{"petId": 123}
+  }'
+```
+1. Check response latency; target < 1s for best conversational UX.
+1. Log errors; ensure input validation messages are concise and actionable.
+1. Confirm schema alignment with expected OpenAPI parameter types.
+
+## Frequently Asked Questions
+
+### How fast can you expose an API to ChatGPT?
+You can expose a spec-driven API in under 60 seconds using the cloud portal or a single CLI command.
+
+### Do you need to write glue code?
+You do not need custom tool wrappers; HAPI MCP converts spec operations automatically.
+
+### Can you use private specs?
+Yes. Host the spec behind authenticated access or load from a local file via CLI.
+
+### What formats are supported?
+OpenAPI 3.0+ JSON or YAML. Convert OAS 2.0 (Swagger) before deployment.
+
+### Is this limited to ChatGPT?
+No. Any MCP-aware client (custom apps, open-source chat UIs) can consume the server.
+
+## Conclusion
+
+You now have a repeatable path to transform any OpenAPI 3.0+ specification into a production-ready MCP server consumable by the OpenAI UI SDK and AI assistants. By following validation, conversion, and optimization steps, you improve tool discoverability. Next, refine schema descriptions and add automated integration tests to ensure durable quality as your API evolves.
+
+Your APIs are now ready to be seamlessly integrated into ChatGPT and other MCP-aware clients, unlocking new possibilities for AI-driven interactions. Stop wasting time writing MCP Server code manually—leverage HAPI MCP to accelerate your AI integration journey!
+
+Be HAPI and Go Rebels! ✊🏽
