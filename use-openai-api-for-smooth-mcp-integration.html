@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
 <head>
 <meta charset="UTF-8">
-<meta name="generator" content="Docusaurus v3.9.1">
+<meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Using OpenAI Response API for MCP Integration | MCP AI Blog</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Using OpenAI Response API for MCP Integration | MCP AI Blog"><meta data-rh="true" name="description" content="A step-by-step guide to integrating OpenAI&#x27;s Response API with Model Context Protocol (MCP) using HAPI Server."><meta data-rh="true" property="og:description" content="A step-by-step guide to integrating OpenAI&#x27;s Response API with Model Context Protocol (MCP) using HAPI Server."><meta data-rh="true" name="keywords" content="MCP,Model Context Protocol,OpenAI Response API,HAPI Server,API Integration,LLMs,Taco Ordering System,Postman AI Agent"><meta data-rh="true" property="og:image" content="https://images.unsplash.com/photo-1676299081847-824916de030a?ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;q=80&amp;w=1170"><meta data-rh="true" name="twitter:image" content="https://images.unsplash.com/photo-1676299081847-824916de030a?ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;q=80&amp;w=1170"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2025-11-01T15:05:34.000Z"><meta data-rh="true" property="article:author" content="https://adrian.escutia.me"><meta data-rh="true" property="article:tag" content="MCP,OpenAI,API-First,LLM,Guide,AI Integration"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration" hreflang="en"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration","mainEntityOfPage":"https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration","url":"https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration","headline":"Using OpenAI Response API for MCP Integration","name":"Using OpenAI Response API for MCP Integration","description":"A step-by-step guide to integrating OpenAI's Response API with Model Context Protocol (MCP) using HAPI Server.","datePublished":"2025-11-01T15:05:34.000Z","author":{"@type":"Person","name":"Adrian Escutia","description":"La Rebelion Founder","url":"https://adrian.escutia.me","image":"https://github.com/adrianescutia.png"},"image":{"@type":"ImageObject","@id":"https://images.unsplash.com/photo-1676299081847-824916de030a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170","url":"https://images.unsplash.com/photo-1676299081847-824916de030a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170","contentUrl":"https://images.unsplash.com/photo-1676299081847-824916de030a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170","caption":"title image for the blog post: Using OpenAI Response API for MCP Integration"},"keywords":["MCP","Model Context Protocol","OpenAI Response API","HAPI Server","API Integration","LLMs","Taco Ordering System","Postman AI Agent"],"isPartOf":{"@type":"Blog","@id":"https://mcp.com.ai/","name":"MCP Insights"}}</script><link rel="alternate" type="application/rss+xml" href="/rss.xml" title="MCP AI Blog RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="MCP AI Blog Atom Feed">
 
@@ -18,9 +18,9 @@
 
 
 <script async="true" defer="true" id="hs-script-loader" src="//js.hs-scripts.com/21339207.js"></script>
-<script src="https://js.hsforms.net/forms/embed/v2.js" async></script><link rel="stylesheet" href="/assets/css/styles.134c93c0.css">
-<script src="/assets/js/runtime~main.1d62fb4c.js" defer="defer"></script>
-<script src="/assets/js/main.3c0602bd.js" defer="defer"></script>
+<script src="https://js.hsforms.net/forms/embed/v2.js" async></script><link rel="stylesheet" href="/assets/css/styles.87e57228.css">
+<script src="/assets/js/runtime~main.4133afb8.js" defer="defer"></script>
+<script src="/assets/js/main.3a3cb36e.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2QSRMJN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -34,23 +34,23 @@ You will learn how to generate a REST API specification with Postman&#x27;s AI A
 <p>The goal of this demo is to show how OpenAI&#x27;s new <strong>Tools and Connectors for MCP</strong> feature simplifies integration between large language models and your APIs, making it possible to interact with services such as a &quot;Taco Ordering System&quot; directly from an LLM client like ChatGPT or a Bun-based application.</p>
 <p>By the end of this guide, you will have a working MCP server derived from a Swagger specification, exposed via ngrok, and connected to the OpenAI Response API for end-to-end interaction testing.</p>
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="prerequisites">Prerequisites<a href="#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="prerequisites">Prerequisites<a href="#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites" translate="no">​</a></h2>
 <p>Before you begin:</p>
 <ul>
-<li>
+<li class="">
 <p>Install the following tools:</p>
 <ul>
-<li><a href="https://bun.sh/" target="_blank" rel="noopener noreferrer">Bun</a> – A fast JavaScript runtime for modern apps.<!-- -->
+<li class=""><a href="https://bun.sh/" target="_blank" rel="noopener noreferrer" class="">Bun</a> – A fast JavaScript runtime for modern apps.<!-- -->
 <ul>
-<li>Alternatively, you can use Node.js if preferred.</li>
+<li class="">Alternatively, you can use Node.js if preferred.</li>
 </ul>
 </li>
-<li><a href="https://ngrok.com/" target="_blank" rel="noopener noreferrer">ngrok</a> – To expose your local server to the internet.</li>
-<li><a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer">HAPI Server</a> – To host your MCP server.</li>
-<li><a href="https://www.npmjs.com/package/openai" target="_blank" rel="noopener noreferrer">OpenAI SDK</a> – For client testing.</li>
-<li>Obtain or install <strong>Postman Desktop Agent</strong> to generate APIs using AI.<!-- -->
+<li class=""><a href="https://ngrok.com/" target="_blank" rel="noopener noreferrer" class="">ngrok</a> – To expose your local server to the internet.</li>
+<li class=""><a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="">HAPI Server</a> – To host your MCP server.</li>
+<li class=""><a href="https://www.npmjs.com/package/openai" target="_blank" rel="noopener noreferrer" class="">OpenAI SDK</a> – For client testing.</li>
+<li class="">Obtain or install <strong>Postman Desktop Agent</strong> to generate APIs using AI.<!-- -->
 <ul>
-<li>Alternatively, you can ask <strong>ChatGPT</strong> to generate a Swagger specification (v3).</li>
+<li class="">Alternatively, you can ask <strong>ChatGPT</strong> to generate a Swagger specification (v3).</li>
 </ul>
 </li>
 </ul>
@@ -58,69 +58,69 @@ You will learn how to generate a REST API specification with Postman&#x27;s AI A
 </ul>
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>The example below uses a local environment and ngrok for simplicity, but you can deploy your server on any cloud instance or containerized environment.</p></div></div>
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-1-generate-an-api-using-postman-agent">Step 1: Generate an API Using Postman Agent<a href="#step-1-generate-an-api-using-postman-agent" class="hash-link" aria-label="Direct link to Step 1: Generate an API Using Postman Agent" title="Direct link to Step 1: Generate an API Using Postman Agent" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-1-generate-an-api-using-postman-agent">Step 1: Generate an API Using Postman Agent<a href="#step-1-generate-an-api-using-postman-agent" class="hash-link" aria-label="Direct link to Step 1: Generate an API Using Postman Agent" title="Direct link to Step 1: Generate an API Using Postman Agent" translate="no">​</a></h2>
 <p>You can use Postman&#x27;s AI Agent to quickly generate an API for any use case.
 In this example, you will create a simple Taco Ordering System.</p>
 <ol>
-<li>
+<li class="">
 <p>Open Postman&#x27;s AI Agent and prompt:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Generate an API for a Taco ordering system with endpoints to view tacos and place an order.</span><br></span></code></pre></div></div>
 </li>
-<li>
+<li class="">
 <p>The agent returns a Swagger (OpenAPI) specification for your taco API.</p>
 </li>
-<li>
+<li class="">
 <p>Review the generated specification to confirm it includes paths for:</p>
 <ul>
-<li><code>GET /tacos</code></li>
-<li><code>POST /order</code></li>
+<li class=""><code>GET /tacos</code></li>
+<li class=""><code>POST /order</code></li>
 </ul>
 </li>
 </ol>
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Save the file in your <code>HAPI_HOME/specs</code> directory as <code>tacos.yaml</code> for use in the next step. (JSON format is also acceptable.)</p></div></div>
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-2-start-an-mcp-server-using-hapi-server">Step 2: Start an MCP Server Using HAPI Server<a href="#step-2-start-an-mcp-server-using-hapi-server" class="hash-link" aria-label="Direct link to Step 2: Start an MCP Server Using HAPI Server" title="Direct link to Step 2: Start an MCP Server Using HAPI Server" translate="no">​</a></h2>
-<p>Use the <a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer">HAPI Server</a> to host your Swagger API as an MCP server. This allows LLM-based clients such as ChatGPT to call your API directly.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-2-start-an-mcp-server-using-hapi-server">Step 2: Start an MCP Server Using HAPI Server<a href="#step-2-start-an-mcp-server-using-hapi-server" class="hash-link" aria-label="Direct link to Step 2: Start an MCP Server Using HAPI Server" title="Direct link to Step 2: Start an MCP Server Using HAPI Server" translate="no">​</a></h2>
+<p>Use the <a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="">HAPI Server</a> to host your Swagger API as an MCP server. This allows LLM-based clients such as ChatGPT to call your API directly.</p>
 <ol>
-<li>
+<li class="">
 <p>Connect to your instance and run the following command to start the MCP server:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bunx @la-rebelion/hapimcp serve tacos --headless --chatgpt</span><br></span></code></pre></div></div>
-<p>Alternatively, you can use the native CLI (download from <a href="https://github.com/la-rebelion/hapimcp/releases" target="_blank" rel="noopener noreferrer">GitHub releases</a>) and run:</p>
+<p>Alternatively, you can use the native CLI (download from <a href="https://github.com/la-rebelion/hapimcp/releases" target="_blank" rel="noopener noreferrer" class="">GitHub releases</a>) and run:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve tacos --headless --chatgpt</span><br></span></code></pre></div></div>
 </li>
-<li>
+<li class="">
 <p>Once running, expose the local server to the internet using ngrok:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">ngrok http 8000</span><br></span></code></pre></div></div>
 </li>
-<li>
+<li class="">
 <p>Copy the public URL generated by ngrok (e.g., <code>https://abcd1234.ngrok.io</code>).</p>
 </li>
 </ol>
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-3-connect-chatgpt-or-another-client-to-the-mcp-server">Step 3: Connect ChatGPT or Another Client to the MCP Server<a href="#step-3-connect-chatgpt-or-another-client-to-the-mcp-server" class="hash-link" aria-label="Direct link to Step 3: Connect ChatGPT or Another Client to the MCP Server" title="Direct link to Step 3: Connect ChatGPT or Another Client to the MCP Server" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-3-connect-chatgpt-or-another-client-to-the-mcp-server">Step 3: Connect ChatGPT or Another Client to the MCP Server<a href="#step-3-connect-chatgpt-or-another-client-to-the-mcp-server" class="hash-link" aria-label="Direct link to Step 3: Connect ChatGPT or Another Client to the MCP Server" title="Direct link to Step 3: Connect ChatGPT or Another Client to the MCP Server" translate="no">​</a></h2>
 <ol>
-<li>Open ChatGPT&#x27;s settings and add a new connector with the ngrok URL you copied earlier.</li>
-<li>Enable the connector.
+<li class="">Open ChatGPT&#x27;s settings and add a new connector with the ngrok URL you copied earlier.</li>
+<li class="">Enable the connector.
 If the feature is not visible, note that <strong>MCP connectors</strong> in ChatGPT may still be in <strong>beta</strong>.</li>
-<li>Alternatively, you can connect directly from an MCP-compatible client using the OpenAI SDK.</li>
+<li class="">Alternatively, you can connect directly from an MCP-compatible client using the OpenAI SDK.</li>
 </ol>
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-4-test-the-mcp-server-with-openai-sdk">Step 4: Test the MCP Server With OpenAI SDK<a href="#step-4-test-the-mcp-server-with-openai-sdk" class="hash-link" aria-label="Direct link to Step 4: Test the MCP Server With OpenAI SDK" title="Direct link to Step 4: Test the MCP Server With OpenAI SDK" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-4-test-the-mcp-server-with-openai-sdk">Step 4: Test the MCP Server With OpenAI SDK<a href="#step-4-test-the-mcp-server-with-openai-sdk" class="hash-link" aria-label="Direct link to Step 4: Test the MCP Server With OpenAI SDK" title="Direct link to Step 4: Test the MCP Server With OpenAI SDK" translate="no">​</a></h2>
 <p>You can test the endpoint by sending a prompt that interacts with your Taco API.</p>
 <ol>
-<li>
+<li class="">
 <p>Initialize a new Bun project:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">mkdir taco-client &amp;&amp; cd taco-client</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">bun init</span><br></span></code></pre></div></div>
 </li>
-<li>
+<li class="">
 <p>Install dependencies:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun install openai</span><br></span></code></pre></div></div>
 </li>
-<li>
+<li class="">
 <p>Create an <code>index.ts</code> file and configure your endpoint:</p>
 <div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> OpenAI </span><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;openai&quot;</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> client </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">OpenAI</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  apiKey</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> process</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">env</span><span class="token punctuation" style="color:#393A34">.</span><span class="token constant" style="color:#36acaa">OPENAI_API_KEY</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  baseURL</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;https://abcd1234.ngrok.io/v1&quot;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> response </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">await</span><span class="token plain"> client</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">chat</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">completions</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">create</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  model</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;gpt-4.1&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  messages</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> role</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;user&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> content</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;What tacos do you have in the menu?&quot;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token builtin">console</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">log</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">response</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">choices</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">message</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
 </li>
-<li>
+<li class="">
 <p>Run the client:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun run index.ts</span><br></span></code></pre></div></div>
 </li>
@@ -128,7 +128,7 @@ If the feature is not visible, note that <strong>MCP connectors</strong> in Chat
 <p>You should see a response such as:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">We have &quot;carne asada&quot; and &quot;al pastor&quot; tacos available.</span><br></span></code></pre></div></div>
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="step-5-place-an-order-through-the-api">Step 5: Place an Order Through the API<a href="#step-5-place-an-order-through-the-api" class="hash-link" aria-label="Direct link to Step 5: Place an Order Through the API" title="Direct link to Step 5: Place an Order Through the API" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-5-place-an-order-through-the-api">Step 5: Place an Order Through the API<a href="#step-5-place-an-order-through-the-api" class="hash-link" aria-label="Direct link to Step 5: Place an Order Through the API" title="Direct link to Step 5: Place an Order Through the API" translate="no">​</a></h2>
 <p>Now that your MCP server is connected, you can test the ordering functionality.</p>
 <p>Run:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun run index.ts</span><br></span></code></pre></div></div>
@@ -136,16 +136,16 @@ If the feature is not visible, note that <strong>MCP connectors</strong> in Chat
 <div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">messages</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> role</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;user&quot;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> content</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&quot;Place an order for 2 tacos al pastor and 1 carne asada.&quot;</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">]</span><br></span></code></pre></div></div>
 <p>The client confirms your order:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Order placed successfully!  </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">You ordered 2 tacos al pastor and 1 carne asada.</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="demo-video">Demo Video<a href="#demo-video" class="hash-link" aria-label="Direct link to Demo Video" title="Direct link to Demo Video" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="demo-video">Demo Video<a href="#demo-video" class="hash-link" aria-label="Direct link to Demo Video" title="Direct link to Demo Video" translate="no">​</a></h2>
 <!--$?--><template id="B:0"></template><!--/$-->
 <hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
 <p>You successfully:</p>
 <ul>
-<li>Generated a Swagger API with Postman&#x27;s AI Agent.</li>
-<li>Deployed it as an MCP server using HAPI Server.</li>
-<li>Exposed the service securely with ngrok.</li>
-<li>Connected and interacted with it using ChatGPT and Bun.</li>
+<li class="">Generated a Swagger API with Postman&#x27;s AI Agent.</li>
+<li class="">Deployed it as an MCP server using HAPI Server.</li>
+<li class="">Exposed the service securely with ngrok.</li>
+<li class="">Connected and interacted with it using ChatGPT and Bun.</li>
 </ul>
 <p>This setup allows you to prototype <strong>API-first AI integrations</strong> quickly. You can expand this demo to connect more endpoints or integrate it into a cluster for scalability.</p>
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>To continue exploring, deploy your HAPI MCP server on <strong>cloud instances</strong> or integrate it into your existing CI/CD pipeline for real-world workloads.</p></div></div>
