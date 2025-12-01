@@ -42,15 +42,14 @@ function Hero(): ReactNode {
   return (
     <div className="mcpHero">
       <div className="container">
-        <h1 className="mcpHeroTitle">Separate Design from Runtime in AI Agent Development</h1>
+        <h1 className="mcpHeroTitle">Stop rewriting systems for AI. Turn your APIs into MCP servers instantly.</h1>
         <p className="mcpHeroSubtitle">
-          Clear thinking about the Model Context Protocol: limitations, misconceptions,
-          and practical patterns for building reliable agent systems. Learn from
-          deep dives and hands-on guidance.
+          HAPI MCP is the Headless API model for the Model Context Protocol. Your existing OpenAPI estate becomes
+          AI-ready tools—no new business logic, no sidecar servers, no rework.
         </p>
         <div className="mcpHeroCtas">
           <Link className="button button--primary button--lg" href="https://docs.mcp.com.ai">
-            Read the MCP Docs
+            Read the Docs
           </Link>
           {/* <Link className="button button--lg mcpBtnSecondary" href="https://run.mcp.com.ai/">
             Try Run MCP
@@ -121,8 +120,8 @@ function NewsletterAndDemo() {
         <div className="row">
           <div className="col col--6">
             <div className="mcpPanel">
-              <h3>Subscribe to the Newsletter</h3>
-              <p>Insights on MCP, patterns, pitfalls, and hands-on examples delivered monthly.</p>
+              <h3>Get the HAPI MCP Briefing</h3>
+              <p>Monthly, tactical updates on MCP, OpenAPI-first patterns, and how teams ship AI without rewrites.</p>
               {subscribed ? (
                 <p className="mcpSuccess">Thanks! Check your inbox to confirm.</p>
               ) : (
@@ -141,7 +140,7 @@ function NewsletterAndDemo() {
           <div className="col col--6">
             <div className="mcpPanel">
               <h3>Request a Demo</h3>
-              <p>See HAPI MCP in action — the convergence of OAS, MCP, Arazzo, and LLMs.</p>
+              <p>See HAPI MCP in action — from spec to MCP tools to OrcA-run workflows across QBot and chatMCP.</p>
               {requested ? (
                 <p className="mcpSuccess">Thanks! We’ll reach out shortly.</p>
               ) : (
@@ -172,16 +171,20 @@ function LandingSections() {
         <div className="container">
           <div className="row">
             <div className="col col--6">
-              <h2>Model Context Protocol (MCP)</h2>
+              <h2>HAPI MCP — Headless API for MCP</h2>
               <BadgeRow />
               <p>
-                We see HAPI MCP as the convergence layer between OpenAPI (OAS), MCP, Arazzo, and LLMs — “OAS v4” for
-                AI and agentic workflows. It separates design from runtime, bringing modularity, reliability, and
-                observability to AI systems.
+                Plug AI into your systems without rewrites. HAPI MCP lifts your OpenAPI catalog into MCP tools
+                automatically and keeps design (OAS/Arazzo) and runtime (agents/LLMs) cleanly separated. Execs get
+                faster AI impact; architects keep governance; engineers avoid duplicate logic.
+              </p>
+              <p>
+                Works across your stack today: HAPI Server, runMCP for scaling, OrcA for deterministic orchestration,
+                QBot + chatMCP for humans and agents, Agentico.dev for turnkey agentic systems.
               </p>
               <div className="mcpHeroCtas" style={{ justifyContent: 'flex-start' }}>
                 <Link className="button button--primary" href="https://docs.mcp.com.ai">Explore the Docs</Link>
-                <Link className="button mcpBtnSecondary" href="https://hapi.mcp.com.ai/">HAPI Server</Link>
+                <Link className="button mcpBtnSecondary" href="https://hapi.mcp.com.ai/">See HAPI Server</Link>
               </div>
             </div>
             <div className="col col--6">
@@ -212,25 +215,25 @@ function LandingSections() {
       {/* Features */}
       <section className="mcpSection mcpSection--alt">
         <div className="container">
-          <h2 className="mcpCenter">Key Benefits</h2>
+          <h2 className="mcpCenter">Business Impact First</h2>
           <div className="mcpGrid">
-            <FeatureCard title="Modularity" icon={<span className="mcpIcon">▣</span>}>
-              Separate design artifacts (prompts, tools, policies) from runtime execution for faster iteration.
+            <FeatureCard title="No rewrites" icon={<span className="mcpIcon">↺</span>}>
+              Reuse 100% of your API logic. OpenAPI in, MCP tools out. No parallel codebase or shadow services.
             </FeatureCard>
-            <FeatureCard title="Scalability" icon={<span className="mcpIcon">⇲</span>}>
-              Standardized interfaces enable interoperable agents and services across teams and infra.
+            <FeatureCard title="Faster time-to-value" icon={<span className="mcpIcon">⚡</span>}>
+              Turn specs into agent-ready tools in hours. Update the spec, ship new tools instantly.
             </FeatureCard>
-            <FeatureCard title="Reliability" icon={<span className="mcpIcon">✓</span>}>
-              Deterministic contracts with validation make agent behavior predictable and testable.
+            <FeatureCard title="Reduced risk" icon={<span className="mcpIcon">🛡</span>}>
+              Permissions, auth, rate limits, auditability are inherited from your APIs—governance without bolt-ons.
             </FeatureCard>
-            <FeatureCard title="Observability" icon={<span className="mcpIcon">◷</span>}>
-              Inspect flows, events, and metrics to continuously improve quality and safety.
+            <FeatureCard title="Scales with you" icon={<span className="mcpIcon">⇲</span>}>
+              runMCP delivers serverless-like elasticity with long-running when needed. Cold-start fast, stay warm for throughput.
             </FeatureCard>
-            <FeatureCard title="Security" icon={<span className="mcpIcon">⊛</span>}>
-              Principle-of-least-privilege for tools and data access with clear boundaries.
+            <FeatureCard title="Deterministic orchestration" icon={<span className="mcpIcon">◆</span>}>
+              OrcA plans and executes multi-tool tasks predictably—no brittle prompt chaining.
             </FeatureCard>
-            <FeatureCard title="Interop" icon={<span className="mcpIcon">↔</span>}>
-              OAS + MCP + Arazzo + LLMs provide a portable, vendor-neutral foundation.
+            <FeatureCard title="Vendor-neutral" icon={<span className="mcpIcon">↔</span>}>
+              Works with any MCP client: ChatGPT, Claude, QBot, Agentico.dev, chatMCP. OAS + MCP + Arazzo stay portable.
             </FeatureCard>
           </div>
         </div>
@@ -239,17 +242,44 @@ function LandingSections() {
       {/* Use Cases */}
       <section className="mcpSection">
         <div className="container">
-          <h2 className="mcpCenter">Use Cases</h2>
+          <h2 className="mcpCenter">Who Wins With HAPI</h2>
           <div className="mcpGrid mcpGrid--usecases">
-            <UseCaseCard title="Customer Service Automation" icon={<span className="mcpIcon">☎</span>}>
-              Assist agents, triage requests, and automate resolutions with grounded context and safe tool use.
+            <UseCaseCard title="Executives" icon={<span className="mcpIcon">💼</span>}>
+              Ship AI initiatives without ballooning cost. Keep teams focused on outcomes, not rewrites and integration sprawl.
             </UseCaseCard>
-            <UseCaseCard title="Enterprise Knowledge Management" icon={<span className="mcpIcon">⌘</span>}>
-              Unify knowledge graphs and services for accurate, explainable retrieval-augmented workflows.
+            <UseCaseCard title="Architects & PMs" icon={<span className="mcpIcon">⌘</span>}>
+              Design with OpenAPI/Arazzo, run with MCP. Clear contracts, policy inheritance, and versioned workflows keep risk low.
             </UseCaseCard>
-            <UseCaseCard title="Data Analysis & Reporting" icon={<span className="mcpIcon">∑</span>}>
-              Governed analysis pipelines with human-in-the-loop approvals and reproducible outputs.
+            <UseCaseCard title="Engineers & Ops" icon={<span className="mcpIcon">🛠</span>}>
+              Deploy once. HAPI Server + runMCP scale tools; QBot/chatMCP give fast feedback; OrcA keeps executions deterministic.
             </UseCaseCard>
+          </div>
+        </div>
+      </section>
+
+      {/* Stack */}
+      <section className="mcpSection mcpSection--alt">
+        <div className="container">
+          <h2 className="mcpCenter">Your Stack, Already Wired</h2>
+          <div className="mcpGrid">
+            <FeatureCard title="HAPI Server" icon={<span className="mcpIcon">⟡</span>}>
+              Turns OpenAPI into MCP tools automatically—contracts stay in sync with your source of truth.
+            </FeatureCard>
+            <FeatureCard title="runMCP" icon={<span className="mcpIcon">⚙</span>}>
+              Autoscaling execution and testing for MCP tools; cold-start fast, stay warm when workflows run long.
+            </FeatureCard>
+            <FeatureCard title="OrcA" icon={<span className="mcpIcon">🧭</span>}>
+              Deterministic planning and orchestration for multi-tool tasks; no brittle prompt spaghetti.
+            </FeatureCard>
+            <FeatureCard title="QBot + APICove" icon={<span className="mcpIcon">⌨</span>}>
+              CLI and developer UX to build, validate, and ship tools quickly—with humans and agents in the loop.
+            </FeatureCard>
+            <FeatureCard title="chatMCP" icon={<span className="mcpIcon">💬</span>}>
+              Conversational client that speaks MCP natively for support, ops, and internal assistants.
+            </FeatureCard>
+            <FeatureCard title="Agentico.dev" icon={<span className="mcpIcon">🤖</span>}>
+              Build agentic systems from standard APIs—no custom glue. Connect MCP clients across platforms.
+            </FeatureCard>
           </div>
         </div>
       </section>
@@ -259,9 +289,9 @@ function LandingSections() {
         <div className="container">
           <h2 className="mcpCenter">What Teams Say</h2>
           <div className="mcpGrid mcpGrid--testimonials">
-            <blockquote className="mcpQuote">“MCP gave us predictable agent behavior and faster releases.”<footer>CTO, Fintech</footer></blockquote>
-            <blockquote className="mcpQuote">“The design/runtime split made compliance sign‑off straightforward.”<footer>Head of Risk, Enterprise</footer></blockquote>
-            <blockquote className="mcpQuote">“We moved from prototypes to production with clear contracts.”<footer>Director of AI, SaaS</footer></blockquote>
+            <blockquote className="mcpQuote">“We pointed HAPI at our Swagger and had MCP tools in production in a week.”<footer>CTO, Fintech</footer></blockquote>
+            <blockquote className="mcpQuote">“Security loved it—policies and audit trails stayed exactly as before.”<footer>Head of Risk, Enterprise</footer></blockquote>
+            <blockquote className="mcpQuote">“OrcA plus runMCP gave us deterministic, scalable workflows without prompt spaghetti.”<footer>Director of AI, SaaS</footer></blockquote>
           </div>
         </div>
       </section>
@@ -272,24 +302,24 @@ function LandingSections() {
           <h2 className="mcpCenter">FAQs</h2>
           <div className="mcpFaq">
             <details>
-              <summary>Is MCP a replacement for OpenAPI?</summary>
-              <p>No. We see MCP as complementary — it brings agent context and tool protocols. Together with OAS and Arazzo, you get a cohesive contract for agentic workflows.</p>
+              <summary>Do we need to rewrite our services?</summary>
+              <p>No. HAPI MCP lifts your existing OpenAPI specs directly into MCP tools. Your auth, validation, and business rules remain unchanged.</p>
             </details>
             <details>
-              <summary>How does HAPI MCP fit in?</summary>
-              <p>HAPI MCP implements the protocol and adds production‑ready features: auth, routing, orchestration, and observability across services and agents.</p>
+              <summary>Is this just another MCP server?</summary>
+              <p>It’s the Headless API model: your API is the runtime. HAPI Server reflects it as MCP; runMCP scales it; OrcA orchestrates it. No duplicate logic.</p>
             </details>
             <details>
-              <summary>Does this work with any LLM?</summary>
-              <p>Yes. The interfaces are model‑agnostic. You can bring your preferred providers and switch without changing integration contracts.</p>
+              <summary>Which clients can consume the tools?</summary>
+              <p>Any MCP client: ChatGPT, Claude, QBot, Agentico.dev, chatMCP, bespoke orchestrators—vendor-neutral by design.</p>
             </details>
             <details>
-              <summary>Can I keep my existing microservices?</summary>
-              <p>Absolutely. MCP builds on service boundaries. Wrap capabilities as tools, describe contracts, and compose workflows safely.</p>
+              <summary>How do we keep control and compliance?</summary>
+              <p>Your API remains the single source of truth. Policies, RBAC, rate limits, and audit logs flow through automatically; no shadow logic.</p>
             </details>
             <details>
               <summary>What about security and privacy?</summary>
-              <p>Use scoped credentials, audited tool calls, and least‑privilege access. HAPI MCP adds guardrails and observability for regulated environments.</p>
+              <p>Scoped credentials, per-tool permissions, and auditable calls are inherited from your API layer. HAPI adds guardrails and observability for regulated environments.</p>
             </details>
           </div>
         </div>
