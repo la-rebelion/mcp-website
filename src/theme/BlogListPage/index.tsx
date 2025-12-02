@@ -20,6 +20,7 @@ import Link from '@docusaurus/Link';
 import { ExitIntentModal } from '@site/src/components/ExitIntentModal';
 import { useExitIntent } from "@site/src/hooks/useExitIntent";
 import { DemoRequestModal } from '@site/src/components/DemoRequestModal';
+import { HowItWorks } from '@site/src/components/sections/HowItWorks';
 
 function BlogListPageMetadata(props: Props): ReactNode {
   const { metadata } = props;
@@ -200,10 +201,18 @@ function LandingSections() {
                   <g>
                     <rect x="40" y="60" width="180" height="60" rx="10" fill="#0ea5b90f" stroke="#1193b0" />
                     <text x="130" y="95" textAnchor="middle" fontFamily="inherit" fontSize="16" fill="#1193b0">Design</text>
+                    <text x="130" y="140" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#1193b0">OAS / Arazzo</text>
+                    <text x="130" y="160" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#1193b0">YAML / JSON</text>
+                    <circle cx="220" cy="90" r="18" fill="#da7756" />
+                    <text x="220" y="95" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#fff">HAPI</text>
+
+                    <line x1="238" y1="90" x2="292" y2="90" stroke="#888" strokeWidth="2" markerEnd="url(#arrow)" />
                     <rect x="300" y="60" width="180" height="60" rx="10" fill="#f973160f" stroke="#da7756" />
                     <text x="390" y="95" textAnchor="middle" fontFamily="inherit" fontSize="16" fill="#da7756">Runtime</text>
-                    <circle cx="260" cy="90" r="18" fill="#1193b0" />
-                    <text x="260" y="95" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#fff">MCP</text>
+                    <text x="390" y="140" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#da7756">Agents On-Premise / Cloudflare</text>
+                    <text x="390" y="160" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#da7756">JSONRPC / HTTP</text>
+                    <circle cx="300" cy="90" r="18" fill="#1193b0" />
+                    <text x="300" y="95" textAnchor="middle" fontFamily="inherit" fontSize="12" fill="#fff">MCP</text>
                   </g>
                 </svg>
               </div>
@@ -211,6 +220,10 @@ function LandingSections() {
           </div>
         </div>
       </section>
+      
+      <div id="how-it-works" className="mcpSection mcpSection">
+        <HowItWorks />
+      </div>
 
       {/* Features */}
       <section className="mcpSection mcpSection--alt">
