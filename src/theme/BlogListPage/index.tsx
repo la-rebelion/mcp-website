@@ -58,15 +58,20 @@ function Hero(): ReactNode {
               <path d="M5 12h12M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link> */}
-          <button
-            type="button"
-            className="button button--lg mcpBtnSecondary"
-            onClick={() => setIsDemoModalOpen(true)}>
-            Request a Demo
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} aria-hidden>
+            <form
+            action="https://go.mcp.com.ai/demo-request"
+            method="POST"
+            target="_blank"
+            style={{ display: 'inline' }}>
+            <button
+              type="submit"
+              className="button button--lg mcpBtnSecondary">
+              Request a Demo
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} aria-hidden>
               <path d="M5 12h12M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+              </svg>
+            </button>
+            </form>
           <DemoRequestModal
             open={isDemoModalOpen}
             onClose={() => setIsDemoModalOpen(false)}
@@ -284,13 +289,13 @@ function LandingSections() {
             <FeatureCard title="OrcA" icon={<span className="mcpIcon">🧭</span>}>
               Deterministic planning and orchestration for multi-tool tasks; no brittle prompt spaghetti.
             </FeatureCard>
-            <FeatureCard title="QBot + APICove" icon={<span className="mcpIcon">⌨</span>}>
-              CLI and developer UX to build, validate, and ship tools quickly—with humans and agents in the loop.
+            <FeatureCard title="QBot" icon={<span className="mcpIcon">⌨</span>}>
+              CLI TUI for power users to interact with MCP tools directly from terminal or scripts.
             </FeatureCard>
             <FeatureCard title="chatMCP" icon={<span className="mcpIcon">💬</span>}>
               Conversational client that speaks MCP natively for support, ops, and internal assistants.
             </FeatureCard>
-            <FeatureCard title="Agentico.dev" icon={<span className="mcpIcon">🤖</span>}>
+            <FeatureCard title="Agents" icon={<span className="mcpIcon">🤖</span>}>
               Build agentic systems from standard APIs—no custom glue. Connect MCP clients across platforms.
             </FeatureCard>
           </div>
@@ -338,7 +343,7 @@ function LandingSections() {
         </div>
       </section>
 
-      <NewsletterAndDemo />
+      {/* <NewsletterAndDemo /> */}
     </>
   );
 }

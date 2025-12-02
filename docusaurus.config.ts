@@ -108,7 +108,8 @@ const config: Config = {
         { href: 'https://hapi.mcp.com.ai', label: 'HAPI Server', position: 'left' },
         { href: 'https://run.mcp.com.ai', label: 'Run MCP', position: 'left' },
         { href: 'https://qbot.mcp.com.ai', label: 'QBot', position: 'left' },
-        { href: 'https://github.com/', label: 'GitHub', position: 'right' },
+        { href: 'https://go.mcp.com.ai/demo-request', label: 'Request Demo', position: 'right' },
+        { href: 'https://github.com/la-rebelion/hapimcp', label: 'GitHub', position: 'right' },
       ],
     },
     footer: {
@@ -121,6 +122,7 @@ const config: Config = {
             { label: 'HAPI Server', href: 'https://hapi.mcp.com.ai/' },
             { label: 'Run MCP', href: 'https://run.mcp.com.ai/' },
             { label: 'QBot', href: 'https://qbot.mcp.com.ai/' },
+            { label: 'Request Demo', href: 'https://go.mcp.com.ai/demo-request' },
           ],
         },
         {
@@ -128,7 +130,7 @@ const config: Config = {
           items: [
             { label: 'Blog', to: '/' },
             { label: 'Tags', to: '/tags' },
-            { label: 'GitHub', href: 'https://github.com/' },
+            { label: 'GitHub', href: 'https://github.com/la-rebelion/hapimcp' },
             {
               label: 'YouTube "La Rebelion"',
               href: 'https://www.youtube.com/@LaRebelion',

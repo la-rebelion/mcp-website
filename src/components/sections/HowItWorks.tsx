@@ -24,54 +24,70 @@ export const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
+    <section className="mcpSection mcpSection--alt" style={{ padding: '5rem 0' }}>
+      <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
             How It Works
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p style={{ fontSize: '1.25rem', color: 'var(--ifm-color-emphasis-700)', maxWidth: '42rem', margin: '0 auto' }}>
             Three simple steps to transform any API into a powerful, usable tool
           </p>
         </div>
 
         {/* Steps Flow */}
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connecting arrows for desktop */}
-            <div className="hidden md:block absolute top-1/2 left-1/3 w-16 -translate-y-1/2 translate-x-8">
-              <ArrowRight className="w-8 h-8 text-primary/40" />
-            </div>
-            <div className="hidden md:block absolute top-1/2 right-1/3 w-16 -translate-y-1/2 -translate-x-8">
-              <ArrowRight className="w-8 h-8 text-primary/40" />
-            </div>
-
+        <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
+          <div className="mcpGrid">
             {steps.map((step, index) => {
               const IconComponent = step.icon;
               return (
-                <Card key={index} className="relative group hover:shadow-primary transition-all duration-300 hover:-translate-y-2">
-                  <CardContent className="p-8 text-center">
+                <Card key={index} className="mcpCard" style={{ position: 'relative', transition: 'all 0.3s ease', cursor: 'default' }}>
+                  <CardContent style={{ padding: '2rem', textAlign: 'center' }}>
                     {/* Step number */}
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
+                    <div className="bg-gradient-primary" style={{ 
+                      position: 'absolute', 
+                      top: '-1rem', 
+                      left: '50%', 
+                      transform: 'translateX(-50%)', 
+                      width: '2rem', 
+                      height: '2rem', 
+                      borderRadius: '9999px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      color: '#fff', 
+                      fontWeight: 'bold', 
+                      fontSize: '0.875rem' 
+                    }}>
                       {index + 1}
                     </div>
 
                     {/* Icon */}
-                    <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <IconComponent className="w-8 h-8 text-primary" />
+                    <div style={{ 
+                      marginBottom: '1.5rem', 
+                      display: 'inline-flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      width: '4rem', 
+                      height: '4rem', 
+                      borderRadius: '9999px', 
+                      background: 'color-mix(in srgb, var(--brand-primary) 10%, transparent)',
+                      transition: 'background 0.3s ease'
+                    }}>
+                      <IconComponent style={{ width: '2rem', height: '2rem', color: 'var(--brand-primary)' }} />
                     </div>
 
                     {/* Content */}
-                    <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.75rem' }}>{step.title}</h3>
+                    <p style={{ color: 'var(--ifm-color-emphasis-700)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
                       {step.description}
                     </p>
 
                     {/* Details */}
-                    <div className="space-y-2">
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       {step.details.map((detail, detailIndex) => (
-                        <div key={detailIndex} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary/60"></div>
+                        <div key={detailIndex} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--ifm-color-emphasis-700)' }}>
+                          <div style={{ width: '0.375rem', height: '0.375rem', borderRadius: '9999px', background: 'color-mix(in srgb, var(--brand-primary) 60%, transparent)' }}></div>
                           <span>{detail}</span>
                         </div>
                       ))}
@@ -84,36 +100,71 @@ export const HowItWorks = () => {
         </div>
 
         {/* Visual Pipeline */}
-        <div className="mt-20 max-w-4xl mx-auto">
-          <div className="bg-card border border-border rounded-xl p-8 shadow-primary/20">
-            <h3 className="text-xl font-semibold text-center mb-8">Visual Pipeline</h3>
-            <div className="flex items-center justify-center gap-4 text-center">
-              <div className="flex-1 space-y-2">
-                <div className="w-16 h-16 mx-auto rounded-lg bg-primary/10 flex items-center justify-center">
-                  <FileText className="w-8 h-8 text-primary" />
+        <div style={{ marginTop: '5rem', maxWidth: '64rem', margin: '5rem auto 0' }}>
+          <div style={{ 
+            background: 'var(--ifm-background-surface-color)', 
+            border: '1px solid color-mix(in srgb, var(--ifm-color-primary) 12%, transparent)', 
+            borderRadius: '0.75rem', 
+            padding: '2rem',
+            boxShadow: '0 2px 14px rgba(0,0,0,0.04)'
+          }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 600, textAlign: 'center', marginBottom: '2rem' }}>Visual Pipeline</h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', textAlign: 'center', flexWrap: 'wrap' }}>
+              <div style={{ flex: '1 1 140px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ 
+                  width: '4rem', 
+                  height: '4rem', 
+                  margin: '0 auto', 
+                  borderRadius: '0.5rem', 
+                  background: 'color-mix(in srgb, var(--brand-primary) 10%, transparent)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center' 
+                }}>
+                  <FileText style={{ width: '2rem', height: '2rem', color: 'var(--brand-primary)' }} />
                 </div>
-                <p className="text-sm font-medium">API Spec</p>
-                <p className="text-xs text-muted-foreground">swagger.json</p>
+                <p style={{ fontSize: '0.875rem', fontWeight: 500 }}>API Spec</p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--ifm-color-emphasis-700)' }}>swagger.json</p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--ifm-color-emphasis-700)' }}><a href="https://spec.openapis.org/oas/v3.1.0.html#openapi-object">OpenAPI Specs</a></p>
               </div>
               
-              <ArrowRight className="w-6 h-6 text-primary animate-pulse" />
+              <ArrowRight style={{ width: '1.5rem', height: '1.5rem', color: 'var(--brand-primary)', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
               
-              <div className="flex-1 space-y-2">
-                <div className="w-16 h-16 mx-auto rounded-lg bg-gradient-primary flex items-center justify-center">
-                  <Terminal className="w-8 h-8 text-primary-foreground" />
+              <div style={{ flex: '1 1 140px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div className="bg-gradient-primary" style={{ 
+                  width: '4rem', 
+                  height: '4rem', 
+                  margin: '0 auto', 
+                  borderRadius: '0.5rem', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center' 
+                }}>
+                  <Terminal style={{ width: '2rem', height: '2rem', color: '#fff' }} />
                 </div>
-                <p className="text-sm font-medium">HAPI CLI</p>
-                <p className="text-xs text-muted-foreground">Magic happens</p>
+                <p style={{ fontSize: '0.875rem', fontWeight: 500 }}>HAPI CLI</p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--ifm-color-emphasis-700)' }}>Magic happens</p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--ifm-color-emphasis-700)' }}><a href="https://hapi.mcp.com.ai">hapi.mcp.com.ai</a></p>
               </div>
               
-              <ArrowRight className="w-6 h-6 text-primary animate-pulse" />
+              <ArrowRight style={{ width: '1.5rem', height: '1.5rem', color: 'var(--brand-primary)', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
               
-              <div className="flex-1 space-y-2">
-                <div className="w-16 h-16 mx-auto rounded-lg bg-secondary/20 flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-secondary" />
+              <div style={{ flex: '1 1 140px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ 
+                  width: '4rem', 
+                  height: '4rem', 
+                  margin: '0 auto', 
+                  borderRadius: '0.5rem', 
+                  background: 'color-mix(in srgb, var(--brand-secondary) 20%, transparent)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center' 
+                }}>
+                  <Zap style={{ width: '2rem', height: '2rem', color: 'var(--brand-secondary)' }} />
                 </div>
-                <p className="text-sm font-medium">Usable Tool</p>
-                <p className="text-xs text-muted-foreground">AI-ready</p>
+                <p style={{ fontSize: '0.875rem', fontWeight: 500 }}>Usable Tool</p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--ifm-color-emphasis-700)' }}>AI-ready</p>
+                <p style={{ fontSize: '0.75rem', color: 'var(--ifm-color-emphasis-700)' }}><a href="https://run.mcp.com.ai">run.mcp.com.ai</a></p>
               </div>
             </div>
           </div>

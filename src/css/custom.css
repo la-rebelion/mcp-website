@@ -127,13 +127,26 @@ a:not(.button) {
 }
 .mcpIllustration { border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,.08); }
 
+/* Utility classes for gradients and shadows */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--brand-primary), color-mix(in srgb, var(--brand-primary) 80%, var(--brand-secondary)));
+}
+.shadow-primary {
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--brand-primary) 30%, transparent);
+}
+
 .mcpGrid { display: grid; gap: 1rem; grid-template-columns: repeat(6, 1fr); }
 .mcpGrid > * { grid-column: span 2; }
 .mcpGrid--usecases > * { grid-column: span 2; }
 .mcpGrid--testimonials > * { grid-column: span 2; }
 
 .mcpCard { border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 12%, transparent); background: var(--ifm-background-surface-color);
-  border-radius: var(--radius-lg); padding: 1rem 1.25rem; box-shadow: 0 2px 14px rgba(0,0,0,.04); }
+  border-radius: var(--radius-lg); padding: 1rem 1.25rem; box-shadow: 0 2px 14px rgba(0,0,0,.04); transition: all 0.3s ease; }
+.mcpCard:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  border-color: color-mix(in srgb, var(--brand-primary) 25%, transparent);
+}
 .mcpCard h3, .mcpCard h4 { margin-top: .25rem; margin-bottom: .25rem; }
 .mcpCardIcon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px;
   background: linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 35%, transparent), color-mix(in srgb, var(--brand-secondary) 25%, transparent));
@@ -250,6 +263,10 @@ a:not(.button) {
 @keyframes mcpPopIn {
   0% { opacity: 0; transform: translate(-50%, -48%) scale(.98); }
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 @media (max-width: 996px) {
