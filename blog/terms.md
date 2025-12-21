@@ -7,6 +7,8 @@ These Terms of Service (“**Terms**”) govern your access to and use of the **
 By accessing or using the Service, you agree to these Terms.  
 If you do not agree, do not use the Service.
 
+<!-- truncate -->
+
 ---
 
 ## 1. Who We Are
