@@ -7,6 +7,8 @@
 This page is a **plain-English summary** of how privacy works across the HAPI MCP Stack.  
 For full legal details, see our [Privacy Policy](/privacy).
 
+<!-- truncate -->
+
 ---
 
 ## TL;DR

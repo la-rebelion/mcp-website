@@ -11,6 +11,8 @@ Your privacy matters to us. This Privacy Policy explains **what data we collect,
 
 We design our products with **privacy-by-default**, **minimal data collection**, and **developer control** as core principles.
 
+<!-- truncate -->
+
 ---
 
 ## 1. Scope of This Policy
