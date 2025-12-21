@@ -4,10 +4,438 @@
         <title>MCP AI Blog Blog</title>
         <link>https://mcp.com.ai</link>
         <description>MCP AI Blog Blog</description>
-        <lastBuildDate>Mon, 24 Nov 2025 17:48:55 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 21 Dec 2025 15:11:42 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Privacy at a Glance]]></title>
+            <link>https://mcp.com.ai/privacy-at-a-glance</link>
+            <guid>https://mcp.com.ai/privacy-at-a-glance</guid>
+            <pubDate>Sun, 21 Dec 2025 15:11:42 GMT</pubDate>
+            <description><![CDATA[HAPI MCP Stack is built by La Rebelion Labs with a simple principle:]]></description>
+            <content:encoded><![CDATA[<p><strong>HAPI MCP Stack</strong> is built by <strong>La Rebelion Labs</strong> with a simple principle:</p>
+<blockquote>
+<p><strong>Your data is yours. We only touch what is strictly necessary.</strong></p>
+</blockquote>
+<p>This page is a <strong>plain-English summary</strong> of how privacy works across the HAPI MCP Stack.<br>
+<!-- -->For full legal details, see our <a class="" href="https://mcp.com.ai/privacy">Privacy Policy</a>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tldr">TL;DR<a href="https://mcp.com.ai/privacy-at-a-glance#tldr" class="hash-link" aria-label="Direct link to TL;DR" title="Direct link to TL;DR" translate="no">​</a></h2>
+<ul>
+<li class="">We <strong>do not sell your data</strong></li>
+<li class="">We <strong>do not train AI models on your data</strong></li>
+<li class="">MCP payloads are <strong>ephemeral by default</strong></li>
+<li class="">Self-hosted and air-gapped deployments keep <strong>100% control</strong></li>
+<li class="">Minimal cookies are used to improve the product</li>
+<li class="">Using the platform means you agree to these practices</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-data-we-collect-minimal-by-design">What Data We Collect (Minimal by Design)<a href="https://mcp.com.ai/privacy-at-a-glance#what-data-we-collect-minimal-by-design" class="hash-link" aria-label="Direct link to What Data We Collect (Minimal by Design)" title="Direct link to What Data We Collect (Minimal by Design)" translate="no">​</a></h2>
+<p>We collect <strong>only what we need</strong> to run and improve the service:</p>
+<ul>
+<li class="">Account information (email, name, organization)</li>
+<li class="">Basic technical metadata (IP, runtime, timestamps)</li>
+<li class="">Optional feedback or support communications</li>
+</ul>
+<p>We <strong>do not</strong> collect:</p>
+<ul>
+<li class="">MCP prompts or tool payloads by default</li>
+<li class="">API business data</li>
+<li class="">Customer secrets or credentials</li>
+<li class="">Model training data from your usage</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp--agent-data-handling">MCP &amp; Agent Data Handling<a href="https://mcp.com.ai/privacy-at-a-glance#mcp--agent-data-handling" class="hash-link" aria-label="Direct link to MCP &amp; Agent Data Handling" title="Direct link to MCP &amp; Agent Data Handling" translate="no">​</a></h2>
+<p><strong>By default:</strong></p>
+<ul>
+<li class="">MCP requests are processed <strong>in-memory</strong></li>
+<li class="">No prompt or tool execution data is stored</li>
+<li class="">No MCP data is used for analytics or training</li>
+</ul>
+<p><strong>Optional &amp; configurable (you decide):</strong></p>
+<ul>
+<li class="">Logging</li>
+<li class="">Tracing</li>
+<li class="">Observability</li>
+<li class="">A/B testing for internal APIs</li>
+</ul>
+<p>For <strong>on-premise and air-gapped deployments</strong>, La Rebelion Labs has <strong>no access</strong> to your MCP traffic.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cookies--similar-technologies">Cookies &amp; Similar Technologies<a href="https://mcp.com.ai/privacy-at-a-glance#cookies--similar-technologies" class="hash-link" aria-label="Direct link to Cookies &amp; Similar Technologies" title="Direct link to Cookies &amp; Similar Technologies" translate="no">​</a></h2>
+<p>We use <strong>cookies or similar technologies</strong> only to:</p>
+<ul>
+<li class="">Ensure core functionality</li>
+<li class="">Improve performance and reliability</li>
+<li class="">Understand high-level usage patterns</li>
+</ul>
+<p>We do <strong>not</strong> use cookies for:</p>
+<ul>
+<li class="">Advertising</li>
+<li class="">Cross-site tracking</li>
+<li class="">Behavioral profiling</li>
+</ul>
+<p>By using the HAPI MCP Stack and related websites, <strong>you agree to the use of these technologies</strong> as described in our Privacy Policy.</p>
+<p>You can manage or disable cookies through your browser settings.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cloud-vs-self-hosted">Cloud vs Self-Hosted<a href="https://mcp.com.ai/privacy-at-a-glance#cloud-vs-self-hosted" class="hash-link" aria-label="Direct link to Cloud vs Self-Hosted" title="Direct link to Cloud vs Self-Hosted" translate="no">​</a></h2>
+<table><thead><tr><th>Deployment Type</th><th>Who Controls the Data</th></tr></thead><tbody><tr><td>Cloud (managed)</td><td>You</td></tr><tr><td>On-premise</td><td>You</td></tr><tr><td>Air-gapped</td><td>You</td></tr><tr><td>Local / CLI</td><td>You</td></tr></tbody></table>
+<p><strong>Always.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-we-never-do">What We Never Do<a href="https://mcp.com.ai/privacy-at-a-glance#what-we-never-do" class="hash-link" aria-label="Direct link to What We Never Do" title="Direct link to What We Never Do" translate="no">​</a></h2>
+<ul>
+<li class="">❌ Sell user data</li>
+<li class="">❌ Train AI models on customer data</li>
+<li class="">❌ Inspect MCP payloads without consent</li>
+<li class="">❌ Force cloud connectivity</li>
+<li class="">❌ Require telemetry in self-hosted setups</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="designed-for-enterprises--developers">Designed for Enterprises &amp; Developers<a href="https://mcp.com.ai/privacy-at-a-glance#designed-for-enterprises--developers" class="hash-link" aria-label="Direct link to Designed for Enterprises &amp; Developers" title="Direct link to Designed for Enterprises &amp; Developers" translate="no">​</a></h2>
+<p>HAPI MCP Stack is designed to pass:</p>
+<ul>
+<li class="">Security reviews</li>
+<li class="">Architecture reviews</li>
+<li class="">Privacy assessments</li>
+</ul>
+<p>Without special exceptions.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="want-the-full-details">Want the Full Details?<a href="https://mcp.com.ai/privacy-at-a-glance#want-the-full-details" class="hash-link" aria-label="Direct link to Want the Full Details?" title="Direct link to Want the Full Details?" translate="no">​</a></h2>
+<ul>
+<li class="">📄 <a class="" href="https://mcp.com.ai/privacy">Privacy Policy</a></li>
+<li class="">📄 Terms of Service (/terms)</li>
+<li class="">📧 Questions? Contact <strong><a href="mailto:legal@rebelion.la" target="_blank" rel="noopener noreferrer" class="">legal@rebelion.la</a></strong></li>
+</ul>
+<hr>
+<p><strong>Privacy by architecture.<br>
+<!-- -->Control by default.<br>
+<!-- -->Built for trust.</strong></p>]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Privacy Policy]]></title>
+            <link>https://mcp.com.ai/privacy</link>
+            <guid>https://mcp.com.ai/privacy</guid>
+            <pubDate>Sun, 21 Dec 2025 15:11:42 GMT</pubDate>
+            <description><![CDATA[Last updated: March 21, 2025]]></description>
+            <content:encoded><![CDATA[<p><strong>Last updated:</strong> March 21, 2025</p>
+<p>La Rebelion Labs ("<strong>La Rebelion Labs</strong>", "<strong>we</strong>", "<strong>us</strong>", or "<strong>our</strong>") operates the <strong>HAPI MCP Stack</strong> and related services available at <a href="https://mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">https://mcp.com.ai</a> (the "<strong>Service</strong>").</p>
+<p>Your privacy matters to us. This Privacy Policy explains <strong>what data we collect, why we collect it, how we use it, and the choices you have</strong> when using the HAPI MCP Stack.</p>
+<p>We design our products with <strong>privacy-by-default</strong>, <strong>minimal data collection</strong>, and <strong>developer control</strong> as core principles.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-scope-of-this-policy">1. Scope of This Policy<a href="https://mcp.com.ai/privacy#1-scope-of-this-policy" class="hash-link" aria-label="Direct link to 1. Scope of This Policy" title="Direct link to 1. Scope of This Policy" translate="no">​</a></h2>
+<p>This Privacy Policy applies to:</p>
+<ul>
+<li class="">The HAPI MCP Stack platform and tooling</li>
+<li class="">HAPI MCP Server deployments (cloud and on-premise)</li>
+<li class="">Websites, dashboards, CLIs, APIs, and documentation hosted under <code>mcp.com.ai</code></li>
+<li class="">Any related services provided by La Rebelion Labs</li>
+</ul>
+<p>This policy <strong>does not</strong> apply to third-party services or MCP servers not operated by us.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-information-we-collect">2. Information We Collect<a href="https://mcp.com.ai/privacy#2-information-we-collect" class="hash-link" aria-label="Direct link to 2. Information We Collect" title="Direct link to 2. Information We Collect" translate="no">​</a></h2>
+<p>We collect <strong>only what is necessary</strong> to operate, secure, and improve the Service.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="21-information-you-provide-directly">2.1 Information You Provide Directly<a href="https://mcp.com.ai/privacy#21-information-you-provide-directly" class="hash-link" aria-label="Direct link to 2.1 Information You Provide Directly" title="Direct link to 2.1 Information You Provide Directly" translate="no">​</a></h3>
+<p>You may voluntarily provide:</p>
+<ul>
+<li class="">Name or username</li>
+<li class="">Email address</li>
+<li class="">Organization or company name</li>
+<li class="">Billing or subscription details (if applicable)</li>
+<li class="">Support requests, feedback, or communications</li>
+</ul>
+<p>We do <strong>not</strong> require personal data to run self-hosted or air-gapped deployments.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="22-information-collected-automatically">2.2 Information Collected Automatically<a href="https://mcp.com.ai/privacy#22-information-collected-automatically" class="hash-link" aria-label="Direct link to 2.2 Information Collected Automatically" title="Direct link to 2.2 Information Collected Automatically" translate="no">​</a></h3>
+<p>When you access the Service, we may collect limited technical data such as:</p>
+<ul>
+<li class="">IP address</li>
+<li class="">Browser type or runtime environment</li>
+<li class="">Operating system</li>
+<li class="">Approximate location (country or region)</li>
+<li class="">Timestamps and basic request metadata</li>
+</ul>
+<p>This data is used strictly for:</p>
+<ul>
+<li class="">Security and abuse prevention</li>
+<li class="">Performance monitoring</li>
+<li class="">Reliability and troubleshooting</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="23-mcp-api-and-tooling-data">2.3 MCP, API, and Tooling Data<a href="https://mcp.com.ai/privacy#23-mcp-api-and-tooling-data" class="hash-link" aria-label="Direct link to 2.3 MCP, API, and Tooling Data" title="Direct link to 2.3 MCP, API, and Tooling Data" translate="no">​</a></h3>
+<p>Important clarification:</p>
+<ul>
+<li class=""><strong>We do not inspect, store, or train on MCP payloads, prompts, or tool execution data by default.</strong></li>
+<li class="">API requests and MCP tool calls are processed <strong>ephemerally</strong> unless logging is explicitly enabled by you.</li>
+<li class="">Any logging, tracing, or telemetry is <strong>configurable and opt-in</strong>, especially for enterprise or self-hosted users.</li>
+</ul>
+<p>For on-premise and air-gapped deployments, <strong>all data remains fully under your control</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-how-we-use-information">3. How We Use Information<a href="https://mcp.com.ai/privacy#3-how-we-use-information" class="hash-link" aria-label="Direct link to 3. How We Use Information" title="Direct link to 3. How We Use Information" translate="no">​</a></h2>
+<p>We use collected information to:</p>
+<ul>
+<li class="">Operate and maintain the Service</li>
+<li class="">Authenticate users and secure access</li>
+<li class="">Provide support and respond to requests</li>
+<li class="">Improve reliability, performance, and developer experience</li>
+<li class="">Comply with legal obligations</li>
+</ul>
+<p>We <strong>do not sell personal data</strong> and <strong>do not use your data for advertising</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-legal-bases-for-processing-gdpr">4. Legal Bases for Processing (GDPR)<a href="https://mcp.com.ai/privacy#4-legal-bases-for-processing-gdpr" class="hash-link" aria-label="Direct link to 4. Legal Bases for Processing (GDPR)" title="Direct link to 4. Legal Bases for Processing (GDPR)" translate="no">​</a></h2>
+<p>Where applicable, we process personal data based on:</p>
+<ul>
+<li class=""><strong>Consent</strong> – when you explicitly provide data</li>
+<li class=""><strong>Contractual necessity</strong> – to deliver the Service</li>
+<li class=""><strong>Legitimate interests</strong> – security, reliability, and fraud prevention</li>
+<li class=""><strong>Legal obligations</strong> – compliance with applicable laws</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-data-sharing-and-disclosure">5. Data Sharing and Disclosure<a href="https://mcp.com.ai/privacy#5-data-sharing-and-disclosure" class="hash-link" aria-label="Direct link to 5. Data Sharing and Disclosure" title="Direct link to 5. Data Sharing and Disclosure" translate="no">​</a></h2>
+<p>We may share limited data only when necessary:</p>
+<ul>
+<li class="">With infrastructure providers (e.g., hosting, storage, CDN)</li>
+<li class="">With payment processors (if applicable)</li>
+<li class="">When required by law or legal process</li>
+</ul>
+<p>All vendors are selected with <strong>security and compliance</strong> in mind.</p>
+<p>We <strong>never</strong> share MCP execution data or prompts with third parties for model training.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-cookies-and-analytics">6. Cookies and Analytics<a href="https://mcp.com.ai/privacy#6-cookies-and-analytics" class="hash-link" aria-label="Direct link to 6. Cookies and Analytics" title="Direct link to 6. Cookies and Analytics" translate="no">​</a></h2>
+<p>We use minimal cookies and analytics strictly for:</p>
+<ul>
+<li class="">Essential functionality</li>
+<li class="">Security</li>
+<li class="">High-level usage insights</li>
+</ul>
+<p>Where possible, we favor <strong>privacy-friendly analytics</strong> and avoid invasive tracking.</p>
+<p>You can disable cookies via your browser settings.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-data-retention">7. Data Retention<a href="https://mcp.com.ai/privacy#7-data-retention" class="hash-link" aria-label="Direct link to 7. Data Retention" title="Direct link to 7. Data Retention" translate="no">​</a></h2>
+<p>We retain personal data only as long as necessary:</p>
+<ul>
+<li class="">Account data: for the lifetime of the account</li>
+<li class="">Support communications: as needed for follow-up and auditing</li>
+<li class="">Logs and telemetry: short-lived and configurable</li>
+</ul>
+<p>Self-hosted and air-gapped deployments control their own retention policies.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="8-your-rights">8. Your Rights<a href="https://mcp.com.ai/privacy#8-your-rights" class="hash-link" aria-label="Direct link to 8. Your Rights" title="Direct link to 8. Your Rights" translate="no">​</a></h2>
+<p>Depending on your jurisdiction, you may have the right to:</p>
+<ul>
+<li class="">Access your personal data</li>
+<li class="">Correct inaccurate information</li>
+<li class="">Request deletion of your data</li>
+<li class="">Object to or restrict processing</li>
+<li class="">Request data portability</li>
+</ul>
+<p>To exercise these rights, contact us at:</p>
+<p>📧 <strong><a href="mailto:legal@rebelion.la" target="_blank" rel="noopener noreferrer" class="">legal@rebelion.la</a></strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="9-security">9. Security<a href="https://mcp.com.ai/privacy#9-security" class="hash-link" aria-label="Direct link to 9. Security" title="Direct link to 9. Security" translate="no">​</a></h2>
+<p>We take security seriously and apply:</p>
+<ul>
+<li class="">Encryption in transit</li>
+<li class="">Access controls and least-privilege principles</li>
+<li class="">Secure deployment practices</li>
+<li class="">Regular reviews of infrastructure and dependencies</li>
+</ul>
+<p>However, no system is 100% secure. You are responsible for securing your own deployments, especially in self-hosted environments.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="10-international-data-transfers">10. International Data Transfers<a href="https://mcp.com.ai/privacy#10-international-data-transfers" class="hash-link" aria-label="Direct link to 10. International Data Transfers" title="Direct link to 10. International Data Transfers" translate="no">​</a></h2>
+<p>If data is transferred across borders, we ensure appropriate safeguards are in place in accordance with applicable data protection laws.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="11-childrens-privacy">11. Children's Privacy<a href="https://mcp.com.ai/privacy#11-childrens-privacy" class="hash-link" aria-label="Direct link to 11. Children's Privacy" title="Direct link to 11. Children's Privacy" translate="no">​</a></h2>
+<p>The Service is <strong>not intended for children under 13</strong>, and we do not knowingly collect personal data from children.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="12-changes-to-this-policy">12. Changes to This Policy<a href="https://mcp.com.ai/privacy#12-changes-to-this-policy" class="hash-link" aria-label="Direct link to 12. Changes to This Policy" title="Direct link to 12. Changes to This Policy" translate="no">​</a></h2>
+<p>We may update this Privacy Policy from time to time.</p>
+<p>When we do:</p>
+<ul>
+<li class="">We will update the "Last updated" date</li>
+<li class="">Material changes will be communicated when appropriate</li>
+</ul>
+<p>Continued use of the Service constitutes acceptance of the updated policy.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="13-contact-us">13. Contact Us<a href="https://mcp.com.ai/privacy#13-contact-us" class="hash-link" aria-label="Direct link to 13. Contact Us" title="Direct link to 13. Contact Us" translate="no">​</a></h2>
+<p>If you have questions about this Privacy Policy or our data practices, contact:</p>
+<p><strong>La Rebelion Labs</strong><br>
+<!-- -->🌐 <a href="https://rebelion.la/" target="_blank" rel="noopener noreferrer" class="">https://rebelion.la</a><br>
+<!-- -->📧 <a href="mailto:legal@rebelion.la" target="_blank" rel="noopener noreferrer" class="">legal@rebelion.la</a></p>
+<hr>
+<p><strong>Built with transparency.<br>
+<!-- -->Designed for developers.<br>
+<!-- -->Privacy by default.</strong></p>]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Terms of Service]]></title>
+            <link>https://mcp.com.ai/terms</link>
+            <guid>https://mcp.com.ai/terms</guid>
+            <pubDate>Sun, 21 Dec 2025 15:11:42 GMT</pubDate>
+            <description><![CDATA[Last updated: March 21, 2025]]></description>
+            <content:encoded><![CDATA[<p><strong>Last updated:</strong> March 21, 2025</p>
+<p>These Terms of Service (“<strong>Terms</strong>”) govern your access to and use of the <strong>HAPI MCP Stack</strong> and related services provided by <strong>La Rebelion Labs</strong> (“<strong>La Rebelion Labs</strong>”, “<strong>we</strong>”, “<strong>us</strong>”, or “<strong>our</strong>”), available at <a href="https://mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">https://mcp.com.ai</a> (the “<strong>Service</strong>”).</p>
+<p>By accessing or using the Service, you agree to these Terms.<br>
+<!-- -->If you do not agree, do not use the Service.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-who-we-are">1. Who We Are<a href="https://mcp.com.ai/terms#1-who-we-are" class="hash-link" aria-label="Direct link to 1. Who We Are" title="Direct link to 1. Who We Are" translate="no">​</a></h2>
+<p>La Rebelion Labs builds developer-first tooling focused on APIs, AI, and the Model Context Protocol (MCP), including:</p>
+<ul>
+<li class="">HAPI MCP Server</li>
+<li class="">HAPI MCP CLI and tooling</li>
+<li class="">Managed, self-hosted, and air-gapped deployments</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-eligibility">2. Eligibility<a href="https://mcp.com.ai/terms#2-eligibility" class="hash-link" aria-label="Direct link to 2. Eligibility" title="Direct link to 2. Eligibility" translate="no">​</a></h2>
+<p>You must be at least <strong>18 years old</strong> to use the Service.</p>
+<p>If you are using the Service on behalf of an organization, you represent that you have the authority to bind that organization to these Terms.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-the-service">3. The Service<a href="https://mcp.com.ai/terms#3-the-service" class="hash-link" aria-label="Direct link to 3. The Service" title="Direct link to 3. The Service" translate="no">​</a></h2>
+<p>The HAPI MCP Stack enables you to:</p>
+<ul>
+<li class="">Expose APIs as MCP-compatible tools</li>
+<li class="">Run MCP servers locally, on-premise, or in the cloud</li>
+<li class="">Integrate AI agents with existing systems without re-engineering them</li>
+</ul>
+<p>We may update, modify, or discontinue parts of the Service over time.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-accounts-and-access">4. Accounts and Access<a href="https://mcp.com.ai/terms#4-accounts-and-access" class="hash-link" aria-label="Direct link to 4. Accounts and Access" title="Direct link to 4. Accounts and Access" translate="no">​</a></h2>
+<p>Some features may require an account.</p>
+<p>You are responsible for:</p>
+<ul>
+<li class="">Maintaining the confidentiality of your credentials</li>
+<li class="">All activity performed under your account</li>
+<li class="">Ensuring your usage complies with applicable laws</li>
+</ul>
+<p>We may suspend or terminate access if these Terms are violated.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-acceptable-use">5. Acceptable Use<a href="https://mcp.com.ai/terms#5-acceptable-use" class="hash-link" aria-label="Direct link to 5. Acceptable Use" title="Direct link to 5. Acceptable Use" translate="no">​</a></h2>
+<p>You agree <strong>not</strong> to use the Service to:</p>
+<ul>
+<li class="">Violate any applicable law or regulation</li>
+<li class="">Infringe intellectual property or privacy rights</li>
+<li class="">Distribute malware or harmful code</li>
+<li class="">Attempt unauthorized access to systems or data</li>
+<li class="">Abuse, overload, or interfere with the Service</li>
+</ul>
+<p>You are responsible for how you use MCP servers, APIs, and agents built with the Service.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-your-data--responsibilities">6. Your Data &amp; Responsibilities<a href="https://mcp.com.ai/terms#6-your-data--responsibilities" class="hash-link" aria-label="Direct link to 6. Your Data &amp; Responsibilities" title="Direct link to 6. Your Data &amp; Responsibilities" translate="no">​</a></h2>
+<p>You retain <strong>full ownership</strong> of:</p>
+<ul>
+<li class="">Your APIs</li>
+<li class="">Your MCP servers</li>
+<li class="">Your prompts, payloads, and tool executions</li>
+<li class="">Any data processed through your deployments</li>
+</ul>
+<p>You are responsible for:</p>
+<ul>
+<li class="">The data you expose via MCP</li>
+<li class="">Configuring logging, retention, and security appropriately</li>
+<li class="">Compliance with laws applicable to your use case (e.g. regulated data)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-privacy-cookies-and-analytics">7. Privacy, Cookies, and Analytics<a href="https://mcp.com.ai/terms#7-privacy-cookies-and-analytics" class="hash-link" aria-label="Direct link to 7. Privacy, Cookies, and Analytics" title="Direct link to 7. Privacy, Cookies, and Analytics" translate="no">​</a></h2>
+<p>Our data practices are described in our:</p>
+<ul>
+<li class="">📄 <strong>Privacy Policy</strong></li>
+<li class="">📄 <strong>Privacy at a Glance</strong></li>
+</ul>
+<p>We use <strong>cookies or similar technologies</strong> only to:</p>
+<ul>
+<li class="">Ensure essential functionality</li>
+<li class="">Improve reliability and performance</li>
+<li class="">Understand high-level usage patterns</li>
+</ul>
+<p>By using the Service, you <strong>agree to the use of cookies and similar technologies</strong> as described in our Privacy Policy.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="8-self-hosted-and-air-gapped-deployments">8. Self-Hosted and Air-Gapped Deployments<a href="https://mcp.com.ai/terms#8-self-hosted-and-air-gapped-deployments" class="hash-link" aria-label="Direct link to 8. Self-Hosted and Air-Gapped Deployments" title="Direct link to 8. Self-Hosted and Air-Gapped Deployments" translate="no">​</a></h2>
+<p>For self-hosted, on-premise, or air-gapped deployments:</p>
+<ul>
+<li class="">La Rebelion Labs has <strong>no access</strong> to your runtime data</li>
+<li class="">All data remains under your control</li>
+<li class="">You are responsible for securing and operating the deployment</li>
+</ul>
+<p>The Service is provided “as-is” in these environments.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="9-intellectual-property">9. Intellectual Property<a href="https://mcp.com.ai/terms#9-intellectual-property" class="hash-link" aria-label="Direct link to 9. Intellectual Property" title="Direct link to 9. Intellectual Property" translate="no">​</a></h2>
+<p>We retain all rights to:</p>
+<ul>
+<li class="">The HAPI MCP Stack</li>
+<li class="">Software, documentation, and branding</li>
+<li class="">Updates and improvements</li>
+</ul>
+<p>You are granted a <strong>limited, non-exclusive, revocable license</strong> to use the Service in accordance with these Terms.</p>
+<p>You retain all rights to your own content and systems.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="10-third-party-services">10. Third-Party Services<a href="https://mcp.com.ai/terms#10-third-party-services" class="hash-link" aria-label="Direct link to 10. Third-Party Services" title="Direct link to 10. Third-Party Services" translate="no">​</a></h2>
+<p>The Service may integrate with third-party platforms (e.g. cloud providers, identity providers).</p>
+<p>We are not responsible for:</p>
+<ul>
+<li class="">Third-party services</li>
+<li class="">Their availability, security, or terms</li>
+<li class="">Data handled entirely by third parties</li>
+</ul>
+<p>Your use of those services is governed by their respective terms.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="11-availability--no-warranty">11. Availability &amp; No Warranty<a href="https://mcp.com.ai/terms#11-availability--no-warranty" class="hash-link" aria-label="Direct link to 11. Availability &amp; No Warranty" title="Direct link to 11. Availability &amp; No Warranty" translate="no">​</a></h2>
+<p>The Service is provided <strong>“as is” and “as available.”</strong></p>
+<p>We do not guarantee that:</p>
+<ul>
+<li class="">The Service will be uninterrupted or error-free</li>
+<li class="">It will meet all your requirements</li>
+<li class="">It will be compatible with all environments</li>
+</ul>
+<p>To the maximum extent permitted by law, we disclaim all warranties, express or implied.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="12-limitation-of-liability">12. Limitation of Liability<a href="https://mcp.com.ai/terms#12-limitation-of-liability" class="hash-link" aria-label="Direct link to 12. Limitation of Liability" title="Direct link to 12. Limitation of Liability" translate="no">​</a></h2>
+<p>To the maximum extent permitted by law:</p>
+<p>La Rebelion Labs shall not be liable for:</p>
+<ul>
+<li class="">Indirect, incidental, or consequential damages</li>
+<li class="">Loss of data, profits, or business opportunities</li>
+<li class="">Issues caused by misuse or misconfiguration of the Service</li>
+</ul>
+<p>Our total liability shall not exceed the amount paid by you (if any) for the Service in the previous 12 months.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="13-indemnification">13. Indemnification<a href="https://mcp.com.ai/terms#13-indemnification" class="hash-link" aria-label="Direct link to 13. Indemnification" title="Direct link to 13. Indemnification" translate="no">​</a></h2>
+<p>You agree to indemnify and hold harmless La Rebelion Labs from claims arising out of:</p>
+<ul>
+<li class="">Your use of the Service</li>
+<li class="">Your MCP servers, APIs, or agents</li>
+<li class="">Violations of these Terms or applicable law</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="14-termination">14. Termination<a href="https://mcp.com.ai/terms#14-termination" class="hash-link" aria-label="Direct link to 14. Termination" title="Direct link to 14. Termination" translate="no">​</a></h2>
+<p>You may stop using the Service at any time.</p>
+<p>We may suspend or terminate access if:</p>
+<ul>
+<li class="">These Terms are violated</li>
+<li class="">Required by law</li>
+<li class="">The Service is discontinued</li>
+</ul>
+<p>Termination does not affect rights or obligations that should survive.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="15-changes-to-these-terms">15. Changes to These Terms<a href="https://mcp.com.ai/terms#15-changes-to-these-terms" class="hash-link" aria-label="Direct link to 15. Changes to These Terms" title="Direct link to 15. Changes to These Terms" translate="no">​</a></h2>
+<p>We may update these Terms from time to time.</p>
+<p>When we do:</p>
+<ul>
+<li class="">The “Last updated” date will change</li>
+<li class="">Continued use means acceptance of the updated Terms</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="16-governing-law">16. Governing Law<a href="https://mcp.com.ai/terms#16-governing-law" class="hash-link" aria-label="Direct link to 16. Governing Law" title="Direct link to 16. Governing Law" translate="no">​</a></h2>
+<p>These Terms are governed by the laws of the jurisdiction in which La Rebelion Labs operates, without regard to conflict-of-law principles.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="17-contact">17. Contact<a href="https://mcp.com.ai/terms#17-contact" class="hash-link" aria-label="Direct link to 17. Contact" title="Direct link to 17. Contact" translate="no">​</a></h2>
+<p>Questions about these Terms?</p>
+<p><strong>La Rebelion Labs</strong><br>
+<!-- -->🌐 <a href="https://rebelion.la/" target="_blank" rel="noopener noreferrer" class="">https://rebelion.la</a><br>
+<!-- -->📧 <a href="mailto:legal@rebelion.la" target="_blank" rel="noopener noreferrer" class="">legal@rebelion.la</a></p>
+<hr>
+<p><strong>Built for developers.<br>
+<!-- -->Designed for trust.<br>
+<!-- -->Control stays with you.</strong></p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Integrate the OpenAI UI SDK for ChatGPT With HAPI MCP in 60 Seconds]]></title>
             <link>https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt</link>
