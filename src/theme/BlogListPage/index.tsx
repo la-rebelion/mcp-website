@@ -226,12 +226,16 @@ function LandingSections() {
         </div>
       </section>
       
-      <div id="how-it-works" className="mcpSection mcpSection">
+      <div id="how-it-works" className="mcpSection">
         <HowItWorks />
       </div>
 
+      <div className="mcpSection mcpSection--alt">
+        <NewsletterAndDemo />
+      </div>
+
       {/* Features */}
-      <section className="mcpSection mcpSection--alt">
+      <section className="mcpSection">
         <div className="container">
           <h2 className="mcpCenter">Business Impact First</h2>
           <div className="mcpGrid">
@@ -258,7 +262,7 @@ function LandingSections() {
       </section>
 
       {/* Use Cases */}
-      <section className="mcpSection">
+      <section className="mcpSection mcpSection--alt">
         <div className="container">
           <h2 className="mcpCenter">Who Wins With HAPI</h2>
           <div className="mcpGrid mcpGrid--usecases">
@@ -276,7 +280,7 @@ function LandingSections() {
       </section>
 
       {/* Stack */}
-      <section className="mcpSection mcpSection--alt">
+      <section className="mcpSection">
         <div className="container">
           <h2 className="mcpCenter">Your Stack, Already Wired</h2>
           <div className="mcpGrid">
@@ -347,7 +351,7 @@ function LandingSections() {
         </div>
       </section>
 
-      {/* <NewsletterAndDemo /> */}
+      <NewsletterAndDemo />
     </>
   );
 }
