@@ -1,7 +1,7 @@
 /**
  * Customized BlogListPage with a branded hero header.
  */
-import React, { type ReactNode, useEffect, useRef, useState } from 'react';
+import React, { type ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -357,31 +357,8 @@ function BlogListPageContent(props: Props): ReactNode {
   const isHome = metadata.permalink === '/';
   const { showExitIntent, closeExitIntent } = useExitIntent();
   if (isHome) {
-    const STEP = 4;
-    const [visibleCount, setVisibleCount] = useState(Math.min(STEP, items.length));
-    const [autoInfinite, setAutoInfinite] = useState(false);
-    const sentinelRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-      if (!autoInfinite || !sentinelRef.current) return;
-      const io = new IntersectionObserver(
-        (ents) => {
-          ents.forEach((e) => {
-            if (e.isIntersecting) {
-              setVisibleCount((v) => Math.min(items.length, v + STEP));
-            }
-          });
-        },
-        { rootMargin: '0px 0px 200px 0px', threshold: 0.01 },
-      );
-      io.observe(sentinelRef.current);
-      return () => io.disconnect();
-    }, [autoInfinite, items.length]);
-
-    const loadMore = () => {
-      setVisibleCount((v) => Math.min(items.length, v + STEP));
-      if (!autoInfinite) setAutoInfinite(true);
-    };
+    const INITIAL_POSTS = 6;
+    const recentPosts = items.slice(0, INITIAL_POSTS);
 
     return (
       <>
@@ -397,18 +374,16 @@ function BlogListPageContent(props: Props): ReactNode {
             </div>
             <BlogLayout sidebar={sidebar}>
               <div className="blog-list-page blog-list-grid">
-                <BlogPostItems items={items.slice(0, visibleCount)} />
+                <BlogPostItems items={recentPosts} />
               </div>
               <div className="mcpListActions">
-                {visibleCount < items.length ? (
-                  <button className="button button--primary" onClick={loadMore}>
-                    {autoInfinite ? 'Load more' : 'Load more (enable auto)'}
-                  </button>
-                ) : (
-                  <span className="mcpNoMore">You've reached the end</span>
-                )}
+                <Link className="button button--primary button--lg" href="/archive">
+                  View all posts
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} aria-hidden>
+                    <path d="M5 12h12M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
               </div>
-              <div ref={sentinelRef} className="mcpSentinel" aria-hidden />
               <ExitIntentModal open={showExitIntent} onClose={closeExitIntent} />
             </BlogLayout>
           </div>
