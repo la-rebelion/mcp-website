@@ -208,7 +208,7 @@ Questions about these Terms?
 
 **La Rebelion Labs**  
 🌐 https://rebelion.la  
-📧 legal@rebelion.la  
+📧 [Contact Us](https://go.rebelion.la/contact-us)  
 
 ---
 

@@ -112,7 +112,7 @@ Without special exceptions.
 
 - 📄 [Privacy Policy](/privacy)
 - 📄 Terms of Service (/terms)
-- 📧 Questions? Contact **legal@rebelion.la**
+- 📧 Questions? Contact [Contact Us](https://go.rebelion.la/contact-us)
 
 ---
 

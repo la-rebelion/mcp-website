@@ -307,9 +307,13 @@ function LandingSections() {
         <div className="container">
           <h2 className="mcpCenter">What Teams Say</h2>
           <div className="mcpGrid mcpGrid--testimonials">
-            <blockquote className="mcpQuote">“We pointed HAPI at our Swagger and had MCP tools in production in a week.”<footer>CTO, Fintech</footer></blockquote>
-            <blockquote className="mcpQuote">“Security loved it—policies and audit trails stayed exactly as before.”<footer>Head of Risk, Enterprise</footer></blockquote>
-            <blockquote className="mcpQuote">“OrcA plus runMCP gave us deterministic, scalable workflows without prompt spaghetti.”<footer>Director of AI, SaaS</footer></blockquote>
+            <blockquote className="mcpQuote">“We pointed HAPI at our Swagger and had MCP tools in production in a week.”
+              {/* <footer>CTO, Fintech</footer> */}
+            </blockquote>
+            <blockquote className="mcpQuote">“Security loved it—policies and audit trails stayed exactly as before.”
+              {/* <footer>Head of Risk, Enterprise</footer> */}
+            </blockquote>
+            <blockquote className="mcpQuote">“OrcA plus runMCP gave us deterministic, scalable workflows without prompt spaghetti.”{/* <footer>Director of AI, SaaS</footer> */}</blockquote>
           </div>
         </div>
       </section>
