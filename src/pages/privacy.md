@@ -151,9 +151,7 @@ Depending on your jurisdiction, you may have the right to:
 - Object to or restrict processing  
 - Request data portability  
 
-To exercise these rights, contact us at:
-
-📧 **legal@rebelion.la**
+To exercise these rights, contact us using the information in the "Contact Us" section below.
 
 ---
 
@@ -200,7 +198,7 @@ If you have questions about this Privacy Policy or our data practices, contact:
 
 **La Rebelion Labs**  
 🌐 https://rebelion.la  
-📧 legal@rebelion.la  
+📧 [Contact Us](https://go.rebelion.la/contact-us)  
 
 ---
 
