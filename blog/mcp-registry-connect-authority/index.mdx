@@ -1,0 +1,100 @@
+---
+title: "The MCP Connect Authority: A Zero Trust Architecture for AI"
+description: "Defining the MCP Connect Authority model: separating control-plane governance from data-plane traffic to enable secure, scalable, and decentralized AI systems."
+image: /img/mcp-connect-authority/mcp-connect-authority.png
+tags: [mcp, architecture, connect-authority, zero-trust]
+keywords: [mcp, connect authority, registry, mcp gateway, zero trust, hapi, distributed enforcement]
+authors: [adrian]
+---
+import InlineSVG from '@site/src/components/SyncImage';
+
+In the rapidly evolving landscape of the **Model Context Protocol (MCP)**, architects are facing a critical decision: how to secure and govern connections between AI clients and a sprawling ecosystem of tools and data servers.
+
+The traditional answer is a **Gateway**—a centralized proxy that inspects every byte.
+The modern answer is a **Connect Authority**—a distributed Zero Trust model that separates permission from traffic.
+
+<!-- truncate -->
+
+This detailed guide introduces the **MCP Connect Authority** architecture, a standard championed by HAPI to enable scalable, secure, and governed AI ecosystems without the bottlenecks of a central data-plane proxy.
+
+
+## The Architectural Shift
+
+The instinct in microservices was often "put a gateway in front of it." In the world of decentralized AI agents and remote tools, however, forcing all traffic through a single pipe creates unacceptable latency, operational fragility, and a massive security target.
+
+We argue for a cleaner architectural split:
+
+*   **Control Plane (The Registry):** Decides *who* connects.
+*   **Data Plane (The Server):** Enforces *what* happens.
+
+By treating the MCP Registry as a **Connect Authority**, we remove the need for a gateway to ever see the traffic, while maintaining stronger governance than a gateway could ever provide.
+
+### The Core Concept: Permission ≠ Proxy
+
+A **Gateway** is a data-plane bottleneck. It answers: *"Let me route this packet for you."*
+A **Connect Authority** is a control-plane enabler. It answers: *"Are you allowed to connect right now?"*
+
+If the answer is yes, the Authority issues a **Connect Descriptor**—a digital "boarding pass" that allows the client to fly directly to the destination.
+
+## How it Works: The Connect Descriptor
+
+The linchpin of this architecture is the **Connect Descriptor**, primitives defined in the [MCP Connect Authority Spec](./mcp-connect-authority-spec).
+
+1.  **Discovery & Auth:** The Client asks the Registry for access to a specific tool or server.
+2.  **Issuance:** The Registry acts as the Connect Authority. It checks policy, subscription status, and server health. If approved, it signs a short-lived **Connect Descriptor (JWT)**.
+3.  **Direct Connection:** The Client connects **directly** to the HAPI MCP Server using streamable HTTP, presenting the descriptor in the headers.
+4.  **Distributed Enforcement:** The Server (not a gateway) validates the descriptor using the Registry's public keys and enforces runtime policies (rate limiting, user auth, logging).
+
+<InlineSVG name="mcp-registry-connect-authority-flow" 
+  alt="HAPI MCP Registry Connect Authority Flow Diagram"
+  width="80%"
+  className="center-image"
+/>
+
+## Why This Wins: Authority vs. Gateway
+
+Why move to this model? Because it aligns with **Zero Trust** principles while solving the practical scaling problems of AI agents.
+
+| Feature | Traditional MCP Gateway | MCP Connect Authority |
+| :--- | :--- | :--- |
+| **Traffic Path** | Indirect (Client → Gateway → Server) | **Direct** (Client → Server) |
+| **Bottleneck** | **High** (All data flows through one point) | **None** (Control plane traffic is tiny) |
+| **Failure Mode** | Gateway down = System offline | Registry down = No *new* connects; existing work continues |
+| **Security** | Centralized Honeypot (Sees all data) | **Zero Trust** (Registry sees no payload data) |
+| **Enforcement** | Centralized Policy Engine | **Distributed** (Enforced at the edge) |
+| **Cost** | High (Bandwidth & Compute) | **Low** (Signature generation only) |
+
+## Key Capabilities
+
+### 1. Zero Trust by Design
+In this model, network location means nothing. A client cannot connect to a HAPI server simply because it has the IP address. It requires a valid, time-limited cryptographic proof (the Descriptor) from the Authority. This is true **Zero Trust MCP Architecture**.
+
+### 2. Runtime Effective Moderation
+"Governance without a gateway" sounds like a paradox, but it is achieved through specific mechanics:
+*   **Short TTLs:** Descriptors expire in 30-120 seconds.
+*   **Refresh Enforcement:** Servers can force clients to refresh their descriptors.
+*   **Instant Revocation:** If a server is compromised or policy changes, the Registry simply stops issuing descriptors. The "hard shutoff" happens immediately at the next refresh interval.
+
+### 3. Scalability (Social and Technical)
+Technically, this removes the single point of failure and latency of a proxy. Socially, it allows the ecosystem to scale. A central Registry can govern thousands of independent servers without needing to host or route their traffic. It is the only viable path for a global, federated MCP ecosystem.
+
+## Reference Implementations
+
+The HAPI ecosystem is building this standard today.
+
+*   **HAPI MCP Registry:** Acts as the Connect Authority, implementing the `POST /v1/connect` endpoint.
+*   **HAPI MCP Servers:** Native support for validating Connect Descriptors and enforcing distributed policy.
+*   **MCP Clients:** Updated SDKs that support the "Get Descriptor → Connect" flow seamlessly.
+
+## Conclusion
+
+You don't need a gateway to have governance. You need **Authority**.
+
+By adopting the MCP Connect Authority model, we move past the brittle, centralized proxy architectures of Web 2.0 and embrace a decentralized, secure, and performant standard for the Agentic AI era.
+
+*   [Read the Full Architecture Deep Dive](/mcp-registry-connect-authority/beyond-mcp-gateways)
+*   [Review the Technical Specification](#) (coming soon)
+<!-- *   [Review the Technical Specification](/mcp-registry-connect-authority/mcp-connect-authority-spec) -->
+*   [Detailed Comparison: Why Authority Beats Gateway](/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway)
+
+**Be HAPI.** Governance is solved.

@@ -1,13 +1,13 @@
 ---
 title: "MCP Connect Authority Spec (Registry-powered, Streamable HTTP)"
 description: "A connect authority API and Connect Descriptor format to enable governed direct connections from MCP clients to HAPI MCP Servers without a proxy gateway."
-image: /img/mcp-connect-authority.png
-tags: [mcp, architecture, hapi, registry]
+image: /img/mcp-connect-authority/mcp-connect-authority-specs.png
+tags: [mcp, architecture, connect-authority]
 keywords: [mcp,connect authority,registry,hapi,streamable http,jwt]
 draft: true
 ---
 
-The MCP (Model Context Protocol) [Registry](https://registry.modelcontextprotocol.io) is designed to act as centralized repository for discovering and publishing MCP Servers. In this specification, we define the MCP Registry's role as a Connect Authority for enabling governed direct connections from MCP clients to HAPI MCP Servers using short-lived signed Connect Descriptors.
+The MCP (Model Context Protocol) [Registry](https://registry.modelcontextprotocol.io) is designed to act as centralized repository for discovering and publishing MCP Servers. In this specification, we define the MCP Registry's role as a **Connect Authority** for enabling governed direct connections from MCP clients to HAPI MCP Servers using short-lived signed Connect Descriptors.
 
 <!-- truncate-->
 

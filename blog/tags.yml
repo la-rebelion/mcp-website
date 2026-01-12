@@ -4,6 +4,18 @@ mcp:
   description: >
       MCP is an open protocol for connecting LLM apps to external data sources and tools, enabling seamless integration and interoperability.
 
+architecture:
+  label: Architecture
+  permalink: /architecture
+  description: >
+    The structural design and organization of systems, components, and their interactions within a software or hardware environment.
+
+connect-authority:
+  label: MCP Connect Authority
+  permalink: /mcp-connect-authority
+  description: >
+    A Connect Authority is a trusted entity that issues connection credentials and governs access to services, enabling secure and authorized connections.
+
 oas:
   label: OAS
   permalink: /oas
