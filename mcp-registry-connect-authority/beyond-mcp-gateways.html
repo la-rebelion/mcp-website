@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">MCP Registry vs Gateway: Why Connect Authority Wins | MCP AI Blog</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="MCP Registry vs Gateway: Why Connect Authority Wins | MCP AI Blog"><meta data-rh="true" name="description" content="Explore the differences between MCP Registries and Gateways, and understand why a Connect Authority is the superior choice for enabling secure, scalable MCP connections without a gateway."><meta data-rh="true" property="og:description" content="Explore the differences between MCP Registries and Gateways, and understand why a Connect Authority is the superior choice for enabling secure, scalable MCP connections without a gateway."><meta data-rh="true" name="keywords" content="mcp,registry,gateway,connect authority,hapi,architecture,mcp-registry"><meta data-rh="true" property="og:image" content="https://mcp.com.ai/img/mcp-connect-authority/mcp-beyond-gateway.png"><meta data-rh="true" name="twitter:image" content="https://mcp.com.ai/img/mcp-connect-authority/mcp-beyond-gateway.png"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2026-01-12T02:55:49.000Z"><meta data-rh="true" property="article:tag" content="MCP,Architecture,MCP Connect Authority"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways" hreflang="en"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways","mainEntityOfPage":"https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways","url":"https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways","headline":"MCP Registry vs Gateway: Why Connect Authority Wins","name":"MCP Registry vs Gateway: Why Connect Authority Wins","description":"Explore the differences between MCP Registries and Gateways, and understand why a Connect Authority is the superior choice for enabling secure, scalable MCP connections without a gateway.","datePublished":"2026-01-12T02:55:49.000Z","author":[],"image":{"@type":"ImageObject","@id":"https://mcp.com.ai/img/mcp-connect-authority/mcp-beyond-gateway.png","url":"https://mcp.com.ai/img/mcp-connect-authority/mcp-beyond-gateway.png","contentUrl":"https://mcp.com.ai/img/mcp-connect-authority/mcp-beyond-gateway.png","caption":"title image for the blog post: MCP Registry vs Gateway: Why Connect Authority Wins"},"keywords":["mcp","registry","gateway","connect authority","hapi","architecture","mcp-registry"],"isPartOf":{"@type":"Blog","@id":"https://mcp.com.ai/","name":"MCP Insights"}}</script><link rel="alternate" type="application/rss+xml" href="/rss.xml" title="MCP AI Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/atom.xml" title="MCP AI Blog Atom Feed">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJJXXEZWK9"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-JJJXXEZWK9",{})</script>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script>window.dataLayer=window.dataLayer||[]</script>
+<script>!function(e,t,a,n){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var g=t.getElementsByTagName(a)[0],m=t.createElement(a);m.async=!0,m.src="https://www.googletagmanager.com/gtm.js?id=GTM-W2QSRMJN",g.parentNode.insertBefore(m,g)}(window,document,"script","dataLayer")</script>
+
+
+
+
+<script async="true" defer="true" id="hs-script-loader" src="//js.hs-scripts.com/21339207.js"></script>
+<script src="https://js.hsforms.net/forms/embed/v2.js" async></script><link rel="stylesheet" href="/assets/css/styles.9247cb00.css">
+<script src="/assets/js/runtime~main.04ac4cc6.js" defer="defer"></script>
+<script src="/assets/js/main.43615c5b.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2QSRMJN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.svg"><link rel="preload" as="image" href="/img/mcp-connect-authority/mcp-beyond-gateway.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="MCP logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="MCP logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">MCP</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/">Home</a><a class="navbar__item navbar__link" href="/archive">Blog</a><a href="https://docs.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Docs<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">HAPI Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://run.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Run MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://qbot.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">QBot<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://go.mcp.com.ai/demo-request" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Request Demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/la-rebelion/hapimcp" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="container margin-vert--lg"><div class="row"><main class="col col--9 col--offset-1"><article class="card shadow--sm"><div class="card__body"><header><div class="mcpPostHero" style="max-height:280px;overflow:hidden;margin-bottom:24px"><img src="/img/mcp-connect-authority/mcp-beyond-gateway.png" alt="" loading="eager" style="width:100%;height:auto;max-height:280px;object-fit:cover;display:block;margin:0"></div><h1 class="title_f1Hy">MCP Registry vs Gateway: Why Connect Authority Wins</h1><div class="container_mt6G margin-vert--md"><time datetime="2026-01-12T02:55:49.000Z">January 12, 2026</time> · <!-- -->10 min read</div></header><div id="__blog-post-container" class="markdown"><p>The <a href="https://registry.modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" class="">MCP Registry</a> is designed as a centralized catalog and metadata service for MCP (Model Context Protocol) components. It provides discovery, verification, and governance capabilities for MCP clients and servers. The <em>HAPI MCP Registry</em> does not proxy traffic; instead, it acts as a <strong>mcp connection authority</strong>, issuing short-lived <strong>mcp connect descriptor</strong> tokens that authorize clients to connect directly to MCP Servers.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-architectural-dilemma-mcp-registry-vs-gateway">The Architectural Dilemma: MCP Registry vs Gateway<a href="#the-architectural-dilemma-mcp-registry-vs-gateway" class="hash-link" aria-label="Direct link to The Architectural Dilemma: MCP Registry vs Gateway" title="Direct link to The Architectural Dilemma: MCP Registry vs Gateway" translate="no">​</a></h3>
+<p>At a high level, architects face a choice: treating the Registry as a control-plane for discovery and governance, or deploying a Gateway to sit on the data-plane and proxy traffic. This article argues for a <strong>registry based mcp architecture</strong> — one that provides robust <strong>mcp connection governance</strong> without the operational overhead of a gateway.</p>
+<p>We will explore <strong>mcp gateway alternatives</strong> such as connect-authority issuance and distributed enforcement, demonstrating why this <strong>mcp connection authority</strong> model is often the superior choice for scalable, secure AI systems.</p>
+<p>AI-native applications require scalable, secure, and manageable architectures. <strong>Just as with microservices</strong>, the same security and governance principles apply to MCP-based systems. Throughout MCP&#x27;s brief yet rapid evolution, <a href="https://authzed.com/blog/timeline-mcp-breaches" target="_blank" rel="noopener noreferrer" class="">security breaches</a> and failures have taught us valuable lessons. In response, the MCP Registry was created, offering developers a dependable, community-driven platform to discover and share MCP servers, all while ensuring security and building trust.</p>
+<p>What the official MCP Registry actually promises today:</p>
+<p>The official MCP Registry was launched as an open catalog + REST API for discovery and standardized metadata, with moderation and namespace verification. It is explicitly positioned as a &quot;single source of truth&quot; that sub-registries build on.</p>
+<p>Key constraints that matter for a gateway discussion:</p>
+<ul>
+<li class="">It&#x27;s metadata, not package hosting.</li>
+<li class="">It&#x27;s designed primarily for programmatic consumption by sub-registries, not end-users/clients directly (at least today).</li>
+<li class="">Security scanning is delegated to package registries and/or sub-registries in the MVP.</li>
+<li class="">The API went into an &quot;API freeze&quot; period (v0.1), signaling stability, but it&#x27;s still evolving toward GA.</li>
+</ul>
+<p>The Registry can enable a gateway, but it&#x27;s not trying to be one.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-not-a-gateway">Why not a Gateway?<a href="#why-not-a-gateway" class="hash-link" aria-label="Direct link to Why not a Gateway?" title="Direct link to Why not a Gateway?" translate="no">​</a></h2>
+<p><em>&quot;Can the MCP Registry become an MCP Gateway?&quot;</em></p>
+<p>That question hides a deeper one:</p>
+<blockquote>
+<p><strong>Can we get gateway-level control without turning the Registry into a fragile, high-risk data plane?</strong></p>
+</blockquote>
+<p>The answer is <strong>yes</strong> — <em>if we&#x27;re precise about what a gateway actually is</em>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-not-proxy-mcp-traffic">Why not proxy MCP traffic?<a href="#why-not-proxy-mcp-traffic" class="hash-link" aria-label="Direct link to Why not proxy MCP traffic?" title="Direct link to Why not proxy MCP traffic?" translate="no">​</a></h3>
+<p>Proxying MCP traffic creates a central data-plane that inspects or routes every session. That introduces latency, inspection risks, and operational complexity. A better approach for many deployments is to avoid proxying and rely on <strong>mcp connect descriptor</strong> issuance and server-side validation. This keeps the control plane (the Registry) strictly separate from the data plane.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="control-plane-vs-data-plane-in-mcp">Control-Plane vs Data-Plane in MCP<a href="#control-plane-vs-data-plane-in-mcp" class="hash-link" aria-label="Direct link to Control-Plane vs Data-Plane in MCP" title="Direct link to Control-Plane vs Data-Plane in MCP" translate="no">​</a></h2>
+<p>First of all, we need to clarify what a gateway <em>usually</em> means. This distinction is critical for understanding <strong>mcp control plane architecture</strong> versus <strong>mcp data plane design</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-registry-is-usually-control-plane">A Registry is usually <strong>control-plane</strong><a href="#a-registry-is-usually-control-plane" class="hash-link" aria-label="Direct link to a-registry-is-usually-control-plane" title="Direct link to a-registry-is-usually-control-plane" translate="no">​</a></h3>
+<p>It answers questions like:</p>
+<ul>
+<li class="">What exists?</li>
+<li class="">Where does it live?</li>
+<li class="">What does it support?</li>
+<li class="">Who owns it?</li>
+<li class="">Is it verified?</li>
+<li class="">Is it allowed?</li>
+</ul>
+<p>Think: <strong>catalogs, metadata, governance, discovery</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-gateway-is-usually-data-plane">A Gateway is usually <strong>data-plane</strong><a href="#a-gateway-is-usually-data-plane" class="hash-link" aria-label="Direct link to a-gateway-is-usually-data-plane" title="Direct link to a-gateway-is-usually-data-plane" translate="no">​</a></h3>
+<p>It answers questions like:</p>
+<ul>
+<li class="">I connect to <em>one</em> endpoint</li>
+<li class="">Traffic flows <em>through</em> it</li>
+<li class="">It authenticates</li>
+<li class="">It enforces policy</li>
+<li class="">It rate-limits</li>
+<li class="">It observes</li>
+<li class="">It transforms</li>
+</ul>
+<p>Think: <strong>proxying, routing, runtime enforcement</strong>.</p>
+<p>Most gateway designs fail not because gateways are bad — <strong>but because they are asked to do <em>everything</em>.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="do-you-need-an-mcp-gateway">Do you need an MCP Gateway?<a href="#do-you-need-an-mcp-gateway" class="hash-link" aria-label="Direct link to Do you need an MCP Gateway?" title="Direct link to Do you need an MCP Gateway?" translate="no">​</a></h3>
+<p>The short answer is: often, no.</p>
+<p>If your requirements involve centralized deep packet inspection (DPI), inline payload transformation, or legacy protocol translation, a gateway is necessary. However, for <strong>secure mcp server discovery</strong>, runtime governance, and revocation, a <strong>Connect Authority</strong> is more efficient.</p>
+<p><strong>Connect Authority vs Gateway</strong>:
+A gateway intercepts and mediates data-plane traffic, introducing latency and a single point of failure. A Connect Authority mediates <em>permissions</em> and <em>discovery</em> in the control plane. By issuing <strong>mcp connect descriptor</strong> artifacts, it enables <strong>mcp connection governance</strong> without the heavy lift of inline proxying.</p>
+<p>So the real architectural question becomes:</p>
+<blockquote>
+<p><strong>Can we give the MCP Registry &quot;gateway power&quot; without making it a gateway?</strong></p>
+</blockquote>
+<p>Yes — if we redefine what &quot;gateway&quot; means.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-key-insight-connection-authority--traffic-proxy">The key insight: connection authority ≠ traffic proxy<a href="#the-key-insight-connection-authority--traffic-proxy" class="hash-link" aria-label="Direct link to The key insight: connection authority ≠ traffic proxy" title="Direct link to The key insight: connection authority ≠ traffic proxy" translate="no">​</a></h2>
+<p>Here&#x27;s the mental flip:</p>
+<ul>
+<li class="">A <strong>gateway</strong> doesn&#x27;t need to see traffic to control <em>who is allowed to connect</em></li>
+<li class="">Runtime enforcement doesn&#x27;t need to be centralized</li>
+<li class="">Moderation doesn&#x27;t need a proxy to be effective</li>
+</ul>
+<p>What you actually want is <strong>connect-time authority</strong>, not a data-plane choke point.</p>
+<p>In this model:</p>
+<ul>
+<li class="">The Registry governs <strong>who may connect</strong></li>
+<li class="">The server enforces <strong>what happens after</strong></li>
+<li class="">The client performs <strong>one extra, intentional step</strong></li>
+</ul>
+<p>This is where the MCP Registry becomes something more subtle — and more powerful.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-registry-as-a-connection-resolver">The Registry as a connection resolver<a href="#the-registry-as-a-connection-resolver" class="hash-link" aria-label="Direct link to The Registry as a connection resolver" title="Direct link to The Registry as a connection resolver" translate="no">​</a></h2>
+<p>Instead of proxying traffic, the Registry transforms into a <strong>Connect Authority</strong>. It becomes a control-plane gateway that facilitates <strong>secure MCP server discovery</strong>.</p>
+<p>Clients query the Registry to find verified servers (&quot;discovery&quot;). But before they can connect, they must request permission. This turns the Registry into a policy engine that answers one critical question:</p>
+<blockquote>
+<p><em>&quot;Are you allowed to connect to this server right now?&quot;</em></p>
+</blockquote>
+<p>If yes → it issues a signed proof (descriptor).
+If no → the connection never starts.</p>
+<p>This approach is comparable to <strong>DNS + app store metadata</strong>—but with enforcement capabilities.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-connect-descriptor-the-boarding-pass">The Connect Descriptor (the &quot;boarding pass&quot;)<a href="#the-connect-descriptor-the-boarding-pass" class="hash-link" aria-label="Direct link to The Connect Descriptor (the &quot;boarding pass&quot;)" title="Direct link to The Connect Descriptor (the &quot;boarding pass&quot;)" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Boarding Pass" src="/assets/images/mcp-beyond-gateway-31b8292e5afd139c1329f8435a803fb6.png" width="1536" height="1024" class="img_ev3q"></p>
+<p>This is the missing primitive.</p>
+<p>A <strong>Connect Descriptor</strong> is a:</p>
+<ul>
+<li class="">short-lived</li>
+<li class="">signed</li>
+<li class="">connect-time token</li>
+<li class="">issued by the Registry</li>
+<li class="">consumed by the client</li>
+<li class="">validated by the server</li>
+</ul>
+<p>It contains:</p>
+<ul>
+<li class="">the <strong>actual server endpoint</strong></li>
+<li class="">the <strong>transport</strong> (streamable HTTP only)</li>
+<li class="">the <strong>server identity</strong></li>
+<li class="">an <strong>expiration window</strong></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="think-boarding-pass-not-passport">Think: <em>boarding pass</em>, not <em>passport</em><a href="#think-boarding-pass-not-passport" class="hash-link" aria-label="Direct link to think-boarding-pass-not-passport" title="Direct link to think-boarding-pass-not-passport" translate="no">​</a></h3>
+<ul>
+<li class="">It doesn&#x27;t identify the user</li>
+<li class="">It doesn&#x27;t authorize tool usage</li>
+<li class="">It doesn&#x27;t replace authentication</li>
+</ul>
+<p>It simply says:</p>
+<blockquote>
+<p><em>&quot;You are allowed to attempt a connection to this server right now.&quot;</em></p>
+</blockquote>
+<p>That&#x27;s it.</p>
+<p>And that&#x27;s enough.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-extra-client-step-matters-and-why-its-intentional">Why this extra client step matters (and why it&#x27;s intentional)<a href="#why-this-extra-client-step-matters-and-why-its-intentional" class="hash-link" aria-label="Direct link to Why this extra client step matters (and why it&#x27;s intentional)" title="Direct link to Why this extra client step matters (and why it&#x27;s intentional)" translate="no">​</a></h2>
+<p>Yes — this introduces an extra step for clients.</p>
+<p>And that&#x27;s the entire point.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="old-model-direct-connect">Old model (direct connect)<a href="#old-model-direct-connect" class="hash-link" aria-label="Direct link to Old model (direct connect)" title="Direct link to Old model (direct connect)" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Client → Server URL → Tools</span><br></span></code></pre></div></div>
+<ul>
+<li class="">Fast</li>
+<li class="">Simple</li>
+<li class="">Ungoverned</li>
+<li class="">Irrevocable</li>
+<li class="">No verification boundary</li>
+</ul>
+<p>But we already know the risks of this model:</p>
+<ul>
+<li class="">unverifiable endpoints</li>
+<li class="">unmoderatable servers</li>
+</ul>
+<p><strong>If security and governance matter, this model falls short.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="new-model-governed-connect">New model (governed connect)<a href="#new-model-governed-connect" class="hash-link" aria-label="Direct link to New model (governed connect)" title="Direct link to New model (governed connect)" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Client → Registry → Descriptor → Server URL → Tools</span><br></span></code></pre></div></div>
+<p>That one hop unlocks:</p>
+<ul>
+<li class="">runtime-effective moderation</li>
+<li class="">revocation without proxies</li>
+<li class="">endpoint integrity</li>
+<li class="">server identity pinning</li>
+<li class="">version &amp; transport guarantees</li>
+</ul>
+<p>Clients that skip this step <em>can still connect</em> — but they explicitly opt out of governance.</p>
+<p>This mirrors OAuth perfectly:</p>
+<ul>
+<li class="">You can skip OAuth</li>
+<li class="">You just lose its guarantees</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-streamable-http-only-changes-everything">Why streamable HTTP only changes everything<a href="#why-streamable-http-only-changes-everything" class="hash-link" aria-label="Direct link to Why streamable HTTP only changes everything" title="Direct link to Why streamable HTTP only changes everything" translate="no">​</a></h2>
+<p>This model works <strong>because</strong> we constrain transport.</p>
+<p>By supporting <strong>remote, streamable HTTP only</strong>:</p>
+<ul>
+<li class="">No stdio bridging</li>
+<li class="">No local process trust</li>
+<li class="">No transport ambiguity</li>
+<li class="">No hidden execution contexts</li>
+</ul>
+<p>Every MCP server is:</p>
+<ul>
+<li class="">already running</li>
+<li class="">already reachable</li>
+<li class="">already enforcing policy</li>
+</ul>
+<p>That&#x27;s where <strong><a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="">HAPI MCP</a> Servers</strong> come in.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="distributed-enforcement-mcp-why-hapi-makes-this-viable">Distributed enforcement MCP: why HAPI makes this viable<a href="#distributed-enforcement-mcp-why-hapi-makes-this-viable" class="hash-link" aria-label="Direct link to Distributed enforcement MCP: why HAPI makes this viable" title="Direct link to Distributed enforcement MCP: why HAPI makes this viable" translate="no">​</a></h2>
+<p>The Registry doesn&#x27;t enforce runtime security directly—and that is a feature, not a bug.</p>
+<p>This aligns perfectly with a <strong>Zero Trust MCP architecture</strong>. In a Zero Trust model, we never trust an endpoint based solely on network location. Instead, we require a valid, short-lived <strong>mcp connect descriptor</strong>.</p>
+<p>Because <strong>HAPI MCP Servers</strong> act as the data-plane enforcement points, they handle:</p>
+<ul>
+<li class="">authentication termination</li>
+</ul>
+<ul>
+<li class="">rate limiting</li>
+<li class="">observability</li>
+<li class="">token mediation / exchange</li>
+</ul>
+<p>This lets us distribute enforcement <em>to the edge</em>. The Registry decides <strong>if a connection may exist</strong>, while the HAPI server decides <strong>what happens inside that connection</strong>.</p>
+<p>No proxy needed.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-governance-without-a-gateway">MCP Governance Without a Gateway<a href="#mcp-governance-without-a-gateway" class="hash-link" aria-label="Direct link to MCP Governance Without a Gateway" title="Direct link to MCP Governance Without a Gateway" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="making-moderation-runtime-effective">Making moderation runtime-effective<a href="#making-moderation-runtime-effective" class="hash-link" aria-label="Direct link to Making moderation runtime-effective" title="Direct link to Making moderation runtime-effective" translate="no">​</a></h3>
+<p>Here&#x27;s the critical trick:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="stop-issuing-descriptors">Stop issuing descriptors.<a href="#stop-issuing-descriptors" class="hash-link" aria-label="Direct link to Stop issuing descriptors." title="Direct link to Stop issuing descriptors." translate="no">​</a></h3>
+<p>That&#x27;s it.</p>
+<p>If a server is revoked or moderated out:</p>
+<ul>
+<li class="">the Registry refuses to issue new Connect Descriptors</li>
+<li class="">well-behaved clients cannot connect</li>
+<li class="">no traffic flows</li>
+<li class="">no proxy is involved</li>
+</ul>
+<p>Want stronger enforcement?</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="descriptor-refresh-hard-cutoff">Descriptor refresh (hard cutoff)<a href="#descriptor-refresh-hard-cutoff" class="hash-link" aria-label="Direct link to Descriptor refresh (hard cutoff)" title="Direct link to Descriptor refresh (hard cutoff)" translate="no">​</a></h3>
+<p>Descriptors are short-lived (configurable TTL, e.g. 30-120s).</p>
+<p>HAPI can require clients to:</p>
+<ul>
+<li class="">refresh the descriptor periodically</li>
+<li class="">fail the session if refresh fails</li>
+</ul>
+<p>Now moderation becomes <strong>hard runtime shutoff</strong>:</p>
+<ul>
+<li class="">revoke server</li>
+<li class="">no new descriptors</li>
+<li class="">active sessions expire naturally</li>
+</ul>
+<p>Still no gateway.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-this-architecture-avoids-by-design">What this architecture avoids (by design)<a href="#what-this-architecture-avoids-by-design" class="hash-link" aria-label="Direct link to What this architecture avoids (by design)" title="Direct link to What this architecture avoids (by design)" translate="no">​</a></h2>
+<p>This is what we <em>intentionally</em> don&#x27;t do:</p>
+<ul>
+<li class="">No central proxy</li>
+<li class="">No data-plane bottleneck</li>
+<li class="">No secrets stored in the Registry</li>
+<li class="">No traffic inspection</li>
+<li class="">No latency tax</li>
+<li class="">No single point of failure</li>
+</ul>
+<p>The Registry stays:</p>
+<ul>
+<li class="">scalable</li>
+<li class="">safe</li>
+<li class="">boring (in a good way)</li>
+<li class="">reliable</li>
+<li class="">trustworthy</li>
+<li class="">low-risk</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-full-flow-putting-it-all-together">The full flow (putting it all together)<a href="#the-full-flow-putting-it-all-together" class="hash-link" aria-label="Direct link to The full flow (putting it all together)" title="Direct link to The full flow (putting it all together)" translate="no">​</a></h2>
+<!-- -->
+<ol>
+<li class="">Client discovers a server in the Registry</li>
+<li class="">Client requests a Connect Descriptor</li>
+<li class="">Registry checks verification, moderation, compatibility</li>
+<li class="">Registry issues a short-lived descriptor</li>
+<li class="">Client extracts the endpoint from the descriptor</li>
+<li class="">Client connects <strong>directly</strong> to the HAPI server</li>
+<li class="">HAPI validates the descriptor</li>
+<li class="">HAPI authenticates the user</li>
+<li class="">HAPI enforces policy and executes tools</li>
+<li class="">Descriptor refresh keeps governance live</li>
+</ol>
+<p>Discovery is centralized.<br>
+<!-- -->Enforcement is distributed.<br>
+<!-- -->Connections are governed.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-scales-technically-and-socially">Why this scales (technically and socially)<a href="#why-this-scales-technically-and-socially" class="hash-link" aria-label="Direct link to Why this scales (technically and socially)" title="Direct link to Why this scales (technically and socially)" translate="no">​</a></h2>
+<p>Technically:</p>
+<ul>
+<li class="">no proxy bottlenecks</li>
+<li class="">no hot path in the Registry</li>
+<li class="">horizontal scalability</li>
+<li class="">zero trust friendly</li>
+</ul>
+<p>Socially:</p>
+<ul>
+<li class="">communities can build clients incrementally</li>
+<li class="">enterprises get governance without lock-in</li>
+<li class="">server authors keep autonomy</li>
+<li class="">moderation has real impact</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-final-takeaway">The final takeaway<a href="#the-final-takeaway" class="hash-link" aria-label="Direct link to The final takeaway" title="Direct link to The final takeaway" translate="no">​</a></h2>
+<p>You don&#x27;t turn the MCP Registry into a gateway by adding more features.</p>
+<p>You do it by <strong>not turning it into one at all</strong>.</p>
+<p>By making it a <strong>connection authority</strong>, you get:</p>
+<ul>
+<li class="">gateway-level control</li>
+<li class="">without gateway-level risk</li>
+</ul>
+<p>And that&#x27;s the difference between a system that scales — and one that collapses under its own ambition.</p>
+<p><em>Be HAPI</em>, and stay tuned for more MCP architecture deep dives. Go Rebels! ✊🏼</p></div><footer class="docusaurus-mt-lg"><div class="row margin-top--sm theme-blog-footer-edit-meta-row"><div class="col"><ul class="mcpTags padding--none"><li class="mcpTagItem"><a rel="tag" title="MCP is an open protocol for connecting LLM apps to external data sources and tools, enabling seamless integration and interoperability.
+" class="tag_zVej tagRegular_sFm0" href="/tags/mcp">MCP</a></li><li class="mcpTagItem"><a rel="tag" title="The structural design and organization of systems, components, and their interactions within a software or hardware environment.
+" class="tag_zVej tagRegular_sFm0" href="/tags/architecture">Architecture</a></li><li class="mcpTagItem"><a rel="tag" title="A Connect Authority is a trusted entity that issues connection credentials and governs access to services, enabling secure and authorized connections.
+" class="tag_zVej tagRegular_sFm0" href="/tags/mcp-connect-authority">MCP Connect Authority</a></li></ul></div></div></footer></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Blog post page navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/mcp-registry-connect-authority"><div class="pagination-nav__sublabel">Newer post</div><div class="pagination-nav__label">The MCP Connect Authority: A Zero Trust Architecture for AI</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway"><div class="pagination-nav__sublabel">Older post</div><div class="pagination-nav__label">Why a Registry + Connect Authority Beats a Gateway</div></a></nav></main><div class="col col--2"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#the-architectural-dilemma-mcp-registry-vs-gateway" class="table-of-contents__link toc-highlight">The Architectural Dilemma: MCP Registry vs Gateway</a></li><li><a href="#why-not-a-gateway" class="table-of-contents__link toc-highlight">Why not a Gateway?</a><ul><li><a href="#why-not-proxy-mcp-traffic" class="table-of-contents__link toc-highlight">Why not proxy MCP traffic?</a></li></ul></li><li><a href="#control-plane-vs-data-plane-in-mcp" class="table-of-contents__link toc-highlight">Control-Plane vs Data-Plane in MCP</a><ul><li><a href="#a-registry-is-usually-control-plane" class="table-of-contents__link toc-highlight">A Registry is usually <strong>control-plane</strong></a></li><li><a href="#a-gateway-is-usually-data-plane" class="table-of-contents__link toc-highlight">A Gateway is usually <strong>data-plane</strong></a></li><li><a href="#do-you-need-an-mcp-gateway" class="table-of-contents__link toc-highlight">Do you need an MCP Gateway?</a></li></ul></li><li><a href="#the-key-insight-connection-authority--traffic-proxy" class="table-of-contents__link toc-highlight">The key insight: connection authority ≠ traffic proxy</a></li><li><a href="#the-registry-as-a-connection-resolver" class="table-of-contents__link toc-highlight">The Registry as a connection resolver</a></li><li><a href="#the-connect-descriptor-the-boarding-pass" class="table-of-contents__link toc-highlight">The Connect Descriptor (the &quot;boarding pass&quot;)</a><ul><li><a href="#think-boarding-pass-not-passport" class="table-of-contents__link toc-highlight">Think: <em>boarding pass</em>, not <em>passport</em></a></li></ul></li><li><a href="#why-this-extra-client-step-matters-and-why-its-intentional" class="table-of-contents__link toc-highlight">Why this extra client step matters (and why it&#39;s intentional)</a><ul><li><a href="#old-model-direct-connect" class="table-of-contents__link toc-highlight">Old model (direct connect)</a></li><li><a href="#new-model-governed-connect" class="table-of-contents__link toc-highlight">New model (governed connect)</a></li></ul></li><li><a href="#why-streamable-http-only-changes-everything" class="table-of-contents__link toc-highlight">Why streamable HTTP only changes everything</a></li><li><a href="#distributed-enforcement-mcp-why-hapi-makes-this-viable" class="table-of-contents__link toc-highlight">Distributed enforcement MCP: why HAPI makes this viable</a></li><li><a href="#mcp-governance-without-a-gateway" class="table-of-contents__link toc-highlight">MCP Governance Without a Gateway</a><ul><li><a href="#making-moderation-runtime-effective" class="table-of-contents__link toc-highlight">Making moderation runtime-effective</a></li><li><a href="#stop-issuing-descriptors" class="table-of-contents__link toc-highlight">Stop issuing descriptors.</a></li><li><a href="#descriptor-refresh-hard-cutoff" class="table-of-contents__link toc-highlight">Descriptor refresh (hard cutoff)</a></li></ul></li><li><a href="#what-this-architecture-avoids-by-design" class="table-of-contents__link toc-highlight">What this architecture avoids (by design)</a></li><li><a href="#the-full-flow-putting-it-all-together" class="table-of-contents__link toc-highlight">The full flow (putting it all together)</a></li><li><a href="#why-this-scales-technically-and-socially" class="table-of-contents__link toc-highlight">Why this scales (technically and socially)</a></li><li><a href="#the-final-takeaway" class="table-of-contents__link toc-highlight">The final takeaway</a></li></ul></div></div></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Agentic MCP</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://docs.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docs<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">HAPI Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://run.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Run MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://qbot.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">QBot<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://go.mcp.com.ai/demo-request" target="_blank" rel="noopener noreferrer" class="footer__link-item">Request Demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/">Blog</a></li><li class="footer__item"><a class="footer__link-item" href="/tags">Tags</a></li><li class="footer__item"><a href="https://github.com/la-rebelion/hapimcp" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.youtube.com/@LaRebelion" target="_blank" rel="noopener noreferrer" class="footer__link-item">YouTube &quot;La Rebelion&quot;<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.youtube.com/@hapi-mcp" target="_blank" rel="noopener noreferrer" class="footer__link-item">YouTube HAPI MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/privacy">Privacy</a></li><li class="footer__item"><a class="footer__link-item" href="/terms">Terms</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 MCP.com.ai by <a href="https://rebelion.la">La Rebelion Labs</a>. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

@@ -4,10 +4,410 @@
         <title>MCP AI Blog Blog</title>
         <link>https://mcp.com.ai</link>
         <description>MCP AI Blog Blog</description>
-        <lastBuildDate>Tue, 06 Jan 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 12 Jan 2026 13:30:36 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[The MCP Connect Authority: A Zero Trust Architecture for AI]]></title>
+            <link>https://mcp.com.ai/mcp-registry-connect-authority</link>
+            <guid>https://mcp.com.ai/mcp-registry-connect-authority</guid>
+            <pubDate>Mon, 12 Jan 2026 13:30:36 GMT</pubDate>
+            <description><![CDATA[Defining the MCP Connect Authority model: separating control-plane governance from data-plane traffic to enable secure, scalable, and decentralized AI systems.]]></description>
+            <content:encoded><![CDATA[<p>In the rapidly evolving landscape of the <strong>Model Context Protocol (MCP)</strong>, architects are facing a critical decision: how to secure and govern connections between AI clients and a sprawling ecosystem of tools and data servers.</p>
+<p>The traditional answer is a <strong>Gateway</strong>—a centralized proxy that inspects every byte.
+The modern answer is a <strong>Connect Authority</strong>—a distributed Zero Trust model that separates permission from traffic.</p>
+<p>This detailed guide introduces the <strong>MCP Connect Authority</strong> architecture, a standard championed by HAPI to enable scalable, secure, and governed AI ecosystems without the bottlenecks of a central data-plane proxy.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-architectural-shift">The Architectural Shift<a href="https://mcp.com.ai/mcp-registry-connect-authority#the-architectural-shift" class="hash-link" aria-label="Direct link to The Architectural Shift" title="Direct link to The Architectural Shift" translate="no">​</a></h2>
+<p>The instinct in microservices was often "put a gateway in front of it." In the world of decentralized AI agents and remote tools, however, forcing all traffic through a single pipe creates unacceptable latency, operational fragility, and a massive security target.</p>
+<p>We argue for a cleaner architectural split:</p>
+<ul>
+<li class=""><strong>Control Plane (The Registry):</strong> Decides <em>who</em> connects.</li>
+<li class=""><strong>Data Plane (The Server):</strong> Enforces <em>what</em> happens.</li>
+</ul>
+<p>By treating the MCP Registry as a <strong>Connect Authority</strong>, we remove the need for a gateway to ever see the traffic, while maintaining stronger governance than a gateway could ever provide.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-core-concept-permission--proxy">The Core Concept: Permission ≠ Proxy<a href="https://mcp.com.ai/mcp-registry-connect-authority#the-core-concept-permission--proxy" class="hash-link" aria-label="Direct link to The Core Concept: Permission ≠ Proxy" title="Direct link to The Core Concept: Permission ≠ Proxy" translate="no">​</a></h3>
+<p>A <strong>Gateway</strong> is a data-plane bottleneck. It answers: <em>"Let me route this packet for you."</em>
+A <strong>Connect Authority</strong> is a control-plane enabler. It answers: <em>"Are you allowed to connect right now?"</em></p>
+<p>If the answer is yes, the Authority issues a <strong>Connect Descriptor</strong>—a digital "boarding pass" that allows the client to fly directly to the destination.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-it-works-the-connect-descriptor">How it Works: The Connect Descriptor<a href="https://mcp.com.ai/mcp-registry-connect-authority#how-it-works-the-connect-descriptor" class="hash-link" aria-label="Direct link to How it Works: The Connect Descriptor" title="Direct link to How it Works: The Connect Descriptor" translate="no">​</a></h2>
+<p>The keystone of this architecture is the <strong>Connect Descriptor</strong>, primitives defined in the <a href="https://mcp.com.ai/mcp-registry-connect-authority#" class="">MCP Connect Authority Spec</a>.</p>
+<ol>
+<li class=""><strong>Discovery &amp; Auth:</strong> The Client asks the Registry for access to a specific tool or server.</li>
+<li class=""><strong>Issuance:</strong> The Registry acts as the Connect Authority. It checks policy, subscription status, and server health. If approved, it signs a short-lived <strong>Connect Descriptor (JWT)</strong>.</li>
+<li class=""><strong>Direct Connection:</strong> The Client connects <strong>directly</strong> to the HAPI MCP Server using streamable HTTP, presenting the descriptor in the headers.</li>
+<li class=""><strong>Distributed Enforcement:</strong> The Server (not a gateway) validates the descriptor using the Registry's public keys and enforces runtime policies (rate limiting, user auth, logging).</li>
+</ol>
+<svg xmlns="http://www.w3.org/2000/svg" width="80%" height="100%" viewBox="0 0 1000 560" class="center-image" role="img" aria-label="HAPI MCP Registry Connect Authority Flow Diagram"><style>.subtitle{font:14px sans-serif;fill:#334155}.label{font:700 14px sans-serif;fill:#0f172a}.text{font:13px sans-serif;fill:#334155}.arrow{stroke:#334155;stroke-width:2;marker-end:url(#arrow)}</style><defs><marker id="arrow" markerHeight="10" markerWidth="10" orient="auto" refX="10" refY="3"><path fill="#334155" d="m0 0 10 3L0 6Z"></path></marker></defs><text x="500" y="36" style="font:700 22px sans-serif;fill:#0f172a" text-anchor="middle">
+    MCP Registry as Connect Authority (Not a Gateway)
+  </text><text x="500" y="62" class="subtitle" text-anchor="middle">
+    Control-plane governance · Direct connections · Distributed enforcement
+  </text><path d="M60 140h260v200H60z" style="fill:#f8fafc;stroke:#0ea5e9;stroke-width:2;rx:14px"></path><text x="190" y="170" class="label" text-anchor="middle">MCP Registry</text><text x="190" y="195" class="text" text-anchor="middle">Discovery &amp; Metadata</text><text x="190" y="215" class="text" text-anchor="middle">Verification</text><text x="190" y="235" class="text" text-anchor="middle">Moderation / Revocation</text><text x="190" y="255" class="text" text-anchor="middle">Connect Descriptor Issuance</text><text x="190" y="285" class="text" text-anchor="middle">(Control-plane only)</text><path d="M370 140h260v200H370z" style="fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:14px"></path><text x="500" y="170" class="label" text-anchor="middle">MCP Client</text><text x="500" y="195" class="text" text-anchor="middle">chatMCP / IDE / Agent</text><text x="500" y="225" class="text" text-anchor="middle">1. Discover server</text><text x="500" y="245" class="text" text-anchor="middle">2. Request descriptor</text><text x="500" y="265" class="text" text-anchor="middle">3. Extract endpoint</text><text x="500" y="285" class="text" text-anchor="middle">4. Connect directly</text><path d="M680 140h260v200H680z" style="fill:#ecfeff;stroke:#14b8a6;stroke-width:2;rx:14px"></path><text x="810" y="170" class="label" text-anchor="middle">HAPI MCP Server</text><text x="810" y="195" class="text" text-anchor="middle">Streamable HTTP</text><text x="810" y="225" class="text" text-anchor="middle">Auth termination</text><text x="810" y="245" class="text" text-anchor="middle">Policy / RBAC</text><text x="810" y="265" class="text" text-anchor="middle">Rate limits</text><text x="810" y="285" class="text" text-anchor="middle">Observability</text><path d="M320 240h50" class="arrow"></path><text x="345" y="225" class="text" text-anchor="middle">Connect Descriptor</text><path d="M630 240h50" class="arrow"></path><text x="655" y="225" class="text" text-anchor="middle">Direct Connect</text><path d="M190 360h620" class="arrow" style="stroke-dasharray:6,6"></path><text x="500" y="385" class="text" text-anchor="middle">
+    No traffic flows through the Registry (no proxy, no gateway data-plane)
+  </text><text x="500" y="520" class="subtitle" text-anchor="middle">
+    Think: “boarding pass”, not “passport”
+  </text></svg>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-wins-authority-vs-gateway">Why This Wins: Authority vs. Gateway<a href="https://mcp.com.ai/mcp-registry-connect-authority#why-this-wins-authority-vs-gateway" class="hash-link" aria-label="Direct link to Why This Wins: Authority vs. Gateway" title="Direct link to Why This Wins: Authority vs. Gateway" translate="no">​</a></h2>
+<p>Why move to this model? Because it aligns with <strong>Zero Trust</strong> principles while solving the practical scaling problems of AI agents.</p>
+<table><thead><tr><th style="text-align:left">Feature</th><th style="text-align:left">Traditional MCP Gateway</th><th style="text-align:left">MCP Connect Authority</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Traffic Path</strong></td><td style="text-align:left">Indirect (Client → Gateway → Server)</td><td style="text-align:left"><strong>Direct</strong> (Client → Server)</td></tr><tr><td style="text-align:left"><strong>Bottleneck</strong></td><td style="text-align:left"><strong>High</strong> (All data flows through one point)</td><td style="text-align:left"><strong>None</strong> (Control plane traffic is tiny)</td></tr><tr><td style="text-align:left"><strong>Failure Mode</strong></td><td style="text-align:left">Gateway down = System offline</td><td style="text-align:left">Registry down = No <em>new</em> connects; existing work continues</td></tr><tr><td style="text-align:left"><strong>Security</strong></td><td style="text-align:left">Centralized Honeypot (Sees all data)</td><td style="text-align:left"><strong>Zero Trust</strong> (Registry sees no payload data)</td></tr><tr><td style="text-align:left"><strong>Enforcement</strong></td><td style="text-align:left">Centralized Policy Engine</td><td style="text-align:left"><strong>Distributed</strong> (Enforced at the edge)</td></tr><tr><td style="text-align:left"><strong>Cost</strong></td><td style="text-align:left">High (Bandwidth &amp; Compute)</td><td style="text-align:left"><strong>Low</strong> (Signature generation only)</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-capabilities">Key Capabilities<a href="https://mcp.com.ai/mcp-registry-connect-authority#key-capabilities" class="hash-link" aria-label="Direct link to Key Capabilities" title="Direct link to Key Capabilities" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-zero-trust-by-design">1. Zero Trust by Design<a href="https://mcp.com.ai/mcp-registry-connect-authority#1-zero-trust-by-design" class="hash-link" aria-label="Direct link to 1. Zero Trust by Design" title="Direct link to 1. Zero Trust by Design" translate="no">​</a></h3>
+<p>In this model, network location means nothing. A client cannot connect to a HAPI server simply because it has the IP address. It requires a valid, time-limited cryptographic proof (the Descriptor) from the Authority. This is true <strong>Zero Trust MCP Architecture</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-runtime-effective-moderation">2. Runtime Effective Moderation<a href="https://mcp.com.ai/mcp-registry-connect-authority#2-runtime-effective-moderation" class="hash-link" aria-label="Direct link to 2. Runtime Effective Moderation" title="Direct link to 2. Runtime Effective Moderation" translate="no">​</a></h3>
+<p>"Governance without a gateway" sounds like a paradox, but it is achieved through specific mechanics:</p>
+<ul>
+<li class=""><strong>Short TTLs:</strong> Descriptors expire in 30-120 seconds.</li>
+<li class=""><strong>Refresh Enforcement:</strong> Servers can force clients to refresh their descriptors.</li>
+<li class=""><strong>Instant Revocation:</strong> If a server is compromised or policy changes, the Registry simply stops issuing descriptors. The "hard shutoff" happens immediately at the next refresh interval.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-scalability-social-and-technical">3. Scalability (Social and Technical)<a href="https://mcp.com.ai/mcp-registry-connect-authority#3-scalability-social-and-technical" class="hash-link" aria-label="Direct link to 3. Scalability (Social and Technical)" title="Direct link to 3. Scalability (Social and Technical)" translate="no">​</a></h3>
+<p>Technically, this removes the single point of failure and latency of a proxy. Socially, it allows the ecosystem to scale. A central Registry can govern thousands of independent servers without needing to host or route their traffic. It is the only viable path for a global, federated MCP ecosystem.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="reference-implementations">Reference Implementations<a href="https://mcp.com.ai/mcp-registry-connect-authority#reference-implementations" class="hash-link" aria-label="Direct link to Reference Implementations" title="Direct link to Reference Implementations" translate="no">​</a></h2>
+<p>The HAPI ecosystem is building this standard today.</p>
+<ul>
+<li class=""><strong>HAPI MCP Registry:</strong> Acts as the Connect Authority, implementing the <code>POST /v1/connect</code> endpoint.</li>
+<li class=""><strong>HAPI MCP Servers:</strong> Native support for validating Connect Descriptors and enforcing distributed policy.</li>
+<li class=""><strong>MCP Clients:</strong> Updated SDKs that support the "Get Descriptor → Connect" flow seamlessly.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://mcp.com.ai/mcp-registry-connect-authority#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
+<p>You don't need a gateway to have governance. You need <strong>Authority</strong>.</p>
+<p>By adopting the MCP Connect Authority model, we move past the brittle, centralized proxy architectures of Web 2.0 and embrace a decentralized, secure, and performant standard for the Agentic AI era.</p>
+<ul>
+<li class=""><a class="" href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways">Read the Full Architecture Deep Dive</a></li>
+<li class=""><a href="https://mcp.com.ai/mcp-registry-connect-authority#" class="">Review the Technical Specification</a> (coming soon)</li>
+</ul>
+<ul>
+<li class=""><a class="" href="https://mcp.com.ai/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway">Detailed Comparison: Why Authority Beats Gateway</a></li>
+</ul>
+<p><strong>Be HAPI.</strong> Governance is solved.</p>]]></content:encoded>
+            <category>MCP</category>
+            <category>Architecture</category>
+            <category>MCP Connect Authority</category>
+            <category>Zero Trust</category>
+            <category>MCP Registry</category>
+        </item>
+        <item>
+            <title><![CDATA[MCP Registry vs Gateway: Why Connect Authority Wins]]></title>
+            <link>https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways</link>
+            <guid>https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways</guid>
+            <pubDate>Mon, 12 Jan 2026 02:55:49 GMT</pubDate>
+            <description><![CDATA[Explore the differences between MCP Registries and Gateways, and understand why a Connect Authority is the superior choice for enabling secure, scalable MCP connections without a gateway.]]></description>
+            <content:encoded><![CDATA[<p>The <a href="https://registry.modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer" class="">MCP Registry</a> is designed as a centralized catalog and metadata service for MCP (Model Context Protocol) components. It provides discovery, verification, and governance capabilities for MCP clients and servers. The <em>HAPI MCP Registry</em> does not proxy traffic; instead, it acts as a <strong>mcp connection authority</strong>, issuing short-lived <strong>mcp connect descriptor</strong> tokens that authorize clients to connect directly to MCP Servers.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-architectural-dilemma-mcp-registry-vs-gateway">The Architectural Dilemma: MCP Registry vs Gateway<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-architectural-dilemma-mcp-registry-vs-gateway" class="hash-link" aria-label="Direct link to The Architectural Dilemma: MCP Registry vs Gateway" title="Direct link to The Architectural Dilemma: MCP Registry vs Gateway" translate="no">​</a></h3>
+<p>At a high level, architects face a choice: treating the Registry as a control-plane for discovery and governance, or deploying a Gateway to sit on the data-plane and proxy traffic. This article argues for a <strong>registry based mcp architecture</strong> — one that provides robust <strong>mcp connection governance</strong> without the operational overhead of a gateway.</p>
+<p>We will explore <strong>mcp gateway alternatives</strong> such as connect-authority issuance and distributed enforcement, demonstrating why this <strong>mcp connection authority</strong> model is often the superior choice for scalable, secure AI systems.</p>
+<p>AI-native applications require scalable, secure, and manageable architectures. <strong>Just as with microservices</strong>, the same security and governance principles apply to MCP-based systems. Throughout MCP's brief yet rapid evolution, <a href="https://authzed.com/blog/timeline-mcp-breaches" target="_blank" rel="noopener noreferrer" class="">security breaches</a> and failures have taught us valuable lessons. In response, the MCP Registry was created, offering developers a dependable, community-driven platform to discover and share MCP servers, all while ensuring security and building trust.</p>
+<p>What the official MCP Registry actually promises today:</p>
+<p>The official MCP Registry was launched as an open catalog + REST API for discovery and standardized metadata, with moderation and namespace verification. It is explicitly positioned as a "single source of truth" that sub-registries build on.</p>
+<p>Key constraints that matter for a gateway discussion:</p>
+<ul>
+<li class="">It's metadata, not package hosting.</li>
+<li class="">It's designed primarily for programmatic consumption by sub-registries, not end-users/clients directly (at least today).</li>
+<li class="">Security scanning is delegated to package registries and/or sub-registries in the MVP.</li>
+<li class="">The API went into an "API freeze" period (v0.1), signaling stability, but it's still evolving toward GA.</li>
+</ul>
+<p>The Registry can enable a gateway, but it's not trying to be one.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-not-a-gateway">Why not a Gateway?<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#why-not-a-gateway" class="hash-link" aria-label="Direct link to Why not a Gateway?" title="Direct link to Why not a Gateway?" translate="no">​</a></h2>
+<p><em>"Can the MCP Registry become an MCP Gateway?"</em></p>
+<p>That question hides a deeper one:</p>
+<blockquote>
+<p><strong>Can we get gateway-level control without turning the Registry into a fragile, high-risk data plane?</strong></p>
+</blockquote>
+<p>The answer is <strong>yes</strong> — <em>if we're precise about what a gateway actually is</em>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-not-proxy-mcp-traffic">Why not proxy MCP traffic?<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#why-not-proxy-mcp-traffic" class="hash-link" aria-label="Direct link to Why not proxy MCP traffic?" title="Direct link to Why not proxy MCP traffic?" translate="no">​</a></h3>
+<p>Proxying MCP traffic creates a central data-plane that inspects or routes every session. That introduces latency, inspection risks, and operational complexity. A better approach for many deployments is to avoid proxying and rely on <strong>mcp connect descriptor</strong> issuance and server-side validation. This keeps the control plane (the Registry) strictly separate from the data plane.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="control-plane-vs-data-plane-in-mcp">Control-Plane vs Data-Plane in MCP<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#control-plane-vs-data-plane-in-mcp" class="hash-link" aria-label="Direct link to Control-Plane vs Data-Plane in MCP" title="Direct link to Control-Plane vs Data-Plane in MCP" translate="no">​</a></h2>
+<p>First of all, we need to clarify what a gateway <em>usually</em> means. This distinction is critical for understanding <strong>mcp control plane architecture</strong> versus <strong>mcp data plane design</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-registry-is-usually-control-plane">A Registry is usually <strong>control-plane</strong><a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#a-registry-is-usually-control-plane" class="hash-link" aria-label="Direct link to a-registry-is-usually-control-plane" title="Direct link to a-registry-is-usually-control-plane" translate="no">​</a></h3>
+<p>It answers questions like:</p>
+<ul>
+<li class="">What exists?</li>
+<li class="">Where does it live?</li>
+<li class="">What does it support?</li>
+<li class="">Who owns it?</li>
+<li class="">Is it verified?</li>
+<li class="">Is it allowed?</li>
+</ul>
+<p>Think: <strong>catalogs, metadata, governance, discovery</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-gateway-is-usually-data-plane">A Gateway is usually <strong>data-plane</strong><a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#a-gateway-is-usually-data-plane" class="hash-link" aria-label="Direct link to a-gateway-is-usually-data-plane" title="Direct link to a-gateway-is-usually-data-plane" translate="no">​</a></h3>
+<p>It answers questions like:</p>
+<ul>
+<li class="">I connect to <em>one</em> endpoint</li>
+<li class="">Traffic flows <em>through</em> it</li>
+<li class="">It authenticates</li>
+<li class="">It enforces policy</li>
+<li class="">It rate-limits</li>
+<li class="">It observes</li>
+<li class="">It transforms</li>
+</ul>
+<p>Think: <strong>proxying, routing, runtime enforcement</strong>.</p>
+<p>Most gateway designs fail not because gateways are bad — <strong>but because they are asked to do <em>everything</em>.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="do-you-need-an-mcp-gateway">Do you need an MCP Gateway?<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#do-you-need-an-mcp-gateway" class="hash-link" aria-label="Direct link to Do you need an MCP Gateway?" title="Direct link to Do you need an MCP Gateway?" translate="no">​</a></h3>
+<p>The short answer is: often, no.</p>
+<p>If your requirements involve centralized deep packet inspection (DPI), inline payload transformation, or legacy protocol translation, a gateway is necessary. However, for <strong>secure mcp server discovery</strong>, runtime governance, and revocation, a <strong>Connect Authority</strong> is more efficient.</p>
+<p><strong>Connect Authority vs Gateway</strong>:
+A gateway intercepts and mediates data-plane traffic, introducing latency and a single point of failure. A Connect Authority mediates <em>permissions</em> and <em>discovery</em> in the control plane. By issuing <strong>mcp connect descriptor</strong> artifacts, it enables <strong>mcp connection governance</strong> without the heavy lift of inline proxying.</p>
+<p>So the real architectural question becomes:</p>
+<blockquote>
+<p><strong>Can we give the MCP Registry "gateway power" without making it a gateway?</strong></p>
+</blockquote>
+<p>Yes — if we redefine what "gateway" means.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-key-insight-connection-authority--traffic-proxy">The key insight: connection authority ≠ traffic proxy<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-key-insight-connection-authority--traffic-proxy" class="hash-link" aria-label="Direct link to The key insight: connection authority ≠ traffic proxy" title="Direct link to The key insight: connection authority ≠ traffic proxy" translate="no">​</a></h2>
+<p>Here's the mental flip:</p>
+<ul>
+<li class="">A <strong>gateway</strong> doesn't need to see traffic to control <em>who is allowed to connect</em></li>
+<li class="">Runtime enforcement doesn't need to be centralized</li>
+<li class="">Moderation doesn't need a proxy to be effective</li>
+</ul>
+<p>What you actually want is <strong>connect-time authority</strong>, not a data-plane choke point.</p>
+<p>In this model:</p>
+<ul>
+<li class="">The Registry governs <strong>who may connect</strong></li>
+<li class="">The server enforces <strong>what happens after</strong></li>
+<li class="">The client performs <strong>one extra, intentional step</strong></li>
+</ul>
+<p>This is where the MCP Registry becomes something more subtle — and more powerful.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-registry-as-a-connection-resolver">The Registry as a connection resolver<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-registry-as-a-connection-resolver" class="hash-link" aria-label="Direct link to The Registry as a connection resolver" title="Direct link to The Registry as a connection resolver" translate="no">​</a></h2>
+<p>Instead of proxying traffic, the Registry transforms into a <strong>Connect Authority</strong>. It becomes a control-plane gateway that facilitates <strong>secure MCP server discovery</strong>.</p>
+<p>Clients query the Registry to find verified servers ("discovery"). But before they can connect, they must request permission. This turns the Registry into a policy engine that answers one critical question:</p>
+<blockquote>
+<p><em>"Are you allowed to connect to this server right now?"</em></p>
+</blockquote>
+<p>If yes → it issues a signed proof (descriptor).
+If no → the connection never starts.</p>
+<p>This approach is comparable to <strong>DNS + app store metadata</strong>—but with enforcement capabilities.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-connect-descriptor-the-boarding-pass">The Connect Descriptor (the "boarding pass")<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-connect-descriptor-the-boarding-pass" class="hash-link" aria-label="Direct link to The Connect Descriptor (the &quot;boarding pass&quot;)" title="Direct link to The Connect Descriptor (the &quot;boarding pass&quot;)" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Boarding Pass" src="https://mcp.com.ai/assets/images/mcp-beyond-gateway-31b8292e5afd139c1329f8435a803fb6.png" width="1536" height="1024" class="img_ev3q"></p>
+<p>This is the missing primitive.</p>
+<p>A <strong>Connect Descriptor</strong> is a:</p>
+<ul>
+<li class="">short-lived</li>
+<li class="">signed</li>
+<li class="">connect-time token</li>
+<li class="">issued by the Registry</li>
+<li class="">consumed by the client</li>
+<li class="">validated by the server</li>
+</ul>
+<p>It contains:</p>
+<ul>
+<li class="">the <strong>actual server endpoint</strong></li>
+<li class="">the <strong>transport</strong> (streamable HTTP only)</li>
+<li class="">the <strong>server identity</strong></li>
+<li class="">an <strong>expiration window</strong></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="think-boarding-pass-not-passport">Think: <em>boarding pass</em>, not <em>passport</em><a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#think-boarding-pass-not-passport" class="hash-link" aria-label="Direct link to think-boarding-pass-not-passport" title="Direct link to think-boarding-pass-not-passport" translate="no">​</a></h3>
+<ul>
+<li class="">It doesn't identify the user</li>
+<li class="">It doesn't authorize tool usage</li>
+<li class="">It doesn't replace authentication</li>
+</ul>
+<p>It simply says:</p>
+<blockquote>
+<p><em>"You are allowed to attempt a connection to this server right now."</em></p>
+</blockquote>
+<p>That's it.</p>
+<p>And that's enough.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-extra-client-step-matters-and-why-its-intentional">Why this extra client step matters (and why it's intentional)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#why-this-extra-client-step-matters-and-why-its-intentional" class="hash-link" aria-label="Direct link to Why this extra client step matters (and why it's intentional)" title="Direct link to Why this extra client step matters (and why it's intentional)" translate="no">​</a></h2>
+<p>Yes — this introduces an extra step for clients.</p>
+<p>And that's the entire point.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="old-model-direct-connect">Old model (direct connect)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#old-model-direct-connect" class="hash-link" aria-label="Direct link to Old model (direct connect)" title="Direct link to Old model (direct connect)" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Client → Server URL → Tools</span><br></span></code></pre></div></div>
+<ul>
+<li class="">Fast</li>
+<li class="">Simple</li>
+<li class="">Ungoverned</li>
+<li class="">Irrevocable</li>
+<li class="">No verification boundary</li>
+</ul>
+<p>But we already know the risks of this model:</p>
+<ul>
+<li class="">unverifiable endpoints</li>
+<li class="">unmoderatable servers</li>
+</ul>
+<p><strong>If security and governance matter, this model falls short.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="new-model-governed-connect">New model (governed connect)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#new-model-governed-connect" class="hash-link" aria-label="Direct link to New model (governed connect)" title="Direct link to New model (governed connect)" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Client → Registry → Descriptor → Server URL → Tools</span><br></span></code></pre></div></div>
+<p>That one hop unlocks:</p>
+<ul>
+<li class="">runtime-effective moderation</li>
+<li class="">revocation without proxies</li>
+<li class="">endpoint integrity</li>
+<li class="">server identity pinning</li>
+<li class="">version &amp; transport guarantees</li>
+</ul>
+<p>Clients that skip this step <em>can still connect</em> — but they explicitly opt out of governance.</p>
+<p>This mirrors OAuth perfectly:</p>
+<ul>
+<li class="">You can skip OAuth</li>
+<li class="">You just lose its guarantees</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-streamable-http-only-changes-everything">Why streamable HTTP only changes everything<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#why-streamable-http-only-changes-everything" class="hash-link" aria-label="Direct link to Why streamable HTTP only changes everything" title="Direct link to Why streamable HTTP only changes everything" translate="no">​</a></h2>
+<p>This model works <strong>because</strong> we constrain transport.</p>
+<p>By supporting <strong>remote, streamable HTTP only</strong>:</p>
+<ul>
+<li class="">No stdio bridging</li>
+<li class="">No local process trust</li>
+<li class="">No transport ambiguity</li>
+<li class="">No hidden execution contexts</li>
+</ul>
+<p>Every MCP server is:</p>
+<ul>
+<li class="">already running</li>
+<li class="">already reachable</li>
+<li class="">already enforcing policy</li>
+</ul>
+<p>That's where <strong><a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">HAPI MCP</a> Servers</strong> come in.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="distributed-enforcement-mcp-why-hapi-makes-this-viable">Distributed enforcement MCP: why HAPI makes this viable<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#distributed-enforcement-mcp-why-hapi-makes-this-viable" class="hash-link" aria-label="Direct link to Distributed enforcement MCP: why HAPI makes this viable" title="Direct link to Distributed enforcement MCP: why HAPI makes this viable" translate="no">​</a></h2>
+<p>The Registry doesn't enforce runtime security directly—and that is a feature, not a bug.</p>
+<p>This aligns perfectly with a <strong>Zero Trust MCP architecture</strong>. In a Zero Trust model, we never trust an endpoint based solely on network location. Instead, we require a valid, short-lived <strong>mcp connect descriptor</strong>.</p>
+<p>Because <strong>HAPI MCP Servers</strong> act as the data-plane enforcement points, they handle:</p>
+<ul>
+<li class="">authentication termination</li>
+</ul>
+<ul>
+<li class="">rate limiting</li>
+<li class="">observability</li>
+<li class="">token mediation / exchange</li>
+</ul>
+<p>This lets us distribute enforcement <em>to the edge</em>. The Registry decides <strong>if a connection may exist</strong>, while the HAPI server decides <strong>what happens inside that connection</strong>.</p>
+<p>No proxy needed.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-governance-without-a-gateway">MCP Governance Without a Gateway<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#mcp-governance-without-a-gateway" class="hash-link" aria-label="Direct link to MCP Governance Without a Gateway" title="Direct link to MCP Governance Without a Gateway" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="making-moderation-runtime-effective">Making moderation runtime-effective<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#making-moderation-runtime-effective" class="hash-link" aria-label="Direct link to Making moderation runtime-effective" title="Direct link to Making moderation runtime-effective" translate="no">​</a></h3>
+<p>Here's the critical trick:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="stop-issuing-descriptors">Stop issuing descriptors.<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#stop-issuing-descriptors" class="hash-link" aria-label="Direct link to Stop issuing descriptors." title="Direct link to Stop issuing descriptors." translate="no">​</a></h3>
+<p>That's it.</p>
+<p>If a server is revoked or moderated out:</p>
+<ul>
+<li class="">the Registry refuses to issue new Connect Descriptors</li>
+<li class="">well-behaved clients cannot connect</li>
+<li class="">no traffic flows</li>
+<li class="">no proxy is involved</li>
+</ul>
+<p>Want stronger enforcement?</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="descriptor-refresh-hard-cutoff">Descriptor refresh (hard cutoff)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#descriptor-refresh-hard-cutoff" class="hash-link" aria-label="Direct link to Descriptor refresh (hard cutoff)" title="Direct link to Descriptor refresh (hard cutoff)" translate="no">​</a></h3>
+<p>Descriptors are short-lived (configurable TTL, e.g. 30-120s).</p>
+<p>HAPI can require clients to:</p>
+<ul>
+<li class="">refresh the descriptor periodically</li>
+<li class="">fail the session if refresh fails</li>
+</ul>
+<p>Now moderation becomes <strong>hard runtime shutoff</strong>:</p>
+<ul>
+<li class="">revoke server</li>
+<li class="">no new descriptors</li>
+<li class="">active sessions expire naturally</li>
+</ul>
+<p>Still no gateway.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-this-architecture-avoids-by-design">What this architecture avoids (by design)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#what-this-architecture-avoids-by-design" class="hash-link" aria-label="Direct link to What this architecture avoids (by design)" title="Direct link to What this architecture avoids (by design)" translate="no">​</a></h2>
+<p>This is what we <em>intentionally</em> don't do:</p>
+<ul>
+<li class="">No central proxy</li>
+<li class="">No data-plane bottleneck</li>
+<li class="">No secrets stored in the Registry</li>
+<li class="">No traffic inspection</li>
+<li class="">No latency tax</li>
+<li class="">No single point of failure</li>
+</ul>
+<p>The Registry stays:</p>
+<ul>
+<li class="">scalable</li>
+<li class="">safe</li>
+<li class="">boring (in a good way)</li>
+<li class="">reliable</li>
+<li class="">trustworthy</li>
+<li class="">low-risk</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-full-flow-putting-it-all-together">The full flow (putting it all together)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-full-flow-putting-it-all-together" class="hash-link" aria-label="Direct link to The full flow (putting it all together)" title="Direct link to The full flow (putting it all together)" translate="no">​</a></h2>
+<!-- -->
+<ol>
+<li class="">Client discovers a server in the Registry</li>
+<li class="">Client requests a Connect Descriptor</li>
+<li class="">Registry checks verification, moderation, compatibility</li>
+<li class="">Registry issues a short-lived descriptor</li>
+<li class="">Client extracts the endpoint from the descriptor</li>
+<li class="">Client connects <strong>directly</strong> to the HAPI server</li>
+<li class="">HAPI validates the descriptor</li>
+<li class="">HAPI authenticates the user</li>
+<li class="">HAPI enforces policy and executes tools</li>
+<li class="">Descriptor refresh keeps governance live</li>
+</ol>
+<p>Discovery is centralized.<br>
+<!-- -->Enforcement is distributed.<br>
+<!-- -->Connections are governed.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-scales-technically-and-socially">Why this scales (technically and socially)<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#why-this-scales-technically-and-socially" class="hash-link" aria-label="Direct link to Why this scales (technically and socially)" title="Direct link to Why this scales (technically and socially)" translate="no">​</a></h2>
+<p>Technically:</p>
+<ul>
+<li class="">no proxy bottlenecks</li>
+<li class="">no hot path in the Registry</li>
+<li class="">horizontal scalability</li>
+<li class="">zero trust friendly</li>
+</ul>
+<p>Socially:</p>
+<ul>
+<li class="">communities can build clients incrementally</li>
+<li class="">enterprises get governance without lock-in</li>
+<li class="">server authors keep autonomy</li>
+<li class="">moderation has real impact</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-final-takeaway">The final takeaway<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-final-takeaway" class="hash-link" aria-label="Direct link to The final takeaway" title="Direct link to The final takeaway" translate="no">​</a></h2>
+<p>You don't turn the MCP Registry into a gateway by adding more features.</p>
+<p>You do it by <strong>not turning it into one at all</strong>.</p>
+<p>By making it a <strong>connection authority</strong>, you get:</p>
+<ul>
+<li class="">gateway-level control</li>
+<li class="">without gateway-level risk</li>
+</ul>
+<p>And that's the difference between a system that scales — and one that collapses under its own ambition.</p>
+<p><em>Be HAPI</em>, and stay tuned for more MCP architecture deep dives. Go Rebels! ✊🏼</p>]]></content:encoded>
+            <category>MCP</category>
+            <category>Architecture</category>
+            <category>MCP Connect Authority</category>
+        </item>
+        <item>
+            <title><![CDATA[Why a Registry + Connect Authority Beats a Gateway]]></title>
+            <link>https://mcp.com.ai/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway</link>
+            <guid>https://mcp.com.ai/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway</guid>
+            <pubDate>Mon, 12 Jan 2026 02:55:49 GMT</pubDate>
+            <description><![CDATA[A comparison of MCP Registry as a Connect Authority versus traditional MCP Gateway architectures.]]></description>
+            <content:encoded><![CDATA[<p>In the world of MCP (Model Context Protocol), two architectural patterns often come up for discussion: using a <a href="https://registry.modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer" class="">Registry</a> as a Connect Authority versus deploying a traditional Gateway. While both approaches aim to manage and secure connections between clients and servers, they do so in fundamentally different ways.</p>
+<p>In this article, we will explore why the <strong>MCP Registry + Connect Authority</strong> model often outperforms the traditional Gateway approach.</p>
+<p>A gateway <strong>centralizes runtime traffic</strong>. A connect authority <strong>centralizes permission</strong>.<br>
+<!-- -->Considering that the HAPI MCP servers already enforce auth, policy, rate limits, and observability, a proxy gateway is mostly cost and risk.</p>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Aren't MCP Servers already proxying traffic to backends?</p></div></div>
+<p>Here's the <strong>"Why Registry + Connect Authority beats a gateway"</strong> comparison chart that breaks down the key dimensions:</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-connect-authority-beats-a-traditional-mcp-gateway">Why Connect Authority beats a traditional MCP Gateway<a href="https://mcp.com.ai/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway#why-connect-authority-beats-a-traditional-mcp-gateway" class="hash-link" aria-label="Direct link to Why Connect Authority beats a traditional MCP Gateway" title="Direct link to Why Connect Authority beats a traditional MCP Gateway" translate="no">​</a></h2>
+<table><thead><tr><th>Dimension</th><th>Traditional MCP Gateway<br><small>&lt;&lt;proxy data-plane&gt;&gt;</small></th><th>Registry + Connect Authority<br><small>&lt;&lt;descriptor + direct connect&gt;&gt;</small></th><th>Why it wins</th></tr></thead><tbody><tr><td>What it is</td><td>One endpoint that <strong>proxies</strong> MCP traffic</td><td>Registry issues <strong>permission to connect</strong>, traffic goes <strong>direct</strong> to server</td><td>You get control without becoming the hot path</td></tr><tr><td>Traffic path</td><td>Client → <strong>Gateway</strong> → Server</td><td>Client → <strong>Server</strong> (after descriptor)</td><td>No latency tax, no bandwidth bottleneck</td></tr><tr><td>Scaling</td><td>Must scale for <strong>all requests</strong></td><td>Scales for <strong>connect issuance only</strong></td><td>Control-plane load is tiny vs data-plane load</td></tr><tr><td>Reliability blast radius</td><td>Gateway outage = everything breaks</td><td>Registry outage affects <strong>new connects</strong>; existing sessions can continue (depending on TTL/refresh model)</td><td>Fewer "all systems down" moments</td></tr><tr><td>Security boundary</td><td>Centralized, attractive target</td><td>Distributed enforcement at HAPI servers; Registry only governs connects</td><td>Smaller attack surface, less sensitive runtime exposure</td></tr><tr><td>Moderation / revocation</td><td>Usually possible, but requires proxying or complex routing</td><td><strong>Stop issuing descriptors</strong> → no new sessions; refresh → hard cut-off</td><td>Runtime-effective moderation without proxy</td></tr><tr><td>Auth termination</td><td>Often at gateway (adds complexity + secrets)</td><td>At <strong>HAPI server</strong> (already your design)</td><td>Keeps secrets and policy where they belong</td></tr><tr><td>Policy / RBAC</td><td>Centralized policy engine needed</td><td>Enforced by <strong>HAPI</strong>; descriptor may carry hints (optional)</td><td>No duplicated policy stack</td></tr><tr><td>Rate limiting</td><td>Central choke point; risks noisy-neighbor</td><td>Per-server / per-tenant at HAPI</td><td>Better isolation and fairness</td></tr><tr><td>Observability</td><td>Centralized, but expensive and noisy</td><td>HAPI produces real runtime telemetry; Registry logs issuance</td><td>Signals are cleaner and cheaper</td></tr><tr><td>Multi-tenancy</td><td>Requires strict separation at gateway</td><td>Natural with per-tenant descriptors + HAPI enforcement</td><td>Tenant governance without a monolith</td></tr><tr><td>Data privacy</td><td>Gateway can see payloads (risk)</td><td>Registry never sees tool payloads</td><td>Big win for trust + compliance</td></tr><tr><td>Implementation complexity</td><td>Medium-to-high (proxy, routing, retries, SSE quirks)</td><td>Low-to-medium (issue token + validate token + refresh)</td><td>Fewer moving parts, fewer outages</td></tr><tr><td>Vendor lock-in risk</td><td>Often higher (gateway semantics creep)</td><td>Lower (descriptor is portable, servers remain standard)</td><td>You can swap implementations later</td></tr><tr><td>Best fit</td><td>Centralized platform teams who want full proxy control</td><td>Ecosystems + enterprises that want governance <strong>without</strong> data-plane</td><td>Scales socially and technically</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="when-you-still-want-a-gateway">When you <em>still</em> want a gateway<a href="https://mcp.com.ai/mcp-registry-connect-authority/why-a-registry+connect-authority-beats-a-gateway#when-you-still-want-a-gateway" class="hash-link" aria-label="Direct link to when-you-still-want-a-gateway" title="Direct link to when-you-still-want-a-gateway" translate="no">​</a></h2>
+<p>Well, sometimes a gateway is still useful.<br>
+<!-- -->You may still want a proxy gateway when you need:</p>
+<ul>
+<li class="">protocol bridging (stdio ↔ HTTP) - <code>stdio</code> is legacy and we enforce HTTP natively, <code>stdio</code> is not supported</li>
+<li class="">multi-protocol consolidation (gRPC + HTTP + websockets)</li>
+<li class="">deep traffic transformation (e.g., SOAP ↔ REST)</li>
+<li class="">deep payload inspection / transformation</li>
+<li class="">single endpoint requirements for legacy network constraints</li>
+<li class="">centralized caching of tool results (rare)</li>
+</ul>
+<p>But for <strong>streamable HTTP only + HAPI enforced servers</strong>, the connect authority model is the cleaner default.</p>
+<p>With that said, you can always pair both patterns: use the Registry as a Connect Authority <em>and</em> deploy gateways where needed. They're not mutually exclusive. What matters is that you separate <strong>permission</strong> (Registry) from <strong>enforcement</strong> (HAPI servers), and avoid becoming a fragile, high-risk data-plane bottleneck.</p>
+<p>What about you? Have you used either pattern? Share your experiences in the comments!</p>
+<p><em>Be HAPI</em>, and stay tuned for more MCP architecture deep dives. Go Rebels! ✊🏼</p>]]></content:encoded>
+            <category>MCP</category>
+            <category>Architecture</category>
+            <category>MCP Connect Authority</category>
+        </item>
         <item>
             <title><![CDATA[When Not to Use AI: Deterministic Workflows in Production Systems]]></title>
             <link>https://mcp.com.ai/when-not-to-use-ai</link>
