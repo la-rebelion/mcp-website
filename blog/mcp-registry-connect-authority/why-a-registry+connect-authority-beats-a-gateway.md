@@ -1,28 +1,29 @@
 ---
 title: "Why a Registry + Connect Authority Beats a Gateway"
 description: "A comparison of MCP Registry as a Connect Authority versus traditional MCP Gateway architectures."
-image: /img/mcp-registry-connect-authority-vs-gateway.png
-tags: [mcp, architecture, hapi, registry]
+image: /img/mcp-connect-authority/mcp-connect-authority-beats-gateway.png
+tags: [mcp, architecture, connect-authority]
 keywords: [mcp,registry,connect authority,gateway,hapi,architecture]
-draft: true
 ---
 
 In the world of MCP (Model Context Protocol), two architectural patterns often come up for discussion: using a [Registry](https://registry.modelcontextprotocol.io) as a Connect Authority versus deploying a traditional Gateway. While both approaches aim to manage and secure connections between clients and servers, they do so in fundamentally different ways.
 
-In this article, we will explore why the Registry + Connect Authority model often outperforms the traditional Gateway approach.
+In this article, we will explore why the **MCP Registry + Connect Authority** model often outperforms the traditional Gateway approach.
 
 <!-- truncate-->
 
 A gateway **centralizes runtime traffic**. A connect authority **centralizes permission**.  
 Considering that the HAPI MCP servers already enforce auth, policy, rate limits, and observability, a proxy gateway is mostly cost and risk.
 
+:::tip
 Aren't MCP Servers already proxying traffic to backends?
+:::
 
 Here's the **"Why Registry + Connect Authority beats a gateway"** comparison chart that breaks down the key dimensions:
 
 ## Why Connect Authority beats a traditional MCP Gateway
 
-| Dimension                 | Traditional MCP Gateway (proxy data-plane)                 | Registry + Connect Authority (descriptor + direct connect)                                                | Why it wins                                             |
+| Dimension                 | Traditional MCP Gateway<br/><small>&lt;&lt;proxy data-plane&gt;&gt;</small>                 | Registry + Connect Authority<br/><small>&lt;&lt;descriptor + direct connect&gt;&gt;</small>                                                | Why it wins                                             |
 | ------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | What it is                | One endpoint that **proxies** MCP traffic                  | Registry issues **permission to connect**, traffic goes **direct** to server                              | You get control without becoming the hot path           |
 | Traffic path              | Client → **Gateway** → Server                              | Client → **Server** (after descriptor)                                                                    | No latency tax, no bandwidth bottleneck                 |

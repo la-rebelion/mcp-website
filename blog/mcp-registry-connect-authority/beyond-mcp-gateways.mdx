@@ -1,14 +1,20 @@
 ---
 title: "MCP Registry vs Gateway: Why Connect Authority Wins"
-description: "Explore the differences between MCP Registries and Gateways, and understand why a Connect Authority is the superior choice for enableing secure, scalable MCP connections without a gateway."
-image: /img/mcp-beyond-gateway.png
+description: "Explore the differences between MCP Registries and Gateways, and understand why a Connect Authority is the superior choice for enabling secure, scalable MCP connections without a gateway."
+tags: [mcp, architecture, connect-authority]
+keywords: [mcp,registry,gateway,connect authority,hapi,architecture]
+image: /img/mcp-connect-authority/mcp-beyond-gateway.png
 ---
 
-## MCP Registry
+The [MCP Registry](https://registry.modelcontextprotocol.io) is designed as a centralized catalog and metadata service for MCP (Model Context Protocol) components. It provides discovery, verification, and governance capabilities for MCP clients and servers. The *HAPI MCP Registry* does not proxy traffic; instead, it acts as a **mcp connection authority**, issuing short-lived **mcp connect descriptor** tokens that authorize clients to connect directly to MCP Servers.
 
-The [MCP Registry](https://registry.modelcontextprotocol.io) is designed as a centralized catalog and metadata service for MCP (Model Context Protocol) components. It provides discovery, verification, and governance capabilities for MCP clients and servers. The HAPI MCP Registry does not proxy traffic; instead, it acts as a Connect Authority, issuing short-lived Connect Descriptors that authorize clients to connect directly to MCP Servers.
+<!-- truncate -->
 
-We will explore why this Connect Authority model is often preferable to deploying a traditional MCP Gateway.
+### The Architectural Dilemma: MCP Registry vs Gateway
+
+At a high level, architects face a choice: treating the Registry as a control-plane for discovery and governance, or deploying a Gateway to sit on the data-plane and proxy traffic. This article argues for a **registry based mcp architecture** — one that provides robust **mcp connection governance** without the operational overhead of a gateway.
+
+We will explore **mcp gateway alternatives** such as connect-authority issuance and distributed enforcement, demonstrating why this **mcp connection authority** model is often the superior choice for scalable, secure AI systems.
 
 <!-- truncate-->
 
@@ -16,13 +22,13 @@ AI-native applications require scalable, secure, and manageable architectures. *
 
 What the official MCP Registry actually promises today:
 
-The official MCP Registry was launched as an open catalog + REST API for discovery and standardized metadata, with moderation and namespace verification, and it's explicitly positioned as "single source of truth" that sub-registries build on.
+The official MCP Registry was launched as an open catalog + REST API for discovery and standardized metadata, with moderation and namespace verification. It is explicitly positioned as a "single source of truth" that sub-registries build on.
 
 Key constraints that matter for a gateway discussion:
 
 * It's metadata, not package hosting.
 * It's designed primarily for programmatic consumption by sub-registries, not end-users/clients directly (at least today).
-* Security scanning is delegated to package registries and/or sub-registries in the MVP (important for a gateway discussion).
+* Security scanning is delegated to package registries and/or sub-registries in the MVP.
 * The API went into an "API freeze" period (v0.1), signaling stability, but it's still evolving toward GA.
 
 The Registry can enable a gateway, but it's not trying to be one.
@@ -37,14 +43,13 @@ That question hides a deeper one:
 
 The answer is **yes** — *if we're precise about what a gateway actually is*.
 
-And once you see the distinction clearly, a much cleaner architecture emerges.
+### Why not proxy MCP traffic?
 
----
+Proxying MCP traffic creates a central data-plane that inspects or routes every session. That introduces latency, inspection risks, and operational complexity. A better approach for many deployments is to avoid proxying and rely on **mcp connect descriptor** issuance and server-side validation. This keeps the control plane (the Registry) strictly separate from the data plane.
 
-## Control-plane vs Data-plane
+## Control-Plane vs Data-Plane in MCP
 
-Firts of all, we need to clarify what a gateway *usually* means. Let's ground this first.
-
+First of all, we need to clarify what a gateway *usually* means. This distinction is critical for understanding **mcp control plane architecture** versus **mcp data plane design**.
 ### A Registry is usually **control-plane**
 
 It answers questions like:
@@ -73,6 +78,15 @@ It answers questions like:
 Think: **proxying, routing, runtime enforcement**.
 
 Most gateway designs fail not because gateways are bad — **but because they are asked to do *everything*.**
+
+### Do you need an MCP Gateway?
+
+The short answer is: often, no.
+
+If your requirements involve centralized deep packet inspection (DPI), inline payload transformation, or legacy protocol translation, a gateway is necessary. However, for **secure mcp server discovery**, runtime governance, and revocation, a **Connect Authority** is more efficient.
+
+**Connect Authority vs Gateway**:
+A gateway intercepts and mediates data-plane traffic, introducing latency and a single point of failure. A Connect Authority mediates *permissions* and *discovery* in the control plane. By issuing **mcp connect descriptor** artifacts, it enables **mcp connection governance** without the heavy lift of inline proxying.
 
 So the real architectural question becomes:
 
@@ -104,30 +118,22 @@ This is where the MCP Registry becomes something more subtle — and more powerf
 
 ## The Registry as a connection resolver
 
-Instead of proxying traffic, the Registry becomes:
+Instead of proxying traffic, the Registry transforms into a **Connect Authority**. It becomes a control-plane gateway that facilitates **secure MCP server discovery**.
 
-* a **connection resolver**
-* a **connect authority**
-* a **control-plane gateway**
-
-Not a policy engine.
-Not a proxy.
-Not a runtime bottleneck.
-
-More like **DNS + app store metadata** — with teeth.
-
-The Registry answers one critical question:
+Clients query the Registry to find verified servers ("discovery"). But before they can connect, they must request permission. This turns the Registry into a policy engine that answers one critical question:
 
 > *"Are you allowed to connect to this server right now?"*
 
-If yes → it issues proof.
+If yes → it issues a signed proof (descriptor).
 If no → the connection never starts.
+
+This approach is comparable to **DNS + app store metadata**—but with enforcement capabilities.
 
 ---
 
 ## The Connect Descriptor (the "boarding pass")
 
-![Boarding Pass](/img/mcp-beyond-gateway.png)
+![Boarding Pass](/img/mcp-connect-authority/mcp-beyond-gateway.png)
 
 This is the missing primitive.
 
@@ -232,11 +238,13 @@ That's where **[HAPI MCP](https://hapi.mcp.com.ai) Servers** come in.
 
 ---
 
-## Distributed enforcement: why HAPI makes this viable
+## Distributed enforcement MCP: why HAPI makes this viable
 
-The Registry doesn't enforce runtime security — and that's fine.
+The Registry doesn't enforce runtime security directly—and that is a feature, not a bug.
 
-Because **HAPI MCP Servers already do**:
+This aligns perfectly with a **Zero Trust MCP architecture**. In a Zero Trust model, we never trust an endpoint based solely on network location. Instead, we require a valid, short-lived **mcp connect descriptor**.
+
+Because **HAPI MCP Servers** act as the data-plane enforcement points, they handle:
 
 * authentication termination
 <!-- * policy enforcement -->
@@ -244,16 +252,15 @@ Because **HAPI MCP Servers already do**:
 * observability
 * token mediation / exchange
 
-This lets us distribute enforcement *to the edge*.
-
-The Registry decides **if a connection may exist**.
-HAPI decides **what happens inside that connection**.
+This lets us distribute enforcement *to the edge*. The Registry decides **if a connection may exist**, while the HAPI server decides **what happens inside that connection**.
 
 No proxy needed.
 
 ---
 
-## Making moderation runtime-effective (without a gateway)
+## MCP Governance Without a Gateway
+
+### Making moderation runtime-effective
 
 Here's the critical trick:
 
