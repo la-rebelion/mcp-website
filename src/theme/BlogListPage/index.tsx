@@ -43,39 +43,49 @@ function Hero(): ReactNode {
   return (
     <div className="mcpHero">
       <div className="container">
-        <h1 className="mcpHeroTitle">Stop rewriting systems for AI. Turn your APIs into MCP servers instantly.</h1>
+        {/* Badge for credibility */}
+        <div className="mcpHeroBadge">
+          <span className="mcpBadgeIcon">✨</span>
+          <span>MCP With No Shadows</span>
+        </div>
+        
+        <h1 className="mcpHeroTitle">
+          Stop Building Shadow Systems. Make Your APIs AI-Ready <strong>Today</strong>.
+        </h1>
         <p className="mcpHeroSubtitle">
-          HAPI MCP is the Headless API model for the Model Context Protocol. Your existing OpenAPI estate becomes
-          AI-ready tools—no new business logic, no sidecar servers, no rework.
+          <strong>HAPI MCP</strong> — The Headless API Stack for Model Context Protocol<br/>
+          No shadow code. No shadow IT. Just your APIs, instantly connected to AI agents.
+        </p>
+        <p className="mcpHeroDescription">
+          Turn your existing OpenAPI specs into MCP tools in <strong>hours, not months</strong>. 
+          No rewrites, no duplicate logic, no technical debt. Your APIs become AI-ready while you keep control.
         </p>
         <div className="mcpHeroCtas">
           <Link className="button button--primary button--lg" href="https://docs.mcp.com.ai">
-            Read the Docs
-          </Link>
-          {/* <Link className="button button--lg mcpBtnSecondary" href="https://run.mcp.com.ai/">
-            Try Run MCP
+            Get Started
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} aria-hidden>
               <path d="M5 12h12M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </Link> */}
-            <form
-            action="https://go.mcp.com.ai/demo-request"
-            method="POST"
-            target="_blank"
-            style={{ display: 'inline' }}>
-            <button
-              type="submit"
-              className="button button--lg mcpBtnSecondary">
-              Request a Demo
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} aria-hidden>
-              <path d="M5 12h12M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            </form>
+          </Link>
+          <Link className="button button--lg mcpBtnSecondary" href="https://run.mcp.com.ai/">
+            Try runMCP
+          </Link>
+          <button
+            onClick={() => setIsDemoModalOpen(true)}
+            className="button button--lg mcpBtnOutline">
+            Request Demo
+          </button>
           <DemoRequestModal
             open={isDemoModalOpen}
             onClose={() => setIsDemoModalOpen(false)}
           />
+        </div>
+        {/* Quick install command */}
+        <div className="mcpInstallBox">
+          <code className="mcpInstallCode">
+            <span className="mcpInstallPrefix">$</span> curl -fsSL https://get.mcp.com.ai/hapi.sh | bash
+          </code>
+          <button className="mcpCopyBtn" title="Copy to clipboard" aria-label="Copy install command">📋</button>
         </div>
       </div>
     </div>
@@ -172,25 +182,33 @@ function NewsletterAndDemo() {
 function LandingSections() {
   return (
     <>
-      {/* Value proposition */}
+      {/* Value proposition - Problem Matching Strategy */}
       <section className="mcpSection">
         <div className="container">
-          <div className="row">
+          <div className="mcpSectionHeader">
+            <span className="mcpSectionBadge">The Problem</span>
+            <h2 className="mcpSectionTitle">AI Projects Fail When They Create Shadow Systems</h2>
+            <p className="mcpSectionSubtitle">
+              Teams rebuild API logic in agent code. Duplicate business rules in LLM prompts. 
+              Lose governance. Accumulate technical debt. <strong>There's a better way.</strong>
+            </p>
+          </div>
+          <div className="row" style={{ marginTop: '2rem' }}>
             <div className="col col--6">
-              <h2>HAPI MCP — Headless API for MCP</h2>
+              <h3>HAPI MCP — Your APIs, AI-Ready. No Shadows.</h3>
               <BadgeRow />
               <p>
-                Plug AI into your systems without rewrites. HAPI MCP lifts your OpenAPI catalog into MCP tools
-                automatically and keeps design (OAS/Arazzo) and runtime (agents/LLMs) cleanly separated. Execs get
-                faster AI impact; architects keep governance; engineers avoid duplicate logic.
+                <strong>No shadow code:</strong> Your API is the single source of truth. No duplicate logic in agent layers.<br/>
+                <strong>No shadow IT:</strong> Same auth, same policies, same audit trails. Governance flows through automatically.<br/>
+                <strong>No rewrites:</strong> OpenAPI specs become MCP tools instantly. Update the spec, tools update.
               </p>
               <p>
-                Works across your stack today: HAPI Server, runMCP for scaling, OrcA for deterministic orchestration,
-                QBot + chatMCP for humans and agents, Agentico.dev for turnkey agentic systems.
+                Works with your existing stack: HAPI Server for auto-generation, runMCP for scaling, 
+                OrcA for orchestration, QBot + chatMCP for interfaces. Deploy in hours, not months.
               </p>
               <div className="mcpHeroCtas" style={{ justifyContent: 'flex-start' }}>
-                <Link className="button button--primary" href="https://docs.mcp.com.ai">Explore the Docs</Link>
-                <Link className="button mcpBtnSecondary" href="https://hapi.mcp.com.ai/">See HAPI Server</Link>
+                <Link className="button button--primary" href="https://docs.mcp.com.ai">Read the Docs</Link>
+                <Link className="button mcpBtnSecondary" href="#how-it-works">See How It Works</Link>
               </div>
             </div>
             <div className="col col--6">
@@ -234,28 +252,34 @@ function LandingSections() {
         <NewsletterAndDemo />
       </div>
 
-      {/* Features */}
+      {/* Features - Urgency & Value Strategy */}
       <section className="mcpSection">
         <div className="container">
-          <h2 className="mcpCenter">Business Impact First</h2>
+          <div className="mcpSectionHeader">
+            <span className="mcpSectionBadge">Impact</span>
+            <h2 className="mcpSectionTitle">Why Teams Choose HAPI MCP</h2>
+            <p className="mcpSectionSubtitle">
+              Real business value. No technical debt. Deploy AI faster without compromising governance.
+            </p>
+          </div>
           <div className="mcpGrid">
-            <FeatureCard title="No rewrites" icon={<span className="mcpIcon">↺</span>}>
-              Reuse 100% of your API logic. OpenAPI in, MCP tools out. No parallel codebase or shadow services.
+            <FeatureCard title="Zero Shadow Code" icon={<span className="mcpIcon">🚫</span>}>
+              Your APIs are the runtime. No duplicate logic in agent layers. One source of truth, always in sync.
             </FeatureCard>
-            <FeatureCard title="Faster time-to-value" icon={<span className="mcpIcon">⚡</span>}>
-              Turn specs into agent-ready tools in hours. Update the spec, ship new tools instantly.
+            <FeatureCard title="Deploy in Hours" icon={<span className="mcpIcon">⚡</span>}>
+              OpenAPI to MCP tools automatically. What takes competitors months happens in a single afternoon.
             </FeatureCard>
-            <FeatureCard title="Reduced risk" icon={<span className="mcpIcon">🛡</span>}>
-              Permissions, auth, rate limits, auditability are inherited from your APIs—governance without bolt-ons.
+            <FeatureCard title="Keep Governance" icon={<span className="mcpIcon">🛡</span>}>
+              Auth, RBAC, rate limits, audit trails—inherited from your APIs. Compliance teams sleep better.
             </FeatureCard>
-            <FeatureCard title="Scales with you" icon={<span className="mcpIcon">⇲</span>}>
-              runMCP delivers serverless-like elasticity with long-running when needed. Cold-start fast, stay warm for throughput.
+            <FeatureCard title="Scale Effortlessly" icon={<span className="mcpIcon">📈</span>}>
+              runMCP handles serverless elasticity and long-running tasks. Cold-start fast, stay warm for throughput.
             </FeatureCard>
-            <FeatureCard title="Deterministic orchestration" icon={<span className="mcpIcon">◆</span>}>
-              OrcA plans and executes multi-tool tasks predictably—no brittle prompt chaining.
+            <FeatureCard title="Predictable Workflows" icon={<span className="mcpIcon">🎯</span>}>
+              OrcA orchestrates multi-step tasks deterministically. No brittle prompt chains or guesswork.
             </FeatureCard>
-            <FeatureCard title="Vendor-neutral" icon={<span className="mcpIcon">↔</span>}>
-              Works with any MCP client: ChatGPT, Claude, QBot, Agentico.dev, chatMCP. OAS + MCP + Arazzo stay portable.
+            <FeatureCard title="Stay Portable" icon={<span className="mcpIcon">🔄</span>}>
+              Works with any MCP client—ChatGPT, Claude, QBot, custom agents. No vendor lock-in.
             </FeatureCard>
           </div>
         </div>

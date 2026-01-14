@@ -57,10 +57,10 @@ a:not(.button) {
   text-decoration-thickness: 1.5px;
 }
 
-/* Blog list hero */
+/* Blog list hero - Enhanced with badge and install command */
 .mcpHero {
   position: relative;
-  padding: 4rem 0 3rem;
+  padding: 5rem 0 4rem;
   text-align: center;
   background: radial-gradient(1200px 400px at 50% -10%,
       color-mix(in srgb, var(--brand-primary) 16%, transparent),
@@ -88,16 +88,125 @@ a:not(.button) {
     );
 }
 
+/* Hero Badge - "MCP With No Shadows" */
+.mcpHeroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, 
+    color-mix(in srgb, var(--brand-primary) 20%, transparent),
+    color-mix(in srgb, var(--brand-secondary) 15%, transparent));
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  color: var(--ifm-font-color-base);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.mcpBadgeIcon {
+  font-size: 1.1rem;
+}
+
 .mcpHeroTitle {
-  font-size: clamp(1.8rem, 2.2rem + 1.2vw, 3rem);
+  font-size: clamp(2rem, 2.4rem + 1.5vw, 3.5rem);
   line-height: 1.1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--ifm-font-color-base), var(--brand-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mcpHeroTitle strong {
+  color: var(--brand-secondary);
+  background: none;
+  -webkit-text-fill-color: var(--brand-secondary);
+}
+
+[data-theme='dark'] .mcpHeroTitle {
+  background: linear-gradient(135deg, #ffffff, var(--brand-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .mcpHeroSubtitle {
-  max-width: 70ch;
-  margin: 0.75rem auto 1.25rem;
+  max-width: 75ch;
+  margin: 0 auto 1rem;
   color: var(--ifm-color-emphasis-700);
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.mcpHeroSubtitle strong {
+  color: var(--brand-primary);
+  font-weight: 700;
+}
+
+.mcpHeroDescription {
+  max-width: 70ch;
+  margin: 0 auto 2rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.mcpHeroDescription strong {
+  color: var(--brand-secondary);
+  font-weight: 600;
+}
+
+/* Install command box */
+.mcpInstallBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: color-mix(in srgb, var(--ifm-background-color) 95%, var(--brand-primary));
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 20%, transparent);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.mcpInstallCode {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-800);
+  background: transparent;
+  padding: 0;
+}
+
+[data-theme='dark'] .mcpInstallCode {
+  color: var(--ifm-color-emphasis-700);
+}
+
+.mcpInstallPrefix {
+  color: var(--brand-primary);
+  margin-right: 0.5rem;
+  font-weight: 700;
+}
+
+.mcpCopyBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.25rem;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.mcpCopyBtn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.mcpCopyBtn:active {
+  transform: scale(0.95);
 }
 
 .mcpHeroCtas {
@@ -111,6 +220,65 @@ a:not(.button) {
   --ifm-button-background-color: var(--brand-secondary);
   --ifm-button-border-color: var(--brand-secondary);
   color: #fff !important;
+  transition: all 0.2s ease;
+}
+
+.mcpBtnSecondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--brand-secondary) 35%, transparent);
+}
+
+.mcpBtnOutline {
+  --ifm-button-background-color: transparent;
+  --ifm-button-border-color: color-mix(in srgb, var(--ifm-font-color-base) 30%, transparent);
+  color: var(--ifm-font-color-base) !important;
+  transition: all 0.2s ease;
+}
+
+.mcpBtnOutline:hover {
+  --ifm-button-border-color: var(--brand-primary);
+  --ifm-button-background-color: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+  color: var(--brand-primary) !important;
+}
+
+/* Section Headers */
+.mcpSectionHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.mcpSectionBadge {
+  display: inline-block;
+  background: color-mix(in srgb, var(--brand-primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 25%, transparent);
+  color: var(--brand-primary);
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.mcpSectionTitle {
+  font-size: clamp(1.75rem, 2rem + 0.5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.mcpSectionSubtitle {
+  font-size: 1.1rem;
+  color: var(--ifm-color-emphasis-700);
+  max-width: 70ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.mcpSectionSubtitle strong {
+  color: var(--brand-secondary);
+  font-weight: 600;
 }
 
 /* Landing sections */
