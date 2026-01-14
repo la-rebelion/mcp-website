@@ -57,7 +57,7 @@ function Hero(): ReactNode {
           No shadow code. No shadow IT. Just your APIs, instantly connected to AI agents.
         </p>
         <p className="mcpHeroDescription">
-          Turn your existing OpenAPI specs into MCP tools in <strong>hours, not months</strong>. 
+          Turn your existing OpenAPI specs into MCP tools in <strong>seconds! Not months</strong>. 
           No rewrites, no duplicate logic, no technical debt. Your APIs become AI-ready while you keep control.
         </p>
         <div className="mcpHeroCtas">
@@ -204,11 +204,11 @@ function LandingSections() {
               </p>
               <p>
                 Works with your existing stack: HAPI Server for auto-generation, runMCP for scaling, 
-                OrcA for orchestration, QBot + chatMCP for interfaces. Deploy in hours, not months.
+                OrcA for orchestration, QBot + chatMCP for interfaces. Deploy in seconds! Not hours, not weeks.
               </p>
               <div className="mcpHeroCtas" style={{ justifyContent: 'flex-start' }}>
                 <Link className="button button--primary" href="https://docs.mcp.com.ai">Read the Docs</Link>
-                <Link className="button mcpBtnSecondary" href="#how-it-works">See How It Works</Link>
+                <Link className="button mcpBtnSecondary" href="/#how-it-works">See How It Works</Link>
               </div>
             </div>
             <div className="col col--6">
@@ -266,8 +266,8 @@ function LandingSections() {
             <FeatureCard title="Zero Shadow Code" icon={<span className="mcpIcon">🚫</span>}>
               Your APIs are the runtime. No duplicate logic in agent layers. One source of truth, always in sync.
             </FeatureCard>
-            <FeatureCard title="Deploy in Hours" icon={<span className="mcpIcon">⚡</span>}>
-              OpenAPI to MCP tools automatically. What takes competitors months happens in a single afternoon.
+            <FeatureCard title="Deploy in Seconds" icon={<span className="mcpIcon">⚡</span>}>
+              OpenAPI to MCP tools automatically. What takes competitors months happens before you finish your coffee.
             </FeatureCard>
             <FeatureCard title="Keep Governance" icon={<span className="mcpIcon">🛡</span>}>
               Auth, RBAC, rate limits, audit trails—inherited from your APIs. Compliance teams sleep better.
