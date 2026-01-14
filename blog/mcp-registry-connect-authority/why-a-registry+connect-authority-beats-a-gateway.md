@@ -2,7 +2,7 @@
 title: "Why a Registry + Connect Authority Beats a Gateway"
 description: "A comparison of MCP Registry as a Connect Authority versus traditional MCP Gateway architectures."
 image: /img/mcp-connect-authority/mcp-connect-authority-beats-gateway.png
-tags: [mcp, architecture, connect-authority]
+tags: [architecture, connect-authority, mcp-registry]
 keywords: [mcp,registry,connect authority,gateway,hapi,architecture]
 ---
 
