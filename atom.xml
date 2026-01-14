@@ -83,7 +83,6 @@ A <strong>Connect Authority</strong> is a control-plane enabler. It answers: <em
             <name>Adrian Escutia</name>
             <uri>https://adrian.escutia.me</uri>
         </author>
-        <category label="MCP" term="MCP"/>
         <category label="Architecture" term="Architecture"/>
         <category label="MCP Connect Authority" term="MCP Connect Authority"/>
         <category label="Zero Trust" term="Zero Trust"/>
@@ -183,7 +182,7 @@ If no → the connection never starts.</p>
 <p>This approach is comparable to <strong>DNS + app store metadata</strong>—but with enforcement capabilities.</p>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-connect-descriptor-the-boarding-pass">The Connect Descriptor (the "boarding pass")<a href="https://mcp.com.ai/mcp-registry-connect-authority/beyond-mcp-gateways#the-connect-descriptor-the-boarding-pass" class="hash-link" aria-label="Direct link to The Connect Descriptor (the &quot;boarding pass&quot;)" title="Direct link to The Connect Descriptor (the &quot;boarding pass&quot;)" translate="no">​</a></h2>
-<p><img decoding="async" loading="lazy" alt="Boarding Pass" src="https://mcp.com.ai/assets/images/mcp-beyond-gateway-31b8292e5afd139c1329f8435a803fb6.png" width="1536" height="1024" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Boarding Pass" src="https://mcp.com.ai/assets/images/mcp-beyond-gateway-a6dfd0306d4c69ee07af6c053d18d99a.png" width="1536" height="1024" class="img_ev3q"></p>
 <p>This is the missing primitive.</p>
 <p>A <strong>Connect Descriptor</strong> is a:</p>
 <ul>
@@ -373,7 +372,6 @@ If no → the connection never starts.</p>
 </ul>
 <p>And that's the difference between a system that scales — and one that collapses under its own ambition.</p>
 <p><em>Be HAPI</em>, and stay tuned for more MCP architecture deep dives. Go Rebels! ✊🏼</p>]]></content>
-        <category label="MCP" term="MCP"/>
         <category label="Architecture" term="Architecture"/>
         <category label="MCP Connect Authority" term="MCP Connect Authority"/>
     </entry>
@@ -407,9 +405,9 @@ If no → the connection never starts.</p>
 <p>With that said, you can always pair both patterns: use the Registry as a Connect Authority <em>and</em> deploy gateways where needed. They're not mutually exclusive. What matters is that you separate <strong>permission</strong> (Registry) from <strong>enforcement</strong> (HAPI servers), and avoid becoming a fragile, high-risk data-plane bottleneck.</p>
 <p>What about you? Have you used either pattern? Share your experiences in the comments!</p>
 <p><em>Be HAPI</em>, and stay tuned for more MCP architecture deep dives. Go Rebels! ✊🏼</p>]]></content>
-        <category label="MCP" term="MCP"/>
         <category label="Architecture" term="Architecture"/>
         <category label="MCP Connect Authority" term="MCP Connect Authority"/>
+        <category label="MCP Registry" term="MCP Registry"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[When Not to Use AI: Deterministic Workflows in Production Systems]]></title>
