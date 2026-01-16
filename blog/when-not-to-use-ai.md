@@ -7,7 +7,6 @@ authors:
 publisher: 'MCP Project'
 tags:
   - arazzo
-  - mcp
   - api-first
   - rest
   - ai-integration
