@@ -1,0 +1,245 @@
+---
+draft: true
+---
+
+**It doesn’t look dangerous. That’s why it works.**
+
+Shadow code is born the same way shadow IT is: with good intentions, urgency, and a real business need. The problem isn’t *why* it exists—it’s what it silently becomes.
+
+Let’s define it gently, clearly, and without pointing fingers.
+
+<!-- truncate -->
+
+---
+
+## What Is Shadow Code?
+
+### TL;DR:
+
+> **Shadow code is business-critical logic that lives outside the official system of record—working today, but silently diverging from the truth over time.**
+
+### In Depth:
+
+**Shadow code** is **production-relevant code that exists outside the organization’s official software lifecycle, architecture, and governance model**.
+
+It is:
+
+* Not reviewed by the owning team
+* Not aligned with the system of record
+* Not designed for long-term ownership
+* Not visible as a dependency
+* Not accountable to product, security, or platform standards
+
+In one line:
+
+> **If the business depends on it, but the platform doesn’t know it exists—that’s shadow code.**
+
+---
+
+## What Shadow Code Is *Not*
+
+This is important to keep the tone fair.
+
+Shadow code is **not**:
+
+* Bad engineering
+* Laziness
+* Innovation
+* Prototyping
+* Experimentation
+
+Shadow code usually comes from **senior, capable engineers solving real problems under pressure**.
+
+That’s why it’s so dangerous—it looks correct.
+
+---
+
+## Common Forms of Shadow Code
+
+Let’s ground this in examples people recognize immediately.
+
+### 1. Duplicated Business Logic
+
+* Re-implementing validation rules
+* Re-creating authorization checks
+* Re-encoding workflows already defined elsewhere
+
+Same logic. Different code paths. Different futures.
+
+---
+
+### 2. Parallel Integration Layers
+
+* Wrappers built around existing APIs
+* Adapters translating data models differently
+* Custom gateways created “just for AI” or “just for agents”
+
+The original system keeps evolving.
+The shadow version freezes in time.
+
+---
+
+### 3. “Temporary” Services That Become Permanent
+
+* Internal tools
+* Sidecar services
+* Utility MCP servers
+* Glue code written “just to unblock us”
+
+Nothing is more permanent than a temporary fix that works.
+
+---
+
+### 4. Re-Packaging Existing Systems Without Ownership
+
+This is where MCP servers often come in.
+
+When teams:
+
+* Re-expose existing APIs as new MCP servers
+* Re-implement API contracts manually
+* Encode business meaning into prompts or tool descriptions
+* Fork domain logic to “make it AI-friendly”
+
+They aren’t adding capability.
+They’re **forking reality**.
+
+---
+
+## Why Shadow Code Is a Silent Problem
+
+Shadow code rarely fails loudly.
+
+It degrades systems slowly.
+
+---
+
+### 1. Divergence Over Time
+
+Two versions of “truth” now exist:
+
+* The real system
+* The shadow interpretation
+
+When rules change:
+
+* One updates
+* One doesn’t
+
+Nobody notices until something breaks in production—and no one knows why.
+
+---
+
+### 2. Ownership Collapse
+
+Ask these questions:
+
+* Who owns this code?
+* Who updates it when APIs change?
+* Who audits it?
+* Who deprecates it?
+
+If the answer is “that team” or “whoever built it” → shadow code.
+
+---
+
+### 3. Invisible Technical Debt
+
+Shadow code:
+
+* Isn’t in roadmaps
+* Isn’t budgeted
+* Isn’t refactored
+* Isn’t tested at scale
+
+Yet it becomes **mission-critical**.
+
+That’s debt with interest—and no payment plan.
+
+---
+
+### 4. Security & Compliance Drift
+
+Security teams protect:
+
+* Known systems
+* Approved pipelines
+* Documented data flows
+
+Shadow code bypasses all three.
+
+Not maliciously.
+Accidentally.
+
+That’s worse.
+
+---
+
+## Shadow Code in the MCP Context (The Gentle Truth)
+
+Here’s a calm, non-judgmental framing.
+
+> MCP servers are powerful.
+>
+> But when they re-implement logic that already exists in APIs, services, or platforms, they risk becoming **shadow code with an AI interface**.
+
+The risk isn’t MCP itself.
+
+The risk is:
+
+* Rewriting contracts instead of reusing them
+* Encoding domain rules in prompts instead of specs
+* Treating MCP servers as “the new backend” instead of a **thin access layer**
+
+This creates:
+
+* Duplicate logic
+* Drift between systems
+* AI behavior tied to stale assumptions
+
+---
+
+## A Soft, Genuine Reframe
+
+Instead of saying:
+
+> “This is wrong.”
+
+Say:
+
+> “This works today—but it creates a second source of truth tomorrow.”
+
+Instead of:
+
+> “You’re breaking architecture.”
+
+Say:
+
+> “We’re moving business logic away from where it’s owned and governed.”
+
+Instead of:
+
+> “Don’t build MCP servers.”
+
+Say:
+
+> “Let’s avoid turning MCP servers into shadow backends.”
+
+---
+
+## The Guiding Principle (This Lands Well)
+
+> **AI should consume reality, not recreate it.**
+
+APIs already *are* the contract.
+They already encode:
+
+* Validation
+* Security
+* Business rules
+* Ownership
+
+MCP should **surface**, not **duplicate**, that logic.
+
+
+

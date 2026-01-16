@@ -208,7 +208,7 @@ function LandingSections() {
               </p>
               <div className="mcpHeroCtas" style={{ justifyContent: 'flex-start' }}>
                 <Link className="button button--primary" href="https://docs.mcp.com.ai">Read the Docs</Link>
-                <Link className="button mcpBtnSecondary" href="/#how-it-works">See How It Works</Link>
+                <Link className="button mcpBtnSecondary" href="#how-it-works">See How It Works</Link>
               </div>
             </div>
             <div className="col col--6">
