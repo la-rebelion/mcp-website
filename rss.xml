@@ -4,10 +4,100 @@
         <title>MCP AI Blog Blog</title>
         <link>https://mcp.com.ai</link>
         <description>MCP AI Blog Blog</description>
-        <lastBuildDate>Mon, 12 Jan 2026 13:30:36 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 16 Jan 2026 13:19:54 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Unlocking Podcast Insights with MCP]]></title>
+            <link>https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server</link>
+            <guid>https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server</guid>
+            <pubDate>Fri, 16 Jan 2026 13:19:54 GMT</pubDate>
+            <description><![CDATA[Discover how the Lenny Rachitsky Podcast Transcripts MCP Server empowers marketers, product managers, and creators to extract insights and repurpose content effortlessly.]]></description>
+            <content:encoded><![CDATA[<p>Transcripts from podcasts are treasure troves of insights, ideas, and stories. However, accessing and utilizing this wealth of information can be challenging for marketers, product managers, and content creators—especially those without deep technical expertise.</p>
+<p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7417011928159629313?updateEntityUrn=urn%3Ali%3Afs_updateV2%3A%28urn%3Ali%3Aactivity%3A7417011928159629313%2CFEED_DETAIL%2CEMPTY%2CDEFAULT%2Cfalse%29" target="_blank" rel="noopener noreferrer" class="">Lenny Rachitsky posted on LinkedIn</a> about sharing transcripts of his podcast episodes, I decided to format the transcripts for easy consumption by language models and AI tools.</p>
+<p>At this point, you should know about MCP (<a href="https://modelcontextprotocol.io/docs/getting-started/intro" target="_blank" rel="noopener noreferrer" class="">Model Context Protocol</a>) and how it enables secure, scalable AI servers. In this post, I’m excited to introduce the <strong>Lenny Rachitsky Podcast Transcripts MCP Server</strong>—a powerful solution designed specifically for marketers, product managers, and creators to unlock the full potential of podcast content.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-mcp-model-context-protocol-and-why-should-you-care">What is MCP (Model Context Protocol) and Why Should You Care?<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#what-is-mcp-model-context-protocol-and-why-should-you-care" class="hash-link" aria-label="Direct link to What is MCP (Model Context Protocol) and Why Should You Care?" title="Direct link to What is MCP (Model Context Protocol) and Why Should You Care?" translate="no">​</a></h2>
+<p>Model Context Protocol (MCP) is revolutionizing how businesses, marketers, and creators (well, everyone) interact with AI. MCP provides a standardized way to build, manage, and deploy AI servers. With MCP, you can easily build AI-powered applications that analyze, summarize, and extract insights from large content archives—like podcasts, webinars, and interviews—without deep technical expertise.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="introducing-the-lenny-rachitsky-podcast-transcripts-mcp-server">Introducing the Lenny Rachitsky Podcast Transcripts MCP Server<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#introducing-the-lenny-rachitsky-podcast-transcripts-mcp-server" class="hash-link" aria-label="Direct link to Introducing the Lenny Rachitsky Podcast Transcripts MCP Server" title="Direct link to Introducing the Lenny Rachitsky Podcast Transcripts MCP Server" translate="no">​</a></h2>
+<p>If you’re a marketer, product manager, or content creator looking to tap into the wisdom of Lenny Rachitsky’s podcast, the new MCP-powered Podcast Transcripts API is your gateway. This solution makes it easy to search, analyze, and repurpose podcast content for marketing, product research, and content creation.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-features-for-marketers-and-product-teams">Key Features for Marketers and Product Teams<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#key-features-for-marketers-and-product-teams" class="hash-link" aria-label="Direct link to Key Features for Marketers and Product Teams" title="Direct link to Key Features for Marketers and Product Teams" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Instant Podcast Search</strong>: Find episodes, guests, and topics in seconds using natural language queries.</li>
+<li class=""><strong>Content Summarization</strong>: Generate summaries and key takeaways for newsletters, blogs, or social media.</li>
+<li class=""><strong>Topic &amp; Keyword Extraction</strong>: Identify trending topics and guest insights for campaign planning.</li>
+<li class=""><strong>Personalized Recommendations</strong>: Build tools that suggest relevant episodes to your audience or team.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-the-lenny-rachitsky-podcast-mcp-server-works">How the Lenny Rachitsky Podcast MCP Server Works<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#how-the-lenny-rachitsky-podcast-mcp-server-works" class="hash-link" aria-label="Direct link to How the Lenny Rachitsky Podcast MCP Server Works" title="Direct link to How the Lenny Rachitsky Podcast MCP Server Works" translate="no">​</a></h2>
+<p>Following this approach, the MCP server ingests and indexes Lenny Rachitsky’s podcast transcripts, making them accessible via a simple REST API. In fact, anyone can <a href="https://docs.mcp.com.ai/deployment/cloud/cloudflare" target="_blank" rel="noopener noreferrer" class="">deploy their own instance of this MCP server</a> to analyze different podcasts or content archives.</p>
+<p>Here’s how it works under the hood:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-automated-ingestion--indexing">1. Automated Ingestion &amp; Indexing<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#1-automated-ingestion--indexing" class="hash-link" aria-label="Direct link to 1. Automated Ingestion &amp; Indexing" title="Direct link to 1. Automated Ingestion &amp; Indexing" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Cloudflare Workers</strong> handle transcript ingestion and processing.</li>
+<li class=""><strong>D1 Database</strong> stores episode metadata and transcript chunks.</li>
+<li class=""><strong>Vectorize</strong> enables fast, AI-powered semantic search across all transcripts.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-scalable-api-access">2. Scalable API Access<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#2-scalable-api-access" class="hash-link" aria-label="Direct link to 2. Scalable API Access" title="Direct link to 2. Scalable API Access" translate="no">​</a></h3>
+<ul>
+<li class="">Query the transcripts via a simple REST API.</li>
+<li class="">Retrieve episode details, transcript snippets, and keyword highlights.</li>
+<li class="">Integrate with your marketing dashboards, product research tools, or content workflows.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-built-for-non-technical-users">3. Built for Non-Technical Users<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#3-built-for-non-technical-users" class="hash-link" aria-label="Direct link to 3. Built for Non-Technical Users" title="Direct link to 3. Built for Non-Technical Users" translate="no">​</a></h3>
+<ul>
+<li class="">No coding required to get started—just connect any MCP-compatible AI tool.</li>
+<li class="">The MCP Server consumes the data from the API trascripts and makes it available for AI models.</li>
+<li class="">Designed with marketers and product managers in mind.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="demo-searching-lenny-rachitskys-podcast-transcripts">Demo: Searching Lenny Rachitsky's Podcast Transcripts<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#demo-searching-lenny-rachitskys-podcast-transcripts" class="hash-link" aria-label="Direct link to Demo: Searching Lenny Rachitsky's Podcast Transcripts" title="Direct link to Demo: Searching Lenny Rachitsky's Podcast Transcripts" translate="no">​</a></h2>
+<!--$?--><template id="B:0"></template><!--/$-->
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="example-use-cases">Example Use Cases<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#example-use-cases" class="hash-link" aria-label="Direct link to Example Use Cases" title="Direct link to Example Use Cases" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Content Marketing</strong>: Instantly find and repurpose podcast insights for blog posts, newsletters, and social media.</li>
+<li class=""><strong>Product Research</strong>: Analyze discussions on product management, growth, and startup strategies.</li>
+<li class=""><strong>Creator Tools</strong>: Build AI chatbots or assistants that answer questions about podcast content.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-get-started">How to Get Started<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#how-to-get-started" class="hash-link" aria-label="Direct link to How to Get Started" title="Direct link to How to Get Started" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>API Endpoint</strong>: <a href="https://lenny-rachitsky.search.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">https://lenny-rachitsky.search.mcp.com.ai</a></li>
+<li class=""><strong>OpenAPI Spec</strong>: <a href="https://docs.mcp.com.ai/servers-apis/openapi/podcast-transcripts.yaml" target="_blank" rel="noopener noreferrer" class="">Podcast Transcripts YAML</a></li>
+<li class=""><strong>MCP Server</strong>: <a href="https://lenny-rachitsky.run.mcp.com.ai/mcp" target="_blank" rel="noopener noreferrer" class="">https://lenny-rachitsky.run.mcp.com.ai/mcp</a></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-mcp-is-the-future-for-marketers-and-product-teams">Why MCP is the Future for Marketers and Product Teams<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#why-mcp-is-the-future-for-marketers-and-product-teams" class="hash-link" aria-label="Direct link to Why MCP is the Future for Marketers and Product Teams" title="Direct link to Why MCP is the Future for Marketers and Product Teams" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Enterprise-Grade</strong>: Deploy on your own infrastructure or trusted cloud.</li>
+<li class=""><strong>Scalable &amp; Fast</strong>: Handles thousands of transcripts and queries with ease.</li>
+<li class=""><strong>Customizable</strong>: Adapt the solution for any podcast, webinar, or content archive.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deploy-your-own-mcp-server-for-content-archives">Deploy Your Own MCP Server for Content Archives<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#deploy-your-own-mcp-server-for-content-archives" class="hash-link" aria-label="Direct link to Deploy Your Own MCP Server for Content Archives" title="Direct link to Deploy Your Own MCP Server for Content Archives" translate="no">​</a></h2>
+<p>You can deploy your own instance of the Lenny Rachitsky Podcast Transcripts MCP Server or any other content archive using the <a href="https://docs.mcp.com.ai/components/hapi-server/hapi-cli" target="_blank" rel="noopener noreferrer" class="">HAPI CLI</a>, <a href="https://docs.mcp.com.ai/deployment/docker" target="_blank" rel="noopener noreferrer" class="">Docker</a>, to the cloud provider of your choice, for now Cloudflare Workers and Fly.io are supported.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve lenny-rachitsky-podcast --port 3030 --headless --url https://lenny-rachitsky.search.mcp.com.ai --openapi https://docs.mcp.com.ai/servers-apis/openapi/podcast-transcripts.yaml</span><br></span></code></pre></div></div>
+<p>Find the MCP Server in the <a href="https://registry.modelcontextprotocol.io/?q=lenny-rachitsky" target="_blank" rel="noopener noreferrer" class="">MCP Registry</a> and connect it to your favorite AI tools and language models.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-thoughts">Final Thoughts<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#final-thoughts" class="hash-link" aria-label="Direct link to Final Thoughts" title="Direct link to Final Thoughts" translate="no">​</a></h2>
+<p>With MCP, you can unlock the full value of podcast content—turning hours of audio into actionable insights for your marketing, product, or content strategy. Whether you’re a non-technical marketer or a product manager, MCP makes advanced AI accessible and secure.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="join-the-revolution---future-features">Join the Revolution - Future features<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#join-the-revolution---future-features" class="hash-link" aria-label="Direct link to Join the Revolution - Future features" title="Direct link to Join the Revolution - Future features" translate="no">​</a></h2>
+<p>What would you like to see next? Here are some ideas for future enhancements to the Lenny Rachitsky Podcast Transcripts MCP Server:</p>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <strong>AI-Powered Summarization</strong>: Generate episode summaries and key takeaways automatically.</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <strong>Advanced Analytics</strong>: Track listener engagement and topic trends over time.</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <strong>Custom Integrations</strong>: Connect with your favorite marketing and product tools seamlessly.</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <strong>ChatGPT App Integration</strong>: Use the MCP server directly within ChatGPT for interactive podcast exploration.</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <strong>More Podcast Archives</strong>: Expand to include transcripts from other popular podcasts.</li>
+</ul>
+<p>Ideas? Feedback? Reach out on <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&amp;followMember=adrianescutia" target="_blank" rel="noopener noreferrer" class="">LinkedIn</a> or join the <a href="https://discord.gg/uTPRBnSV" target="_blank" rel="noopener noreferrer" class="">HAPI MCP Discord Community</a>. Let’s build the future of AI-powered content together, Be HAPI and Go Rebels! ✊🏼</p>
+<a class="libutton" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&amp;followMember=adrianescutia" target="_blank">Follow on LinkedIn</a>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="disclaimer">Disclaimer<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#disclaimer" class="hash-link" aria-label="Direct link to Disclaimer" title="Direct link to Disclaimer" translate="no">​</a></h2>
+<p>This archive is for educational and research purposes. All content belongs to Lenny's Podcast and the respective guests. Please visit the official YouTube channel to support the creators.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="transcript-archive-details">Transcript Archive Details<a href="https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server#transcript-archive-details" class="hash-link" aria-label="Direct link to Transcript Archive Details" title="Direct link to Transcript Archive Details" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="ttps://www.dropbox.com/scl/fo/yxi4s2w998p1gvtpu4193/AMdNPR8AOw0lMklwtnC0TrQ?rlkey=mwwj2oygno72le23o6kvzq5wq&amp;st=75ga9ff9&amp;dl=0" target="_blank" rel="noopener noreferrer" class="">Dropboxh</a> - Lenny's Podcast Transcripts (all episodes in plain text format).</li>
+<li class=""><a href="https://github.com/la-rebelion/lennys-podcast-transcripts" target="_blank" rel="noopener noreferrer" class="">GitHub Repository</a> - Forked from <a href="https://github.com/cvolawless" target="_blank" rel="noopener noreferrer" class="">Claire Vo</a> repository. Contains the transcripts in markdown format with frontmatter metadata.</li>
+</ul>]]></content:encoded>
+            <category>API-First</category>
+            <category>AI Integration</category>
+        </item>
         <item>
             <title><![CDATA[The MCP Connect Authority: A Zero Trust Architecture for AI]]></title>
             <link>https://mcp.com.ai/mcp-registry-connect-authority</link>
@@ -808,7 +898,6 @@ It's a <strong>bridge between AI intent and deterministic execution</strong>.</p
 <hr>
 <p>Ready to make your AI systems more reliable and cost-efficient?</p>]]></content:encoded>
             <category>Arazzo</category>
-            <category>MCP</category>
             <category>API-First</category>
             <category>REST</category>
             <category>AI Integration</category>
