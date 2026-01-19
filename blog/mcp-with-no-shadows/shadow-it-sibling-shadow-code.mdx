@@ -18,6 +18,8 @@ Let’s define it gently, clearly, and without pointing fingers.
 
 > **Shadow code is business-critical logic that lives outside the official system of record—working today, but silently diverging from the truth over time.**
 
+Shadow code is unmanaged business logic diverging from the official systems.
+
 ### In Depth:
 
 **Shadow code** is **production-relevant code that exists outside the organization’s official software lifecycle, architecture, and governance model**.
@@ -242,4 +244,12 @@ They already encode:
 MCP should **surface**, not **duplicate**, that logic.
 
 
+When building MCP servers or AI layers, always ask:
+
+* “Am I re-implementing existing logic?”
+* “Is there a way to call the real system instead?”
+* “Who will own this code long-term?”
+* “What happens when the real system changes?”
+
+If the answer reveals duplication, pause.
 
