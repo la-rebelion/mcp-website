@@ -1,5 +1,6 @@
 ---
 title: "The Multiverse Place Without APIs"
+# image: ./multiverse-place-without-apis-hero.png
 draft: true
 ---
 
