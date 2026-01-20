@@ -110,3 +110,15 @@ mcp-registry:
   permalink: /mcp-registry
   description: >
     The MCP Registry is a centralized directory that maintains metadata about available MCP-compliant services, tools, and resources for discovery and access by clients.
+
+mcp-at-scale:
+  label: MCP at Scale
+  permalink: /mcp-at-scale
+  description: >
+    MCP at Scale refers to the implementation and management of the Model Context Protocol in large-scale environments, ensuring performance, reliability, and security for extensive AI applications.
+
+platform-engineering:
+  label: Platform Engineering
+  permalink: /platform-engineering
+  description: >
+    Platform Engineering involves designing and building the underlying infrastructure and tools that support the development, deployment, and operation of software applications and services.

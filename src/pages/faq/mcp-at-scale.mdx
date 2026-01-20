@@ -1,0 +1,88 @@
+---
+title: MCP At Scale FAQ
+description: "Answers to the most common MCP questions: token bloat, lazy loading, tool discovery, registries, and governance."
+---
+
+import Head from '@docusaurus/Head';
+
+export const FAQ = [
+  // Token bloat
+  {
+    q: 'What is token bloat in MCP?',
+    a: 'Token bloat in MCP happens when too many tool definitions (schemas + descriptions) are loaded into the model context, inflating prompt size before reasoning starts.',
+    category: 'Token bloat',
+  },
+  {
+    q: 'How do you prevent token bloat when your catalog has thousands of tools?',
+    a: 'Use search-based tool discovery, rank to a shortlist, enforce context budgets, filter by policy (role/tenant), and expand schemas on demand (summaries first, full schema later).',
+    category: 'Token bloat',
+  },
+  {
+    q: 'What is a context budget for MCP tools?',
+    a: 'A context budget is a hard limit on tool/schema tokens per request. It keeps cost and latency predictable and prevents runaway prompts.',
+    category: 'Token bloat',
+  },
+
+  // Discovery & lazy loading
+  {
+    q: 'What is lazy loading for MCP tools?',
+    a: 'Lazy loading means loading tool schemas only after the agent identifies relevant tools (usually via search/ranking), rather than preloading the entire catalog into context.',
+    category: 'Discovery & lazy loading',
+  },
+  {
+    q: 'What is tool discovery in MCP?',
+    a: 'Tool discovery is querying a registry (or authority layer) to retrieve a small, ranked set of candidate tools for a task, then loading only those tools into context.',
+    category: 'Discovery & lazy loading',
+  },
+
+  // Registry & governance
+  {
+    q: 'What is an MCP registry?',
+    a: 'An MCP registry is a catalog of tools/servers and their metadata used for discovery, versioning, ownership, and governance.',
+    category: 'Registry & governance',
+  },
+  {
+    q: 'What is shadow MCP?',
+    a: 'Shadow MCP is ungoverned MCP tooling that appears without centralized discovery, policy enforcement, or auditing. It often shows up first as tool sprawl and token bloat.',
+    category: 'Registry & governance',
+  }
+];
+
+export const categories = Array.from(new Set(FAQ.map(f => f.category)));
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": FAQ.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+# MCP At Scale FAQ
+
+This page is a living FAQ. It collects answers to the most common questions about MCP: token bloat, lazy loading, tool discovery, registries, and governance.
+
+---
+
+{categories.map(cat => (
+  <section key={cat} style={{marginBottom: '2rem'}}>
+    <h2>{cat}</h2>
+    {FAQ.filter(f => f.category === cat).map((item, idx) => (
+      <details key={idx} style={{marginBottom: '0.75rem'}}>
+        <summary><strong>{item.q}</strong></summary>
+        <p style={{marginTop: '0.5rem'}}>{item.a}</p>
+      </details>
+    ))}
+  </section>
+))}
