@@ -8,10 +8,105 @@ keywords:
   - MCP token optimization
   - HAPI MCP
   - Tool Discovery
+tags: [mcp-at-scale, architecture]
 authors:
   - adrian
 image: /img/blog/dynamic-discovery-tools.png
 ---
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is token bloat in MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Token bloat in MCP happens when an MCP client injects too many tool definitions (schemas + descriptions) into the model context, inflating prompt size before reasoning even starts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is token bloat a problem for MCP systems?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Token bloat increases cost per request, adds latency, degrades tool selection quality, and expands the security/compliance surface because more tools appear in context than are needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What causes token bloat in MCP tool catalogs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most common cause is static tool injection: loading the full tool catalog into the prompt on every request instead of discovering and loading only what’s needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is lazy loading for MCP tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lazy loading means you load tool schemas only after the agent has identified relevant tools (usually via search/ranking), rather than preloading every tool into context."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is tool discovery in MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tool discovery is a step where the agent queries a registry (or authority layer) to retrieve a small, ranked set of candidate tools for a task, then loads only those."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you mitigate token bloat when you have thousands of MCP tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use search-based discovery + ranking, enforce tool/context budgets, filter tools by policy (role/tenant), and expand schemas on demand (summaries first, full schemas later)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a context budget for MCP tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A context budget is a hard limit on how many tools or schema tokens can be included in a request. It keeps cost and latency predictable and prevents runaway prompts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use FAQPage or QAPage schema for MCP Q&A content?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use FAQPage when each question has a single authoritative answer you provide. Use QAPage only when users can submit answers (like forums)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is shadow MCP and how does it relate to token bloat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shadow MCP is ungoverned MCP tooling (servers/tools) that appear without centralized discovery, policy, or audit. It often shows up first as tool sprawl and token bloat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What’s the best MCP architecture pattern to scale tool catalogs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Registry-first discovery with an authority/policy layer: the agent searches a catalog, gets a small ranked shortlist, and only then loads the selected tool schemas for execution."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
 
 **Your MCP just became a memory hog. And it’s quietly burning your budget.**
 
@@ -290,7 +385,7 @@ Your agent should:
 
 1. Understand the task
 2. Query a registry
-3. Receive [ranked candidates](./how-to-rank-mcp-tools-to-improve-discovery)
+3. Receive ranked candidates
 4. Load only relevant tools
 
 This is exactly what Claude’s Tool Search Tool enables.
@@ -415,23 +510,23 @@ Token bloat is the first scaling signal.
 
 ## Where HAPI MCP Fits in This Architecture
 
-HAPI MCP was designed for exactly this future.
+HAPI MCP Stack was designed for exactly this future.
 
 Not as a toy MCP wrapper.
 But as a **Headless API platform for AI execution.**
 
 Core principles:
 
-* API-first MCP servers
+* [API-first MCP servers](https://hapi.mcp.com.ai/)
 * Registry-first discovery
-* Connect Authority enforcement
+* [Connect Authority](/tags/mcp-connect-authority) enforcement
 * Zero-trust architecture
-* Enterprise-grade deployment
+* [Enterprise-grade deployment](https://docs.mcp.com.ai/deployment/)
 * Airgap-ready
 * Cloud-ready
 * VM-first friendly
 
-HAPI treats MCP as **platform infrastructure**.
+HAPI treats [MCP as **platform infrastructure**](https://docs.mcp.com.ai/introduction/architecture).
 
 Not prompt glue.
 
@@ -450,11 +545,9 @@ We’re entering the next phase of AI platforms:
 | No governance    | Policy enforcement    |
 | Shadow MCP       | MCP Authority         |
 
-This is exactly the direction Claude is moving.
-
-This is exactly what SEP-1576 proposes.
-
-And this is exactly what enterprises need. HAPI MCP is built for this future.
+This is exactly the direction Claude is moving.  
+This is exactly what SEP-1576 proposes.  
+And this is exactly what enterprises need. HAPI MCP Stack is built for this future.
 
 ---
 
