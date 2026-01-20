@@ -4,10 +4,430 @@
         <title>MCP AI Blog Blog</title>
         <link>https://mcp.com.ai</link>
         <description>MCP AI Blog Blog</description>
-        <lastBuildDate>Fri, 16 Jan 2026 13:19:54 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 20 Jan 2026 00:33:45 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[MCP at Scale: Engineering the Future of AI Platforms]]></title>
+            <link>https://mcp.com.ai/mcp-at-scale</link>
+            <guid>https://mcp.com.ai/mcp-at-scale</guid>
+            <pubDate>Tue, 20 Jan 2026 00:33:45 GMT</pubDate>
+            <description><![CDATA[A deep dive series into the architectural challenges of running Model Context Protocol in production at enterprise scale.]]></description>
+            <content:encoded><![CDATA[<p><strong>The "Hello World" phase of the Model Context Protocol is over.</strong></p>
+<p>As enterprises move from experimental chatbots to production-grade agentic systems, they are hitting the invisible walls of scale: token bloat, latency, governance, and discovery. What works for ten tools fails catastrophically at ten thousand.</p>
+<p><a class="" href="https://mcp.com.ai/mcp-at-scale"><strong>MCP at Scale</strong></a> is a dedicated series exploring the engineering reality of building robust, high-performance AI platforms.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-series-exists">Why This Series Exists<a href="https://mcp.com.ai/mcp-at-scale#why-this-series-exists" class="hash-link" aria-label="Direct link to Why This Series Exists" title="Direct link to Why This Series Exists" translate="no">​</a></h2>
+<p>We are witnessing a shift. MCP is evolving from a simple connector protocol into the <strong>operating system for AI execution</strong>. This transition demands a new set of architectural patterns. It's no longer just about exposing an API; it's about orchestration, security, and efficiency.</p>
+<p>In this ongoing series, we dissect the critical challenges of <strong>large-scale MCP deployments</strong>:</p>
+<ul>
+<li class=""><strong>Token Economics &amp; Efficiency:</strong> Managing the cost and latency of massive tool contexts.</li>
+<li class=""><strong>Dynamic Discovery:</strong> Moving beyond static injection to search-driven tool loading.</li>
+<li class=""><strong>Governance &amp; Security:</strong> Implementing "<a class="" href="https://mcp.com.ai/tags/mcp-connect-authority">Connect Authorities</a>" and preventing Shadow AI.</li>
+<li class=""><strong>High-Volume Orchestration:</strong> Handling thousands of concurrent agent sessions without degradation.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-guide">The Guide<a href="https://mcp.com.ai/mcp-at-scale#the-guide" class="hash-link" aria-label="Direct link to The Guide" title="Direct link to The Guide" translate="no">​</a></h2>
+<p>This series is written for platform engineers, architects, and technical leaders who are building the infrastructure that will power the next generation of AI.</p>
+<hr>
+<p><strong>Join us as we define the standards for enterprise MCP architecture.</strong></p>
+<p>Be HAPI, and Go Rebels! ✊🏼</p>]]></content:encoded>
+            <category>MCP at Scale</category>
+            <category>Architecture</category>
+            <category>Platform Engineering</category>
+        </item>
+        <item>
+            <title><![CDATA[How to Scale MCP to Thousands of Tools Without Destroying Your Budget]]></title>
+            <link>https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget</link>
+            <guid>https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget</guid>
+            <pubDate>Mon, 19 Jan 2026 18:49:49 GMT</pubDate>
+            <description><![CDATA[Strategies to manage token bloat in MCP systems as tool catalogs grow.]]></description>
+            <content:encoded><![CDATA[
+<p><strong>Your MCP just became a memory hog. And it’s quietly burning your budget.</strong></p>
+<p>If your Model Context Protocol (MCP) catalog is growing into the hundreds—or thousands—of tools, you’re already facing the next invisible scalability wall: <strong>token bloat</strong>.</p>
+<p>And it’s not a theory anymore.</p>
+<p>Claude shipped its <strong><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool" target="_blank" rel="noopener noreferrer" class="">Tool Search Tool</a></strong> — a long-requested feature that dynamically discovers and loads tools on demand. The MCP community is actively debating <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1978" target="_blank" rel="noopener noreferrer" class=""><strong>lazy loading</strong></a>, <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1881" target="_blank" rel="noopener noreferrer" class=""><strong>dynamic discovery</strong></a>, and <strong>context minimization</strong>. There’s even a formal proposal now:
+👉 <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1576" target="_blank" rel="noopener noreferrer" class=""><strong>SEP-1576: Mitigating Token Bloat in MCP</strong></a></p>
+<p>We talked about this issue back in August 2025: <a href="https://rebelion.la/agent-tools-guardrails-why-too-many-tools-can-break-your-ai" target="_blank" rel="noopener noreferrer" class="">why too many tools can break your AI</a>, and now it’s time to get practical. This is the moment where MCP moves from “cool demo tech” to <strong>real platform engineering</strong>.</p>
+<p>If you don’t solve token bloat early, your MCP will become:</p>
+<ul>
+<li class="">Expensive to run</li>
+<li class="">Slow to reason</li>
+<li class="">Hard to govern</li>
+<li class="">Risky for enterprise compliance</li>
+<li class="">Hallucination-prone</li>
+</ul>
+<p>Let’s break down what’s happening — and how to design MCP systems that scale cleanly.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="token-bloat-in-mcp-why-your-tool-catalog-is-becoming-a-cost-latency-and-security-problem">Token Bloat in MCP: Why Your Tool Catalog Is Becoming a Cost, Latency, and Security Problem<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#token-bloat-in-mcp-why-your-tool-catalog-is-becoming-a-cost-latency-and-security-problem" class="hash-link" aria-label="Direct link to Token Bloat in MCP: Why Your Tool Catalog Is Becoming a Cost, Latency, and Security Problem" title="Direct link to Token Bloat in MCP: Why Your Tool Catalog Is Becoming a Cost, Latency, and Security Problem" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="business-impact-first">Business impact first<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#business-impact-first" class="hash-link" aria-label="Direct link to Business impact first" title="Direct link to Business impact first" translate="no">​</a></h3>
+<p>Token bloat creates some immediate problems:</p>
+<table><thead><tr><th>Problem</th><th>Business Impact</th></tr></thead><tbody><tr><td>Cost explosion</td><td>Every request loads thousands of unused tool schemas</td></tr><tr><td>Latency</td><td>Larger prompts = slower inference</td></tr><tr><td>Reasoning degradation</td><td>LLMs perform worse with noisy context</td></tr><tr><td>Security risk</td><td>Tools leak into contexts they should never be in</td></tr><tr><td>Compliance failure</td><td>Shadow tools get injected into AI workflows</td></tr></tbody></table>
+<p>At enterprise scale, token bloat is not a technical issue.
+It’s a <strong>platform liability</strong>.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-token-bloat-in-mcp">What Is Token Bloat in MCP?<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#what-is-token-bloat-in-mcp" class="hash-link" aria-label="Direct link to What Is Token Bloat in MCP?" title="Direct link to What Is Token Bloat in MCP?" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="simple-definition">Simple definition<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#simple-definition" class="hash-link" aria-label="Direct link to Simple definition" title="Direct link to Simple definition" translate="no">​</a></h4>
+<p><strong>Token bloat happens when your MCP client sends too many tool definitions into the model context — even when only one tool is needed.</strong></p>
+<p>Instead of:</p>
+<blockquote>
+<p>“Here is the one tool you need.”</p>
+</blockquote>
+<p>You send:</p>
+<blockquote>
+<p>“Here are 4,200 tools. Pick one.”</p>
+</blockquote>
+<p>Each tool contains:</p>
+<ul>
+<li class="">Name</li>
+<li class="">Description</li>
+<li class="">JSON schema</li>
+<li class="">Input types</li>
+<li class="">Output types</li>
+<li class="">Metadata</li>
+</ul>
+<p>Multiply that by thousands.</p>
+<p>Now your model prompt is tens of thousands of tokens before reasoning even starts.</p>
+<p>That’s token bloat.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-mcp-is-uniquely-vulnerable">Why MCP Is Uniquely Vulnerable?<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#why-mcp-is-uniquely-vulnerable" class="hash-link" aria-label="Direct link to Why MCP Is Uniquely Vulnerable?" title="Direct link to Why MCP Is Uniquely Vulnerable?" translate="no">​</a></h3>
+<p>MCP is powerful because it standardizes tools.</p>
+<p>But that same power creates a new failure mode:</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-encourages-tool-catalogs">MCP encourages tool catalogs<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#mcp-encourages-tool-catalogs" class="hash-link" aria-label="Direct link to MCP encourages tool catalogs" title="Direct link to MCP encourages tool catalogs" translate="no">​</a></h4>
+<ul>
+<li class="">Public registries</li>
+<li class="">Internal enterprise registries</li>
+<li class="">Department registries</li>
+<li class="">Vendor registries</li>
+<li class="">Marketplace registries</li>
+</ul>
+<p>Soon you have:</p>
+<ul>
+<li class="">CRM tools</li>
+<li class="">ERP tools</li>
+<li class="">Cloud tools</li>
+<li class="">DevOps tools</li>
+<li class="">Security tools</li>
+<li class="">Finance tools</li>
+<li class="">HR tools</li>
+</ul>
+<p>All MCP-compatible.</p>
+<p>Now your agent needs to choose one.</p>
+<p>So naïve implementations load <strong>everything</strong>.</p>
+<hr>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-breaking-point-thousands-of-tools">The Breaking Point: Thousands of Tools<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#the-breaking-point-thousands-of-tools" class="hash-link" aria-label="Direct link to The Breaking Point: Thousands of Tools" title="Direct link to The Breaking Point: Thousands of Tools" translate="no">​</a></h4>
+<p>The MCP community hit this wall in 2025.</p>
+<p>Which led to:</p>
+<ul>
+<li class=""><strong>SEP-1576: Mitigating Token Bloat in MCP</strong></li>
+<li class="">Feature request: <strong>Lazy Loading for MCP Servers</strong></li>
+<li class="">Claude shipping <strong>Tool Search Tool</strong></li>
+</ul>
+<p>This is the signal:</p>
+<blockquote>
+<p>The ecosystem is moving from static tool injection to dynamic discovery.</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="claudes-tool-search-tool-the-new-mcp-pattern">Claude’s Tool Search Tool: The New MCP Pattern<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#claudes-tool-search-tool-the-new-mcp-pattern" class="hash-link" aria-label="Direct link to Claude’s Tool Search Tool: The New MCP Pattern" title="Direct link to Claude’s Tool Search Tool: The New MCP Pattern" translate="no">​</a></h2>
+<p>Claude’s new <strong>Tool Search Tool</strong> introduces an important shift.</p>
+<p>Instead of loading all tools into context:</p>
+<ol>
+<li class="">Claude receives a task</li>
+<li class="">Claude searches a tool registry</li>
+<li class="">Claude selects relevant tools</li>
+<li class="">Only those tools are loaded into context</li>
+<li class="">Execution begins</li>
+</ol>
+<p>This mirrors how real software works:</p>
+<ul>
+<li class="">You don’t load every library</li>
+<li class="">You import what you need</li>
+</ul>
+<p>This is the path to the future of MCP.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-core-mcp-scaling-problem">The Core MCP Scaling Problem<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#the-core-mcp-scaling-problem" class="hash-link" aria-label="Direct link to The Core MCP Scaling Problem" title="Direct link to The Core MCP Scaling Problem" translate="no">​</a></h2>
+<p>Let’s formalize it.</p>
+<p>Your MCP system has four layers:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">User → Agent → MCP Client → MCP Registry → MCP Servers</span><br></span></code></pre></div></div>
+<p>The failure happens at:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">MCP Client → Model Context</span><br></span></code></pre></div></div>
+<p>Where:</p>
+<ul>
+<li class="">The MCP client injects tool schemas</li>
+<li class="">The model must reason over them</li>
+<li class="">The prompt explodes</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="sep-1576-the-communitys-wake-up-call">SEP-1576: The Community’s Wake-Up Call<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#sep-1576-the-communitys-wake-up-call" class="hash-link" aria-label="Direct link to SEP-1576: The Community’s Wake-Up Call" title="Direct link to SEP-1576: The Community’s Wake-Up Call" translate="no">​</a></h3>
+<p>SEP-1576 proposes:</p>
+<ul>
+<li class="">Lazy tool loading</li>
+<li class="">Partial schemas</li>
+<li class="">Tool summaries</li>
+<li class="">On-demand expansion</li>
+<li class="">Context budgets</li>
+</ul>
+<p>It acknowledges a core truth:</p>
+<blockquote>
+<p>MCP systems must become <strong>context-aware platforms</strong>, not dumb tool injectors.</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-token-bloat-breaks-ai-reasoning">Why Token Bloat Breaks AI Reasoning<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#why-token-bloat-breaks-ai-reasoning" class="hash-link" aria-label="Direct link to Why Token Bloat Breaks AI Reasoning" title="Direct link to Why Token Bloat Breaks AI Reasoning" translate="no">​</a></h3>
+<p>LLMs do not reason better with more tools.</p>
+<p>They reason better with:</p>
+<ul>
+<li class="">Clear options</li>
+<li class="">Minimal noise</li>
+<li class="">Focused schemas</li>
+<li class="">Small decision trees</li>
+</ul>
+<p>Token bloat causes:</p>
+<ul>
+<li class="">Tool confusion</li>
+<li class="">Hallucinated tool calls</li>
+<li class="">Slower planning</li>
+<li class="">Lower accuracy</li>
+<li class="">Higher cost</li>
+</ul>
+<p>This is not theoretical.
+This is measurable.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-needs-platform-architecture--not-just-protocols">MCP Needs Platform Architecture — Not Just Protocols<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#mcp-needs-platform-architecture--not-just-protocols" class="hash-link" aria-label="Direct link to MCP Needs Platform Architecture — Not Just Protocols" title="Direct link to MCP Needs Platform Architecture — Not Just Protocols" translate="no">​</a></h2>
+<p>This is where most teams fail.</p>
+<p>They treat MCP like:</p>
+<blockquote>
+<p>“Just expose APIs as tools.”</p>
+</blockquote>
+<p>But MCP is not just transport.
+It is an <strong>AI execution platform</strong>.</p>
+<p>You need:</p>
+<ul>
+<li class="">Tool governance</li>
+<li class="">Context orchestration</li>
+<li class="">Discovery</li>
+<li class="">Authorization</li>
+<li class="">Policy</li>
+<li class="">Auditing</li>
+</ul>
+<p>This is why naive MCP deployments become <strong>Shadow MCP</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="shadow-mcp-the-silent-compliance-risk">Shadow MCP: The Silent Compliance Risk<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#shadow-mcp-the-silent-compliance-risk" class="hash-link" aria-label="Direct link to Shadow MCP: The Silent Compliance Risk" title="Direct link to Shadow MCP: The Silent Compliance Risk" translate="no">​</a></h2>
+<p>Shadow MCP is when:</p>
+<ul>
+<li class="">Teams spin up MCP servers ad-hoc</li>
+<li class="">No registry</li>
+<li class="">No governance</li>
+<li class="">No audit</li>
+<li class="">No access control</li>
+<li class="">No policy</li>
+</ul>
+<p>Now tools silently enter AI contexts.</p>
+<p><strong>This is Shadow IT — but for AI.</strong></p>
+<p>Token bloat is often the first symptom.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="best-practices-for-token-efficient-mcp-design">Best Practices for Token-Efficient MCP Design<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#best-practices-for-token-efficient-mcp-design" class="hash-link" aria-label="Direct link to Best Practices for Token-Efficient MCP Design" title="Direct link to Best Practices for Token-Efficient MCP Design" translate="no">​</a></h2>
+<p>Let’s get practical. Here are nine best practices to scale MCP tool catalogs without destroying your budget:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-never-load-all-tools">1. Never Load All Tools<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#1-never-load-all-tools" class="hash-link" aria-label="Direct link to 1. Never Load All Tools" title="Direct link to 1. Never Load All Tools" translate="no">​</a></h3>
+<p><strong>Rule:</strong>
+No MCP client should ever inject all tools into context.</p>
+<p>Ever.</p>
+<p>Use:</p>
+<ul>
+<li class="">Search</li>
+<li class="">Discovery</li>
+<li class="">Ranking</li>
+<li class="">Filtering</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-implement-tool-discovery">2. Implement Tool Discovery<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#2-implement-tool-discovery" class="hash-link" aria-label="Direct link to 2. Implement Tool Discovery" title="Direct link to 2. Implement Tool Discovery" translate="no">​</a></h3>
+<p>Your agent should:</p>
+<ol>
+<li class="">Understand the task</li>
+<li class="">Query a registry</li>
+<li class="">Receive ranked candidates</li>
+<li class="">Load only relevant tools</li>
+</ol>
+<p>This is exactly what Claude’s Tool Search Tool enables.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-use-tool-summaries-first">3. Use Tool Summaries First<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#3-use-tool-summaries-first" class="hash-link" aria-label="Direct link to 3. Use Tool Summaries First" title="Direct link to 3. Use Tool Summaries First" translate="no">​</a></h3>
+<p>Instead of loading full schemas:</p>
+<p>Start with:</p>
+<ul>
+<li class="">Name</li>
+<li class="">Description</li>
+<li class="">Capability tags</li>
+</ul>
+<p>Then expand only the chosen tool.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-enforce-context-budgets">4. Enforce Context Budgets<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#4-enforce-context-budgets" class="hash-link" aria-label="Direct link to 4. Enforce Context Budgets" title="Direct link to 4. Enforce Context Budgets" translate="no">​</a></h3>
+<p>Define:</p>
+<ul>
+<li class="">Max tool count per request</li>
+<li class="">Max schema tokens</li>
+<li class="">Max metadata size</li>
+</ul>
+<p>Reject or paginate when limits are exceeded.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-add-policy-based-tool-filtering">5. Add Policy-Based Tool Filtering<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#5-add-policy-based-tool-filtering" class="hash-link" aria-label="Direct link to 5. Add Policy-Based Tool Filtering" title="Direct link to 5. Add Policy-Based Tool Filtering" translate="no">​</a></h3>
+<p>Not every agent should see every tool.</p>
+<p>Filter by:</p>
+<ul>
+<li class="">Role</li>
+<li class="">Tenant</li>
+<li class="">Department</li>
+<li class="">Environment</li>
+<li class="">Compliance level</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-add-tool-ranking">6. Add Tool Ranking<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#6-add-tool-ranking" class="hash-link" aria-label="Direct link to 6. Add Tool Ranking" title="Direct link to 6. Add Tool Ranking" translate="no">​</a></h3>
+<p>Use:</p>
+<ul>
+<li class="">Semantic search</li>
+<li class="">Tags</li>
+<li class="">Domain</li>
+<li class="">Past usage</li>
+<li class="">Cost</li>
+<li class="">Latency</li>
+</ul>
+<p>Return top N candidates only.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-add-tool-versioning">7. Add Tool Versioning<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#7-add-tool-versioning" class="hash-link" aria-label="Direct link to 7. Add Tool Versioning" title="Direct link to 7. Add Tool Versioning" translate="no">​</a></h3>
+<p>Never inject multiple versions of the same tool.</p>
+<p>Use:</p>
+<ul>
+<li class="">Stable aliases</li>
+<li class="">Deprecation policies</li>
+<li class="">Controlled rollouts</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="8-use-partial-schemas">8. Use Partial Schemas<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#8-use-partial-schemas" class="hash-link" aria-label="Direct link to 8. Use Partial Schemas" title="Direct link to 8. Use Partial Schemas" translate="no">​</a></h3>
+<p>Load:</p>
+<ul>
+<li class="">Input shape only</li>
+<li class="">Output later</li>
+<li class="">Examples on demand</li>
+</ul>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="9-add-audit-trails">9. Add Audit Trails<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#9-add-audit-trails" class="hash-link" aria-label="Direct link to 9. Add Audit Trails" title="Direct link to 9. Add Audit Trails" translate="no">​</a></h3>
+<p>Track:</p>
+<ul>
+<li class="">Tool discovery</li>
+<li class="">Tool selection</li>
+<li class="">Tool execution</li>
+<li class="">Tool failures</li>
+</ul>
+<p>This becomes your AI governance layer.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-is-becoming-an-ai-operating-system">MCP Is Becoming an AI Operating System<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#mcp-is-becoming-an-ai-operating-system" class="hash-link" aria-label="Direct link to MCP Is Becoming an AI Operating System" title="Direct link to MCP Is Becoming an AI Operating System" translate="no">​</a></h2>
+<p>This is the real shift.</p>
+<p>MCP is no longer:</p>
+<blockquote>
+<p>“A protocol for tools.”</p>
+</blockquote>
+<p>It is becoming:</p>
+<blockquote>
+<p>“An operating system for AI execution.”</p>
+</blockquote>
+<p>Which means:</p>
+<ul>
+<li class="">Scheduling</li>
+<li class="">Discovery</li>
+<li class="">Security</li>
+<li class=""><a class="" href="https://mcp.com.ai/mcp-registry-connect-authority">Connect Authority</a></li>
+<li class="">Cost control</li>
+<li class="">Governance</li>
+<li class="">Observability</li>
+</ul>
+<p>Token bloat is the first scaling signal.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-hapi-mcp-fits-in-this-architecture">Where HAPI MCP Fits in This Architecture<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#where-hapi-mcp-fits-in-this-architecture" class="hash-link" aria-label="Direct link to Where HAPI MCP Fits in This Architecture" title="Direct link to Where HAPI MCP Fits in This Architecture" translate="no">​</a></h2>
+<p>HAPI MCP Stack was designed for exactly this future.</p>
+<p>Not as a toy MCP wrapper.
+But as a <strong>Headless API platform for AI execution.</strong></p>
+<p>Core principles:</p>
+<ul>
+<li class=""><a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">API-first MCP servers</a></li>
+<li class="">Registry-first discovery</li>
+<li class=""><a class="" href="https://mcp.com.ai/tags/mcp-connect-authority">Connect Authority</a> enforcement</li>
+<li class="">Zero-trust architecture</li>
+<li class=""><a href="https://docs.mcp.com.ai/deployment/" target="_blank" rel="noopener noreferrer" class="">Enterprise-grade deployment</a></li>
+<li class="">Airgap-ready</li>
+<li class="">Cloud-ready</li>
+<li class="">VM-first friendly</li>
+</ul>
+<p>HAPI treats <a href="https://docs.mcp.com.ai/introduction/architecture" target="_blank" rel="noopener noreferrer" class="">MCP as <strong>platform infrastructure</strong></a>.</p>
+<p>Not prompt glue.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-future-tool-search-lazy-loading-and-ai-gateways">The Future: Tool Search, Lazy Loading, and AI Gateways<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#the-future-tool-search-lazy-loading-and-ai-gateways" class="hash-link" aria-label="Direct link to The Future: Tool Search, Lazy Loading, and AI Gateways" title="Direct link to The Future: Tool Search, Lazy Loading, and AI Gateways" translate="no">​</a></h2>
+<p>We’re entering the next phase of AI platforms:</p>
+<table><thead><tr><th>Old</th><th>New</th></tr></thead><tbody><tr><td>Static tools</td><td>Dynamic discovery</td></tr><tr><td>Prompt injection</td><td>Context orchestration</td></tr><tr><td>Manual schemas</td><td>Search-driven tools</td></tr><tr><td>Flat catalogs</td><td>Ranked registries</td></tr><tr><td>No governance</td><td>Policy enforcement</td></tr><tr><td>Shadow MCP</td><td>MCP Authority</td></tr></tbody></table>
+<p>This is exactly the direction Claude is moving.<br>
+<!-- -->This is exactly what SEP-1576 proposes.<br>
+<!-- -->And this is exactly what enterprises need. HAPI MCP Stack is built for this future.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-takeaways-how-to-build-mcp-systems-that-scale">Final Takeaways: How to Build MCP Systems That Scale<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#final-takeaways-how-to-build-mcp-systems-that-scale" class="hash-link" aria-label="Direct link to Final Takeaways: How to Build MCP Systems That Scale" title="Direct link to Final Takeaways: How to Build MCP Systems That Scale" translate="no">​</a></h2>
+<p>If you're building with MCP today, here is your roadmap:</p>
+<ol>
+<li class=""><strong>Adopt tool discovery</strong></li>
+<li class=""><strong>Implement lazy loading</strong></li>
+<li class=""><strong>Use a registry</strong></li>
+<li class=""><strong>Add a connect authority</strong></li>
+<li class=""><strong>Enforce context budgets</strong></li>
+<li class=""><strong>Filter by policy</strong></li>
+<li class=""><strong>Rank tools</strong></li>
+<li class=""><strong>Audit everything</strong></li>
+<li class=""><strong>Kill shadow MCP</strong></li>
+<li class=""><strong>Treat MCP as platform infrastructure</strong></li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-without-token-discipline-will-fail">MCP Without Token Discipline Will Fail<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#mcp-without-token-discipline-will-fail" class="hash-link" aria-label="Direct link to MCP Without Token Discipline Will Fail" title="Direct link to MCP Without Token Discipline Will Fail" translate="no">​</a></h2>
+<p>Token bloat is not a bug.
+It’s a design failure.</p>
+<p>The teams that solve it now will own the next generation of AI platforms.</p>
+<p>The teams that ignore it will build expensive demos that never scale.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-question-is-simple">The question is simple:<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#the-question-is-simple" class="hash-link" aria-label="Direct link to The question is simple:" title="Direct link to The question is simple:" translate="no">​</a></h2>
+<p>Are you building MCP tools...</p>
+<p>Or are you building an MCP platform?</p>
+<hr>
+<p>If you're serious about AI at scale, start designing for token efficiency now.</p>
+<p>Because your AI is only as smart as the context you give it.</p>
+<p>Be HAPI, and Go Rebels! ✊🏼</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="faq-token-bloat-in-mcp">FAQ: Token bloat in MCP<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#faq-token-bloat-in-mcp" class="hash-link" aria-label="Direct link to FAQ: Token bloat in MCP" title="Direct link to FAQ: Token bloat in MCP" translate="no">​</a></h2>
+<p><strong>Q: What is token bloat in MCP?</strong><br>
+<!-- -->A: Token bloat in MCP happens when an MCP client injects too many tool definitions (schemas + descriptions) into the model context, inflating prompt size before reasoning even starts.</p>
+<p><strong>Q: Why is token bloat a problem for MCP systems?</strong><br>
+<!-- -->A: Token bloat increases cost per request, adds latency, degrades tool selection quality, and expands the security/compliance surface because more tools appear in context than are needed.</p>
+<p><strong>Q: What causes token bloat in MCP tool catalogs?</strong><br>
+<!-- -->A: The most common cause is static tool injection: loading the full tool catalog into the prompt on every request instead of discovering and loading only what’s needed.</p>
+<p><strong>Q: What is lazy loading for MCP tools?</strong><br>
+<!-- -->A: Lazy loading means you load tool schemas only after the agent has identified relevant tools (usually via search/ranking), rather than preloading every tool into context.</p>
+<p><strong>Q: What is tool discovery in MCP?</strong><br>
+<!-- -->A: Tool discovery is a step where the agent queries a registry (or authority layer) to retrieve a small, ranked set of candidate tools for a task, then loads only those.</p>
+<p><strong>Q: How do you mitigate token bloat when you have thousands of MCP tools?</strong><br>
+<!-- -->A: Use search-based discovery + ranking, enforce tool/context budgets, filter tools by policy (role/tenant), and expand schemas on demand (summaries first, full schemas later).</p>
+<p><strong>Q: What is a context budget for MCP tools?</strong><br>
+<!-- -->A: A context budget is a hard limit on how many tools or schema tokens can be included in a request. It keeps cost and latency predictable and prevents runaway prompts.</p>
+<p><strong>Q: Should I use FAQPage or QAPage schema for MCP Q&amp;A content?</strong><br>
+<!-- -->A: Use FAQPage when each question has a single authoritative answer you provide. Use QAPage only when users can submit answers (like forums).</p>
+<p><strong>Q: What is shadow MCP and how does it relate to token bloat?</strong><br>
+<!-- -->A: Shadow MCP is ungoverned MCP tooling (servers/tools) that appear without centralized discovery, policy, or audit. It often shows up first as tool sprawl and token bloat.</p>
+<p><strong>Q: What’s the best MCP architecture pattern to scale tool catalogs?</strong><br>
+<!-- -->A: Registry-first discovery with an authority/policy layer: the agent searches a catalog, gets a small ranked shortlist, and only then loads the selected tool schemas for execution.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="references">References:<a href="https://mcp.com.ai/mcp-at-scale/how-to-scale-mcp-to-thousands-of-tools-without-distroying-budget#references" class="hash-link" aria-label="Direct link to References:" title="Direct link to References:" translate="no">​</a></h2>
+<ul>
+<li class="">Feature Request: <a href="https://github.com/anthropics/claude-code/issues/7336" target="_blank" rel="noopener noreferrer" class="">Lazy Loading</a> for MCP Servers and Tools</li>
+<li class=""><a href="https://venturebeat.com/orchestration/claude-code-just-got-updated-with-one-of-the-most-requested-user-features" target="_blank" rel="noopener noreferrer" class="">https://venturebeat.com/orchestration/claude-code-just-got-updated-with-one-of-the-most-requested-user-features</a></li>
+<li class=""><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool" target="_blank" rel="noopener noreferrer" class="">Tool search tool</a>
+<ul>
+<li class=""><a href="https://x.com/trq212/status/2011523109871108570" target="_blank" rel="noopener noreferrer" class="">X Post</a> with more details.</li>
+</ul>
+</li>
+<li class=""><a href="https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1576" target="_blank" rel="noopener noreferrer" class="">SEP-1576: Mitigating Token Bloat in MCP</a></li>
+</ul>]]></content:encoded>
+            <category>MCP at Scale</category>
+            <category>Architecture</category>
+        </item>
         <item>
             <title><![CDATA[Unlocking Podcast Insights with MCP]]></title>
             <link>https://mcp.com.ai/lenny-rachitsky-podcast-mcp-server</link>
@@ -174,6 +594,7 @@ A <strong>Connect Authority</strong> is a control-plane enabler. It answers: <em
             <category>MCP Connect Authority</category>
             <category>Zero Trust</category>
             <category>MCP Registry</category>
+            <category>MCP Connect Authority</category>
         </item>
         <item>
             <title><![CDATA[MCP Registry vs Gateway: Why Connect Authority Wins]]></title>
