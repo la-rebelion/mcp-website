@@ -1,0 +1,341 @@
+---
+title: What Is an Agent Skill? The Standard Unit for AI Agent Capabilities
+description: Agent Skills define what AI agents can do with explicit, governable capabilities. Learn how Skills replace prompt-only behavior with structured, auditable execution.
+authors: ['adrian']
+tags: [skills, ai-integration, agentic-ai]
+keywords:
+  - agent skills
+  - ai agent capabilities
+  - mcp skills
+  - agent skill definition
+  - ai governance
+  - prompt vs skills
+  - agent execution units
+  - structured ai capabilities
+image: /img/skills/agent-skills.png
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an Agent Skill?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An Agent Skill is a structured, declarative capability that an AI agent can invoke to perform an action through a system. Unlike prompts, Skills define explicit boundaries, permissions, and execution rules that machines can enforce."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do Agent Skills differ from prompts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prompts are implicit natural language suggestions with trust-based, non-deterministic behavior. Skills are explicit structured capabilities with contract-based, auditable, and governable execution. Prompts decide what to try; Skills define what is allowed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between Skills, tools, and workflows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tools are low-level primitives, workflows are pre-wired sequences, and Skills are bounded capabilities that agents choose to invoke. Skills sit at the decision boundary between reasoning and execution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do AI agents need Skills instead of just prompts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prompt-driven agents don't scale at enterprise level. They can hallucinate actions, have implicit permissions, opaque execution paths, and are impossible to audit. Skills provide the control, governance, and security that enterprises demand."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What role does MCP play with Agent Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MCP (Model Context Protocol) provides a transport-agnostic execution layer for Skills, enabling remote skill invocation, enterprise security boundaries, air-gap compatibility, and audit/governance hooks. MCP turns Skills from ideas into infrastructure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Agent Skills becoming a standard?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. What started as framework-specific abstractions is converging into shared specifications, common schemas, public registries, installation tooling, and usage tracking. Skills are becoming the standard unit of agent execution, governance, and enterprise adoption."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Agent Skills be audited for security?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Unlike prompts, Skills are structured with explicit schemas, making them auditable and governable. They provide clear artifacts for security reviews, permission tracking, and execution path analysis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do Agent Skills execute?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Skills don't live in the model—they live in systems. The model handles reasoning, while Skills execute in controlled environments with proper security boundaries and governance. This separation ensures authority stays with the system, not the AI."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+**AI agents are getting smarter — and more dangerous.**
+
+Not because they reason better, but because they act without boundaries.
+
+**Agent Skills exist to fix that.**
+
+<!-- truncate -->
+
+They define **what an agent can do**, **how it can do it**, and **under what constraints** — in a way machines can enforce, not humans hope for.
+
+---
+
+## What Is an Agent Skill? (Simple Definition)
+
+An **Agent Skill** is a structured, declarative capability that an AI agent can invoke to perform an action through a system.
+
+- **Not a suggestion** — it's enforceable
+- **Not a prompt** — it's structured
+- **Not open-ended** — it has boundaries
+
+A capability with rules that machines enforce.
+
+---
+
+## Why Agent Skills Became Inevitable
+
+Prompt-driven agents don't scale beyond experimentation.
+
+**At small scale**, prompts feel powerful and flexible.  
+**At enterprise scale**, they create unacceptable risk:
+
+### The Prompt Problem
+- 🚨 Agents hallucinate actions that don't exist
+- 🔓 Permissions are implicit and unenforceable
+- 🌫️ Execution paths are opaque and unpredictable
+- ❌ Security reviews are nearly impossible
+- 📝 Audits have no structured artifacts to examine
+
+### The Industry Response
+
+Skills emerged because **enterprises demanded control**.
+
+The industry responded with:
+- Shared **Skill specifications** (not vendor-locked)
+- Standard schemas for cross-platform compatibility
+- Public registries and catalogs for discovery
+- Installation, versioning, and tracking mechanisms
+- Observability and governance tooling
+
+Skills are now appearing everywhere — AI frameworks, runtime environments, marketplaces, and enterprise dashboards.
+
+---
+
+## Skills vs Prompts: The Real Difference
+
+Understanding this distinction is critical for building production-grade AI systems.
+
+| Aspect | Prompts | Skills |
+|--------|---------|--------|
+| **Behavior** | Implicit, suggested | Explicit, enforced |
+| **Format** | Natural language | Structured schema |
+| **Security** | Trust-based | Contract-based |
+| **Auditability** | Hard to audit | Fully auditable |
+| **Execution** | Non-deterministic | Governable |
+| **Permissions** | Implied | Explicit |
+| **Lifecycle** | Ad-hoc | Versioned & tracked |
+
+### The Core Distinction
+
+**Prompts** decide *what to try*.  
+**Skills** define *what is allowed*.
+
+Prompts ask. Skills authorize.
+
+---
+
+## Skills vs Tools vs Workflows: Clearing the Confusion
+
+These terms are often used interchangeably. They shouldn't be.
+
+### The Hierarchy of Agent Capabilities
+
+**🔧 Tools** are low-level primitives
+- Individual functions or API calls
+- Example: `get_user(id)` or `send_email(to, subject, body)`
+- No decision-making, just execution
+
+**🔄 Workflows** are pre-wired sequences
+- Fixed chains of predetermined steps
+- Example: "When form submitted → validate → save → send email"
+- No agent choice, just automation
+
+**🎯 Skills** are bounded capabilities that agents choose to invoke
+- Define what CAN be done and under what constraints
+- Example: "Search customer database (read-only, max 100 results, audit logged)"
+- Agent decides WHEN to use them based on context
+
+### Why This Matters
+
+Skills sit at the **decision boundary** between reasoning and execution.
+
+- The **model reasons** about what to do
+- The **Skill authorizes** what can be done
+- The **tool executes** the actual action
+
+This separation is what makes AI agents governable.
+
+---
+
+## Agent Skills Are Becoming a Standard Layer
+
+What started as framework-specific abstractions is now converging into industry standards.
+
+### The Standardization Wave
+
+**Foundation:**
+- Shared specifications (like MCP)
+- Common schemas and interfaces
+- Cross-platform compatibility
+
+**Distribution:**
+- Public registries and catalogs
+- Installation and discovery tooling
+- Version management
+
+**Operations:**
+- Usage tracking and observability
+- Permission management
+- Audit logging and compliance
+
+### Why This Matters
+
+This is how sustainable AI ecosystems form.
+
+**Not around models** (which change constantly)  
+**But around capabilities** (which systems can rely on)
+
+When Skills become standardized:
+- Developers can publish once, run anywhere
+- Enterprises can audit once, trust everywhere
+- Agents can discover capabilities dynamically
+- Security teams can govern at the Skill level
+
+---
+
+## Why MCP Matters for Agent Skills
+
+**Critical insight:** Skills don't live in the model. They live in systems.
+
+The model generates *reasoning*. Systems provide *capabilities*.
+
+### What MCP Provides
+
+The [Model Context Protocol (MCP)](/) solves the infrastructure problem for Skills:
+
+**Execution Layer:**
+- Transport-agnostic communication (stdio, HTTP, SSE)
+- Remote skill invocation across boundaries
+- Standardized request/response patterns
+
+**Enterprise Requirements:**
+- Security boundaries and permissions
+- Air-gap compatibility for sensitive environments
+- Authentication and authorization hooks
+
+**Governance & Compliance:**
+- Audit trails for all skill invocations
+- Usage tracking and monitoring
+- Policy enforcement points
+
+### The Transformation
+
+MCP turns Skills from **abstract ideas** into **operational infrastructure**.
+
+- Before MCP: Each framework had its own Skill implementation
+- After MCP: Skills work across frameworks, runtimes, and platforms
+- Result: True interoperability and enterprise adoption
+
+---
+
+## The Mental Model to Remember
+
+> **Reasoning stays with the model.**  
+> **Authority stays with the system.**
+
+Skills are where that line is drawn.
+
+This separation ensures:
+- AI can be creative within bounds
+- Systems maintain control
+- Humans can audit and govern
+- Security isn't dependent on prompt engineering
+
+---
+
+## FAQ: Understanding Agent Skills
+
+**Q: What is an Agent Skill?**  
+A: An Agent Skill is a structured, declarative capability that an AI agent can invoke to perform an action through a system. Unlike prompts, Skills define explicit boundaries, permissions, and execution rules that machines can enforce.
+
+**Q: How do Agent Skills differ from prompts?**  
+A: Prompts are implicit natural language suggestions with trust-based, non-deterministic behavior. Skills are explicit structured capabilities with contract-based, auditable, and governable execution. Prompts decide what to try; Skills define what is allowed.
+
+**Q: What's the difference between Skills, tools, and workflows?**  
+A: Tools are low-level primitives (individual functions), workflows are pre-wired sequences (fixed automation), and Skills are bounded capabilities that agents choose to invoke. Skills sit at the decision boundary between AI reasoning and system execution.
+
+**Q: Why do AI agents need Skills instead of just prompts?**  
+A: Prompt-driven agents don't scale at enterprise level. They can hallucinate actions, have implicit permissions, opaque execution paths, and are impossible to audit. Skills provide the control, governance, and security that enterprises demand.
+
+**Q: What role does MCP play with Agent Skills?**  
+A: MCP (Model Context Protocol) provides a transport-agnostic execution layer for Skills, enabling remote skill invocation, enterprise security boundaries, air-gap compatibility, and audit/governance hooks. MCP turns Skills from ideas into infrastructure.
+
+**Q: Are Agent Skills becoming a standard?**  
+A: Yes. What started as framework-specific abstractions is converging into shared specifications, common schemas, public registries, installation tooling, and usage tracking. Skills are becoming the standard unit of agent execution, governance, and enterprise adoption.
+
+**Q: Can Agent Skills be audited for security?**  
+A: Yes. Unlike prompts, Skills are structured with explicit schemas, making them auditable and governable. They provide clear artifacts for security reviews, permission tracking, and execution path analysis.
+
+**Q: Where do Agent Skills execute?**  
+A: Skills don't live in the model—they live in systems. The model handles reasoning, while Skills execute in controlled environments with proper security boundaries and governance. This separation ensures authority stays with the system, not the AI.
+
+---
+
+## What Comes Next: The Skill-First Future
+
+Agent Skills are now the fundamental unit of:
+
+✅ **Agent execution** — how AI agents perform actions  
+✅ **Platform governance** — how organizations control AI behavior  
+✅ **Security review** — how teams audit AI capabilities  
+✅ **Enterprise adoption** — how AI becomes production-ready
+
+### Your Next Steps
+
+The rest of this section explores how to:
+- **Design** Skills that are secure and maintainable
+- **Build** Skills using MCP and standard patterns
+- **Evaluate** Skills for quality and safety
+- **Deploy** Skills across environments
+- **Govern** Skills at enterprise scale
+
+We're treating Skills **as systems** — because that's what they are.
+
+**The era of prompt-only agents is ending.**  
+**The era of Skill-driven systems is here.**
