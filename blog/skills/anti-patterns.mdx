@@ -1,0 +1,250 @@
+---
+title: Skills Anti-Patterns
+description: The most common ways teams accidentally turn Skills into a mess—what to avoid, why it breaks, and what to do instead.
+authors: ['adrian']
+tags: [skills, best-practices, anti-patterns]
+# image: /img/skills/skills-anti-patterns.png
+draft: true
+---
+
+## The fastest ways to break trust in agent systems
+
+Skills are supposed to make agent systems **safe, testable, and governable**.
+
+These anti-patterns do the opposite:
+they turn Skills into **prompt glue**, **shadow code**, and **un-auditable automation**.
+
+Use this page as a checklist before you ship anything.
+
+<!-- truncate -->
+
+---
+
+## 1) Prompt = Policy
+
+**What it looks like**
+- “We’ll just tell the agent not to do bad things.”
+- “The prompt says: don’t touch prod.”
+- “We’ll rely on system messages for compliance.”
+
+**Why it breaks**
+- Prompts are not enforceable.
+- Prompts drift.
+- Prompts are not auditable controls.
+
+**Do this instead**
+- Put policy in the **Skill contract**:
+  - validation
+  - authorization
+  - constraints
+  - safe defaults
+  - explicit failure modes
+
+---
+
+## 2) Agent Calls APIs Directly
+
+**What it looks like**
+- The agent has raw API keys.
+- The agent can hit internal endpoints without guardrails.
+- “It’s fine, we trust the model.”
+
+**Why it breaks**
+- You lose least privilege.
+- You expose sensitive surfaces.
+- Failures become unpredictable and expensive.
+
+**Do this instead**
+- Wrap risky actions into Skills.
+- Make the Skill the only boundary that touches systems.
+
+---
+
+## 3) Skill That Does “Everything”
+
+**What it looks like**
+- `manage_customer()`
+- `do_all_the_things()`
+- One Skill that mutates many systems.
+
+**Why it breaks**
+- Not testable.
+- Hard to reason about.
+- Impossible to govern and approve.
+
+**Do this instead**
+- Skills should represent **one capability**.
+- Prefer small Skills with clear contracts and stable outputs.
+
+---
+
+## 4) Endpoint Thinking (Not Capability Thinking)
+
+**What it looks like**
+- One Skill per API endpoint.
+- Leaking internal API structure into the Skill surface.
+
+**Why it breaks**
+- Too many Skills.
+- No intent alignment.
+- Agents become “API clients,” not capability users.
+
+**Do this instead**
+- Map multiple endpoints into one capability.
+- Expose outcomes, not plumbing.
+
+---
+
+## 5) Non-Deterministic Skills
+
+**What it looks like**
+- The Skill calls an LLM internally and returns free-text.
+- The Skill’s output shape changes.
+- The Skill “guesses” missing inputs.
+
+**Why it breaks**
+- Skills are supposed to be the deterministic edge.
+- You can’t regression test.
+- You can’t guarantee safety.
+
+**Do this instead**
+- Skills should return **structured outputs**.
+- If you must use an LLM internally, constrain it:
+  - fixed schema
+  - strict validation
+  - bounded behaviors
+  - deterministic fallbacks
+
+---
+
+## 6) Hidden Side Effects
+
+**What it looks like**
+- A “read” Skill that also updates records.
+- A “preview” Skill that triggers real actions.
+- Side effects without explicit consent.
+
+**Why it breaks**
+- Surprises kill trust.
+- You can’t safely simulate or evaluate.
+- Auditors will flag it.
+
+**Do this instead**
+- Make side effects explicit in:
+  - name
+  - description
+  - inputs
+  - return values
+- Separate “preview” vs “apply” Skills.
+
+---
+
+## 7) Weak Error Contracts
+
+**What it looks like**
+- `500: something went wrong`
+- Exceptions with no typed structure
+- “Just retry until it works”
+
+**Why it breaks**
+- Agents need predictable failures.
+- Retries can cause duplicates and cost spikes.
+- Operations becomes chaos.
+
+**Do this instead**
+- Define error shapes:
+  - `INVALID_INPUT`
+  - `NOT_AUTHORIZED`
+  - `NOT_FOUND`
+  - `RATE_LIMITED`
+  - `DEPENDENCY_FAILURE`
+- Provide safe, actionable messages.
+
+---
+
+## 8) No Idempotency
+
+**What it looks like**
+- “Create payment” can run twice.
+- “Provision user” duplicates accounts.
+- Retries create multiple side effects.
+
+**Why it breaks**
+- Agents retry.
+- Networks fail.
+- Without idempotency, your system becomes unsafe.
+
+**Do this instead**
+- Add idempotency keys.
+- Make Skills safe to retry.
+- Return consistent receipts and references.
+
+---
+
+## 9) No Versioning Strategy
+
+**What it looks like**
+- Breaking changes without warning
+- Agents suddenly failing
+- Old workflows silently misbehaving
+
+**Why it breaks**
+- Skills are contracts.
+- Contracts must be stable across time.
+
+**Do this instead**
+- Version Skills explicitly.
+- Keep backward compatibility where possible.
+- Provide deprecation windows and migration guides.
+
+---
+
+## 10) “Shadow Skills” Outside Governance
+
+**What it looks like**
+- Teams publish Skills from laptops
+- No reviews, no audit trails, no ownership
+- Ad-hoc Skill servers on random infra
+
+**Why it breaks**
+- This is Shadow IT with more risk.
+- It creates hidden capability surfaces.
+- It breaks compliance and platform trust.
+
+**Do this instead**
+- Require:
+  - ownership metadata
+  - approval flows
+  - registries/catalogs
+  - observability
+  - lifecycle policies
+
+---
+
+## Quick Pre-Ship Checklist
+
+Before shipping a Skill, confirm:
+
+- ✅ Capability is clear and narrow
+- ✅ Inputs are validated
+- ✅ Outputs are structured
+- ✅ Errors are typed and predictable
+- ✅ Side effects are explicit
+- ✅ Idempotency exists
+- ✅ Authorization is least-privilege
+- ✅ Logging/auditing is in place
+- ✅ Versioning and deprecation plan exists
+
+---
+
+## Bottom Line
+
+Agents are powerful.  
+But **trust** is what makes them deployable.
+
+Trust does not come from prompts.  
+It comes from Skills that behave like contracts. 
+Skills that are designed for safety, reliability, and governance.
+
+Get Skills right, and you get agents that survive reality.
+

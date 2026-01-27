@@ -122,3 +122,21 @@ platform-engineering:
   permalink: /platform-engineering
   description: >
     Platform Engineering involves designing and building the underlying infrastructure and tools that support the development, deployment, and operation of software applications and services.
+
+skills:
+  label: Skills
+  permalink: /skills
+  description: >
+    Skills refer to specific capabilities or competencies that AI models can utilize to perform tasks, often through integration with external tools or APIs.
+
+best-practices:
+  label: Best Practices
+  permalink: /best-practices
+  description: >
+    Best Practices are established methods or techniques that have been proven to yield optimal results in a particular field or industry.
+    
+anti-patterns:
+  label: Anti-Patterns
+  permalink: /anti-patterns
+  description: >
+    Anti-Patterns are common responses to recurring problems that are ineffective and counterproductive, often leading to negative consequences.

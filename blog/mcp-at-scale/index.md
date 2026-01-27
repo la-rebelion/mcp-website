@@ -12,9 +12,9 @@ hide_table_of_contents: true
 
 As enterprises move from experimental chatbots to production-grade agentic systems, they are hitting the invisible walls of scale: token bloat, latency, governance, and discovery. What works for ten tools fails catastrophically at ten thousand.
 
-[**MCP at Scale**](/mcp-at-scale) is a dedicated series exploring the engineering reality of building robust, high-performance AI platforms.
-
 <!-- truncate -->
+
+[**MCP at Scale**](/mcp-at-scale) is a dedicated series exploring the engineering reality of building robust, high-performance AI platforms.
 
 ## Why This Series Exists
 
