@@ -223,6 +223,48 @@ a:not(.button) {
   transition: all 0.2s ease;
 }
 
+.button--primary {
+  --ifm-button-background-color: var(--brand-primary);
+  --ifm-button-border-color: var(--brand-primary);
+  color: #fff !important;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: visible;
+  animation: buttonGlow 2s ease-in-out infinite;
+}
+/* Pulse ring effect on button */
+.button--primary::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 2px solid hsla(187, 85%, 53%, 0.5);
+  animation: buttonPulseRing 2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes buttonPulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--brand-primary) 35%, transparent);
+}
+.button--primary:hover::before {
+  animation: none;
+  opacity: 0;
+}
+
 .mcpBtnSecondary:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--brand-secondary) 35%, transparent);
@@ -549,4 +591,93 @@ a:not(.button) {
 /* Responsive polish */
 @media (max-width: 996px) {
   .mcpHero { padding: 3rem 0 1.75rem; }
+}
+
+
+/* Electric particles overlay */
+.electricParticles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: hsla(187, 85%, 53%, 0.8);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 10px hsla(187, 85%, 53%, 0.8),
+    0 0 20px hsla(187, 85%, 53%, 0.4);
+}
+
+.particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation: floatParticle1 8s ease-in-out infinite;
+}
+
+.particle:nth-child(2) {
+  top: 60%;
+  right: 20%;
+  animation: floatParticle2 10s ease-in-out infinite;
+}
+
+.particle:nth-child(3) {
+  bottom: 30%;
+  left: 40%;
+  animation: floatParticle3 7s ease-in-out infinite;
+}
+
+[data-theme='light'] .electricParticles {
+  opacity: 0.5;
+}
+/* Floating electric particles container */
+@keyframes floatParticle1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  25% { transform: translate(100px, -50px) scale(0.8); opacity: 0.3; }
+  50% { transform: translate(200px, 20px) scale(1.2); opacity: 0.8; }
+  75% { transform: translate(50px, -30px) scale(0.6); opacity: 0.4; }
+}
+
+@keyframes floatParticle2 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); opacity: 0.4; }
+  33% { transform: translate(-80px, 40px) scale(1); opacity: 0.7; }
+  66% { transform: translate(60px, -20px) scale(0.5); opacity: 0.3; }
+}
+
+@keyframes floatParticle3 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+  50% { transform: translate(-120px, -60px); opacity: 0.8; }
+}
+
+
+/* Animated button glow keyframe */
+@keyframes buttonGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px hsla(187, 85%, 53%, 0.5),
+      0 0 20px hsla(187, 85%, 53%, 0.3),
+      0 0 40px hsla(187, 85%, 53%, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px hsla(187, 85%, 53%, 0.5),
+      0 0 30px hsla(187, 85%, 53%, 0.3),
+      0 0 60px hsla(187, 85%, 53%, 0.2);
+  }
+}
+
+@keyframes buttonPulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }

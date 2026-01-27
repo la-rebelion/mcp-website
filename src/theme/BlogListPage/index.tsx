@@ -42,6 +42,12 @@ function Hero(): ReactNode {
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   return (
     <div className="mcpHero">
+      {/* Electric particles overlay */}
+      <div className="electricParticles" aria-hidden="true">
+        <div className="particle" />
+        <div className="particle" />
+        <div className="particle" />
+      </div>
       <div className="container">
         {/* Badge for credibility */}
         <div className="mcpHeroBadge">

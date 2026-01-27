@@ -1,0 +1,279 @@
+---
+title: "Server-side Tool Search & Discovery as a First-Class Server Capability"
+description: "Making tool discovery a core capability of MCP servers to reduce token bloat and improve efficiency."
+tags:
+  - mcp-at-scale
+  - connect-authority
+  - tool-discovery
+keywords:
+  - mcp
+  - tool discovery
+  - hapi
+  - server capabilities
+  - token bloat
+  - progressive schema disclosure
+  - capability buckets
+  - policy-aware filtering
+  - tool budget metadata
+  - profiles
+  - task templates
+  - embedding index
+  - tool alias
+  - client-server negotiation
+  - two-stage tool calling
+---
+
+If MCP servers collaborate, token bloat stops being “a client problem” and becomes a **platform capability**. 
+
+When building MCP servers with HAPI, consider making **tool discovery** a core server feature. Instead of clients loading all tool schemas into context, servers can help clients find and load only the most relevant tools dynamically.
+
+## 1) Server-side “Tool Search Endpoint” (Tool discovery as a first-class server capability)
+
+**Idea:** Each HAPI MCP Server exposes a lightweight discovery endpoint that returns *candidate tools*, not full schemas.
+
+**Flow**
+
+1. Client sends: `search(query, intent, user, tenant, constraints)`
+2. Server returns: top N tools with **short summaries** + **tool IDs**
+3. Client requests full schema only for selected tools
+
+**Why HAPI fits**
+
+* HAPI can generate this from OAS tags/operationIds
+* Works great for airgapped environments (local search index)
+
+**Output shape**
+
+* `tool_id`, `title`, `one-liner`, `capabilities`, `risk_level`, `cost_hint`, `auth_required`, `schema_size_hint`
+
+---
+
+## 2) “Progressive Schema Disclosure” (Schemas in tiers)
+
+**Idea:** Server serves tool definitions in levels:
+
+* **L0**: title + 1-liner + tags
+* **L1**: minimal input (required fields only)
+* **L2**: full JSON schema
+* **L3**: examples, edge cases, error models
+
+Client starts with L0/L1; expands only when needed.
+
+**HAPI advantage**
+
+* You can derive L1 automatically from OpenAPI (required fields)
+* Huge token savings for large catalogs
+
+---
+
+## 3) Capability Buckets (Server publishes “domains”, not tools)
+
+**Idea:** Server doesn’t expose 1,000 tools. It exposes 20–50 **capability buckets** that act like entry points.
+
+Example buckets:
+
+* `compute.manage`
+* `billing.invoice`
+* `dns.records`
+* `kubernetes.deploy`
+
+Client selects bucket → server returns shortlist of tools inside bucket.
+
+**HAPI tie-in**
+
+* HAPI Registry can standardize bucket taxonomy
+* Operations map cleanly from OAS tags/groups
+
+---
+
+## 4) Policy-aware filtering built into the server (ABAC/RBAC at discovery time)
+
+**Idea:** Server returns different tool visibility depending on:
+
+* tenant
+* role
+* environment (prod vs dev)
+* compliance tier
+* data classification
+
+So discovery itself is governed, not just execution.
+
+**HAPI Stack angle**
+
+* Use HAPI’s API-first auth flows (OIDC scopes / claims)
+* “Tool visibility” becomes a policy rule, not a client heuristic
+
+---
+
+## 5) Server emits “Tool Budget Metadata” (cost/latency/risk signals)
+
+**Idea:** Server attaches “decision metadata” to each tool:
+
+* estimated token footprint (schema size)
+* expected latency class
+* rate limit class
+* side-effect severity (read vs write vs destructive)
+* data sensitivity label
+
+Now the client can rank tools intelligently without reading everything.
+
+**HAPI angle**
+
+* Derived from OpenAPI + governance annotations
+* Great for enterprise: predictable guardrails
+
+---
+
+## 6) Pre-ranked tool sets per persona (“Profiles”)
+
+**Idea:** Server exposes curated views:
+
+* `profile=devops`
+* `profile=finance`
+* `profile=security`
+* `profile=product`
+* `profile=oncall`
+
+Each profile maps to a small tool subset and better descriptions.
+
+**Where it belongs in HAPI**
+
+* HAPI Registry stores profile→tool mappings
+* runMCP deploys “profiled endpoints” per tenant/customer
+
+---
+
+## 7) “Task Templates” (Server returns *plans* not tools)
+
+**Idea:** For common tasks, server returns a workflow template:
+
+* tool sequence
+* minimal required inputs
+* safety checks
+
+Client asks: “rotate keys” → server responds with a plan that references 2–4 tools.
+
+**HAPI Stack win**
+
+* OrcA (Arazzo/workflow orchestration) becomes the bridge
+* This reduces tool selection load massively
+
+---
+
+## 8) Server-side embedding index (semantic search over tool docs)
+
+**Idea:** Each server maintains a local vector index of its tool descriptions + examples.
+
+Client sends a natural language query:
+
+* server returns top N tools + short rationale
+
+**Why this is powerful**
+
+* Works even without Claude-style centralized tool search
+* Keeps sensitive tool catalog inside the server boundary (good for enterprise)
+
+**HAPI implementation**
+
+* generate embeddings from OAS summaries/operation descriptions
+* store in lightweight local DB (SQLite / D1 / Vectorize depending on deployment)
+
+---
+
+## 9) “Tool Alias” pattern (reduce duplicates + version sprawl)
+
+**Idea:** Server exposes stable aliases:
+
+* `dns.upsert_record` → internally maps to v1/v2 endpoints
+* client only sees one tool
+
+This prevents token bloat caused by multiple versions of “the same tool.”
+
+**HAPI fit**
+
+* You control generation from OAS
+* Registry can enforce alias rules across servers
+
+---
+
+## 10) Client–Server negotiation handshake (context contract)
+
+**Idea:** Before listing tools, client sends constraints:
+
+* max tool count
+* max schema tokens
+* prefer read-only
+* avoid destructive
+* need low latency
+
+Server responds with:
+
+* a “tool manifest” that fits those limits
+
+**Why this matters**
+
+* The server becomes a collaborator that respects context budgets
+* Makes clients simpler and more consistent
+
+---
+
+## 11) “Two-stage tool calling” (server narrows inputs)
+
+**Idea:** Server provides a mini “input collection” tool first:
+
+* collects required fields
+* validates them
+* then returns final call instructions or the exact tool signature
+
+This shifts complexity away from the model prompt and into deterministic validation.
+
+**HAPI angle**
+
+* Perfect match for API-first: validate via JSON schema, return clean call shape
+
+---
+
+## 12) Registry + Connect Authority does the heavy lifting, but servers contribute signals
+
+This is the “best of both worlds” approach:
+
+* **HAPI Registry / Connect Authority**: global search, policies, governance, tenant controls
+* **HAPI MCP Servers**: local ranking, schema tiering, budget metadata, persona profiles
+
+So the server doesn’t replace the client. It **collaborates** with the platform.
+
+---
+
+# My “default architecture” recommendation for HAPI MCP
+
+If you want something that’s both powerful and shippable:
+
+### Phase 1 (fast to ship)
+
+1. **Progressive schema disclosure** (L0/L1/L2)
+2. **Tool budget metadata** (risk/cost/latency)
+3. **Policy-aware tool visibility** at discovery time
+
+### Phase 2 (platform differentiation)
+
+4. **Server-side tool search** (semantic + tags)
+5. **Profiles** + **capability buckets**
+
+### Phase 3 (killer feature)
+
+6. **Task templates / workflows** via OrcA (Arazzo)
+   → “Stop selecting tools. Start selecting outcomes.”
+
+---
+
+# The key question to guide design
+
+When server “collaborates,” you’re really deciding:
+
+**Do we want the model to browse tools, or do we want tools to present the few best options?**
+
+Claude’s Tool Search Tool is the market signal:
+
+* browsing thousands of tools in context is dead
+* dynamic discovery + small context wins
+
