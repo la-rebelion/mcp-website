@@ -4,10 +4,433 @@
         <title>MCP AI Blog Blog</title>
         <link>https://mcp.com.ai</link>
         <description>MCP AI Blog Blog</description>
-        <lastBuildDate>Tue, 20 Jan 2026 00:33:45 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 27 Jan 2026 12:38:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[What Is an Agent Skill? The Standard Unit for AI Agent Capabilities]]></title>
+            <link>https://mcp.com.ai/skills/what-is-agent-skills</link>
+            <guid>https://mcp.com.ai/skills/what-is-agent-skills</guid>
+            <pubDate>Tue, 27 Jan 2026 12:38:19 GMT</pubDate>
+            <description><![CDATA[Agent Skills define what AI agents can do with explicit, governable capabilities. Learn how Skills replace prompt-only behavior with structured, auditable execution.]]></description>
+            <content:encoded><![CDATA[
+<p><strong>AI agents are getting smarter — and more dangerous.</strong></p>
+<p>Not because they reason better, but because they act without boundaries.</p>
+<p><strong>Agent Skills exist to fix that.</strong></p>
+<p>They define <strong>what an agent can do</strong>, <strong>how it can do it</strong>, and <strong>under what constraints</strong> — in a way machines can enforce, not humans hope for.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-an-agent-skill-simple-definition">What Is an Agent Skill? (Simple Definition)<a href="https://mcp.com.ai/skills/what-is-agent-skills#what-is-an-agent-skill-simple-definition" class="hash-link" aria-label="Direct link to What Is an Agent Skill? (Simple Definition)" title="Direct link to What Is an Agent Skill? (Simple Definition)" translate="no">​</a></h2>
+<p>An <strong>Agent Skill</strong> is a structured, declarative capability that an AI agent can invoke to perform an action through a system.</p>
+<ul>
+<li class=""><strong>Not a suggestion</strong> — it's enforceable</li>
+<li class=""><strong>Not a prompt</strong> — it's structured</li>
+<li class=""><strong>Not open-ended</strong> — it has boundaries</li>
+</ul>
+<p>A capability with rules that machines enforce.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-agent-skills-became-inevitable">Why Agent Skills Became Inevitable<a href="https://mcp.com.ai/skills/what-is-agent-skills#why-agent-skills-became-inevitable" class="hash-link" aria-label="Direct link to Why Agent Skills Became Inevitable" title="Direct link to Why Agent Skills Became Inevitable" translate="no">​</a></h2>
+<p>Prompt-driven agents don't scale beyond experimentation.</p>
+<p><strong>At small scale</strong>, prompts feel powerful and flexible.<br>
+<strong>At enterprise scale</strong>, they create unacceptable risk:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-prompt-problem">The Prompt Problem<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-prompt-problem" class="hash-link" aria-label="Direct link to The Prompt Problem" title="Direct link to The Prompt Problem" translate="no">​</a></h3>
+<ul>
+<li class="">🚨 Agents hallucinate actions that don't exist</li>
+<li class="">🔓 Permissions are implicit and unenforceable</li>
+<li class="">🌫️ Execution paths are opaque and unpredictable</li>
+<li class="">❌ Security reviews are nearly impossible</li>
+<li class="">📝 Audits have no structured artifacts to examine</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-industry-response">The Industry Response<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-industry-response" class="hash-link" aria-label="Direct link to The Industry Response" title="Direct link to The Industry Response" translate="no">​</a></h3>
+<p>Skills emerged because <strong>enterprises demanded control</strong>.</p>
+<p>The industry responded with:</p>
+<ul>
+<li class="">Shared <strong>Skill specifications</strong> (not vendor-locked)</li>
+<li class="">Standard schemas for cross-platform compatibility</li>
+<li class="">Public registries and catalogs for discovery</li>
+<li class="">Installation, versioning, and tracking mechanisms</li>
+<li class="">Observability and governance tooling</li>
+</ul>
+<p>Skills are now appearing everywhere — AI frameworks, runtime environments, marketplaces, and enterprise dashboards.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-vs-prompts-the-real-difference">Skills vs Prompts: The Real Difference<a href="https://mcp.com.ai/skills/what-is-agent-skills#skills-vs-prompts-the-real-difference" class="hash-link" aria-label="Direct link to Skills vs Prompts: The Real Difference" title="Direct link to Skills vs Prompts: The Real Difference" translate="no">​</a></h2>
+<p>Understanding this distinction is critical for building production-grade AI systems.</p>
+<table><thead><tr><th>Aspect</th><th>Prompts</th><th>Skills</th></tr></thead><tbody><tr><td><strong>Behavior</strong></td><td>Implicit, suggested</td><td>Explicit, enforced</td></tr><tr><td><strong>Format</strong></td><td>Natural language</td><td>Structured schema</td></tr><tr><td><strong>Security</strong></td><td>Trust-based</td><td>Contract-based</td></tr><tr><td><strong>Auditability</strong></td><td>Hard to audit</td><td>Fully auditable</td></tr><tr><td><strong>Execution</strong></td><td>Non-deterministic</td><td>Governable</td></tr><tr><td><strong>Permissions</strong></td><td>Implied</td><td>Explicit</td></tr><tr><td><strong>Lifecycle</strong></td><td>Ad-hoc</td><td>Versioned &amp; tracked</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-core-distinction">The Core Distinction<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-core-distinction" class="hash-link" aria-label="Direct link to The Core Distinction" title="Direct link to The Core Distinction" translate="no">​</a></h3>
+<p><strong>Prompts</strong> decide <em>what to try</em>.<br>
+<strong>Skills</strong> define <em>what is allowed</em>.</p>
+<p>Prompts ask. Skills authorize.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-vs-tools-vs-workflows-clearing-the-confusion">Skills vs Tools vs Workflows: Clearing the Confusion<a href="https://mcp.com.ai/skills/what-is-agent-skills#skills-vs-tools-vs-workflows-clearing-the-confusion" class="hash-link" aria-label="Direct link to Skills vs Tools vs Workflows: Clearing the Confusion" title="Direct link to Skills vs Tools vs Workflows: Clearing the Confusion" translate="no">​</a></h2>
+<p>These terms are often used interchangeably. They shouldn't be.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-hierarchy-of-agent-capabilities">The Hierarchy of Agent Capabilities<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-hierarchy-of-agent-capabilities" class="hash-link" aria-label="Direct link to The Hierarchy of Agent Capabilities" title="Direct link to The Hierarchy of Agent Capabilities" translate="no">​</a></h3>
+<p><strong>🔧 Tools</strong> are low-level primitives</p>
+<ul>
+<li class="">Individual functions or API calls</li>
+<li class="">Example: <code>get_user(id)</code> or <code>send_email(to, subject, body)</code></li>
+<li class="">No decision-making, just execution</li>
+</ul>
+<p><strong>🔄 Workflows</strong> are pre-wired sequences</p>
+<ul>
+<li class="">Fixed chains of predetermined steps</li>
+<li class="">Example: "When form submitted → validate → save → send email"</li>
+<li class="">No agent choice, just automation</li>
+</ul>
+<p><strong>🎯 Skills</strong> are bounded capabilities that agents choose to invoke</p>
+<ul>
+<li class="">Define what CAN be done and under what constraints</li>
+<li class="">Example: "Search customer database (read-only, max 100 results, audit logged)"</li>
+<li class="">Agent decides WHEN to use them based on context</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters">Why This Matters<a href="https://mcp.com.ai/skills/what-is-agent-skills#why-this-matters" class="hash-link" aria-label="Direct link to Why This Matters" title="Direct link to Why This Matters" translate="no">​</a></h3>
+<p>Skills sit at the <strong>decision boundary</strong> between reasoning and execution.</p>
+<ul>
+<li class="">The <strong>model reasons</strong> about what to do</li>
+<li class="">The <strong>Skill authorizes</strong> what can be done</li>
+<li class="">The <strong>tool executes</strong> the actual action</li>
+</ul>
+<p>This separation is what makes AI agents governable.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agent-skills-are-becoming-a-standard-layer">Agent Skills Are Becoming a Standard Layer<a href="https://mcp.com.ai/skills/what-is-agent-skills#agent-skills-are-becoming-a-standard-layer" class="hash-link" aria-label="Direct link to Agent Skills Are Becoming a Standard Layer" title="Direct link to Agent Skills Are Becoming a Standard Layer" translate="no">​</a></h2>
+<p>What started as framework-specific abstractions is now converging into industry standards.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-standardization-wave">The Standardization Wave<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-standardization-wave" class="hash-link" aria-label="Direct link to The Standardization Wave" title="Direct link to The Standardization Wave" translate="no">​</a></h3>
+<p><strong>Foundation:</strong></p>
+<ul>
+<li class="">Shared specifications (like MCP)</li>
+<li class="">Common schemas and interfaces</li>
+<li class="">Cross-platform compatibility</li>
+</ul>
+<p><strong>Distribution:</strong></p>
+<ul>
+<li class="">Public registries and catalogs</li>
+<li class="">Installation and discovery tooling</li>
+<li class="">Version management</li>
+</ul>
+<p><strong>Operations:</strong></p>
+<ul>
+<li class="">Usage tracking and observability</li>
+<li class="">Permission management</li>
+<li class="">Audit logging and compliance</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters-1">Why This Matters<a href="https://mcp.com.ai/skills/what-is-agent-skills#why-this-matters-1" class="hash-link" aria-label="Direct link to Why This Matters" title="Direct link to Why This Matters" translate="no">​</a></h3>
+<p>This is how sustainable AI ecosystems form.</p>
+<p><strong>Not around models</strong> (which change constantly)<br>
+<strong>But around capabilities</strong> (which systems can rely on)</p>
+<p>When Skills become standardized:</p>
+<ul>
+<li class="">Developers can publish once, run anywhere</li>
+<li class="">Enterprises can audit once, trust everywhere</li>
+<li class="">Agents can discover capabilities dynamically</li>
+<li class="">Security teams can govern at the Skill level</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-mcp-matters-for-agent-skills">Why MCP Matters for Agent Skills<a href="https://mcp.com.ai/skills/what-is-agent-skills#why-mcp-matters-for-agent-skills" class="hash-link" aria-label="Direct link to Why MCP Matters for Agent Skills" title="Direct link to Why MCP Matters for Agent Skills" translate="no">​</a></h2>
+<p><strong>Critical insight:</strong> Skills don't live in the model. They live in systems.</p>
+<p>The model generates <em>reasoning</em>. Systems provide <em>capabilities</em>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-mcp-provides">What MCP Provides<a href="https://mcp.com.ai/skills/what-is-agent-skills#what-mcp-provides" class="hash-link" aria-label="Direct link to What MCP Provides" title="Direct link to What MCP Provides" translate="no">​</a></h3>
+<p>The <a class="" href="https://mcp.com.ai/">Model Context Protocol (MCP)</a> solves the infrastructure problem for Skills:</p>
+<p><strong>Execution Layer:</strong></p>
+<ul>
+<li class="">Transport-agnostic communication (stdio, HTTP, SSE)</li>
+<li class="">Remote skill invocation across boundaries</li>
+<li class="">Standardized request/response patterns</li>
+</ul>
+<p><strong>Enterprise Requirements:</strong></p>
+<ul>
+<li class="">Security boundaries and permissions</li>
+<li class="">Air-gap compatibility for sensitive environments</li>
+<li class="">Authentication and authorization hooks</li>
+</ul>
+<p><strong>Governance &amp; Compliance:</strong></p>
+<ul>
+<li class="">Audit trails for all skill invocations</li>
+<li class="">Usage tracking and monitoring</li>
+<li class="">Policy enforcement points</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-transformation">The Transformation<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-transformation" class="hash-link" aria-label="Direct link to The Transformation" title="Direct link to The Transformation" translate="no">​</a></h3>
+<p>MCP turns Skills from <strong>abstract ideas</strong> into <strong>operational infrastructure</strong>.</p>
+<ul>
+<li class="">Before MCP: Each framework had its own Skill implementation</li>
+<li class="">After MCP: Skills work across frameworks, runtimes, and platforms</li>
+<li class="">Result: True interoperability and enterprise adoption</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-mental-model-to-remember">The Mental Model to Remember<a href="https://mcp.com.ai/skills/what-is-agent-skills#the-mental-model-to-remember" class="hash-link" aria-label="Direct link to The Mental Model to Remember" title="Direct link to The Mental Model to Remember" translate="no">​</a></h2>
+<blockquote>
+<p><strong>Reasoning stays with the model.</strong><br>
+<strong>Authority stays with the system.</strong></p>
+</blockquote>
+<p>Skills are where that line is drawn.</p>
+<p>This separation ensures:</p>
+<ul>
+<li class="">AI can be creative within bounds</li>
+<li class="">Systems maintain control</li>
+<li class="">Humans can audit and govern</li>
+<li class="">Security isn't dependent on prompt engineering</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="faq-understanding-agent-skills">FAQ: Understanding Agent Skills<a href="https://mcp.com.ai/skills/what-is-agent-skills#faq-understanding-agent-skills" class="hash-link" aria-label="Direct link to FAQ: Understanding Agent Skills" title="Direct link to FAQ: Understanding Agent Skills" translate="no">​</a></h2>
+<p><strong>Q: What is an Agent Skill?</strong><br>
+<!-- -->A: An Agent Skill is a structured, declarative capability that an AI agent can invoke to perform an action through a system. Unlike prompts, Skills define explicit boundaries, permissions, and execution rules that machines can enforce.</p>
+<p><strong>Q: How do Agent Skills differ from prompts?</strong><br>
+<!-- -->A: Prompts are implicit natural language suggestions with trust-based, non-deterministic behavior. Skills are explicit structured capabilities with contract-based, auditable, and governable execution. Prompts decide what to try; Skills define what is allowed.</p>
+<p><strong>Q: What's the difference between Skills, tools, and workflows?</strong><br>
+<!-- -->A: Tools are low-level primitives (individual functions), workflows are pre-wired sequences (fixed automation), and Skills are bounded capabilities that agents choose to invoke. Skills sit at the decision boundary between AI reasoning and system execution.</p>
+<p><strong>Q: Why do AI agents need Skills instead of just prompts?</strong><br>
+<!-- -->A: Prompt-driven agents don't scale at enterprise level. They can hallucinate actions, have implicit permissions, opaque execution paths, and are impossible to audit. Skills provide the control, governance, and security that enterprises demand.</p>
+<p><strong>Q: What role does MCP play with Agent Skills?</strong><br>
+<!-- -->A: MCP (Model Context Protocol) provides a transport-agnostic execution layer for Skills, enabling remote skill invocation, enterprise security boundaries, air-gap compatibility, and audit/governance hooks. MCP turns Skills from ideas into infrastructure.</p>
+<p><strong>Q: Are Agent Skills becoming a standard?</strong><br>
+<!-- -->A: Yes. What started as framework-specific abstractions is converging into shared specifications, common schemas, public registries, installation tooling, and usage tracking. Skills are becoming the standard unit of agent execution, governance, and enterprise adoption.</p>
+<p><strong>Q: Can Agent Skills be audited for security?</strong><br>
+<!-- -->A: Yes. Unlike prompts, Skills are structured with explicit schemas, making them auditable and governable. They provide clear artifacts for security reviews, permission tracking, and execution path analysis.</p>
+<p><strong>Q: Where do Agent Skills execute?</strong><br>
+<!-- -->A: Skills don't live in the model—they live in systems. The model handles reasoning, while Skills execute in controlled environments with proper security boundaries and governance. This separation ensures authority stays with the system, not the AI.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-comes-next-the-skill-first-future">What Comes Next: The Skill-First Future<a href="https://mcp.com.ai/skills/what-is-agent-skills#what-comes-next-the-skill-first-future" class="hash-link" aria-label="Direct link to What Comes Next: The Skill-First Future" title="Direct link to What Comes Next: The Skill-First Future" translate="no">​</a></h2>
+<p>Agent Skills are now the fundamental unit of:</p>
+<p>✅ <strong>Agent execution</strong> — how AI agents perform actions<br>
+<!-- -->✅ <strong>Platform governance</strong> — how organizations control AI behavior<br>
+<!-- -->✅ <strong>Security review</strong> — how teams audit AI capabilities<br>
+<!-- -->✅ <strong>Enterprise adoption</strong> — how AI becomes production-ready</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="your-next-steps">Your Next Steps<a href="https://mcp.com.ai/skills/what-is-agent-skills#your-next-steps" class="hash-link" aria-label="Direct link to Your Next Steps" title="Direct link to Your Next Steps" translate="no">​</a></h3>
+<p>The rest of this section explores how to:</p>
+<ul>
+<li class=""><strong>Design</strong> Skills that are secure and maintainable</li>
+<li class=""><strong>Build</strong> Skills using MCP and standard patterns</li>
+<li class=""><strong>Evaluate</strong> Skills for quality and safety</li>
+<li class=""><strong>Deploy</strong> Skills across environments</li>
+<li class=""><strong>Govern</strong> Skills at enterprise scale</li>
+</ul>
+<p>We're treating Skills <strong>as systems</strong> — because that's what they are.</p>
+<p><strong>The era of prompt-only agents is ending.</strong><br>
+<strong>The era of Skill-driven systems is here.</strong></p>]]></content:encoded>
+            <category>Skills</category>
+            <category>AI Integration</category>
+            <category>Agentic AI</category>
+        </item>
+        <item>
+            <title><![CDATA[Mastering Skills: Your Gateway to Enhanced AI Capabilities]]></title>
+            <link>https://mcp.com.ai/skills</link>
+            <guid>https://mcp.com.ai/skills</guid>
+            <pubDate>Tue, 27 Jan 2026 10:08:04 GMT</pubDate>
+            <description><![CDATA[Unlock the full potential of AI with our comprehensive guide to Skills, empowering developers to create smarter, more efficient applications.]]></description>
+            <content:encoded><![CDATA[<p>In the rapidly evolving landscape of AI, <strong>Skills</strong> have emerged as a transformative force, enabling developers to extend the capabilities of AI models far beyond their native functions. Whether you're building chatbots, virtual assistants, or complex AI-driven applications, mastering Skills is essential to unlocking new levels of performance and user engagement.</p>
+<p><strong>Where agents stop guessing — and start acting</strong></p>
+<p>AI agents don’t fail because they’re not smart.<br>
+<!-- -->They fail because they don’t know <strong>what they’re allowed to do</strong>.</p>
+<p>Skills are the missing layer between <em>reasoning</em> and <em>execution</em>.<br>
+<!-- -->They turn vague prompts into <strong>explicit, auditable, testable actions</strong>.</p>
+<p>This section is the home of everything you need to <strong>understand, design, and operationalize Skills</strong> using the <strong>Model Context Protocol (MCP)</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-are-skills">What are Skills?<a href="https://mcp.com.ai/skills#what-are-skills" class="hash-link" aria-label="Direct link to What are Skills?" title="Direct link to What are Skills?" translate="no">​</a></h2>
+<p>A <strong>Skill</strong> is a structured, declarative capability that an AI agent can invoke safely and deterministically.</p>
+<p>Think of a Skill as:</p>
+<ul>
+<li class="">A <strong>contract</strong>, not a prompt</li>
+<li class="">A <strong>capability</strong>, not a suggestion</li>
+<li class="">A <strong>tool with boundaries</strong>, not a magic trick</li>
+</ul>
+<p>At a technical level, a Skill is:</p>
+<ul>
+<li class="">Defined using <strong>MCP</strong></li>
+<li class="">Exposed as a <strong>tool</strong> with a clear schema</li>
+<li class="">Executed by <strong>systems</strong>, not the model itself</li>
+</ul>
+<blockquote>
+<p>Reasoning stays with the model.<br>
+<!-- -->Authority stays with the system.</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-skills-exist-and-prompts-are-not-enough">Why Skills exist (and prompts are not enough)<a href="https://mcp.com.ai/skills#why-skills-exist-and-prompts-are-not-enough" class="hash-link" aria-label="Direct link to Why Skills exist (and prompts are not enough)" title="Direct link to Why Skills exist (and prompts are not enough)" translate="no">​</a></h2>
+<p>Prompt-only agents break at scale.</p>
+<p>They:</p>
+<ul>
+<li class="">Hallucinate actions</li>
+<li class="">Overreach permissions</li>
+<li class="">Leak secrets</li>
+<li class="">Fail silently</li>
+<li class="">Cannot be audited, tested, or governed</li>
+</ul>
+<p>Skills exist to solve that.</p>
+<p>They allow you to:</p>
+<ul>
+<li class="">Explicitly declare <strong>what an agent can do</strong></li>
+<li class="">Control <strong>how and when execution happens</strong></li>
+<li class="">Separate <strong>decision-making from authority</strong></li>
+<li class="">Build agents that pass <strong>security, compliance, and platform reviews</strong></li>
+</ul>
+<p>If prompts are <strong>thoughts</strong>, Skills are <strong>hands</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-are-not-plugins-not-functions-not-workflows">Skills are not plugins. Not functions. Not workflows.<a href="https://mcp.com.ai/skills#skills-are-not-plugins-not-functions-not-workflows" class="hash-link" aria-label="Direct link to Skills are not plugins. Not functions. Not workflows." title="Direct link to Skills are not plugins. Not functions. Not workflows." translate="no">​</a></h2>
+<p>Skills are often misunderstood.</p>
+<p>They are <strong>not</strong>:</p>
+<ul>
+<li class="">Plugins (too UI-driven)</li>
+<li class="">Functions (too low-level)</li>
+<li class="">Workflows (too rigid)</li>
+</ul>
+<p>Skills live in between.</p>
+<p>They are:</p>
+<ul>
+<li class=""><strong>Composable</strong></li>
+<li class=""><strong>Discoverable</strong></li>
+<li class=""><strong>Context-aware</strong></li>
+<li class=""><strong>Governable</strong></li>
+</ul>
+<p>This is why MCP matters: it gives Skills a <strong>standardized, machine-readable contract</strong> that works across:</p>
+<ul>
+<li class="">IDEs</li>
+<li class="">Agents</li>
+<li class="">Runtimes</li>
+<li class="">Enterprises</li>
+<li class="">Air-gapped environments</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-youll-learn-in-this-section">What you’ll learn in this section<a href="https://mcp.com.ai/skills#what-youll-learn-in-this-section" class="hash-link" aria-label="Direct link to What you’ll learn in this section" title="Direct link to What you’ll learn in this section" translate="no">​</a></h2>
+<p>This Skills section is not a tutorial dump.<br>
+<!-- -->It’s a <strong>mental model + execution guide</strong>.</p>
+<p>Here you’ll learn how to:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-design-skills">🔹 Design Skills<a href="https://mcp.com.ai/skills#-design-skills" class="hash-link" aria-label="Direct link to 🔹 Design Skills" title="Direct link to 🔹 Design Skills" translate="no">​</a></h3>
+<ul>
+<li class="">How to think in <strong>capabilities</strong>, not endpoints</li>
+<li class="">How to model inputs, outputs, and constraints</li>
+<li class="">How to avoid over-privileged Skills</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-build-skills">🔹 Build Skills<a href="https://mcp.com.ai/skills#-build-skills" class="hash-link" aria-label="Direct link to 🔹 Build Skills" title="Direct link to 🔹 Build Skills" translate="no">​</a></h3>
+<ul>
+<li class="">API-to-MCP (a2m) Skill patterns</li>
+<li class="">Tool schemas that scale</li>
+<li class="">Error handling for agents (not humans)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-test--evaluate-skills">🔹 Test &amp; Evaluate Skills<a href="https://mcp.com.ai/skills#-test--evaluate-skills" class="hash-link" aria-label="Direct link to 🔹 Test &amp; Evaluate Skills" title="Direct link to 🔹 Test &amp; Evaluate Skills" translate="no">​</a></h3>
+<ul>
+<li class="">Skill evaluation (mcp-eval)</li>
+<li class="">Deterministic vs probabilistic behavior</li>
+<li class="">Guardrails, contracts, and failure modes</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-deploy-skills">🔹 Deploy Skills<a href="https://mcp.com.ai/skills#-deploy-skills" class="hash-link" aria-label="Direct link to 🔹 Deploy Skills" title="Direct link to 🔹 Deploy Skills" translate="no">​</a></h3>
+<ul>
+<li class="">Local vs remote MCP servers</li>
+<li class="">Enterprise-ready Skill exposure</li>
+<li class="">Air-gap and zero-trust patterns</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-govern-skills">🔹 Govern Skills<a href="https://mcp.com.ai/skills#-govern-skills" class="hash-link" aria-label="Direct link to 🔹 Govern Skills" title="Direct link to 🔹 Govern Skills" translate="no">​</a></h3>
+<ul>
+<li class="">Skill registries</li>
+<li class="">Versioning and deprecation</li>
+<li class="">Security reviews and auditability</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="who-this-section-is-for">Who this section is for<a href="https://mcp.com.ai/skills#who-this-section-is-for" class="hash-link" aria-label="Direct link to Who this section is for" title="Direct link to Who this section is for" translate="no">​</a></h2>
+<p>This section is written for people building <strong>real systems</strong>, not demos.</p>
+<ul>
+<li class=""><strong>Platform teams</strong> defining agent capabilities</li>
+<li class=""><strong>API teams</strong> turning services into agent-ready tools</li>
+<li class=""><strong>Security teams</strong> asking “what can this agent actually do?”</li>
+<li class=""><strong>Product leaders</strong> trying to ship AI features without chaos</li>
+<li class=""><strong>Builders</strong> who want agents that survive production</li>
+</ul>
+<p>If you’ve ever asked:</p>
+<blockquote>
+<p>“How do we control what the agent can do?”</p>
+</blockquote>
+<p>You’re in the right place.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-are-the-unit-of-scale-for-agents">Skills are the unit of scale for agents<a href="https://mcp.com.ai/skills#skills-are-the-unit-of-scale-for-agents" class="hash-link" aria-label="Direct link to Skills are the unit of scale for agents" title="Direct link to Skills are the unit of scale for agents" translate="no">​</a></h2>
+<p>Agents don’t scale by being smarter.<br>
+<!-- -->They scale by being <strong>better constrained</strong>.</p>
+<p>Skills are:</p>
+<ul>
+<li class="">The unit of <strong>execution</strong></li>
+<li class="">The unit of <strong>security</strong></li>
+<li class="">The unit of <strong>governance</strong></li>
+<li class="">The unit of <strong>enterprise adoption</strong></li>
+</ul>
+<p>This section exists because Skills are not optional anymore.</p>
+<p>They are the foundation.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="start-here">Start here<a href="https://mcp.com.ai/skills#start-here" class="hash-link" aria-label="Direct link to Start here" title="Direct link to Start here" translate="no">​</a></h2>
+<p>If you’re new:</p>
+<ul>
+<li class="">Read <strong>What is a Skill?</strong></li>
+<li class="">Then <strong>API → MCP Skills (a2m)</strong></li>
+<li class="">Then <strong>Skill Evaluation &amp; Safety</strong></li>
+</ul>
+<p>If you’re advanced:</p>
+<ul>
+<li class="">Jump straight to <strong>Skill Lifecycle Management</strong></li>
+<li class="">Or <strong>Enterprise Skill Architectures</strong></li>
+</ul>
+<p>Either way — welcome.</p>
+<p>This is where agents become systems.
+Be HAPI, and Go Rebels! ✊🏼</p>]]></content:encoded>
+            <category>Skills</category>
+        </item>
+        <item>
+            <title><![CDATA[How to Deploy MCP Servers]]></title>
+            <link>https://mcp.com.ai/university/deploy-mcp-server-in-seconds</link>
+            <guid>https://mcp.com.ai/university/deploy-mcp-server-in-seconds</guid>
+            <pubDate>Tue, 27 Jan 2026 10:08:04 GMT</pubDate>
+            <description><![CDATA[A step-by-step guide to deploying MCP servers using HAPI CLI.]]></description>
+            <content:encoded><![CDATA[<p>Setting up a <strong>Model Context Protocol (MCP)</strong> server is easier than you might think! It is a straightforward process that doesn't require extensive DevOps skills. Whether you're testing, packaging, or scaling globally, the <strong>HAPI MCP Stack</strong> equips you with everything you need to launch your server in just seconds.</p>
+<p>In this guide, we'll explore <strong>4 different ways</strong> to run and deploy MCP servers using the HAPI CLI.</p>
+<p><strong>Bonus:</strong> Agent Skills provided to automate MCP server deployment.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-local-development-the-quickest-way">1. Local Development (The Quickest Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#1-local-development-the-quickest-way" class="hash-link" aria-label="Direct link to 1. Local Development (The Quickest Way)" title="Direct link to 1. Local Development (The Quickest Way)" translate="no">​</a></h2>
+<p>For rapid iteration and testing, running your MCP server locally is the best approach. You can instantly spin up a server and inspect its tools using the official MCP Inspector.</p>
+<p>In this example, we'll run an <strong>OpenAI Tools</strong> server.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Run the MCP Server Locally and pipe to Inspector</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve openai-tools \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --headless \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --port 3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.openai.com/v1 | bunx @modelcontextprotocol/inspector</span><br></span></code></pre></div></div>
+<p>Find more MCP server definitions in the official <a href="https://registry.modelcontextprotocol.io/?q=ai.com.mcp" target="_blank" rel="noopener noreferrer" class="">MCP Registry</a>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-happening-here">What's happening here?<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#whats-happening-here" class="hash-link" aria-label="Direct link to What's happening here?" title="Direct link to What's happening here?" translate="no">​</a></h3>
+<ul>
+<li class=""><code>hapi serve</code>: Starts the MCP server.</li>
+<li class=""><code>--headless</code>: Runs without a UI (optimized for machine interaction).</li>
+<li class=""><code>--port 3030</code>: Binds the server to port 3030.</li>
+<li class=""><code>| bunx @modelcontextprotocol/inspector</code>: Pipes the output directly to the MCP Inspector, allowing you to interact with your tools in a web interface locally.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-docker-containers-the-portable-way">2. Docker Containers (The Portable Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#2-docker-containers-the-portable-way" class="hash-link" aria-label="Direct link to 2. Docker Containers (The Portable Way)" title="Direct link to 2. Docker Containers (The Portable Way)" translate="no">​</a></h2>
+<p>If you need to ship your server to Kubernetes, ECS, or any container orchestration platform, Docker is the industry standard. We provide a pre-built image <code>hapimcp/hapi-cli</code> that is ready to serve.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">docker run --name hapi-openai -d \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -p 3030:3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  hapimcp/hapi-cli:latest serve \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --openapi https://docs.mcp.com.ai/servers-apis/openapi/openai-tools.yaml \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --headless \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.openai.com/v1</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="breakdown">Breakdown:<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#breakdown" class="hash-link" aria-label="Direct link to Breakdown:" title="Direct link to Breakdown:" translate="no">​</a></h3>
+<ul>
+<li class=""><code>hapimcp/hapi-cli:latest</code>: The official HAPI CLI Docker image.</li>
+<li class=""><code>--openapi ...</code>: Specifies the OpenAPI definition for the server (defining the tools/resources).</li>
+<li class=""><code>-p 3030:3030</code>: Maps the container port to your host.</li>
+</ul>
+<p>Your server is now running in a container, ready to accept connections on port 3030!</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-cloudflare-workers-the-scalable-way">3. Cloudflare Workers (The Scalable Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#3-cloudflare-workers-the-scalable-way" class="hash-link" aria-label="Direct link to 3. Cloudflare Workers (The Scalable Way)" title="Direct link to 3. Cloudflare Workers (The Scalable Way)" translate="no">​</a></h2>
+<p>For a serverless solution with global low latency, <strong>Cloudflare Workers</strong> is the ultimate deployment target. HAPI CLI handles the entire build and deployment process for you.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi deploy --name openai-tools \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --project openai \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --openapi https://docs.mcp.com.ai/servers-apis/openapi/openai-tools.yaml \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.openai.com/v1</span><br></span></code></pre></div></div>
+<p>You'll see output like this:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">📝 Generating temporary Wrangler config...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">⚙️ Deploying to Cloudflare Workers...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">🌍 Live at: https://openai-tools.runmcp.workers.dev</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">✅ Deployed successfully!</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-cloudflare-workers">Why Cloudflare Workers?<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#why-cloudflare-workers" class="hash-link" aria-label="Direct link to Why Cloudflare Workers?" title="Direct link to Why Cloudflare Workers?" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Zero Cold Starts:</strong> Instant response times.</li>
+<li class=""><strong>Global Distribution:</strong> Deployed to 300+ cities worldwide.</li>
+<li class=""><strong>Cost Effective:</strong> Pay only for what you use.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-flyio-the-global-way">4. Fly.io (The Global Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#4-flyio-the-global-way" class="hash-link" aria-label="Direct link to 4. Fly.io (The Global Way)" title="Direct link to 4. Fly.io (The Global Way)" translate="no">​</a></h2>
+<p>For those who prefer running on <strong>Fly.io</strong>, you can deploy your MCP server instantly using our pre-built image, bypassing the need for Dockerfiles or complex overrides.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">fly machine run hapimcp/hapi-cli:latest --command "hapi serve" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -e openapi="https://docs.mcp.com.ai/servers-apis/openapi/openai-tools.yaml" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -e url="https://api.openai.com/v1"</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-flyio">Why Fly.io?<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#why-flyio" class="hash-link" aria-label="Direct link to Why Fly.io?" title="Direct link to Why Fly.io?" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Instant Machines:</strong> Boot full VM instances in milliseconds.</li>
+<li class=""><strong>Global Anycast:</strong> Run close to your users.</li>
+<li class=""><strong>Pre-built Image:</strong> No build step required—just run.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agent-skills-to-automate-deployment">Agent Skills to Automate Deployment<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#agent-skills-to-automate-deployment" class="hash-link" aria-label="Direct link to Agent Skills to Automate Deployment" title="Direct link to Agent Skills to Automate Deployment" translate="no">​</a></h2>
+<p>To make deployment even easier, we provide <strong>Agent Skills</strong> that automate the entire process of deploying MCP servers across different platforms. You can find this and more skills in the <a href="https://skills.sh/?q=mcp-com-ai" target="_blank" rel="noopener noreferrer" class="">mcp.com.ai skills registry</a>.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx skills add https://github.com/mcp-com-ai/api-to-mcp-skills --skill api-to-mcp</span><br></span></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<table><thead><tr><th style="text-align:left">Method</th><th style="text-align:left">Best For</th><th style="text-align:left">Requirement</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Local</strong></td><td style="text-align:left">Development, Testing, Debugging</td><td style="text-align:left">HAPI CLI</td></tr><tr><td style="text-align:left"><strong>Docker</strong></td><td style="text-align:left">Enterprise, Kubernetes, VPS</td><td style="text-align:left">Docker Engine</td></tr><tr><td style="text-align:left"><strong>Workers</strong></td><td style="text-align:left">Serverless, Scaling, Public APIs</td><td style="text-align:left">Cloudflare Account</td></tr><tr><td style="text-align:left"><strong>Fly.io</strong></td><td style="text-align:left">Global VMs, Persistent Apps</td><td style="text-align:left">Fly.io Account</td></tr></tbody></table>
+<p>Ready to build your own? Check out the full documentation at <a href="https://docs.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">docs.mcp.com.ai</a>.</p>
+<p>🏁 <strong>Done. Be HAPI, and go Rebels! ✊</strong></p>]]></content:encoded>
+            <category>Guide</category>
+        </item>
         <item>
             <title><![CDATA[MCP at Scale: Engineering the Future of AI Platforms]]></title>
             <link>https://mcp.com.ai/mcp-at-scale</link>
@@ -427,6 +850,142 @@ It’s a design failure.</p>
 </ul>]]></content:encoded>
             <category>MCP at Scale</category>
             <category>Architecture</category>
+        </item>
+        <item>
+            <title><![CDATA[SDKs are Dead: Embracing Agent Skills for Automation]]></title>
+            <link>https://mcp.com.ai/skills/sdks-are-dead</link>
+            <guid>https://mcp.com.ai/skills/sdks-are-dead</guid>
+            <pubDate>Mon, 19 Jan 2026 18:49:49 GMT</pubDate>
+            <description><![CDATA[Discover why traditional SDKs are becoming obsolete in the age of Agentic AI. Learn how Agent Skills enable smarter, more adaptable applications without rigid code structures.]]></description>
+            <content:encoded><![CDATA[
+<p>What's the lesson from <a href="https://www.youtube.com/watch?v=Jo168H2m5lw" target="_blank" rel="noopener noreferrer" class="">Brian Casel's experience</a> about the future of SDKs, no-code workflows, and automation?</p>
+<p>In short: <strong>SDKs are dead</strong> - well, at least for many use cases in modern application development.</p>
+<p>Brian Casel, a well-known developer and entrepreneur, shared his experience building an AI-powered image generation automation. He spent a full week constructing a complex automation in <a href="https://n8n.io/" target="_blank" rel="noopener noreferrer" class="">n8n</a> (a popular no-code workflow engine) for AI image generation — but ultimately scrapped it and rebuilt the entire thing as a Claude Code Skill instead.</p>
+<p>His conclusion? <strong>Claude Code Skills are better suited for flexible, maintainable, and powerful automations than traditional no-code workflows for many use cases.</strong></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-sdks-are-dying">Why SDKs Are Dying<a href="https://mcp.com.ai/skills/sdks-are-dead#why-sdks-are-dying" class="hash-link" aria-label="Direct link to Why SDKs Are Dying" title="Direct link to Why SDKs Are Dying" translate="no">​</a></h2>
+<p>In the age of Agentic AI, traditional Software Development Kits (SDKs) are becoming increasingly obsolete for many applications. Here's why:</p>
+<p><strong>The Problem with SDKs:</strong></p>
+<ul>
+<li class="">SDKs are rigid structures that require extensive coding to handle various scenarios</li>
+<li class="">They lock developers into specific implementation patterns</li>
+<li class="">Updates and changes require manual code rewrites</li>
+<li class="">Error handling and edge cases multiply code complexity</li>
+<li class="">As Brian Casel demonstrated, even no-code platforms like <a href="https://n8n.io/" target="_blank" rel="noopener noreferrer" class="">n8n</a> can become complex, brittle, and hard to maintain when building sophisticated automations</li>
+</ul>
+<p><strong>The Agentic AI Advantage:</strong></p>
+<p><a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener noreferrer" class="">Claude Code Skills</a> and similar agentic approaches flip this model on its head. Instead of prescribing exactly how to accomplish a task, you define:</p>
+<ul>
+<li class="">High-level goals and constraints</li>
+<li class="">What success looks like</li>
+<li class="">The AI reasons about the best approach dynamically</li>
+</ul>
+<p>This shift from static, deterministic code to intelligent reasoning means applications can evolve and respond to new challenges without constant manual updates.</p>
+<p><a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" class="">Anthropic</a> did it again. Just as they revolutionized the AI-API landscape with the Model Context Protocol (MCP) and MCP Servers, they're now pioneering how we build automations and applications with <a href="https://agentskills.io/" target="_blank" rel="noopener noreferrer" class="">Agent Skills</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-build-with-agentic-ai">How to Build with Agentic AI<a href="https://mcp.com.ai/skills/sdks-are-dead#how-to-build-with-agentic-ai" class="hash-link" aria-label="Direct link to How to Build with Agentic AI" title="Direct link to How to Build with Agentic AI" translate="no">​</a></h2>
+<p>To leverage the power of Agentic AI, developers should focus on these key principles:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-goal-oriented-design">1. Goal-Oriented Design<a href="https://mcp.com.ai/skills/sdks-are-dead#1-goal-oriented-design" class="hash-link" aria-label="Direct link to 1. Goal-Oriented Design" title="Direct link to 1. Goal-Oriented Design" translate="no">​</a></h3>
+<p>Define <strong>what</strong> the application should achieve rather than <strong>how</strong> to achieve it step-by-step. This allows the AI to determine the best course of action based on context and constraints.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-dynamic-adaptation">2. Dynamic Adaptation<a href="https://mcp.com.ai/skills/sdks-are-dead#2-dynamic-adaptation" class="hash-link" aria-label="Direct link to 2. Dynamic Adaptation" title="Direct link to 2. Dynamic Adaptation" translate="no">​</a></h3>
+<p>Utilize AI's ability to adapt to new inputs and scenarios. This reduces the need for:</p>
+<ul>
+<li class="">Hard-coded logic branches</li>
+<li class="">Extensive conditional statements</li>
+<li class="">Manual handling of edge cases</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-continuous-learning">3. Continuous Learning<a href="https://mcp.com.ai/skills/sdks-are-dead#3-continuous-learning" class="hash-link" aria-label="Direct link to 3. Continuous Learning" title="Direct link to 3. Continuous Learning" translate="no">​</a></h3>
+<p>Implement feedback loops where the AI can learn from its actions and improve over time, enhancing the application's performance and reliability.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-integration-with-ai-services">4. Integration with AI Services<a href="https://mcp.com.ai/skills/sdks-are-dead#4-integration-with-ai-services" class="hash-link" aria-label="Direct link to 4. Integration with AI Services" title="Direct link to 4. Integration with AI Services" translate="no">​</a></h3>
+<p>Leverage existing AI platforms and services that offer agentic capabilities, reducing the need to build complex systems from scratch.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-focus-on-user-experience">5. Focus on User Experience<a href="https://mcp.com.ai/skills/sdks-are-dead#5-focus-on-user-experience" class="hash-link" aria-label="Direct link to 5. Focus on User Experience" title="Direct link to 5. Focus on User Experience" translate="no">​</a></h3>
+<p>With AI handling the complexity, developers can concentrate on creating intuitive and engaging user experiences.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="real-world-examples-of-agentic-ai">Real-World Examples of Agentic AI<a href="https://mcp.com.ai/skills/sdks-are-dead#real-world-examples-of-agentic-ai" class="hash-link" aria-label="Direct link to Real-World Examples of Agentic AI" title="Direct link to Real-World Examples of Agentic AI" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="agent-skills-in-action">Agent Skills in Action<a href="https://mcp.com.ai/skills/sdks-are-dead#agent-skills-in-action" class="hash-link" aria-label="Direct link to Agent Skills in Action" title="Direct link to Agent Skills in Action" translate="no">​</a></h3>
+<p>As demonstrated by Brian Casel, Claude Code Skills allow for building flexible automations that can adapt to changing requirements without extensive rewrites.</p>
+<p><strong>Community Examples from <a href="https://skills.sh/?q=mcp-com-ai" target="_blank" rel="noopener noreferrer" class="">mcp.com.ai skills</a>:</strong></p>
+<ul>
+<li class=""><strong><a href="https://skills.sh/mcp-com-ai/api-to-mcp" target="_blank" rel="noopener noreferrer" class="">API To MCP</a></strong> - Automates the conversion of REST APIs and deployment into MCP Servers without writing SDK code</li>
+<li class=""><strong><a href="https://skills.sh/mcp-com-ai/mcp-server-evaluations-skills/mcp-server-evaluations" target="_blank" rel="noopener noreferrer" class="">Test Remote MCPs</a></strong> - Automates testing of remote MCP servers without SDK dependencies or language-specific requirements</li>
+</ul>
+<p><strong>Community-Built Skills:</strong></p>
+<ul>
+<li class="">Automating <a href="https://skills.sh/?q=content" target="_blank" rel="noopener noreferrer" class="">content generation</a> workflows</li>
+<li class="">Dynamic <a href="https://skills.sh/?q=data+process" target="_blank" rel="noopener noreferrer" class="">data processing</a> pipelines</li>
+<li class="">Intelligent <a href="https://skills.sh/?q=customer" target="_blank" rel="noopener noreferrer" class="">customer support</a> systems</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="other-ai-services">Other AI Services<a href="https://mcp.com.ai/skills/sdks-are-dead#other-ai-services" class="hash-link" aria-label="Direct link to Other AI Services" title="Direct link to Other AI Services" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Code Copilots</strong>: AI-powered coding assistants that help developers write code faster with fewer errors</li>
+<li class=""><strong>Custom AI Agents</strong>: Tailored agents for specific tasks or workflows. Examples:<!-- -->
+<ul>
+<li class="">The <code>HAPI MCP Visual Identity System Agent</code> - Helps maintain and enhance visual identity systems, creating assets dynamically without rigid templates (inspired by Brian's example)</li>
+<li class=""><a href="https://code.visualstudio.com/docs/copilot/customization/custom-agents" target="_blank" rel="noopener noreferrer" class="">VS Code AI Agents</a> - Assist in code generation, debugging, and optimization</li>
+</ul>
+</li>
+<li class=""><strong>AI-Powered APIs (MCP Servers)</strong>: APIs that leverage AI to provide intelligent responses and actions, eliminating the need for complex SDKs</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-future-is-agentic">The Future is Agentic<a href="https://mcp.com.ai/skills/sdks-are-dead#the-future-is-agentic" class="hash-link" aria-label="Direct link to The Future is Agentic" title="Direct link to The Future is Agentic" translate="no">​</a></h2>
+<p>The future of application development lies in embracing Agentic AI. As traditional SDKs become less relevant, anyone building software—whether developers or non-developers—must adapt to this new paradigm by focusing on:</p>
+<ul>
+<li class=""><strong>High-level goals</strong> instead of step-by-step instructions</li>
+<li class=""><strong>Dynamic adaptation</strong> over rigid code structures</li>
+<li class=""><strong>Continuous learning</strong> rather than static implementations</li>
+</ul>
+<p>By doing so, they can build smarter, more resilient applications that evolve with changing needs and challenges.</p>
+<p>Creating systems that can think and adapt on their own unlocks new possibilities not only in software development but across industries and specialized domains.</p>
+<p><strong>The Five Pillars of Agentic Success:</strong></p>
+<ol>
+<li class=""><strong>Design</strong> - Think in goals, not steps</li>
+<li class=""><strong>Adapt</strong> - Let AI handle variations</li>
+<li class=""><strong>Learn</strong> - Improve through feedback</li>
+<li class=""><strong>Integrate</strong> - Leverage existing AI services</li>
+<li class=""><strong>Evolve</strong> - Continuously refine based on outcomes</li>
+</ol>
+<p>Agility, innovation, and flexibility are the cornerstones of successful applications in the age of Agentic AI. This shift clearly indicates that the era of rigid SDKs is coming to an end. The future belongs to those who can harness the power of Agentic AI to create flexible, intelligent systems that can think and adapt independently.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-reality-check">The Reality Check<a href="https://mcp.com.ai/skills/sdks-are-dead#the-reality-check" class="hash-link" aria-label="Direct link to The Reality Check" title="Direct link to The Reality Check" translate="no">​</a></h2>
+<p>Don't get me wrong—<strong>SDKs aren't entirely dead yet</strong>. They'll probably remain relevant for another decade or more in certain scenarios:</p>
+<ul>
+<li class=""><strong>Low-level system programming</strong> where direct hardware control is needed</li>
+<li class=""><strong>Performance-critical applications</strong> like game development and real-time systems</li>
+<li class=""><strong>Embedded systems</strong> with strict resource constraints</li>
+<li class=""><strong>Enterprise software</strong> with rigid compliance and certification requirements</li>
+<li class=""><strong>Specialized domains</strong> with deterministic behavior requirements</li>
+</ul>
+<p>However, for modern web applications, automations, and business logic—areas requiring flexibility and adaptability—Agentic AI with Agent Skills offers a superior alternative.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-takeaways">Key Takeaways<a href="https://mcp.com.ai/skills/sdks-are-dead#key-takeaways" class="hash-link" aria-label="Direct link to Key Takeaways" title="Direct link to Key Takeaways" translate="no">​</a></h2>
+<p>Teams and developers should embrace new technologies and paradigms that enhance productivity and innovation. By shifting focus from rigid SDKs to dynamic, goal-oriented AI systems, people can:</p>
+<ul>
+<li class="">✅ Build more maintainable systems</li>
+<li class="">✅ Reduce time spent on edge cases and error handling</li>
+<li class="">✅ Create applications that adapt to user needs automatically</li>
+<li class="">✅ Focus on user experience instead of implementation details</li>
+<li class="">✅ Unlock new possibilities in automation and integration</li>
+</ul>
+<p>Rebels, take note: <strong>the future is agentic, and it's time to adapt.</strong><br>
+<!-- -->Be HAPI, and Go Rebels! ✊🏼</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="faq-agent-skills-and-the-future-of-sdks">FAQ: Agent Skills and the Future of SDKs<a href="https://mcp.com.ai/skills/sdks-are-dead#faq-agent-skills-and-the-future-of-sdks" class="hash-link" aria-label="Direct link to FAQ: Agent Skills and the Future of SDKs" title="Direct link to FAQ: Agent Skills and the Future of SDKs" translate="no">​</a></h2>
+<p><strong>Q: Are SDKs really dead?</strong><br>
+<!-- -->A: Not completely—they'll remain relevant for low-level programming, game development, and compliance-heavy enterprise software. But for most modern applications needing flexibility, Agentic AI offers better alternatives.</p>
+<p><strong>Q: What are Agent Skills?</strong><br>
+<!-- -->A: Agent Skills are capabilities that enable AI agents to perform tasks by reasoning about goals rather than following rigid code. You define what should happen; the AI figures out how.</p>
+<p><strong>Q: How do Agent Skills differ from traditional SDKs?</strong><br>
+<!-- -->A: SDKs require extensive coding for every scenario with static logic. Agent Skills use AI to reason and adapt dynamically, responding to new challenges without manual updates.</p>
+<p><strong>Q: Can I replace my existing automations with Agent Skills?</strong><br>
+<!-- -->A: Yes! Brian Casel demonstrated this by replacing his week-long <a href="https://n8n.io/" target="_blank" rel="noopener noreferrer" class="">n8n</a> workflow with a Claude Code Skill. Check platforms like <a href="https://skills.sh/" target="_blank" rel="noopener noreferrer" class="">skills.sh</a> for examples of Skills replacing SDK implementations.</p>
+<p><strong>Q: What is the Model Context Protocol (MCP)?</strong><br>
+<!-- -->A: MCP is Anthropic's standard that revolutionized AI-API interactions. MCP Servers provide AI-powered API interfaces, reducing the need for complex SDKs and manual integration work.</p>
+<p><strong>Q: What are the benefits of Agentic AI over traditional development?</strong><br>
+<!-- -->A: Goal-oriented design, dynamic adaptation, continuous learning, easier integration, and focus on user experience. This results in more maintainable and adaptable applications.</p>
+<p><strong>Q: How do I get started with Agent Skills?</strong><br>
+<!-- -->A: Define high-level goals for your application instead of step-by-step instructions. Explore Claude Code Skills and browse community-built Skills at agentskills.io or skills.sh.</p>
+<p><strong>Q: Will SDKs be completely replaced by AI?</strong><br>
+<!-- -->A: Not for another decade or more in domains like game development, embedded systems, and highly regulated software. But for most modern web apps and automations, agentic approaches are becoming the preferred choice.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="references">References<a href="https://mcp.com.ai/skills/sdks-are-dead#references" class="hash-link" aria-label="Direct link to References" title="Direct link to References" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://www.youtube.com/watch?v=Jo168H2m5lw" target="_blank" rel="noopener noreferrer" class="">Replacing my n8n workflow with a Claude Code Skill</a></li>
+</ul>]]></content:encoded>
+            <category>AI Integration</category>
+            <category>Agentic AI</category>
+            <category>Skills</category>
         </item>
         <item>
             <title><![CDATA[Unlocking Podcast Insights with MCP]]></title>

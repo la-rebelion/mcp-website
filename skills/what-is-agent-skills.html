@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">What Is an Agent Skill? The Standard Unit for AI Agent Capabilities | MCP AI Blog</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mcp.com.ai/skills/what-is-agent-skills"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="What Is an Agent Skill? The Standard Unit for AI Agent Capabilities | MCP AI Blog"><meta data-rh="true" name="description" content="Agent Skills define what AI agents can do with explicit, governable capabilities. Learn how Skills replace prompt-only behavior with structured, auditable execution."><meta data-rh="true" property="og:description" content="Agent Skills define what AI agents can do with explicit, governable capabilities. Learn how Skills replace prompt-only behavior with structured, auditable execution."><meta data-rh="true" name="keywords" content="agent skills,ai agent capabilities,mcp skills,agent skill definition,ai governance,prompt vs skills,agent execution units,structured ai capabilities"><meta data-rh="true" property="og:image" content="https://mcp.com.ai/img/skills/agent-skills.png"><meta data-rh="true" name="twitter:image" content="https://mcp.com.ai/img/skills/agent-skills.png"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2026-01-27T12:38:19.000Z"><meta data-rh="true" property="article:author" content="https://adrian.escutia.me"><meta data-rh="true" property="article:tag" content="Skills,AI Integration,Agentic AI"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://mcp.com.ai/skills/what-is-agent-skills"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/skills/what-is-agent-skills" hreflang="en"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/skills/what-is-agent-skills" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://mcp.com.ai/skills/what-is-agent-skills","mainEntityOfPage":"https://mcp.com.ai/skills/what-is-agent-skills","url":"https://mcp.com.ai/skills/what-is-agent-skills","headline":"What Is an Agent Skill? The Standard Unit for AI Agent Capabilities","name":"What Is an Agent Skill? The Standard Unit for AI Agent Capabilities","description":"Agent Skills define what AI agents can do with explicit, governable capabilities. Learn how Skills replace prompt-only behavior with structured, auditable execution.","datePublished":"2026-01-27T12:38:19.000Z","author":{"@type":"Person","name":"Adrian Escutia","description":"La Rebelion Founder","url":"https://adrian.escutia.me","image":"https://github.com/adrianescutia.png"},"image":{"@type":"ImageObject","@id":"https://mcp.com.ai/img/skills/agent-skills.png","url":"https://mcp.com.ai/img/skills/agent-skills.png","contentUrl":"https://mcp.com.ai/img/skills/agent-skills.png","caption":"title image for the blog post: What Is an Agent Skill? The Standard Unit for AI Agent Capabilities"},"keywords":["agent skills","ai agent capabilities","mcp skills","agent skill definition","ai governance","prompt vs skills","agent execution units","structured ai capabilities"],"isPartOf":{"@type":"Blog","@id":"https://mcp.com.ai/","name":"MCP Insights"}}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an Agent Skill?","acceptedAnswer":{"@type":"Answer","text":"An Agent Skill is a structured, declarative capability that an AI agent can invoke to perform an action through a system. Unlike prompts, Skills define explicit boundaries, permissions, and execution rules that machines can enforce."}},{"@type":"Question","name":"How do Agent Skills differ from prompts?","acceptedAnswer":{"@type":"Answer","text":"Prompts are implicit natural language suggestions with trust-based, non-deterministic behavior. Skills are explicit structured capabilities with contract-based, auditable, and governable execution. Prompts decide what to try; Skills define what is allowed."}},{"@type":"Question","name":"What's the difference between Skills, tools, and workflows?","acceptedAnswer":{"@type":"Answer","text":"Tools are low-level primitives, workflows are pre-wired sequences, and Skills are bounded capabilities that agents choose to invoke. Skills sit at the decision boundary between reasoning and execution."}},{"@type":"Question","name":"Why do AI agents need Skills instead of just prompts?","acceptedAnswer":{"@type":"Answer","text":"Prompt-driven agents don't scale at enterprise level. They can hallucinate actions, have implicit permissions, opaque execution paths, and are impossible to audit. Skills provide the control, governance, and security that enterprises demand."}},{"@type":"Question","name":"What role does MCP play with Agent Skills?","acceptedAnswer":{"@type":"Answer","text":"MCP (Model Context Protocol) provides a transport-agnostic execution layer for Skills, enabling remote skill invocation, enterprise security boundaries, air-gap compatibility, and audit/governance hooks. MCP turns Skills from ideas into infrastructure."}},{"@type":"Question","name":"Are Agent Skills becoming a standard?","acceptedAnswer":{"@type":"Answer","text":"Yes. What started as framework-specific abstractions is converging into shared specifications, common schemas, public registries, installation tooling, and usage tracking. Skills are becoming the standard unit of agent execution, governance, and enterprise adoption."}},{"@type":"Question","name":"Can Agent Skills be audited for security?","acceptedAnswer":{"@type":"Answer","text":"Yes. Unlike prompts, Skills are structured with explicit schemas, making them auditable and governable. They provide clear artifacts for security reviews, permission tracking, and execution path analysis."}},{"@type":"Question","name":"Where do Agent Skills execute?","acceptedAnswer":{"@type":"Answer","text":"Skills don't live in the model—they live in systems. The model handles reasoning, while Skills execute in controlled environments with proper security boundaries and governance. This separation ensures authority stays with the system, not the AI."}}]}</script><link rel="alternate" type="application/rss+xml" href="/rss.xml" title="MCP AI Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/atom.xml" title="MCP AI Blog Atom Feed">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJJXXEZWK9"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-JJJXXEZWK9",{})</script>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script>window.dataLayer=window.dataLayer||[]</script>
+<script>!function(e,t,a,n){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var g=t.getElementsByTagName(a)[0],m=t.createElement(a);m.async=!0,m.src="https://www.googletagmanager.com/gtm.js?id=GTM-W2QSRMJN",g.parentNode.insertBefore(m,g)}(window,document,"script","dataLayer")</script>
+
+
+
+
+<script async="true" defer="true" id="hs-script-loader" src="//js.hs-scripts.com/21339207.js"></script>
+<script src="https://js.hsforms.net/forms/embed/v2.js" async></script><link rel="stylesheet" href="/assets/css/styles.3bc23e69.css">
+<script src="/assets/js/runtime~main.c87f6b8d.js" defer="defer"></script>
+<script src="/assets/js/main.72ec0fc7.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2QSRMJN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.svg"><link rel="preload" as="image" href="/img/skills/agent-skills.png"><link rel="preload" as="image" href="https://github.com/adrianescutia.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="MCP logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="MCP logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">MCP</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/">Home</a><a class="navbar__item navbar__link" href="/archive">Blog</a><a href="https://docs.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Docs<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">HAPI Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://run.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Run MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://qbot.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">QBot<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://go.mcp.com.ai/demo-request" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Request Demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/la-rebelion/hapimcp" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="container margin-vert--lg"><div class="row"><main class="col col--9 col--offset-1"><article class="card shadow--sm"><div class="card__body"><header><div class="mcpPostHero" style="max-height:280px;overflow:hidden;margin-bottom:24px"><img src="/img/skills/agent-skills.png" alt="" loading="eager" style="width:100%;height:auto;max-height:280px;object-fit:cover;display:block;margin:0"></div><h1 class="title_f1Hy">What Is an Agent Skill? The Standard Unit for AI Agent Capabilities</h1><div class="container_mt6G margin-vert--md"><time datetime="2026-01-27T12:38:19.000Z">January 27, 2026</time> · <!-- -->8 min read</div><div class="margin-top--md margin-bottom--sm row"><div class="col col--12 authorCol_Hf19"><div class="avatar margin-bottom--sm"><a class="avatar__photo-link" href="/authors/adrian"><img class="avatar__photo authorImage_XqGP" src="https://github.com/adrianescutia.png" alt="Adrian Escutia"></a><div class="avatar__intro authorDetails_lV9A"><div class="avatar__name"><a href="/authors/adrian"><span class="authorName_yefp" translate="no">Adrian Escutia</span></a></div><small class="authorTitle_nd0D" title="La Rebelion Founder">La Rebelion Founder</small><div class="authorSocials_rSDt"><a href="https://x.com/ades_mx" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="X"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 1200 1227" style="--dark:#000;--light:#fff" class="authorSocialIcon_XYv3 xSvg_y3PF"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"></path></svg></a><a href="https://www.linkedin.com/in/adrianescutia/" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256" style="--dark:#0a66c2;--light:#ffffffe6" class="authorSocialIcon_XYv3 linkedinSvg_FCgI"><path d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"></path></svg></a><a href="https://github.com/adrianescutia" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 250" preserveAspectRatio="xMidYMid" style="--dark:#000;--light:#fff" class="authorSocialIcon_XYv3 githubSvg_Uu4N"><path d="M128.001 0C57.317 0 0 57.307 0 128.001c0 56.554 36.676 104.535 87.535 121.46 6.397 1.185 8.746-2.777 8.746-6.158 0-3.052-.12-13.135-.174-23.83-35.61 7.742-43.124-15.103-43.124-15.103-5.823-14.795-14.213-18.73-14.213-18.73-11.613-7.944.876-7.78.876-7.78 12.853.902 19.621 13.19 19.621 13.19 11.417 19.568 29.945 13.911 37.249 10.64 1.149-8.272 4.466-13.92 8.127-17.116-28.431-3.236-58.318-14.212-58.318-63.258 0-13.975 5-25.394 13.188-34.358-1.329-3.224-5.71-16.242 1.24-33.874 0 0 10.749-3.44 35.21 13.121 10.21-2.836 21.16-4.258 32.038-4.307 10.878.049 21.837 1.47 32.066 4.307 24.431-16.56 35.165-13.12 35.165-13.12 6.967 17.63 2.584 30.65 1.255 33.873 8.207 8.964 13.173 20.383 13.173 34.358 0 49.163-29.944 59.988-58.447 63.157 4.591 3.972 8.682 11.762 8.682 23.704 0 17.126-.148 30.91-.148 35.126 0 3.407 2.304 7.398 8.792 6.14C219.37 232.5 256 184.537 256 128.002 256 57.307 198.691 0 128.001 0Zm-80.06 182.34c-.282.636-1.283.827-2.194.39-.929-.417-1.45-1.284-1.15-1.922.276-.655 1.279-.838 2.205-.399.93.418 1.46 1.293 1.139 1.931Zm6.296 5.618c-.61.566-1.804.303-2.614-.591-.837-.892-.994-2.086-.375-2.66.63-.566 1.787-.301 2.626.591.838.903 1 2.088.363 2.66Zm4.32 7.188c-.785.545-2.067.034-2.86-1.104-.784-1.138-.784-2.503.017-3.05.795-.547 2.058-.055 2.861 1.075.782 1.157.782 2.522-.019 3.08Zm7.304 8.325c-.701.774-2.196.566-3.29-.49-1.119-1.032-1.43-2.496-.726-3.27.71-.776 2.213-.558 3.315.49 1.11 1.03 1.45 2.505.701 3.27Zm9.442 2.81c-.31 1.003-1.75 1.459-3.199 1.033-1.448-.439-2.395-1.613-2.103-2.626.301-1.01 1.747-1.484 3.207-1.028 1.446.436 2.396 1.602 2.095 2.622Zm10.744 1.193c.036 1.055-1.193 1.93-2.715 1.95-1.53.034-2.769-.82-2.786-1.86 0-1.065 1.202-1.932 2.733-1.958 1.522-.03 2.768.818 2.768 1.868Zm10.555-.405c.182 1.03-.875 2.088-2.387 2.37-1.485.271-2.861-.365-3.05-1.386-.184-1.056.893-2.114 2.376-2.387 1.514-.263 2.868.356 3.061 1.403Z"></path></svg></a><a href="https://rebelion.la" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="newsletter"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="authorSocialIcon_XYv3"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M1.2 12a10.8 10.8 0 1 0 21.6 0a10.8 10.8 0 0 0 -21.6 0"></path><path d="M1.92 8.4h20.16"></path><path d="M1.92 15.6h20.16"></path><path d="M11.4 1.2a20.4 20.4 0 0 0 0 21.6"></path><path d="M12.6 1.2a20.4 20.4 0 0 1 0 21.6"></path></svg></a></div></div></div></div></div></header><div id="__blog-post-container" class="markdown">
+<p><strong>AI agents are getting smarter — and more dangerous.</strong></p>
+<p>Not because they reason better, but because they act without boundaries.</p>
+<p><strong>Agent Skills exist to fix that.</strong></p>
+<p>They define <strong>what an agent can do</strong>, <strong>how it can do it</strong>, and <strong>under what constraints</strong> — in a way machines can enforce, not humans hope for.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-an-agent-skill-simple-definition">What Is an Agent Skill? (Simple Definition)<a href="#what-is-an-agent-skill-simple-definition" class="hash-link" aria-label="Direct link to What Is an Agent Skill? (Simple Definition)" title="Direct link to What Is an Agent Skill? (Simple Definition)" translate="no">​</a></h2>
+<p>An <strong>Agent Skill</strong> is a structured, declarative capability that an AI agent can invoke to perform an action through a system.</p>
+<ul>
+<li class=""><strong>Not a suggestion</strong> — it&#x27;s enforceable</li>
+<li class=""><strong>Not a prompt</strong> — it&#x27;s structured</li>
+<li class=""><strong>Not open-ended</strong> — it has boundaries</li>
+</ul>
+<p>A capability with rules that machines enforce.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-agent-skills-became-inevitable">Why Agent Skills Became Inevitable<a href="#why-agent-skills-became-inevitable" class="hash-link" aria-label="Direct link to Why Agent Skills Became Inevitable" title="Direct link to Why Agent Skills Became Inevitable" translate="no">​</a></h2>
+<p>Prompt-driven agents don&#x27;t scale beyond experimentation.</p>
+<p><strong>At small scale</strong>, prompts feel powerful and flexible.<br>
+<strong>At enterprise scale</strong>, they create unacceptable risk:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-prompt-problem">The Prompt Problem<a href="#the-prompt-problem" class="hash-link" aria-label="Direct link to The Prompt Problem" title="Direct link to The Prompt Problem" translate="no">​</a></h3>
+<ul>
+<li class="">🚨 Agents hallucinate actions that don&#x27;t exist</li>
+<li class="">🔓 Permissions are implicit and unenforceable</li>
+<li class="">🌫️ Execution paths are opaque and unpredictable</li>
+<li class="">❌ Security reviews are nearly impossible</li>
+<li class="">📝 Audits have no structured artifacts to examine</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-industry-response">The Industry Response<a href="#the-industry-response" class="hash-link" aria-label="Direct link to The Industry Response" title="Direct link to The Industry Response" translate="no">​</a></h3>
+<p>Skills emerged because <strong>enterprises demanded control</strong>.</p>
+<p>The industry responded with:</p>
+<ul>
+<li class="">Shared <strong>Skill specifications</strong> (not vendor-locked)</li>
+<li class="">Standard schemas for cross-platform compatibility</li>
+<li class="">Public registries and catalogs for discovery</li>
+<li class="">Installation, versioning, and tracking mechanisms</li>
+<li class="">Observability and governance tooling</li>
+</ul>
+<p>Skills are now appearing everywhere — AI frameworks, runtime environments, marketplaces, and enterprise dashboards.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-vs-prompts-the-real-difference">Skills vs Prompts: The Real Difference<a href="#skills-vs-prompts-the-real-difference" class="hash-link" aria-label="Direct link to Skills vs Prompts: The Real Difference" title="Direct link to Skills vs Prompts: The Real Difference" translate="no">​</a></h2>
+<p>Understanding this distinction is critical for building production-grade AI systems.</p>
+<table><thead><tr><th>Aspect</th><th>Prompts</th><th>Skills</th></tr></thead><tbody><tr><td><strong>Behavior</strong></td><td>Implicit, suggested</td><td>Explicit, enforced</td></tr><tr><td><strong>Format</strong></td><td>Natural language</td><td>Structured schema</td></tr><tr><td><strong>Security</strong></td><td>Trust-based</td><td>Contract-based</td></tr><tr><td><strong>Auditability</strong></td><td>Hard to audit</td><td>Fully auditable</td></tr><tr><td><strong>Execution</strong></td><td>Non-deterministic</td><td>Governable</td></tr><tr><td><strong>Permissions</strong></td><td>Implied</td><td>Explicit</td></tr><tr><td><strong>Lifecycle</strong></td><td>Ad-hoc</td><td>Versioned &amp; tracked</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-core-distinction">The Core Distinction<a href="#the-core-distinction" class="hash-link" aria-label="Direct link to The Core Distinction" title="Direct link to The Core Distinction" translate="no">​</a></h3>
+<p><strong>Prompts</strong> decide <em>what to try</em>.<br>
+<strong>Skills</strong> define <em>what is allowed</em>.</p>
+<p>Prompts ask. Skills authorize.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-vs-tools-vs-workflows-clearing-the-confusion">Skills vs Tools vs Workflows: Clearing the Confusion<a href="#skills-vs-tools-vs-workflows-clearing-the-confusion" class="hash-link" aria-label="Direct link to Skills vs Tools vs Workflows: Clearing the Confusion" title="Direct link to Skills vs Tools vs Workflows: Clearing the Confusion" translate="no">​</a></h2>
+<p>These terms are often used interchangeably. They shouldn&#x27;t be.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-hierarchy-of-agent-capabilities">The Hierarchy of Agent Capabilities<a href="#the-hierarchy-of-agent-capabilities" class="hash-link" aria-label="Direct link to The Hierarchy of Agent Capabilities" title="Direct link to The Hierarchy of Agent Capabilities" translate="no">​</a></h3>
+<p><strong>🔧 Tools</strong> are low-level primitives</p>
+<ul>
+<li class="">Individual functions or API calls</li>
+<li class="">Example: <code>get_user(id)</code> or <code>send_email(to, subject, body)</code></li>
+<li class="">No decision-making, just execution</li>
+</ul>
+<p><strong>🔄 Workflows</strong> are pre-wired sequences</p>
+<ul>
+<li class="">Fixed chains of predetermined steps</li>
+<li class="">Example: &quot;When form submitted → validate → save → send email&quot;</li>
+<li class="">No agent choice, just automation</li>
+</ul>
+<p><strong>🎯 Skills</strong> are bounded capabilities that agents choose to invoke</p>
+<ul>
+<li class="">Define what CAN be done and under what constraints</li>
+<li class="">Example: &quot;Search customer database (read-only, max 100 results, audit logged)&quot;</li>
+<li class="">Agent decides WHEN to use them based on context</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters">Why This Matters<a href="#why-this-matters" class="hash-link" aria-label="Direct link to Why This Matters" title="Direct link to Why This Matters" translate="no">​</a></h3>
+<p>Skills sit at the <strong>decision boundary</strong> between reasoning and execution.</p>
+<ul>
+<li class="">The <strong>model reasons</strong> about what to do</li>
+<li class="">The <strong>Skill authorizes</strong> what can be done</li>
+<li class="">The <strong>tool executes</strong> the actual action</li>
+</ul>
+<p>This separation is what makes AI agents governable.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agent-skills-are-becoming-a-standard-layer">Agent Skills Are Becoming a Standard Layer<a href="#agent-skills-are-becoming-a-standard-layer" class="hash-link" aria-label="Direct link to Agent Skills Are Becoming a Standard Layer" title="Direct link to Agent Skills Are Becoming a Standard Layer" translate="no">​</a></h2>
+<p>What started as framework-specific abstractions is now converging into industry standards.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-standardization-wave">The Standardization Wave<a href="#the-standardization-wave" class="hash-link" aria-label="Direct link to The Standardization Wave" title="Direct link to The Standardization Wave" translate="no">​</a></h3>
+<p><strong>Foundation:</strong></p>
+<ul>
+<li class="">Shared specifications (like MCP)</li>
+<li class="">Common schemas and interfaces</li>
+<li class="">Cross-platform compatibility</li>
+</ul>
+<p><strong>Distribution:</strong></p>
+<ul>
+<li class="">Public registries and catalogs</li>
+<li class="">Installation and discovery tooling</li>
+<li class="">Version management</li>
+</ul>
+<p><strong>Operations:</strong></p>
+<ul>
+<li class="">Usage tracking and observability</li>
+<li class="">Permission management</li>
+<li class="">Audit logging and compliance</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters-1">Why This Matters<a href="#why-this-matters-1" class="hash-link" aria-label="Direct link to Why This Matters" title="Direct link to Why This Matters" translate="no">​</a></h3>
+<p>This is how sustainable AI ecosystems form.</p>
+<p><strong>Not around models</strong> (which change constantly)<br>
+<strong>But around capabilities</strong> (which systems can rely on)</p>
+<p>When Skills become standardized:</p>
+<ul>
+<li class="">Developers can publish once, run anywhere</li>
+<li class="">Enterprises can audit once, trust everywhere</li>
+<li class="">Agents can discover capabilities dynamically</li>
+<li class="">Security teams can govern at the Skill level</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-mcp-matters-for-agent-skills">Why MCP Matters for Agent Skills<a href="#why-mcp-matters-for-agent-skills" class="hash-link" aria-label="Direct link to Why MCP Matters for Agent Skills" title="Direct link to Why MCP Matters for Agent Skills" translate="no">​</a></h2>
+<p><strong>Critical insight:</strong> Skills don&#x27;t live in the model. They live in systems.</p>
+<p>The model generates <em>reasoning</em>. Systems provide <em>capabilities</em>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-mcp-provides">What MCP Provides<a href="#what-mcp-provides" class="hash-link" aria-label="Direct link to What MCP Provides" title="Direct link to What MCP Provides" translate="no">​</a></h3>
+<p>The <a class="" href="/">Model Context Protocol (MCP)</a> solves the infrastructure problem for Skills:</p>
+<p><strong>Execution Layer:</strong></p>
+<ul>
+<li class="">Transport-agnostic communication (stdio, HTTP, SSE)</li>
+<li class="">Remote skill invocation across boundaries</li>
+<li class="">Standardized request/response patterns</li>
+</ul>
+<p><strong>Enterprise Requirements:</strong></p>
+<ul>
+<li class="">Security boundaries and permissions</li>
+<li class="">Air-gap compatibility for sensitive environments</li>
+<li class="">Authentication and authorization hooks</li>
+</ul>
+<p><strong>Governance &amp; Compliance:</strong></p>
+<ul>
+<li class="">Audit trails for all skill invocations</li>
+<li class="">Usage tracking and monitoring</li>
+<li class="">Policy enforcement points</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-transformation">The Transformation<a href="#the-transformation" class="hash-link" aria-label="Direct link to The Transformation" title="Direct link to The Transformation" translate="no">​</a></h3>
+<p>MCP turns Skills from <strong>abstract ideas</strong> into <strong>operational infrastructure</strong>.</p>
+<ul>
+<li class="">Before MCP: Each framework had its own Skill implementation</li>
+<li class="">After MCP: Skills work across frameworks, runtimes, and platforms</li>
+<li class="">Result: True interoperability and enterprise adoption</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-mental-model-to-remember">The Mental Model to Remember<a href="#the-mental-model-to-remember" class="hash-link" aria-label="Direct link to The Mental Model to Remember" title="Direct link to The Mental Model to Remember" translate="no">​</a></h2>
+<blockquote>
+<p><strong>Reasoning stays with the model.</strong><br>
+<strong>Authority stays with the system.</strong></p>
+</blockquote>
+<p>Skills are where that line is drawn.</p>
+<p>This separation ensures:</p>
+<ul>
+<li class="">AI can be creative within bounds</li>
+<li class="">Systems maintain control</li>
+<li class="">Humans can audit and govern</li>
+<li class="">Security isn&#x27;t dependent on prompt engineering</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="faq-understanding-agent-skills">FAQ: Understanding Agent Skills<a href="#faq-understanding-agent-skills" class="hash-link" aria-label="Direct link to FAQ: Understanding Agent Skills" title="Direct link to FAQ: Understanding Agent Skills" translate="no">​</a></h2>
+<p><strong>Q: What is an Agent Skill?</strong><br>
+<!-- -->A: An Agent Skill is a structured, declarative capability that an AI agent can invoke to perform an action through a system. Unlike prompts, Skills define explicit boundaries, permissions, and execution rules that machines can enforce.</p>
+<p><strong>Q: How do Agent Skills differ from prompts?</strong><br>
+<!-- -->A: Prompts are implicit natural language suggestions with trust-based, non-deterministic behavior. Skills are explicit structured capabilities with contract-based, auditable, and governable execution. Prompts decide what to try; Skills define what is allowed.</p>
+<p><strong>Q: What&#x27;s the difference between Skills, tools, and workflows?</strong><br>
+<!-- -->A: Tools are low-level primitives (individual functions), workflows are pre-wired sequences (fixed automation), and Skills are bounded capabilities that agents choose to invoke. Skills sit at the decision boundary between AI reasoning and system execution.</p>
+<p><strong>Q: Why do AI agents need Skills instead of just prompts?</strong><br>
+<!-- -->A: Prompt-driven agents don&#x27;t scale at enterprise level. They can hallucinate actions, have implicit permissions, opaque execution paths, and are impossible to audit. Skills provide the control, governance, and security that enterprises demand.</p>
+<p><strong>Q: What role does MCP play with Agent Skills?</strong><br>
+<!-- -->A: MCP (Model Context Protocol) provides a transport-agnostic execution layer for Skills, enabling remote skill invocation, enterprise security boundaries, air-gap compatibility, and audit/governance hooks. MCP turns Skills from ideas into infrastructure.</p>
+<p><strong>Q: Are Agent Skills becoming a standard?</strong><br>
+<!-- -->A: Yes. What started as framework-specific abstractions is converging into shared specifications, common schemas, public registries, installation tooling, and usage tracking. Skills are becoming the standard unit of agent execution, governance, and enterprise adoption.</p>
+<p><strong>Q: Can Agent Skills be audited for security?</strong><br>
+<!-- -->A: Yes. Unlike prompts, Skills are structured with explicit schemas, making them auditable and governable. They provide clear artifacts for security reviews, permission tracking, and execution path analysis.</p>
+<p><strong>Q: Where do Agent Skills execute?</strong><br>
+<!-- -->A: Skills don&#x27;t live in the model—they live in systems. The model handles reasoning, while Skills execute in controlled environments with proper security boundaries and governance. This separation ensures authority stays with the system, not the AI.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-comes-next-the-skill-first-future">What Comes Next: The Skill-First Future<a href="#what-comes-next-the-skill-first-future" class="hash-link" aria-label="Direct link to What Comes Next: The Skill-First Future" title="Direct link to What Comes Next: The Skill-First Future" translate="no">​</a></h2>
+<p>Agent Skills are now the fundamental unit of:</p>
+<p>✅ <strong>Agent execution</strong> — how AI agents perform actions<br>
+<!-- -->✅ <strong>Platform governance</strong> — how organizations control AI behavior<br>
+<!-- -->✅ <strong>Security review</strong> — how teams audit AI capabilities<br>
+<!-- -->✅ <strong>Enterprise adoption</strong> — how AI becomes production-ready</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="your-next-steps">Your Next Steps<a href="#your-next-steps" class="hash-link" aria-label="Direct link to Your Next Steps" title="Direct link to Your Next Steps" translate="no">​</a></h3>
+<p>The rest of this section explores how to:</p>
+<ul>
+<li class=""><strong>Design</strong> Skills that are secure and maintainable</li>
+<li class=""><strong>Build</strong> Skills using MCP and standard patterns</li>
+<li class=""><strong>Evaluate</strong> Skills for quality and safety</li>
+<li class=""><strong>Deploy</strong> Skills across environments</li>
+<li class=""><strong>Govern</strong> Skills at enterprise scale</li>
+</ul>
+<p>We&#x27;re treating Skills <strong>as systems</strong> — because that&#x27;s what they are.</p>
+<p><strong>The era of prompt-only agents is ending.</strong><br>
+<strong>The era of Skill-driven systems is here.</strong></p></div><footer class="docusaurus-mt-lg"><div class="row margin-top--sm theme-blog-footer-edit-meta-row"><div class="col"><ul class="mcpTags padding--none"><li class="mcpTagItem"><a rel="tag" title="Skills refer to specific capabilities or competencies that AI models can utilize to perform tasks, often through integration with external tools or APIs.
+" class="tag_zVej tagRegular_sFm0" href="/tags/skills">Skills</a></li><li class="mcpTagItem"><a rel="tag" title="AI Integration involves incorporating artificial intelligence technologies into existing systems and workflows to enhance functionality and performance.
+" class="tag_zVej tagRegular_sFm0" href="/tags/ai-integration">AI Integration</a></li><li class="mcpTagItem"><a rel="tag" title="Agentic AI refers to artificial intelligence systems that can autonomously perform tasks, make decisions, and interact with their environment to achieve specific goals.
+" class="tag_zVej tagRegular_sFm0" href="/tags/agentic-ai">Agentic AI</a></li></ul></div></div></footer></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Blog post page navigation"><a class="pagination-nav__link pagination-nav__link--next" href="/skills"><div class="pagination-nav__sublabel">Older post</div><div class="pagination-nav__label">Mastering Skills: Your Gateway to Enhanced AI Capabilities</div></a></nav></main><div class="col col--2"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#what-is-an-agent-skill-simple-definition" class="table-of-contents__link toc-highlight">What Is an Agent Skill? (Simple Definition)</a></li><li><a href="#why-agent-skills-became-inevitable" class="table-of-contents__link toc-highlight">Why Agent Skills Became Inevitable</a><ul><li><a href="#the-prompt-problem" class="table-of-contents__link toc-highlight">The Prompt Problem</a></li><li><a href="#the-industry-response" class="table-of-contents__link toc-highlight">The Industry Response</a></li></ul></li><li><a href="#skills-vs-prompts-the-real-difference" class="table-of-contents__link toc-highlight">Skills vs Prompts: The Real Difference</a><ul><li><a href="#the-core-distinction" class="table-of-contents__link toc-highlight">The Core Distinction</a></li></ul></li><li><a href="#skills-vs-tools-vs-workflows-clearing-the-confusion" class="table-of-contents__link toc-highlight">Skills vs Tools vs Workflows: Clearing the Confusion</a><ul><li><a href="#the-hierarchy-of-agent-capabilities" class="table-of-contents__link toc-highlight">The Hierarchy of Agent Capabilities</a></li><li><a href="#why-this-matters" class="table-of-contents__link toc-highlight">Why This Matters</a></li></ul></li><li><a href="#agent-skills-are-becoming-a-standard-layer" class="table-of-contents__link toc-highlight">Agent Skills Are Becoming a Standard Layer</a><ul><li><a href="#the-standardization-wave" class="table-of-contents__link toc-highlight">The Standardization Wave</a></li><li><a href="#why-this-matters-1" class="table-of-contents__link toc-highlight">Why This Matters</a></li></ul></li><li><a href="#why-mcp-matters-for-agent-skills" class="table-of-contents__link toc-highlight">Why MCP Matters for Agent Skills</a><ul><li><a href="#what-mcp-provides" class="table-of-contents__link toc-highlight">What MCP Provides</a></li><li><a href="#the-transformation" class="table-of-contents__link toc-highlight">The Transformation</a></li></ul></li><li><a href="#the-mental-model-to-remember" class="table-of-contents__link toc-highlight">The Mental Model to Remember</a></li><li><a href="#faq-understanding-agent-skills" class="table-of-contents__link toc-highlight">FAQ: Understanding Agent Skills</a></li><li><a href="#what-comes-next-the-skill-first-future" class="table-of-contents__link toc-highlight">What Comes Next: The Skill-First Future</a><ul><li><a href="#your-next-steps" class="table-of-contents__link toc-highlight">Your Next Steps</a></li></ul></li></ul></div></div></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Agentic MCP</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://docs.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docs<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">HAPI Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://run.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Run MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://qbot.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">QBot<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://go.mcp.com.ai/demo-request" target="_blank" rel="noopener noreferrer" class="footer__link-item">Request Demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/">Blog</a></li><li class="footer__item"><a class="footer__link-item" href="/tags">Tags</a></li><li class="footer__item"><a href="https://github.com/la-rebelion/hapimcp" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.youtube.com/@LaRebelion" target="_blank" rel="noopener noreferrer" class="footer__link-item">YouTube &quot;La Rebelion&quot;<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.youtube.com/@hapi-mcp" target="_blank" rel="noopener noreferrer" class="footer__link-item">YouTube HAPI MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/privacy">Privacy</a></li><li class="footer__item"><a class="footer__link-item" href="/terms">Terms</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 MCP.com.ai by <a href="https://rebelion.la">La Rebelion Labs</a>. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
