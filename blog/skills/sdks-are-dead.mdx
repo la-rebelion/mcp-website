@@ -1,6 +1,6 @@
 ---
 title: "SDKs are Dead: Embracing Agent Skills for Automation"
-description: "Explore why traditional SDKs are becoming obsolete in the age of Agentic AI and how to leverage this paradigm shift for building smarter, more adaptable applications."
+description: "Discover why traditional SDKs are becoming obsolete in the age of Agentic AI. Learn how Agent Skills enable smarter, more adaptable applications without rigid code structures."
 authors:
   - adrian
 tags:
@@ -15,65 +15,240 @@ keywords:
   - building with agentic ai
   - claude code skills
   - agent skills
+  - sdk alternatives
+  - mcp servers
+  - ai automation tools
 image: /img/skills/agentic-ai-vs-sdks.png
 ---
 
-What is the moral message of [Brian Casel video](https://www.youtube.com/watch?v=Jo168H2m5lw) about the future of SDKs, no-code workflows, and automation?
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are SDKs really dead?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SDKs aren't completely dead yet, but they're becoming less relevant for modern flexible applications. They still have their place for low-level system programming, game development, and enterprise software with strict compliance needs. However, for applications requiring flexibility and adaptability, Agentic AI with Agent Skills offers a superior alternative."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are Agent Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Agent Skills are capabilities that enable AI agents to perform tasks dynamically by reasoning about goals rather than following rigid code paths. Claude Code Skills, for example, allow developers to define what should happen rather than how, letting the AI determine the best approach."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do Agent Skills differ from traditional SDKs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SDKs require extensive coding to handle various scenarios with static, predetermined logic. Agent Skills use AI to reason and adapt dynamically, allowing applications to respond to new challenges without manual updates. This shift from deterministic code to intelligent reasoning makes systems more flexible and maintainable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I replace my existing SDK-based automations with Agent Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, as demonstrated by Brian Casel who rebuilt his n8n workflow as a Claude Code Skill. Many SDK-based automations can be replaced with Skills, including API integrations, testing workflows, and data processing pipelines. Check platforms like skills.sh for examples of Skills replacing complex SDK implementations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Model Context Protocol (MCP)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Model Context Protocol (MCP) is a standard developed by Anthropic that revolutionized how AI systems interact with APIs. MCP Servers provide AI-powered API interfaces that enable intelligent responses and actions, reducing the need for complex SDKs and manual integration work."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the benefits of Agentic AI over traditional development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Agentic AI enables goal-oriented design, dynamic adaptation to new scenarios, continuous learning and improvement, easier integration with AI services, and allows developers to focus on user experience rather than complex implementation details. This results in more maintainable and adaptable applications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I get started with Agent Skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start by defining high-level goals for your application rather than step-by-step instructions. Explore platforms like Claude Code Skills and browse community-built Skills at agentskills.io or skills.sh. Focus on what you want to achieve and let the AI determine the implementation approach."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will SDKs be completely replaced by AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not entirely and not immediately—SDKs may remain relevant for another decade or more in specific domains like game development, embedded systems, and highly regulated enterprise software. However, for most modern web applications and automations, Agentic AI approaches are becoming the preferred choice."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+What's the lesson from [Brian Casel's experience](https://www.youtube.com/watch?v=Jo168H2m5lw) about the future of SDKs, no-code workflows, and automation?
+
+In short: **SDKs are dead** - well, at least for many use cases in modern application development.
 
 <!-- truncate -->
 
-Brian Casel, a well-known developer and entrepreneur, shared his experience building an AI-powered image generation automation. He spent a full week building a complex automation in n8n (a popular no-code workflow engine) for AI image generation — but ultimately scrapped it and rebuilt the entire thing as a Claude Code Skill instead. His conclusion: *Claude Code Skills are better suited for flexible, maintainable, and powerful automations than traditional no-code workflows for many use cases*.
+Brian Casel, a well-known developer and entrepreneur, shared his experience building an AI-powered image generation automation. He spent a full week constructing a complex automation in [n8n](https://n8n.io) (a popular no-code workflow engine) for AI image generation — but ultimately scrapped it and rebuilt the entire thing as a Claude Code Skill instead. 
 
-## The Death of SDKs
+His conclusion? **Claude Code Skills are better suited for flexible, maintainable, and powerful automations than traditional no-code workflows for many use cases.**
 
-In the age of Agentic AI, traditional Software Development Kits (SDKs) are becoming increasingly obsolete. SDKs, which provide a set of tools and libraries for building applications, are rigid and require extensive coding to handle various scenarios. As Brian Casel demonstrated, automations built with SDKs or no-code platforms like [n8n](https://n8n.io/) can become complex, brittle, and hard to maintain.
+## Why SDKs Are Dying
 
-Agentic AI with [Claude Code Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), on the other hand, allows developers to define high-level goals and constraints, letting the AI reason and adapt dynamically. This shift from static (deterministic) code to intelligent reasoning means that applications can evolve and respond to new challenges without the need for constant manual updates.
+In the age of Agentic AI, traditional Software Development Kits (SDKs) are becoming increasingly obsolete for many applications. Here's why:
 
-[Anthropic](https://www.anthropic.com/) did it again, similar to how they revolutionized the AI-API landscape with the Model Context Protocol (MCP) and MCP Servers, they are now pioneering the way we build automations and applications with [Agent Skills](https://agentskills.io).
+**The Problem with SDKs:**
+- SDKs are rigid structures that require extensive coding to handle various scenarios
+- They lock developers into specific implementation patterns
+- Updates and changes require manual code rewrites
+- Error handling and edge cases multiply code complexity
+- As Brian Casel demonstrated, even no-code platforms like [n8n](https://n8n.io/) can become complex, brittle, and hard to maintain when building sophisticated automations
 
-## Embracing Agentic AI with Agent Skills
+**The Agentic AI Advantage:**
 
-To leverage the power of Agentic AI, developers should focus on:
+[Claude Code Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) and similar agentic approaches flip this model on its head. Instead of prescribing exactly how to accomplish a task, you define:
+- High-level goals and constraints
+- What success looks like
+- The AI reasons about the best approach dynamically
 
-1. **Goal-Oriented Design**: Define what the application should achieve rather than how to achieve it step-by-step. This allows the AI to determine the best course of action.
-2. **Dynamic Adaptation**: Utilize AI's ability to adapt to new inputs and scenarios, reducing the need for hard-coded logic and extensive conditionals.
-3. **Continuous Learning**: Implement feedback loops where the AI can learn from its actions and improve over time, enhancing the application's performance and reliability.
-4. **Integration with AI Services**: Leverage existing AI platforms and services that offer agentic capabilities, reducing the need to build complex systems from scratch.
-5. **Focus on User Experience**: With AI handling the complexity, developers can concentrate on creating intuitive and engaging user experiences.
+This shift from static, deterministic code to intelligent reasoning means applications can evolve and respond to new challenges without constant manual updates.
 
-### AI Services Examples
+[Anthropic](https://www.anthropic.com/) did it again. Just as they revolutionized the AI-API landscape with the Model Context Protocol (MCP) and MCP Servers, they're now pioneering how we build automations and applications with [Agent Skills](https://agentskills.io).
 
-* **Agent Skills**: As demonstrated by Brian Casel, Claude Code Skills allow for building flexible automations that can adapt to changing requirements without extensive rewrites.
-  * Check the [mcp.com.ai skills](https://skills.sh/?q=mcp-com-ai) examples replacing complex SDK-based automations with Skills, such as:
-    * [API To MCP](https://skills.sh/mcp-com-ai/mcp-server-evaluations-skills/mcp-server-evaluations) - Automating the conversion of REST APIs and deployment of those into MCP Servers.
-    * [Test Remote MCPs](https://skills.sh/mcp-com-ai/mcp-server-evaluations-skills/mcp-server-evaluations) - Automating the testing of remote MCP servers without writing SDK code, and with no dependency on specific programming languages.
-  * Community-built Skills for various tasks, including:  
-    * Automating content generation workflows
-    * Dynamic data processing pipelines
-    * Intelligent customer support systems
-* **Code Copilots**: An AI-powered coding assistant that helps developers write code faster and with fewer errors.
-  * **Custom AI Agents**: Tailored AI agents that can perform specific tasks or workflows, adapting to user needs dynamically. Examples:
-    * The `HAPI MCP Visual Identity System Agent`, which helps maintain and enhance visual identity systems. Based on the Brian's example, users can create visual assets dynamically without rigid templates.
-    * [VS Code AI Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) that assist developers in code generation, debugging, and optimization.
-* **AI-Powered APIs, a.k.a. MCP Servers**: APIs that leverage AI to provide intelligent responses and actions, reducing the need for complex SDKs.
+## How to Build with Agentic AI
+
+To leverage the power of Agentic AI, developers should focus on these key principles:
+
+### 1. Goal-Oriented Design
+Define **what** the application should achieve rather than **how** to achieve it step-by-step. This allows the AI to determine the best course of action based on context and constraints.
+
+### 2. Dynamic Adaptation
+Utilize AI's ability to adapt to new inputs and scenarios. This reduces the need for:
+- Hard-coded logic branches
+- Extensive conditional statements
+- Manual handling of edge cases
+
+### 3. Continuous Learning
+Implement feedback loops where the AI can learn from its actions and improve over time, enhancing the application's performance and reliability.
+
+### 4. Integration with AI Services
+Leverage existing AI platforms and services that offer agentic capabilities, reducing the need to build complex systems from scratch.
+
+### 5. Focus on User Experience
+With AI handling the complexity, developers can concentrate on creating intuitive and engaging user experiences.
+
+## Real-World Examples of Agentic AI
+
+### Agent Skills in Action
+
+As demonstrated by Brian Casel, Claude Code Skills allow for building flexible automations that can adapt to changing requirements without extensive rewrites.
+
+**Community Examples from [mcp.com.ai skills](https://skills.sh/?q=mcp-com-ai):**
+
+* **[API To MCP](https://skills.sh/mcp-com-ai/api-to-mcp)** - Automates the conversion of REST APIs and deployment into MCP Servers without writing SDK code
+* **[Test Remote MCPs](https://skills.sh/mcp-com-ai/mcp-server-evaluations-skills/mcp-server-evaluations)** - Automates testing of remote MCP servers without SDK dependencies or language-specific requirements
+
+**Community-Built Skills:**
+* Automating [content generation](https://skills.sh/?q=content) workflows
+* Dynamic [data processing](https://skills.sh/?q=data+process) pipelines
+* Intelligent [customer support](https://skills.sh/?q=customer) systems
+
+### Other AI Services
+
+* **Code Copilots**: AI-powered coding assistants that help developers write code faster with fewer errors
+* **Custom AI Agents**: Tailored agents for specific tasks or workflows. Examples:
+  * The `HAPI MCP Visual Identity System Agent` - Helps maintain and enhance visual identity systems, creating assets dynamically without rigid templates (inspired by Brian's example)
+  * [VS Code AI Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) - Assist in code generation, debugging, and optimization
+* **AI-Powered APIs (MCP Servers)**: APIs that leverage AI to provide intelligent responses and actions, eliminating the need for complex SDKs
 
 ## The Future is Agentic
 
-The future of application development lies in embracing Agentic AI. As traditional SDKs become less relevant, any person building software (developers or non-developers) must adapt to this new paradigm by focusing on high-level goals, dynamic adaptation, and continuous learning. By doing so, they can build smarter, more resilient applications that can evolve with changing needs and challenges.
+The future of application development lies in embracing Agentic AI. As traditional SDKs become less relevant, anyone building software—whether developers or non-developers—must adapt to this new paradigm by focusing on:
 
-Creating systems that can think and adapt on their own is the key to unlocking new possibilities not only in software development but across various industries, and specialized domains. Desing, adapt, learn, integrate, and evolve—these principles of Agentic AI will drive the next generation of applications. Agility, innovation, and flexibility will be the cornerstones of successful applications in the age of Agentic AI.
+- **High-level goals** instead of step-by-step instructions
+- **Dynamic adaptation** over rigid code structures
+- **Continuous learning** rather than static implementations
 
-This process is a clear indicator that the era of rigid SDKs is coming to an end. The future belongs to those who can harness the power of Agentic AI to create flexible, intelligent systems that can think and adapt on their own.
+By doing so, they can build smarter, more resilient applications that evolve with changing needs and challenges.
 
-## Conclusion
+Creating systems that can think and adapt on their own unlocks new possibilities not only in software development but across industries and specialized domains. 
 
-Don't get me wrong—SDKs are not entirely dead yet, probably not for another decade or so. They still have their place in certain scenarios, especially for low-level system programming or when performance is critical, i.e., game development, embedded systems, enterprise software with strict compliance needs, etcetera. However, for many modern applications, especially those requiring flexibility and adaptability, Agentic AI with Agent Skills offers a superior alternative.
+**The Five Pillars of Agentic Success:**
+1. **Design** - Think in goals, not steps
+2. **Adapt** - Let AI handle variations
+3. **Learn** - Improve through feedback
+4. **Integrate** - Leverage existing AI services
+5. **Evolve** - Continuously refine based on outcomes
 
-Teams and developers should take away the importance of embracing new technologies and paradigms that can enhance productivity and innovation. By shifting focus from rigid SDKs to dynamic, goal-oriented AI systems, people can unlock new possibilities and create applications that are more responsive to user needs.
+Agility, innovation, and flexibility are the cornerstones of successful applications in the age of Agentic AI. This shift clearly indicates that the era of rigid SDKs is coming to an end. The future belongs to those who can harness the power of Agentic AI to create flexible, intelligent systems that can think and adapt independently.
 
-Rebels, take note: the future is agentic, and it's time to adapt.  
+## The Reality Check
+
+Don't get me wrong—**SDKs aren't entirely dead yet**. They'll probably remain relevant for another decade or more in certain scenarios:
+
+- **Low-level system programming** where direct hardware control is needed
+- **Performance-critical applications** like game development and real-time systems
+- **Embedded systems** with strict resource constraints
+- **Enterprise software** with rigid compliance and certification requirements
+- **Specialized domains** with deterministic behavior requirements
+
+However, for modern web applications, automations, and business logic—areas requiring flexibility and adaptability—Agentic AI with Agent Skills offers a superior alternative.
+
+## Key Takeaways
+
+Teams and developers should embrace new technologies and paradigms that enhance productivity and innovation. By shifting focus from rigid SDKs to dynamic, goal-oriented AI systems, people can:
+
+- ✅ Build more maintainable systems
+- ✅ Reduce time spent on edge cases and error handling
+- ✅ Create applications that adapt to user needs automatically
+- ✅ Focus on user experience instead of implementation details
+- ✅ Unlock new possibilities in automation and integration
+
+Rebels, take note: **the future is agentic, and it's time to adapt.**  
 Be HAPI, and Go Rebels! ✊🏼
+
+## FAQ: Agent Skills and the Future of SDKs
+
+**Q: Are SDKs really dead?**  
+A: Not completely—they'll remain relevant for low-level programming, game development, and compliance-heavy enterprise software. But for most modern applications needing flexibility, Agentic AI offers better alternatives.
+
+**Q: What are Agent Skills?**  
+A: Agent Skills are capabilities that enable AI agents to perform tasks by reasoning about goals rather than following rigid code. You define what should happen; the AI figures out how.
+
+**Q: How do Agent Skills differ from traditional SDKs?**  
+A: SDKs require extensive coding for every scenario with static logic. Agent Skills use AI to reason and adapt dynamically, responding to new challenges without manual updates.
+
+**Q: Can I replace my existing automations with Agent Skills?**  
+A: Yes! Brian Casel demonstrated this by replacing his week-long [n8n](https://n8n.io) workflow with a Claude Code Skill. Check platforms like [skills.sh](https://skills.sh/) for examples of Skills replacing SDK implementations.
+
+**Q: What is the Model Context Protocol (MCP)?**  
+A: MCP is Anthropic's standard that revolutionized AI-API interactions. MCP Servers provide AI-powered API interfaces, reducing the need for complex SDKs and manual integration work.
+
+**Q: What are the benefits of Agentic AI over traditional development?**  
+A: Goal-oriented design, dynamic adaptation, continuous learning, easier integration, and focus on user experience. This results in more maintainable and adaptable applications.
+
+**Q: How do I get started with Agent Skills?**  
+A: Define high-level goals for your application instead of step-by-step instructions. Explore Claude Code Skills and browse community-built Skills at agentskills.io or skills.sh.
+
+**Q: Will SDKs be completely replaced by AI?**  
+A: Not for another decade or more in domains like game development, embedded systems, and highly regulated software. But for most modern web apps and automations, agentic approaches are becoming the preferred choice.
 
 ## References
 
