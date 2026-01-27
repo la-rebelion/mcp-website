@@ -3,7 +3,7 @@ title: "Mastering Skills: Your Gateway to Enhanced AI Capabilities"
 description: "Unlock the full potential of AI with our comprehensive guide to Skills, empowering developers to create smarter, more efficient applications."
 authors:
   - adrian
-tags: [skills, ai-development]
+tags: [skills]
 image: /img/skills/skills-gateway.png
 hide_table_of_contents: true
 ---

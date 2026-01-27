@@ -140,3 +140,9 @@ anti-patterns:
   permalink: /anti-patterns
   description: >
     Anti-Patterns are common responses to recurring problems that are ineffective and counterproductive, often leading to negative consequences.
+
+agentic-ai:
+  label: Agentic AI
+  permalink: /agentic-ai
+  description: >
+    Agentic AI refers to artificial intelligence systems that can autonomously perform tasks, make decisions, and interact with their environment to achieve specific goals.

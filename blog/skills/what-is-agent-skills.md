@@ -3,7 +3,7 @@ title: What Is an Agent Skill?
 description: Agent Skills are the standard execution unit for AI agents — replacing prompt-only behavior with explicit, governable capabilities.
 authors: ['adrian']
 tags: [skills, ai-integration]
-image: /img/skills/what-is-agent-skills.png
+image: /img/skills/agent-skills.png
 ---
 
 AI agents are getting smarter — and more dangerous.

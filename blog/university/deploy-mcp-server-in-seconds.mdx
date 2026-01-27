@@ -1,13 +1,16 @@
 ---
 title: "How to Deploy MCP Servers"
 description: "A step-by-step guide to deploying MCP servers using HAPI CLI."
-tags: ["guide", "deployment"]
+tags: ["guide"]
 keywords: ["MCP deployment", "HAPI CLI", "Cloudflare Workers", "Docker", "Fly.io"]
+image: /img/university/deploy-mcp-server.png
 ---
 
 Setting up a **Model Context Protocol (MCP)** server is easier than you might think! It is a straightforward process that doesn't require extensive DevOps skills. Whether you're testing, packaging, or scaling globally, the **HAPI MCP Stack** equips you with everything you need to launch your server in just seconds.
 
 In this guide, we'll explore **4 different ways** to run and deploy MCP servers using the HAPI CLI.
+
+**Bonus:** Agent Skills provided to automate MCP server deployment.
 
 <!-- truncate -->
 
@@ -21,9 +24,11 @@ In this example, we'll run an **OpenAI Tools** server.
 # Run the MCP Server Locally and pipe to Inspector
 hapi serve openai-tools \
   --headless \
-  --port 3030 \m
+  --port 3030 \
   --url https://api.openai.com/v1 | bunx @modelcontextprotocol/inspector
 ```
+
+Find more MCP server definitions in the official [MCP Registry](https://registry.modelcontextprotocol.io/?q=ai.com.mcp).
 
 ### What's happening here?
 - `hapi serve`: Starts the MCP server.
@@ -96,6 +101,15 @@ fly machine run hapimcp/hapi-cli:latest --command "hapi serve" \
 - **Instant Machines:** Boot full VM instances in milliseconds.
 - **Global Anycast:** Run close to your users.
 - **Pre-built Image:** No build step required—just run.
+
+## Agent Skills to Automate Deployment
+
+To make deployment even easier, we provide **Agent Skills** that automate the entire process of deploying MCP servers across different platforms. You can find this and more skills in the [mcp.com.ai skills registry](https://skills.sh/?q=mcp-com-ai).
+
+<!-- Quick install command -->
+```bash
+npx skills add https://github.com/mcp-com-ai/api-to-mcp-skills --skill api-to-mcp
+```
 
 ---
 
