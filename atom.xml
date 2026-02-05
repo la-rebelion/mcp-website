@@ -1,12 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mcp.com.ai</id>
-    <title>MCP AI Blog Blog</title>
-    <updated>2026-01-27T12:38:19.000Z</updated>
+    <title>The control plane for MCP in real environments Blog</title>
+    <updated>2026-02-05T02:16:24.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mcp.com.ai"/>
-    <subtitle>MCP AI Blog Blog</subtitle>
+    <subtitle>The control plane for MCP in real environments Blog</subtitle>
     <icon>https://mcp.com.ai/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Deploying & Registering MCP Servers: Build Once, Run Everywhere]]></title>
+        <id>https://mcp.com.ai/deploy-register-mcp-servers</id>
+        <link href="https://mcp.com.ai/deploy-register-mcp-servers"/>
+        <updated>2026-02-05T02:16:24.000Z</updated>
+        <summary type="html"><![CDATA[A comprehensive guide to self-hosting, deploying, and registering Model Context Protocol (MCP) servers using HAPI, Docker, and Cloudflare Workers.]]></summary>
+        <content type="html"><![CDATA[
+<p>You’ve built an <strong>MCP server</strong>. It accesses data, performs actions, and works perfectly in your local development environment.</p>
+<p><strong>Now what?</strong></p>
+<p>To make your tools truly useful, they need to be accessible—whether by your team, your organization, or the global community of AI developers. This guide covers how to take your MCP server from <code>localhost</code> to production, and how to register it so it can be discovered.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Examples on the <a href="https://github.com/mcp-com-ai/mcp-servers" target="_blank" rel="noopener noreferrer" class="">HAPI MCP Server</a> repository.</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-connectivity-challenge">The Connectivity Challenge<a href="https://mcp.com.ai/deploy-register-mcp-servers#the-connectivity-challenge" class="hash-link" aria-label="Direct link to The Connectivity Challenge" title="Direct link to The Connectivity Challenge" translate="no">​</a></h2>
+<p>The Model Context Protocol (MCP) is revolutionizing how AI models connect to external tools. However, a protocol is only as good as its reach.
+If your server only lives on your laptop, its potential is limited.</p>
+<p>Developers face several hurdles:</p>
+<ol>
+<li class=""><strong>Deployment Fatigue</strong>: Configuring Docker, k8s, or serverless functions for every new tool.</li>
+<li class=""><strong>Discovery</strong>: How do AI agents find your tool?</li>
+<li class=""><strong>Security</strong>: Exposing internal APIs to LLMs safely.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-solution-build-once-deploy-everywhere">The Solution: Build Once, Deploy Everywhere<a href="https://mcp.com.ai/deploy-register-mcp-servers#the-solution-build-once-deploy-everywhere" class="hash-link" aria-label="Direct link to The Solution: Build Once, Deploy Everywhere" title="Direct link to The Solution: Build Once, Deploy Everywhere" translate="no">​</a></h2>
+<p>The philosophy behind the HAPI ecosystem is simple: <strong>Standardization</strong>. whether you are running a simple script or a complex enterprise API, the interface should be consistent.</p>
+<p>We support three primary deployment modes:</p>
+<ol>
+<li class=""><strong>Local</strong>: For dev/test loops. (HAPI MCP Servers are remote-only, even when local.)</li>
+<li class=""><strong>Containerized (Docker)</strong>: For standard enterprise hosting.</li>
+<li class=""><strong>Edge (Cloudflare Workers)</strong>: For low-latency, global availability.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-quick-start-3-ways-to-run">⚡ Quick Start: 3 Ways to Run<a href="https://mcp.com.ai/deploy-register-mcp-servers#-quick-start-3-ways-to-run" class="hash-link" aria-label="Direct link to ⚡ Quick Start: 3 Ways to Run" title="Direct link to ⚡ Quick Start: 3 Ways to Run" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="option-a--run-locally-with-hapi-cli">Option A — Run Locally with HAPI CLI<a href="https://mcp.com.ai/deploy-register-mcp-servers#option-a--run-locally-with-hapi-cli" class="hash-link" aria-label="Direct link to Option A — Run Locally with HAPI CLI" title="Direct link to Option A — Run Locally with HAPI CLI" translate="no">​</a></h3>
+<p>The fastest way to test. Great for development loops.</p>
+<ol>
+<li class="">
+<p><strong>Install HAPI</strong></p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Linux / macOS</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">curl -fsSL https://get.mcp.com.ai/hapi.sh | bash</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Windows (PowerShell)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">iwr -useb https://get.mcp.com.ai/hapi.ps1 | iex</span><br></span></code></pre></div></div>
+</li>
+<li class="">
+<p><strong>Serve your MCP</strong></p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve pet-store \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --port 3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --headless \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://petstore.swagger.io/v2 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --openapi https://petstore.swagger.io/v2/swagger.json</span><br></span></code></pre></div></div>
+</li>
+<li class="">
+<p><strong>Verify it works</strong>
+With a quick curl command, you can verify your server is speaking MCP:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">curl -s -X POST http://localhost:3030/mcp \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -H "Content-Type: application/json" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -d '{"jsonrpc":"2.0","id":1,"method":"ping"}'</span><br></span></code></pre></div></div>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="option-b--run-with-docker">Option B — Run with Docker<a href="https://mcp.com.ai/deploy-register-mcp-servers#option-b--run-with-docker" class="hash-link" aria-label="Direct link to Option B — Run with Docker" title="Direct link to Option B — Run with Docker" translate="no">​</a></h3>
+<p>Perfect for self-hosting on a VPS or within your internal Kubernetes cluster.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">docker run -p 3030:3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -v ~/.hapi:/app/.hapi \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  hapimcp/hapi-cli:latest \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  serve pet-store \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --port 3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --headless \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.my-service.com</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="option-c--deploy-to-cloudflare-workers">Option C — Deploy to Cloudflare Workers<a href="https://mcp.com.ai/deploy-register-mcp-servers#option-c--deploy-to-cloudflare-workers" class="hash-link" aria-label="Direct link to Option C — Deploy to Cloudflare Workers" title="Direct link to Option C — Deploy to Cloudflare Workers" translate="no">​</a></h3>
+<p>Go global instantly. This method deploys your MCP server to the edge, making it incredibly fast for distributed AI agents.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi login</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">hapi deploy \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --name mcp-pet-store \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --project pet-store \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --openapi ./specs/petstore.json \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.my-service.com</span><br></span></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-registering-with-the-mcp-registry">🌍 Registering with the MCP Registry<a href="https://mcp.com.ai/deploy-register-mcp-servers#-registering-with-the-mcp-registry" class="hash-link" aria-label="Direct link to 🌍 Registering with the MCP Registry" title="Direct link to 🌍 Registering with the MCP Registry" translate="no">​</a></h2>
+<p>Deployment is only half the battle. Discovery is the other.</p>
+<p>To make your server discoverable by standard generic clients:</p>
+<ol>
+<li class=""><strong>Prepare Metadata</strong>: Ensure you have a clear name, description, and valid OpenAPI spec.</li>
+<li class=""><strong>Submit to Registry</strong>: Follow the steps in the <a href="https://github.com/modelcontextprotocol/registry" target="_blank" rel="noopener noreferrer" class="">official MCP registry documentation</a> or the summary in our <a href="https://github.com/mcp-com-ai/mcp-servers" target="_blank" rel="noopener noreferrer" class="">MCP Servers GitHub repo</a>.</li>
+<li class=""><strong>Automate (Coming Soon - vote this feature!)</strong>: We are considering <code>hapi register</code> to automate this flow directly from the HAPI CLI.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-security-first">🔐 Security First<a href="https://mcp.com.ai/deploy-register-mcp-servers#-security-first" class="hash-link" aria-label="Direct link to 🔐 Security First" title="Direct link to 🔐 Security First" translate="no">​</a></h2>
+<p>When moving from local to remote, security models change.</p>
+<ul>
+<li class=""><strong>Authentication</strong>: Always fully authenticate requests to your backend. HAPI manage OAuth flows defined in your OpenAPI spec.</li>
+<li class=""><strong>Isolation</strong>: Use environment variables for API keys; never hardcode them.</li>
+<li class=""><strong>Monitoring</strong>: Log your MCP tool invocations. Knowing <em>what</em> the AI is asking your tools is crucial for debugging and auditing.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently Asked Questions<a href="https://mcp.com.ai/deploy-register-mcp-servers#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions" translate="no">​</a></h2>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Details</summary><div><div class="collapsibleContent_i85q"><p></p><summary><strong>What's the difference between running locally and deploying to production?</strong></summary>
+Local is optimized for speed and debugging. Production (Cloudflare, Fly.io, Docker) focuses on stability, security, and global availability. HAPI MCP servers are designed to be "remote-only" (HTTP Streamable) even when local, easing the transition.<p></p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Details</summary><div><div class="collapsibleContent_i85q"><p></p><summary><strong>Can I deploy the same MCP server to multiple platforms?</strong></summary>
+Yes. The configuration (OpenAPI spec + HAPI config) is portable. The destination is just a flag change.<p></p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Details</summary><div><div class="collapsibleContent_i85q"><p></p><summary><strong>How do I test an MCP server before registering it?</strong></summary>
+Use the <a href="https://skills.sh/mcp-com-ai/mcp-server-evaluations-skills/mcp-server-evaluations">MCP Server Evaluations skill</a> or simple <code>curl</code> commands to the jsonrpc endpoint.<p></p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Details</summary><div><div class="collapsibleContent_i85q"><p></p><summary><strong>Does HAPI support WebSockets or SSE?</strong></summary>
+Yes, HAPI uses a Streamable HTTP transport that supports both standard HTTP/POST interactions and SSE for real-time notifications.<p></p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Details</summary><div><div class="collapsibleContent_i85q"><p></p><summary><strong>What is the cost to deploy?</strong></summary>
+HAPI itself is free to use locally. Cloudflare Workers and other providers have their own pricing models, often with generous free tiers for low-volume usage.<p></p></div></div></details>
+<hr>
+<p><strong>Ready to deploy?</strong> Check out the <a href="https://docs.mcp.com.ai/components/hapi-server/" target="_blank" rel="noopener noreferrer" class="">HAPI CLI Documentation</a> and get started today.</p>]]></content>
+        <author>
+            <name>Adrian Escutia</name>
+            <uri>https://adrian.escutia.me</uri>
+        </author>
+        <category label="MCP Registry" term="MCP Registry"/>
+        <category label="Swagger" term="Swagger"/>
+        <category label="API" term="API"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[What Is an Agent Skill? The Standard Unit for AI Agent Capabilities]]></title>
         <id>https://mcp.com.ai/skills/what-is-agent-skills</id>
