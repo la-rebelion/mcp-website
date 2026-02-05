@@ -1,0 +1,210 @@
+---
+title: "Deploying & Registering MCP Servers: Build Once, Run Everywhere"
+description: "A comprehensive guide to self-hosting, deploying, and registering Model Context Protocol (MCP) servers using HAPI, Docker, and Cloudflare Workers."
+authors: [adrian]
+tags: [mcp-registry, swagger, api]
+keywords: [mcp, registry, deployment, hapi, docker, cloudflare workers]
+image: /img/blog/deploying-register-mcp-servers.png
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Model Context Protocol (MCP) registry?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The MCP registry is a centralized directory where developers can publish their MCP servers to make them discoverable by AI clients and the broader community."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I run an MCP server locally?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can run MCP servers locally using tools like the HAPI CLI, which allows you to serve APIs as MCP endpoints directly from your machine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I deploy an MCP server to Cloudflare Workers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can deploy to Cloudflare Workers using the HAPI CLI `deploy` command, which takes your OpenAPI spec and backend URL to create a serverless MCP instance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need authentication for a self-hosted MCP server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, authentication is highly recommended for self-hosted servers, especially if exposed to the internet. Standard methods include OAuth2, API keys, or mTLS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is HAPI different from other MCP deployment tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HAPI serves as a universal bridge, allowing you to run the same MCP server configuration locally, in Docker containers, or on edge networks like Cloudflare without changing your code."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+You’ve built an **MCP server**. It accesses data, performs actions, and works perfectly in your local development environment. 
+
+**Now what?**
+
+To make your tools truly useful, they need to be accessible—whether by your team, your organization, or the global community of AI developers. This guide covers how to take your MCP server from `localhost` to production, and how to register it so it can be discovered.
+
+<!-- truncate -->
+
+:::info
+Examples on the [HAPI MCP Server](https://github.com/mcp-com-ai/mcp-servers) repository.
+:::
+
+## The Connectivity Challenge
+
+The Model Context Protocol (MCP) is revolutionizing how AI models connect to external tools. However, a protocol is only as good as its reach. 
+If your server only lives on your laptop, its potential is limited.
+
+Developers face several hurdles:
+1.  **Deployment Fatigue**: Configuring Docker, k8s, or serverless functions for every new tool.
+2.  **Discovery**: How do AI agents find your tool?
+3.  **Security**: Exposing internal APIs to LLMs safely.
+
+## The Solution: Build Once, Deploy Everywhere
+
+The philosophy behind the HAPI ecosystem is simple: **Standardization**. whether you are running a simple script or a complex enterprise API, the interface should be consistent.
+
+We support three primary deployment modes:
+1.  **Local**: For dev/test loops. (HAPI MCP Servers are remote-only, even when local.)
+2.  **Containerized (Docker)**: For standard enterprise hosting.
+3.  **Edge (Cloudflare Workers)**: For low-latency, global availability.
+
+---
+
+## ⚡ Quick Start: 3 Ways to Run
+
+### Option A — Run Locally with HAPI CLI
+
+The fastest way to test. Great for development loops.
+
+1.  **Install HAPI**
+    ```bash
+    # Linux / macOS
+    curl -fsSL https://get.mcp.com.ai/hapi.sh | bash
+    
+    # Windows (PowerShell)
+    iwr -useb https://get.mcp.com.ai/hapi.ps1 | iex
+    ```
+
+2.  **Serve your MCP**
+    ```bash
+    hapi serve pet-store \
+      --port 3030 \
+      --headless \
+      --url https://petstore.swagger.io/v2 \
+      --openapi https://petstore.swagger.io/v2/swagger.json
+    ```
+
+3.  **Verify it works**
+    With a quick curl command, you can verify your server is speaking MCP:
+    ```bash
+    curl -s -X POST http://localhost:3030/mcp \
+      -H "Content-Type: application/json" \
+      -d '{"jsonrpc":"2.0","id":1,"method":"ping"}'
+    ```
+
+### Option B — Run with Docker
+
+Perfect for self-hosting on a VPS or within your internal Kubernetes cluster.
+
+```bash
+docker run -p 3030:3030 \
+  -v ~/.hapi:/app/.hapi \
+  hapimcp/hapi-cli:latest \
+  serve pet-store \
+  --port 3030 \
+  --headless \
+  --url https://api.my-service.com
+```
+
+### Option C — Deploy to Cloudflare Workers
+
+Go global instantly. This method deploys your MCP server to the edge, making it incredibly fast for distributed AI agents.
+
+```bash
+hapi login
+hapi deploy \
+  --name mcp-pet-store \
+  --project pet-store \
+  --openapi ./specs/petstore.json \
+  --url https://api.my-service.com
+```
+
+---
+
+## 🌍 Registering with the MCP Registry
+
+Deployment is only half the battle. Discovery is the other.
+
+To make your server discoverable by standard generic clients:
+
+1.  **Prepare Metadata**: Ensure you have a clear name, description, and valid OpenAPI spec.
+2.  **Submit to Registry**: Follow the steps in the [official MCP registry documentation](https://github.com/modelcontextprotocol/registry) or the summary in our [MCP Servers GitHub repo](https://github.com/mcp-com-ai/mcp-servers).
+3.  **Automate (Coming Soon - vote this feature!)**: We are considering `hapi register` to automate this flow directly from the HAPI CLI.
+
+---
+
+## 🔐 Security First
+
+When moving from local to remote, security models change. 
+
+*   **Authentication**: Always fully authenticate requests to your backend. HAPI manage OAuth flows defined in your OpenAPI spec.
+*   **Isolation**: Use environment variables for API keys; never hardcode them.
+*   **Monitoring**: Log your MCP tool invocations. Knowing *what* the AI is asking your tools is crucial for debugging and auditing.
+
+---
+
+## Frequently Asked Questions
+
+<details>
+<summary><strong>What's the difference between running locally and deploying to production?</strong></summary>
+Local is optimized for speed and debugging. Production (Cloudflare, Fly.io, Docker) focuses on stability, security, and global availability. HAPI MCP servers are designed to be "remote-only" (HTTP Streamable) even when local, easing the transition.
+</details>
+
+<details>
+<summary><strong>Can I deploy the same MCP server to multiple platforms?</strong></summary>
+Yes. The configuration (OpenAPI spec + HAPI config) is portable. The destination is just a flag change.
+</details>
+
+<details>
+<summary><strong>How do I test an MCP server before registering it?</strong></summary>
+Use the <a href="https://skills.sh/mcp-com-ai/mcp-server-evaluations-skills/mcp-server-evaluations">MCP Server Evaluations skill</a> or simple `curl` commands to the jsonrpc endpoint.
+</details>
+
+<details>
+<summary><strong>Does HAPI support WebSockets or SSE?</strong></summary>
+Yes, HAPI uses a Streamable HTTP transport that supports both standard HTTP/POST interactions and SSE for real-time notifications.
+</details>
+
+<details>
+<summary><strong>What is the cost to deploy?</strong></summary>
+HAPI itself is free to use locally. Cloudflare Workers and other providers have their own pricing models, often with generous free tiers for low-volume usage.
+</details>
+
+---
+
+**Ready to deploy?** Check out the [HAPI CLI Documentation](https://docs.mcp.com.ai/components/hapi-server/) and get started today.
