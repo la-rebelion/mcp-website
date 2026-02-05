@@ -8,9 +8,9 @@ const hubspot = {
 };
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 const config: Config = {
-  title: 'MCP AI Blog',
+  title: 'The control plane for MCP in real environments',
   tagline:
-    'Understanding limitations and misconceptions • Practical guidance for real-world MCP',
+    'The safest way to turn your existing APIs into production-ready AI tools — without rewriting your systems or exposing your infrastructure.',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
