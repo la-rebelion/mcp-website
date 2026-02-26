@@ -73,6 +73,9 @@ function Hero(): ReactNode {
               <path d="M5 12h12M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
+          {/* <Link className="button button--lg mcpBtnSecondary" href="/pricing">
+            View Pricing
+          </Link> */}
           <Link className="button button--lg mcpBtnSecondary" href="https://run.mcp.com.ai/">
             Try runMCP
           </Link>
