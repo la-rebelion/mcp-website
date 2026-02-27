@@ -9,9 +9,9 @@ Something interesting just happened in the AI agent ecosystem.
 
 A project that started as **Clawbot**, became **Moltbot**, and has now evolved into **OpenClaw** — and it’s not just a rebrand story. It’s a lesson in identity, resilience, and positioning in the age of agent infrastructure.
 
-Peter Steinberger, the founder behind the project, had to rename *Clawbot* due to trademark issues around the name “Claude.” That led to *Moltbot*. And now, in collaboration with OpenAI, the project has evolved into **OpenClaw** — a powerful foundation for AI agents.
-
 <!-- truncate -->
+
+Peter Steinberger, the founder behind the project, had to rename *Clawbot* due to trademark issues around the name “Claude.” That led to *Moltbot*. And now, in collaboration with OpenAI, the project has evolved into **OpenClaw** — a powerful foundation for AI agents.
 
 But hype is cheap.
 
