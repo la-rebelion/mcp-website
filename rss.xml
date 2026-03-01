@@ -4,10 +4,315 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Fri, 27 Feb 2026 01:01:18 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 01 Mar 2026 00:49:48 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[The Hidden Scaling Problem in MCP — And How to Fix It]]></title>
+            <link>https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it</link>
+            <guid>https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it</guid>
+            <pubDate>Sun, 01 Mar 2026 00:49:48 GMT</pubDate>
+            <description><![CDATA[Why Model Context Protocol (MCP) alone isn't enough for scalable AI agent integration, and how to provide the missing layer of standardization]]></description>
+            <content:encoded><![CDATA[<p>If every AI agent needs its own custom integration... you don't have an AI strategy.
+You have an integration nightmare.</p>
+<p>Traditional APIs were built for humans and frontends. AI agents change the equation.</p>
+<p>And this is where most teams misunderstand <strong>Model Context Protocol (MCP)</strong>.</p>
+<p>They think MCP solves integration complexity automatically.</p>
+<p>It doesn't.</p>
+<p>It <strong>standardizes discovery and interaction</strong> — but <strong>implementation discipline</strong> still matters.</p>
+<p>Let's break this down clearly.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="traditional-apis-vs-mcp-what-actually-changes">Traditional APIs vs MCP: What Actually Changes?<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#traditional-apis-vs-mcp-what-actually-changes" class="hash-link" aria-label="Direct link to Traditional APIs vs MCP: What Actually Changes?" title="Direct link to Traditional APIs vs MCP: What Actually Changes?" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-do-traditional-apis-work">How do traditional APIs work?<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#how-do-traditional-apis-work" class="hash-link" aria-label="Direct link to How do traditional APIs work?" title="Direct link to How do traditional APIs work?" translate="no">​</a></h3>
+<p>Traditional <a href="https://www.contentful.com/blog/what-is-api-first/#richtxt-how-to-implement-an-api-first-approach" target="_blank" rel="noopener noreferrer" class="">REST APIs require every client</a> to:</p>
+<ul>
+<li class="">Read documentation</li>
+<li class="">Implement authentication flows</li>
+<li class="">Format requests correctly</li>
+<li class="">Handle errors manually</li>
+<li class="">Track version changes</li>
+<li class="">Maintain compatibility</li>
+</ul>
+<p>If you have:</p>
+<ul>
+<li class="">1 API</li>
+<li class="">5 clients</li>
+<li class="">3 authentication methods</li>
+<li class="">2 versions</li>
+</ul>
+<p>You don't have 1 integration problem.</p>
+<p>You have 30.</p>
+<p>Now replace "clients" with:</p>
+<ul>
+<li class=""><a href="https://developers.openai.com/api/docs/guides/tools-connectors-mcp" target="_blank" rel="noopener noreferrer" class="">ChatGPT connectors</a></li>
+<li class=""><a href="https://platform.claude.com/docs/en/agents-and-tools/mcp-connector" target="_blank" rel="noopener noreferrer" class="">Claude Desktop</a></li>
+<li class="">Internal agents</li>
+<li class=""><a href="https://docs.flowiseai.com/tutorials/tools-and-mcp" target="_blank" rel="noopener noreferrer" class="">Workflow bots</a></li>
+<li class="">Edge agents</li>
+<li class=""><a href="https://www.gsmaservices.com/network-services/" target="_blank" rel="noopener noreferrer" class="">Telco network</a> AI</li>
+<li class="">Enterprise copilots</li>
+</ul>
+<p>That model does not scale.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-model-context-protocol-mcp">What Is Model Context Protocol (MCP)?<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#what-is-model-context-protocol-mcp" class="hash-link" aria-label="Direct link to What Is Model Context Protocol (MCP)?" title="Direct link to What Is Model Context Protocol (MCP)?" translate="no">​</a></h2>
+<p>MCP changes the integration contract.</p>
+<p>Instead of hardcoded REST calls, it provides:</p>
+<ul>
+<li class="">Runtime tool discovery</li>
+<li class="">Schema introspection</li>
+<li class="">Agent-native communication</li>
+<li class="">Structured inputs and outputs</li>
+<li class="">Standard interaction patterns</li>
+</ul>
+<p>Well, at least that's the promise, and what <a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">HAPI MCP</a> delivers - without the fragmentation, without coding, and with enterprise-grade discipline.</p>
+<p>Any MCP-compatible agent can:</p>
+<ol>
+<li class="">Connect to a remote MCP endpoint</li>
+<li class="">Inspect available tools</li>
+<li class="">Understand their schema</li>
+<li class="">Execute them without custom coding</li>
+</ol>
+<p>This is plug-and-play for agents.</p>
+<p>But here's the part most people miss.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-hidden-problem-mcp-server-fragmentation">The Hidden Problem: MCP Server Fragmentation<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#the-hidden-problem-mcp-server-fragmentation" class="hash-link" aria-label="Direct link to The Hidden Problem: MCP Server Fragmentation" title="Direct link to The Hidden Problem: MCP Server Fragmentation" translate="no">​</a></h2>
+<p>MCP standardizes <strong>how agents talk to servers</strong>.</p>
+<p>It does not standardize <strong>how servers are built internally</strong>.</p>
+<p>Two teams can implement an MCP server for the same API and end up with:</p>
+<ul>
+<li class="">Different auth logic</li>
+<li class="">Different error handling</li>
+<li class="">Different retry policies</li>
+<li class="">Different token exchange flows</li>
+<li class="">Different schema interpretations</li>
+<li class="">Duplicated backend logic</li>
+<li class="">Security inconsistencies</li>
+</ul>
+<p>Now you have a new problem:</p>
+<blockquote>
+<p>MCP interface standardization + backend chaos.</p>
+</blockquote>
+<p>This is where architecture discipline matters.</p>
+<p>MCP servers are not just wrappers.</p>
+<p>They are distributed system components.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-mcp-servers-must-be-treated-as-distributed-systems">Why MCP Servers Must Be Treated as Distributed Systems<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#why-mcp-servers-must-be-treated-as-distributed-systems" class="hash-link" aria-label="Direct link to Why MCP Servers Must Be Treated as Distributed Systems" title="Direct link to Why MCP Servers Must Be Treated as Distributed Systems" translate="no">​</a></h2>
+<p>An MCP Server:</p>
+<ul>
+<li class="">Runs independently</li>
+<li class="">Calls upstream APIs</li>
+<li class="">Handles authentication delegation</li>
+<li class="">Translates schemas</li>
+<li class="">Applies business logic</li>
+<li class="">Returns structured responses</li>
+</ul>
+<p>That is a system.</p>
+<p>Not a simple adapter.</p>
+<p>If you let each team build MCP servers differently:</p>
+<ul>
+<li class="">Security posture varies</li>
+<li class="">OAuth flows break inconsistently</li>
+<li class="">Error semantics change</li>
+<li class="">Agent behavior becomes unpredictable</li>
+<li class="">Maintenance cost explodes</li>
+</ul>
+<p>In enterprise environments, this is unacceptable.</p>
+<p>This is exactly why <a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">HAPI MCP</a> exists.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-the-best-way-to-fix-this-problem">What is the best way to fix this problem?<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#what-is-the-best-way-to-fix-this-problem" class="hash-link" aria-label="Direct link to What is the best way to fix this problem?" title="Direct link to What is the best way to fix this problem?" translate="no">​</a></h2>
+<p>HAPI MCP solves the missing layer.</p>
+<p>It standardizes the <strong>server implementation engine</strong>, not just the protocol interface.</p>
+<p>Instead of:</p>
+<blockquote>
+<p>"Every team builds its own MCP server logic"</p>
+</blockquote>
+<p>You get:</p>
+<blockquote>
+<p>"Deploy MCP servers from OpenAPI specs — the engine handles the rest."</p>
+</blockquote>
+<p>Let's analyze why that matters.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1️⃣-authentication-is-centralized-not-re-invented">1️⃣ Authentication Is Centralized, Not Re-Invented<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#1%EF%B8%8F%E2%83%A3-authentication-is-centralized-not-re-invented" class="hash-link" aria-label="Direct link to 1️⃣ Authentication Is Centralized, Not Re-Invented" title="Direct link to 1️⃣ Authentication Is Centralized, Not Re-Invented" translate="no">​</a></h2>
+<p>One of the hardest problems in MCP ecosystems is OAuth.</p>
+<p>Especially 3-legged flows:</p>
+<ul>
+<li class="">User → Client (ChatGPT, Claude)</li>
+<li class="">Authorization Server (LinkedIn, Strava, etc.)</li>
+<li class="">Resource Server</li>
+</ul>
+<p>Without discipline, each MCP server re-implements:</p>
+<ul>
+<li class="">PKCE</li>
+<li class="">Token exchange</li>
+<li class="">Bearer forwarding</li>
+<li class="">Refresh token handling</li>
+<li class="">Error propagation</li>
+</ul>
+<p>This is standard, HAPI MCP provides a secure, consistent implementation for all servers.</p>
+<p>Authentication is:</p>
+<ul>
+<li class="">Consistent</li>
+<li class="">Repeatable</li>
+<li class="">Delegated properly</li>
+<li class="">Secure by design</li>
+</ul>
+<p>You don't rewrite OAuth per server.</p>
+<p>You deploy.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2️⃣-error-handling-becomes-deterministic">2️⃣ Error Handling Becomes Deterministic<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#2%EF%B8%8F%E2%83%A3-error-handling-becomes-deterministic" class="hash-link" aria-label="Direct link to 2️⃣ Error Handling Becomes Deterministic" title="Direct link to 2️⃣ Error Handling Becomes Deterministic" translate="no">​</a></h2>
+<p>Agents rely on predictable behavior.</p>
+<p>If one MCP server returns:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token property" style="color:#36acaa">"error"</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"not_found"</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<p>And another returns:</p>
+<div class="language-json codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-json codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> </span><span class="token property" style="color:#36acaa">"message"</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Missing resource"</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><br></span></code></pre></div></div>
+<p>Your agent logic breaks.</p>
+<p>HAPI MCP ensures:</p>
+<ul>
+<li class="">Consistent error semantics</li>
+<li class="">Standardized response shapes</li>
+<li class="">Uniform status mapping</li>
+</ul>
+<p>This reduces agent hallucination and workflow failures.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3️⃣-no-business-logic-duplication">3️⃣ No Business Logic Duplication<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#3%EF%B8%8F%E2%83%A3-no-business-logic-duplication" class="hash-link" aria-label="Direct link to 3️⃣ No Business Logic Duplication" title="Direct link to 3️⃣ No Business Logic Duplication" translate="no">​</a></h2>
+<p>One of the silent architectural sins:</p>
+<p>Teams duplicating logic inside MCP servers that already exists upstream.</p>
+<p>For example:</p>
+<ul>
+<li class="">Re-validating data unnecessarily</li>
+<li class="">Re-implementing filtering</li>
+<li class="">Duplicating rate limiting</li>
+<li class="">Recreating transformation layers</li>
+</ul>
+<p>HAPI MCP treats the server as:</p>
+<ul>
+<li class="">A standardized orchestration layer</li>
+<li class="">Not a logic duplication layer</li>
+</ul>
+<p>It respects upstream authority.</p>
+<p>This keeps systems clean.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4️⃣-contract-changes-dont-break-everything">4️⃣ Contract Changes Don't Break Everything<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#4%EF%B8%8F%E2%83%A3-contract-changes-dont-break-everything" class="hash-link" aria-label="Direct link to 4️⃣ Contract Changes Don't Break Everything" title="Direct link to 4️⃣ Contract Changes Don't Break Everything" translate="no">​</a></h2>
+<p>Traditional APIs break clients when contracts change.</p>
+<p>MCP allows runtime introspection.</p>
+<p>But if your server implementation is inconsistent:</p>
+<p>You still break behavior.</p>
+<p>HAPI MCP enforces:</p>
+<ul>
+<li class="">Schema alignment with OpenAPI</li>
+<li class="">Predictable tool exposure</li>
+<li class="">Controlled updates</li>
+<li class="">Versioning discipline</li>
+</ul>
+<p>This is critical for enterprise.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5️⃣-enterprise-governance-is-built-in">5️⃣ Enterprise Governance Is Built-In<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#5%EF%B8%8F%E2%83%A3-enterprise-governance-is-built-in" class="hash-link" aria-label="Direct link to 5️⃣ Enterprise Governance Is Built-In" title="Direct link to 5️⃣ Enterprise Governance Is Built-In" translate="no">​</a></h2>
+<p>CIOs and platform teams ask:</p>
+<ul>
+<li class="">Who deployed this MCP server?</li>
+<li class="">Which auth flow is used?</li>
+<li class="">Where are tokens stored?</li>
+<li class="">How is auditing done?</li>
+<li class="">Can we run this on-prem?</li>
+<li class="">What about airgapped environments?</li>
+</ul>
+<p>HAPI MCP answers:</p>
+<ul>
+<li class="">Deployable on-prem or cloud</li>
+<li class="">Same engine everywhere</li>
+<li class="">Standard behavior</li>
+<li class="">Governance-ready</li>
+<li class="">Compatible with regulated environments</li>
+</ul>
+<p>This is not "just another wrapper tool."</p>
+<p>This is infrastructure.</p>
+<hr>
+<h1>Business Impact: Why This Matters</h1>
+<p>Let's translate technically into business language.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="without-standardized-mcp-servers">Without Standardized MCP Servers<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#without-standardized-mcp-servers" class="hash-link" aria-label="Direct link to Without Standardized MCP Servers" title="Direct link to Without Standardized MCP Servers" translate="no">​</a></h3>
+<ul>
+<li class="">Higher integration costs</li>
+<li class="">Inconsistent AI results</li>
+<li class="">Security risk</li>
+<li class="">Maintenance overhead</li>
+<li class="">Vendor lock chaos</li>
+<li class="">Harder audits</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="with-hapi-mcp">With HAPI MCP<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#with-hapi-mcp" class="hash-link" aria-label="Direct link to With HAPI MCP" title="Direct link to With HAPI MCP" translate="no">​</a></h3>
+<ul>
+<li class="">Faster AI rollout</li>
+<li class="">Lower integration cost</li>
+<li class="">Predictable agent behavior</li>
+<li class="">Enterprise-ready governance</li>
+<li class="">Reduced duplication</li>
+<li class="">AI strategy that scales</li>
+</ul>
+<p>Time saved = money saved
+Consistency = risk reduction
+Standardization = long-term leverage</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently Asked Questions<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions" translate="no">​</a></h2>
+<p><strong>What problem does MCP solve?</strong></p>
+<p>MCP standardizes how AI agents discover and interact with tools at runtime, removing hardcoded integrations.</p>
+<p><strong>Is MCP enough by itself?</strong></p>
+<p>No. MCP defines the interaction protocol, but it does not standardize server implementation discipline.</p>
+<p><strong>Why do MCP implementations vary?</strong></p>
+<p>Because teams interpret authentication, error handling, and schema translation differently unless an engine enforces consistency.</p>
+<p><strong>How does HAPI MCP improve MCP servers?</strong></p>
+<p>HAPI MCP provides a standardized execution engine that ensures:</p>
+<ul>
+<li class="">Unified authentication handling</li>
+<li class="">Predictable error semantics for all servers</li>
+<li class="">Schema consistency</li>
+<li class="">Enterprise-grade governance</li>
+</ul>
+<p><strong>Can HAPI MCP run on-premise?</strong></p>
+<p>Yes. It supports cloud and on-prem deployments, including regulated and partially disconnected environments.</p>
+<p><strong>Does HAPI duplicate backend logic?</strong></p>
+<p>No. It acts as a standardized orchestration layer and respects upstream APIs as the source of truth.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="strategic-recommendation-treat-mcp-as-infrastructure">Strategic Recommendation: Treat MCP as Infrastructure<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#strategic-recommendation-treat-mcp-as-infrastructure" class="hash-link" aria-label="Direct link to Strategic Recommendation: Treat MCP as Infrastructure" title="Direct link to Strategic Recommendation: Treat MCP as Infrastructure" translate="no">​</a></h2>
+<p>If you are building:</p>
+<ul>
+<li class="">Enterprise AI copilots</li>
+<li class="">Telco network APIs</li>
+<li class="">Platform team AI integrations</li>
+<li class="">Agent ecosystems</li>
+<li class="">Multi-provider connectors</li>
+</ul>
+<p>You cannot treat MCP servers as lightweight wrappers.</p>
+<p>You must treat them as:</p>
+<ul>
+<li class="">Standardized infrastructure components</li>
+<li class="">Governed distributed systems</li>
+<li class="">Secure orchestration layers</li>
+</ul>
+<p>That is the HAPI MCP philosophy.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-thought">Final Thought<a href="https://mcp.com.ai/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it#final-thought" class="hash-link" aria-label="Direct link to Final Thought" title="Direct link to Final Thought" translate="no">​</a></h2>
+<p>MCP is the future of agent-native integration.</p>
+<p>But:</p>
+<p><strong>MCP without implementation discipline becomes fragmentation.</strong></p>
+<p>HAPI MCP is not about replacing the protocol.</p>
+<p>It is about making it reliable.</p>
+<p>If your goal is:</p>
+<ul>
+<li class="">AI at scale</li>
+<li class="">Enterprise governance</li>
+<li class="">Predictable agent behavior</li>
+<li class="">No duplicated backend chaos</li>
+</ul>
+<p>Then the path is clear.</p>
+<p>Standardize the engine.</p>
+<p>Deploy with confidence.</p>
+<p>Build once.</p>
+<p>Scale everywhere.</p>
+<p>That's the HAPI MCP way.</p>]]></content:encoded>
+            <category>MCP at Scale</category>
+            <category>API-First</category>
+            <category>Best Practices</category>
+        </item>
         <item>
             <title><![CDATA[3-Legged OAuth2 for MCP Apps: Authorization Code Flow for ChatGPT and Claude]]></title>
             <link>https://mcp.com.ai/mcp-with-no-shadows/3-legged-oauth-mcp-apps</link>
@@ -2999,82 +3304,6 @@ If the feature is not visible, note that <strong>MCP connectors</strong> in Chat
 <p>By understanding and addressing these threats, you can secure your MCP Client against prompt injection vulnerabilities and protect your users and reputation.</p>]]></content:encoded>
             <category>MCP</category>
             <category>Security</category>
-        </item>
-        <item>
-            <title><![CDATA[Swagger/OAS v4 Is out]]></title>
-            <link>https://mcp.com.ai/oas-v4-is-out</link>
-            <guid>https://mcp.com.ai/oas-v4-is-out</guid>
-            <pubDate>Wed, 08 Oct 2025 11:36:31 GMT</pubDate>
-            <description><![CDATA[Exploring the potential of OpenAPI Specification (OAS) v4 for AI tool integration and how it can complement Model Context Protocol (MCP).]]></description>
-            <content:encoded><![CDATA[<p>🚨 "OpenAPI Specification (OAS) v4 is out" - <em>That I wish</em>, this is the kind of headline I would expect to see soon, because OAS can easily be extended to enable RESTful APIs work seamlessly with AI.</p>
-<p>By the end of this article, you'll know how to let any LLM call your REST tools automatically using OAS.</p>
-<p><strong>What Does It Mean for AI Tool Integration?</strong> Let's explore how OAS v4 could fit into the AI landscape, complementing protocols like Model Context Protocol (MCP).</p>
-<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>This is a speculative article about what I would like to see in OAS v4, based on my experience with Model Context Protocol (MCP) and AI tool integration. OAS v4 is not yet released, and this article is not endorsed by the OpenAPI Initiative or any other organization.</p></div></div>
-<p>Over the past decade, OAS has become the standard for describing RESTful APIs and is widely adopted across various industries. Now, it's time to expand it to cover AI use cases, addressing the evolving needs of developers.</p>
-<p>Model Context Protocol (MCP) has recently gained a lot of attention. It's great for local integrations, allows you to adjust the MCP server for backend connections, and with the latest updates, it can now handle remote calls, moving closer to RESTful APIs.</p>
-<p>Since the beginning <a href="https://rebelion.la/model-context-protocol-mcp-is-it-a-protocol-or-a-contract#heading-the-lsp-connection-understanding-mcps-roots" target="_blank" rel="noopener noreferrer" class="">MCP was designed for local integrations mainly</a>. The breakthrough of MCP lies in its <strong>ability to let the LLM discover the tools available</strong>. This tool discovery feature marks MCP's unique value proposition, transforming the way we approach AI integrations. From there, everything falls into place similar to RESTful APIs: the client acts as a lightweight orchestration layer, the server handles the backend tasks, and the LLM plays the role of the brain, deciding which tools to use and how to use them.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-does-mcp-work-for-mere-mortals">How does MCP work? For mere mortals<a href="https://mcp.com.ai/oas-v4-is-out#how-does-mcp-work-for-mere-mortals" class="hash-link" aria-label="Direct link to How does MCP work? For mere mortals" title="Direct link to How does MCP work? For mere mortals" translate="no">​</a></h2>
-<p>I have noticed that many people struggle to understand how MCP works, so let me try to explain it in a simple way.</p>
-<p>Let's imagine a conversation between the client (you), the LLM (a friend), and the server (weather guy):</p>
-<p>Setting the scene: you have a person (the MCP Server) who speaks a language you don't understand, such as French, and you have a friend who speaks both languages (The LLM), French and English. You'd like to know the weather in Paris, so you can ask your friend for help. Your friend asks the person in French, gets the answer, and translates it back to you in English. In this scenario, your friend represents the LLM supporting tool calling natively.</p>
-<p>Now, imagine you can write in French but don't speak it fluently. You'd like to know the weather in Paris, but this time you need someone to guide you on what to ask in French. You write the message asking for the weather. Once you receive the answer, you can translate it without help. This scenario reflects the role of an LLM that doesn't support tool calling natively, and the client has to call the tool directly.</p>
-<p>Complex, right? Let's see it in a sequence diagram:</p>
-<!-- -->
-<p>The LLM receives a prompt with a description of the <a href="https://modelcontextprotocol.io/specification/2025-06-18/server/tools#listing-tools" target="_blank" rel="noopener noreferrer" class="">available tools</a>. This tool list can be <a href="https://rebelion.la/you-dont-need-to-implement-mcp-servers-a-contract-first-approach-to-ai-tool-integration?showSharer=true#heading-example-conversion-openapi-mcp" target="_blank" rel="noopener noreferrer" class="">mapped from the OpenAPI spec</a>. The LLM then chooses which tool to use and how to use it. The client simply passes the user input to the LLM, which decides what to do next. Some LLMs, like GPT-4-turbo and Llama2, support tool calling natively. Others, like Claude, do not, so the client calls the tool directly, based on the LLM's instruction.</p>
-<p>As you can see, either the LLM supports tool calling natively or not, the flow is similar. The only difference is that in the latter case, the client does the call to the server, and forwards the response to the LLM to get the final result for the end-user - based on the LLM's instruction.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="oas-v4---the-missing-piece">OAS v4 - The missing piece<a href="https://mcp.com.ai/oas-v4-is-out#oas-v4---the-missing-piece" class="hash-link" aria-label="Direct link to OAS v4 - The missing piece" title="Direct link to OAS v4 - The missing piece" translate="no">​</a></h2>
-<p>The missing piece in OAS compared to MCP is that OAS does not have a discovery mechanism for the LLM to know which tools are available. This is where OAS v4 could shine, by adding a way for the LLM to discover the API spec and the available tools.</p>
-<p>Imagine if OAS v4 had a way to describe the tools available in a way that the LLM could understand, and then the LLM could decide which tool to use, and how to use it. This would make it possible for any LLM to work seamlessly with RESTful APIs, without the need for a separate protocol like MCP, or even better, MCP could be used as a contract-first approach to AI tool integration, where the OAS v4 spec is the contract that defines the tools available, and the MCP server implements the backend logic. That's precisely what I have been advocating for a while now with my <a href="https://rebelion.la/you-dont-need-to-implement-mcp-servers-a-contract-first-approach-to-ai-tool-integration?showSharer=true" target="_blank" rel="noopener noreferrer" class="">contract-first approach to AI tool integration</a> and the <em>Headless API</em> (HAPI) initiative for MCP.</p>
-<p>Now that I have explained how MCP works, and how OAS v4 could be the missing piece, I hope you can see the potential of OAS v4 for AI tool integration. But, don't stop here, next is what I would like to see in OAS v4.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-you-should-expect-in-oas-v4">What You Should Expect in OAS v4<a href="https://mcp.com.ai/oas-v4-is-out#what-you-should-expect-in-oas-v4" class="hash-link" aria-label="Direct link to What You Should Expect in OAS v4" title="Direct link to What You Should Expect in OAS v4" translate="no">​</a></h2>
-<p>OAS v4 is not just an incremental update—it's an opportunity to rethink how APIs and AI tools work together. Here is what you should expect and advocate for in the next version, based on best practices and the needs of modern AI integrations.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="modular-multi-file-api-specifications">Modular, Multi-File API Specifications<a href="https://mcp.com.ai/oas-v4-is-out#modular-multi-file-api-specifications" class="hash-link" aria-label="Direct link to Modular, Multi-File API Specifications" title="Direct link to Modular, Multi-File API Specifications" translate="no">​</a></h2>
-<p>You need modular specs for real-world APIs. OAS v4 should support multi-file specifications natively, allowing you to break down large APIs into smaller, reusable modules (for example, pets, users, orders). This approach enhances maintainability and collaboration across teams. Instead of a single massive file, you organize your API into logical domains:</p>
-<ul>
-<li class=""><strong>API Root:</strong> Main file with info, servers, and tags.</li>
-<li class=""><strong>Security:</strong> Dedicated files for OAuth2 and other schemes.</li>
-<li class=""><strong>Paths by Domain:</strong> Split endpoints into logical groups (e.g. <code>pet.api.yaml</code>, <code>user.api.yaml</code>).</li>
-<li class=""><strong>Components/Models:</strong> Reusable schemas separated by domain.</li>
-</ul>
-<p>This modular structure keeps specs manageable (500–1000 lines each) and enables code generators and clients to see one unified spec. Tools like <a href="https://redocly.com/docs/cli/file-management#one-large-file-to-many-small-ones" target="_blank" rel="noopener noreferrer" class="">Redocly CLI</a> already offer splitting, but OAS v4 should standardize it. Modular specs also help AI tools (MCP servers) consume only the relevant modules, <strong>improving performance and reducing cognitive load for LLMs</strong> that may have context length limitations and make the LLMs' job easier when deciding which tools to use.</p>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>The current <code>$ref</code> approach only allows referencing individual components, not entire files. Modular specs let you load what you need, when you need it.</p></div></div>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li class="">Parallel development and reviews</li>
-<li class="">Domain-specific clients (AI agents load only relevant modules)</li>
-<li class="">Easier maintenance and updates</li>
-<li class="">Improved collaboration</li>
-<li class="">Better tooling support</li>
-<li class="">Granular security schemes</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="well-known-tools-manifest-for-ai-discovery">Well-Known Tools Manifest for AI Discovery<a href="https://mcp.com.ai/oas-v4-is-out#well-known-tools-manifest-for-ai-discovery" class="hash-link" aria-label="Direct link to Well-Known Tools Manifest for AI Discovery" title="Direct link to Well-Known Tools Manifest for AI Discovery" translate="no">​</a></h2>
-<p>AI clients must discover available tools easily. OAS v4 should adopt a well-known URI convention (such as <code>/.well-known/mcp/tools-manifest.json</code>) so MCP clients and AI agents can auto-discover your API's tools. This follows patterns from <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig" target="_blank" rel="noopener noreferrer" class="">OpenID Connect Discovery</a> and <a href="https://spec.openapis.org/oas/v3.2.0.html#security-scheme-object" target="_blank" rel="noopener noreferrer" class="">OAuth 2.0 Security Scheme</a>. Give agents a predictable URL to learn your API—this small change pays off big in discoverability.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-first-annotations-and-metadata">AI-First Annotations and Metadata<a href="https://mcp.com.ai/oas-v4-is-out#ai-first-annotations-and-metadata" class="hash-link" aria-label="Direct link to AI-First Annotations and Metadata" title="Direct link to AI-First Annotations and Metadata" translate="no">​</a></h2>
-<p>OAS v4 should introduce AI-first annotations to help clients and LLMs use APIs effectively. Add metadata extensions (such as <code>x-llm-hint</code>, <code>x-llm-example</code>) to endpoints, parameters, and responses. Use the <a href="https://spec.openapis.org/registry/tag-kind/" target="_blank" rel="noopener noreferrer" class=""><code>kind</code></a> property to categorize tags for AI relevance. For example:</p>
-<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token key atrule" style="color:#00a4db">tags</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> contacts</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">summary</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Manage contacts</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">description</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Endpoints for creating</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> updating</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> and searching contacts</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">kind</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> ai</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">tool</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> internal</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">summary</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Internal admin endpoints</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">description</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Endpoints not intended for AI or public use</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">kind</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> internal</span><br></span></code></pre></div></div>
-<p>With this approach, AI agents and MCP servers filter and discover only the endpoints relevant for tool calling, ignoring internal or non-AI endpoints. You can further extend this pattern with custom extensions:</p>
-<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token key atrule" style="color:#00a4db">paths</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">/contacts/search</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">get</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">tags</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain">contacts</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">x-llm-hint</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Use this endpoint to search for contacts by name or email."</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">x-llm-example</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Find all contacts named Alice."</span><br></span></code></pre></div></div>
-<p>These annotations guide LLMs on how to use specific endpoints, making your API more AI-friendly and discoverable.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="references">References<a href="https://mcp.com.ai/oas-v4-is-out#references" class="hash-link" aria-label="Direct link to References" title="Direct link to References" translate="no">​</a></h2>
-<ul>
-<li class=""><a href="https://spec.openapis.org/oas/latest.html" target="_blank" rel="noopener noreferrer" class="">OpenAPI Specification</a></li>
-<li class=""><a href="https://redocly.com/docs/cli/file-management#one-large-file-to-many-small-ones" target="_blank" rel="noopener noreferrer" class="">Redocly CLI: File Management</a></li>
-<li class=""><a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig" target="_blank" rel="noopener noreferrer" class="">OpenID Connect Discovery</a></li>
-<li class=""><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener noreferrer" class="">OWASP AI Security Top 10</a></li>
-</ul>
-<p>By advocating for these features, you help shape OAS v4 into a standard that supports scalable, AI-ready APIs for the next generation of applications.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="example-conversion-openapi--mcp">Example: Conversion OpenAPI → MCP<a href="https://mcp.com.ai/oas-v4-is-out#example-conversion-openapi--mcp" class="hash-link" aria-label="Direct link to Example: Conversion OpenAPI → MCP" title="Direct link to Example: Conversion OpenAPI → MCP" translate="no">​</a></h2>
-<p>Here is a simple example of how an OpenAPI spec can be converted to an MCP tools manifest.</p>
-<p>Using the <a href="https://petstore3.swagger.io/api/v3/openapi.json" target="_blank" rel="noopener noreferrer" class="">Petstore example</a> from Swagger, we can extract the relevant information to create an MCP tools manifest. Deploying an MCP server with the <a href="https://docs.mcp.com.ai/components/hapi-server/" target="_blank" rel="noopener noreferrer" class=""><code>hapi</code> server</a>, we can extend the OpenAPI spec with AI-first annotations and modular structure.</p>
-<p>In the demo below, the Petstore API is extended to integrate WorkOS for authentication, and the OpenAPI spec is modularized into separate files for better organization.</p>
-<div class="language-yaml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-yaml codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token key atrule" style="color:#00a4db">apiVersion</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> mcp.com.ai/v1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">kind</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Security</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">metadata</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">name</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> hapi</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">security</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">config</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">namespace</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> demo</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">labels</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">app</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> demo</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">annotations</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">description</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> HAPI server security configuration</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">owner</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> team</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">hapi</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">environment</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> development</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">version</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> v1.0.0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token key atrule" style="color:#00a4db">spec</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">cors</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">enabled</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> </span><span class="token boolean important" style="color:#36acaa">true</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">origin</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> http</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">//localhost</span><span class="token punctuation" style="color:#393A34">:</span><span class="token number" style="color:#36acaa">8080</span><span class="token plain"> </span><span class="token comment" style="color:#999988;font-style:italic"># Your MCP Client</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> http</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">//localhost</span><span class="token punctuation" style="color:#393A34">:</span><span class="token number" style="color:#36acaa">6274</span><span class="token plain"> </span><span class="token comment" style="color:#999988;font-style:italic"># MCP Inspector</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">headers</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> Content</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">Type</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> Authorization</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> X</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">Requested</span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain">With</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">methods</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> GET</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> POST</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> PUT</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> DELETE</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token punctuation" style="color:#393A34">-</span><span class="token plain"> OPTIONS</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">security</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">demo_auth</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">client_id</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> client_0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">well-known</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> https</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">//</span><span class="token important">*****.app/.well-known/oauth-authorization-server</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token key atrule" style="color:#00a4db">securitySchemes</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token key atrule" style="color:#00a4db">demo_auth</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">type</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> oauth2</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token key atrule" style="color:#00a4db">flows</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token key atrule" style="color:#00a4db">authorizationCode</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token key atrule" style="color:#00a4db">authorizationUrl</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> https</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">//api.workos.com/sso/authorize</span><span class="token punctuation" style="color:#393A34">?</span><span class="token plain">connection=conn_01</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token key atrule" style="color:#00a4db">tokenUrl</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> https</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">//</span><span class="token important">*****.app/oauth2/token</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          </span><span class="token key atrule" style="color:#00a4db">scopes</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">read</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Read</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">write</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Modify</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">admin</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Access to admin operations</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            </span><span class="token key atrule" style="color:#00a4db">read_all</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> Read private resources</span><br></span></code></pre></div></div>
-<!--$?--><template id="B:0"></template><!--/$-->
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://mcp.com.ai/oas-v4-is-out#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
-<p>OAS v4 has the potential to revolutionize how AI systems interact with RESTful APIs. By incorporating modular specs, AI-first annotations, and well-known discovery endpoints, OAS v4 can make it easier for LLMs to understand and utilize APIs effectively. This would not only benefit developers but also pave the way for more seamless AI integrations across various applications.</p>]]></content:encoded>
-            <category>OAS</category>
-            <category>MCP</category>
-            <category>API</category>
-            <category>AI</category>
         </item>
     </channel>
 </rss>
