@@ -4,10 +4,350 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Fri, 06 Mar 2026 13:41:20 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 15 Mar 2026 16:53:39 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[AI Automation in Enterprises: The Shift from Experimentation to Operations]]></title>
+            <link>https://mcp.com.ai/ai-automation-in-enterprises</link>
+            <guid>https://mcp.com.ai/ai-automation-in-enterprises</guid>
+            <pubDate>Sun, 15 Mar 2026 16:53:39 GMT</pubDate>
+            <description><![CDATA[How large organizations are evolving their AI strategies from scattered experimentation to structured operational platforms, and why integration architecture is becoming the critical factor for success.]]></description>
+            <content:encoded><![CDATA[
+<p><strong>Enterprise AI is entering a new phase.</strong>
+Not the hype phase. Not the experimentation phase. The <strong>operational phase</strong> — where organizations must make AI safe, governed, and useful for real teams.</p>
+<p>Over the last year, a clear pattern has emerged inside large enterprises experimenting with AI automation. What starts as scattered experimentation quickly evolves into a structured platform strategy.</p>
+<p>The organizations that succeed are not the ones deploying the best model.
+They are the ones <strong>building the right architecture around the model.</strong></p>
+<p>And that architecture almost always follows the same evolution.</p>
+<hr>
+<p>In many large organizations today, AI adoption is moving through three recognizable phases.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="phase-1--ai-experimentation">Phase 1 — AI Experimentation<a href="https://mcp.com.ai/ai-automation-in-enterprises#phase-1--ai-experimentation" class="hash-link" aria-label="Direct link to Phase 1 — AI Experimentation" title="Direct link to Phase 1 — AI Experimentation" translate="no">​</a></h3>
+<p>This is the discovery phase.</p>
+<p>Teams explore tools like:</p>
+<ul>
+<li class="">open-source LLM frameworks</li>
+<li class="">local model hosting</li>
+<li class="">developer AI assistants</li>
+<li class="">simple workflow builders</li>
+<li class="">prototype chat interfaces</li>
+</ul>
+<p>The goal is simple:</p>
+<p><strong>Understand what AI can do.</strong></p>
+<p>Developers experiment.
+Innovation teams build proofs of concept.
+Some teams automate small tasks.</p>
+<p>At this stage, the environment looks chaotic — many tools, many ideas, little governance.</p>
+<p>But experimentation is necessary.</p>
+<p>It helps organizations learn where AI creates real value.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="phase-2--governance-and-platform-infrastructure">Phase 2 — Governance and Platform Infrastructure<a href="https://mcp.com.ai/ai-automation-in-enterprises#phase-2--governance-and-platform-infrastructure" class="hash-link" aria-label="Direct link to Phase 2 — Governance and Platform Infrastructure" title="Direct link to Phase 2 — Governance and Platform Infrastructure" translate="no">​</a></h3>
+<p>Once experimentation shows value, leadership begins asking harder questions.</p>
+<p>Questions like:</p>
+<ul>
+<li class="">Where are these models running?</li>
+<li class="">Who has access to sensitive data?</li>
+<li class="">How do we audit AI decisions?</li>
+<li class="">How do we prevent security risks?</li>
+<li class="">How do we ensure regulatory compliance?</li>
+</ul>
+<p>This is when <strong>enterprise AI platforms emerge</strong>.</p>
+<p>Instead of scattered experiments, organizations build structured environments that include:</p>
+<ul>
+<li class="">model infrastructure</li>
+<li class="">access monitoring</li>
+<li class="">governance controls</li>
+<li class="">compliance frameworks</li>
+<li class="">internal tooling</li>
+</ul>
+<p>The focus shifts from experimentation to <strong>control and stability</strong>.</p>
+<p>This is also where concepts like <strong><a href="https://hai.stanford.edu/news/ai-sovereigntys-definitional-dilemma" target="_blank" rel="noopener noreferrer" class="">AI sovereignty</a></strong> become central.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-sovereignty-strategic-priority">AI Sovereignty, Strategic Priority<a href="https://mcp.com.ai/ai-automation-in-enterprises#ai-sovereignty-strategic-priority" class="hash-link" aria-label="Direct link to AI Sovereignty, Strategic Priority" title="Direct link to AI Sovereignty, Strategic Priority" translate="no">​</a></h2>
+<p>For regulated industries — telecom, finance, healthcare, government — AI cannot operate as a black box.</p>
+<p>Organizations need control over:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="compute-sovereignty">Compute Sovereignty<a href="https://mcp.com.ai/ai-automation-in-enterprises#compute-sovereignty" class="hash-link" aria-label="Direct link to Compute Sovereignty" title="Direct link to Compute Sovereignty" translate="no">​</a></h3>
+<p>Models must run on <strong>trusted infrastructure</strong>.</p>
+<p>Sometimes that means private cloud.
+Sometimes internal clusters.
+Sometimes controlled hybrid environments.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-sovereignty">Data Sovereignty<a href="https://mcp.com.ai/ai-automation-in-enterprises#data-sovereignty" class="hash-link" aria-label="Direct link to Data Sovereignty" title="Direct link to Data Sovereignty" translate="no">​</a></h3>
+<p>Sensitive information must remain within enterprise boundaries.</p>
+<p>This includes:</p>
+<ul>
+<li class="">customer data</li>
+<li class="">operational systems</li>
+<li class="">internal documentation</li>
+<li class="">proprietary analytics</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="software-sovereignty">Software Sovereignty<a href="https://mcp.com.ai/ai-automation-in-enterprises#software-sovereignty" class="hash-link" aria-label="Direct link to Software Sovereignty" title="Direct link to Software Sovereignty" translate="no">​</a></h3>
+<p>Enterprises cannot depend entirely on a single vendor ecosystem.</p>
+<p>They need modular architectures that allow them to:</p>
+<ul>
+<li class="">switch providers</li>
+<li class="">replace components</li>
+<li class="">maintain long-term platform control</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="operational-sovereignty">Operational Sovereignty<a href="https://mcp.com.ai/ai-automation-in-enterprises#operational-sovereignty" class="hash-link" aria-label="Direct link to Operational Sovereignty" title="Direct link to Operational Sovereignty" translate="no">​</a></h3>
+<p>Every AI action must be:</p>
+<ul>
+<li class="">auditable</li>
+<li class="">observable</li>
+<li class="">governed</li>
+</ul>
+<p>Without these capabilities, large organizations simply cannot deploy AI safely.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-real-enterprise-ai-architecture">The Real Enterprise AI Architecture<a href="https://mcp.com.ai/ai-automation-in-enterprises#the-real-enterprise-ai-architecture" class="hash-link" aria-label="Direct link to The Real Enterprise AI Architecture" title="Direct link to The Real Enterprise AI Architecture" translate="no">​</a></h2>
+<p>Many people imagine enterprise AI as a single platform.</p>
+<p>The reality is very different.</p>
+<p>Enterprise AI typically operates as a <strong>layered architecture</strong>.</p>
+<p><img decoding="async" loading="lazy" alt="Enterprise AI Architecture" src="https://mcp.com.ai/assets/images/enterprise-ai-architecture-governance-e675831aa9d6dadfb72a1787d9ff7bb5.png" width="992" height="1075" class="img_ev3q"></p>
+<p>A typical enterprise AI stack looks something like this.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-1--business-users-and-educated-consumers">Layer 1 — Business Users and Educated Consumers<a href="https://mcp.com.ai/ai-automation-in-enterprises#layer-1--business-users-and-educated-consumers" class="hash-link" aria-label="Direct link to Layer 1 — Business Users and Educated Consumers" title="Direct link to Layer 1 — Business Users and Educated Consumers" translate="no">​</a></h3>
+<p>At the top of the stack are the people who actually need automation.</p>
+<p>Some are not AI engineers, but they are the ones who will benefit most from AI-driven automation, and must educate themselves on how to use it effectively.</p>
+<p>They are:</p>
+<ul>
+<li class="">operations teams</li>
+<li class="">product managers</li>
+<li class="">analysts</li>
+<li class="">support teams</li>
+<li class="">internal platform users</li>
+</ul>
+<p>Their needs are practical.</p>
+<p>They want to:</p>
+<ul>
+<li class="">automate repetitive work</li>
+<li class="">query internal systems</li>
+<li class="">generate reports</li>
+<li class="">coordinate workflows</li>
+<li class="">retrieve operational data</li>
+</ul>
+<p>Most of them prefer <strong>natural language interactions</strong> rather than APIs.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-2--applications-and-ai-interfaces">Layer 2 — Applications and AI Interfaces<a href="https://mcp.com.ai/ai-automation-in-enterprises#layer-2--applications-and-ai-interfaces" class="hash-link" aria-label="Direct link to Layer 2 — Applications and AI Interfaces" title="Direct link to Layer 2 — Applications and AI Interfaces" translate="no">​</a></h3>
+<p>Users interact with AI through various interfaces.</p>
+<p>Examples include:</p>
+<ul>
+<li class="">enterprise chat assistants</li>
+<li class="">internal AI portals</li>
+<li class="">conversational automation tools</li>
+<li class="">developer AI environments</li>
+</ul>
+<p>These interfaces translate human requests into structured actions.</p>
+<p>But by themselves, they cannot automate anything.</p>
+<p>They still need systems behind them.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-3--agent-and-workflow-engines">Layer 3 — Agent and Workflow Engines<a href="https://mcp.com.ai/ai-automation-in-enterprises#layer-3--agent-and-workflow-engines" class="hash-link" aria-label="Direct link to Layer 3 — Agent and Workflow Engines" title="Direct link to Layer 3 — Agent and Workflow Engines" translate="no">​</a></h3>
+<p>This layer orchestrates automation.</p>
+<p>Typical responsibilities include:</p>
+<ul>
+<li class="">coordinating multiple AI steps</li>
+<li class="">executing workflows</li>
+<li class="">managing task dependencies</li>
+<li class="">invoking tools</li>
+<li class="">connecting actions together</li>
+</ul>
+<p>Examples of capabilities in this layer include:</p>
+<ul>
+<li class="">workflow builders</li>
+<li class="">automation orchestration</li>
+<li class="">agent coordination</li>
+<li class="">task routing</li>
+</ul>
+<p>This layer turns a single AI response into <strong>a sequence of actions</strong>.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-4--integration-layer">Layer 4 — Integration Layer<a href="https://mcp.com.ai/ai-automation-in-enterprises#layer-4--integration-layer" class="hash-link" aria-label="Direct link to Layer 4 — Integration Layer" title="Direct link to Layer 4 — Integration Layer" translate="no">​</a></h3>
+<p>This is where the real value appears.</p>
+<p>AI becomes powerful only when it can interact with enterprise systems.</p>
+<p>Examples include:</p>
+<ul>
+<li class="">internal APIs</li>
+<li class="">operational platforms</li>
+<li class="">databases</li>
+<li class="">analytics services</li>
+<li class="">CRM systems</li>
+<li class="">ticketing tools</li>
+</ul>
+<p>Without integration, AI remains just a chatbot.</p>
+<p>With integration, it becomes <strong>an operational automation engine.</strong></p>
+<p>This is where <strong>standardized integration protocols</strong> become extremely important.</p>
+<p>Instead of every team writing custom AI integrations, organizations benefit from exposing internal capabilities through standardized interfaces that agents can discover and use safely.</p>
+<p>Protocols designed for AI-native integrations are emerging as a key component of this architecture.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-5--ai-platform-infrastructure">Layer 5 — AI Platform Infrastructure<a href="https://mcp.com.ai/ai-automation-in-enterprises#layer-5--ai-platform-infrastructure" class="hash-link" aria-label="Direct link to Layer 5 — AI Platform Infrastructure" title="Direct link to Layer 5 — AI Platform Infrastructure" translate="no">​</a></h3>
+<p>Below the integration layer sits the model infrastructure.</p>
+<p>This includes:</p>
+<ul>
+<li class="">hosted models</li>
+<li class="">internal LLM clusters</li>
+<li class="">inference services</li>
+<li class="">evaluation pipelines</li>
+</ul>
+<p>These platforms provide the raw AI capabilities.</p>
+<p>But by themselves they do not solve business problems.</p>
+<p>They simply power the higher layers.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="governance-and-security--a-cross-cutting-vertical">Governance and Security — A Cross-Cutting Vertical<a href="https://mcp.com.ai/ai-automation-in-enterprises#governance-and-security--a-cross-cutting-vertical" class="hash-link" aria-label="Direct link to Governance and Security — A Cross-Cutting Vertical" title="Direct link to Governance and Security — A Cross-Cutting Vertical" translate="no">​</a></h2>
+<p>Governance is not a separate layer. It is a vertical capability that spans the entire stack.</p>
+<p>This includes:</p>
+<ul>
+<li class="">access monitoring</li>
+<li class="">model evaluation</li>
+<li class="">data privacy enforcement</li>
+<li class="">compliance auditing</li>
+<li class="">usage tracking</li>
+<li class="">AI policy enforcement</li>
+</ul>
+<p>For regulated industries, governance is not optional.</p>
+<p>It is the <strong>foundation that allows AI to exist in production.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="making-ai-useful-for-non-technical-teams">Making AI Useful for Non-Technical Teams<a href="https://mcp.com.ai/ai-automation-in-enterprises#making-ai-useful-for-non-technical-teams" class="hash-link" aria-label="Direct link to Making AI Useful for Non-Technical Teams" title="Direct link to Making AI Useful for Non-Technical Teams" translate="no">​</a></h2>
+<p>The technology itself is rarely the biggest obstacle.</p>
+<p>The real challenge is <strong>usability.</strong>, making AI useful for non-technical teams.</p>
+<p>Enterprise AI systems must serve people who are not developers.</p>
+<p>Typical users include:</p>
+<ul>
+<li class="">business analysts</li>
+<li class="">operations managers</li>
+<li class="">product teams</li>
+<li class="">support teams</li>
+<li class="">strategy groups</li>
+</ul>
+<p>These users often ask for things like:</p>
+<ul>
+<li class="">"Pull customer metrics from three systems and generate a weekly report."</li>
+<li class="">"Find all tickets related to this issue and summarize root causes."</li>
+<li class="">"Create a workflow to notify teams when system health drops."</li>
+</ul>
+<p>They do not want to write code.</p>
+<p>They want <strong>AI to interact with enterprise systems safely on their behalf.</strong></p>
+<p>This is where agent-based workflows combined with standardized integrations become powerful.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-integration-becomes-the-bottleneck">Why Integration Becomes the Bottleneck<a href="https://mcp.com.ai/ai-automation-in-enterprises#why-integration-becomes-the-bottleneck" class="hash-link" aria-label="Direct link to Why Integration Becomes the Bottleneck" title="Direct link to Why Integration Becomes the Bottleneck" translate="no">​</a></h2>
+<p>In almost every enterprise AI deployment, the same pattern emerges.</p>
+<p>The hardest problem is not the model.</p>
+<p>It is <strong>connecting AI to internal systems safely.</strong></p>
+<p>Organizations quickly discover challenges like:</p>
+<ul>
+<li class="">inconsistent APIs</li>
+<li class="">authentication complexity</li>
+<li class="">governance restrictions</li>
+<li class="">data access limitations</li>
+<li class="">fragmented internal tooling</li>
+</ul>
+<p>Each integration becomes a mini-project.</p>
+<p>This slows down adoption dramatically.</p>
+<p>To scale AI automation, enterprises need <strong>repeatable integration patterns</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-rise-of-ai-native-integration-protocols">The Rise of AI-Native Integration Protocols<a href="https://mcp.com.ai/ai-automation-in-enterprises#the-rise-of-ai-native-integration-protocols" class="hash-link" aria-label="Direct link to The Rise of AI-Native Integration Protocols" title="Direct link to The Rise of AI-Native Integration Protocols" translate="no">​</a></h2>
+<p>To address this problem, a new category of integration protocols is emerging.</p>
+<p>These protocols are designed specifically for <strong>AI agents interacting with enterprise systems.</strong></p>
+<p>Instead of building custom integrations for every tool, organizations expose capabilities through standardized interfaces that agents can:</p>
+<ul>
+<li class="">discover automatically</li>
+<li class="">understand programmatically</li>
+<li class="">invoke safely</li>
+</ul>
+<p>This approach creates several advantages.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="discoverability">Discoverability<a href="https://mcp.com.ai/ai-automation-in-enterprises#discoverability" class="hash-link" aria-label="Direct link to Discoverability" title="Direct link to Discoverability" translate="no">​</a></h3>
+<p>Agents can inspect available capabilities dynamically.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="standardized-schemas">Standardized schemas<a href="https://mcp.com.ai/ai-automation-in-enterprises#standardized-schemas" class="hash-link" aria-label="Direct link to Standardized schemas" title="Direct link to Standardized schemas" translate="no">​</a></h3>
+<p>Tools expose structured definitions of what they can do.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reduced-integration-work">Reduced integration work<a href="https://mcp.com.ai/ai-automation-in-enterprises#reduced-integration-work" class="hash-link" aria-label="Direct link to Reduced integration work" title="Direct link to Reduced integration work" translate="no">​</a></h3>
+<p>Developers implement once instead of building custom connectors repeatedly.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="safer-automation">Safer automation<a href="https://mcp.com.ai/ai-automation-in-enterprises#safer-automation" class="hash-link" aria-label="Direct link to Safer automation" title="Direct link to Safer automation" translate="no">​</a></h3>
+<p>Governance controls can operate at the protocol level.</p>
+<p>These characteristics make integration layers far more scalable.</p>
+<p>In practice, many organizations are starting to implement architectures where <strong>AI agents interact with internal systems through standardized tool interfaces exposed via integration servers.</strong></p>
+<p>This pattern simplifies automation while maintaining enterprise security requirements.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-next-evolution-agent-ecosystems">The Next Evolution: Agent Ecosystems<a href="https://mcp.com.ai/ai-automation-in-enterprises#the-next-evolution-agent-ecosystems" class="hash-link" aria-label="Direct link to The Next Evolution: Agent Ecosystems" title="Direct link to The Next Evolution: Agent Ecosystems" translate="no">​</a></h2>
+<p>As enterprise AI platforms mature, another pattern is becoming clear.</p>
+<p>AI systems are evolving from <strong>chat interfaces</strong> into <strong>agent ecosystems.</strong></p>
+<p>Instead of a single assistant answering questions, organizations are deploying networks of agents that can:</p>
+<ul>
+<li class="">execute workflows</li>
+<li class="">retrieve information</li>
+<li class="">coordinate systems</li>
+<li class="">trigger automations</li>
+<li class="">generate insights</li>
+</ul>
+<p>These agents rely heavily on integration layers that expose enterprise capabilities in a consistent way.</p>
+<p>Without this layer, agents cannot operate effectively.</p>
+<p>With it, organizations unlock entirely new automation capabilities.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="practical-guidelines-for-enterprise-ai-adoption">Practical Guidelines for Enterprise AI Adoption<a href="https://mcp.com.ai/ai-automation-in-enterprises#practical-guidelines-for-enterprise-ai-adoption" class="hash-link" aria-label="Direct link to Practical Guidelines for Enterprise AI Adoption" title="Direct link to Practical Guidelines for Enterprise AI Adoption" translate="no">​</a></h2>
+<p>Based on what many organizations are experiencing today, several guidelines are emerging.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-governance-must-come-first">1. Governance must come first<a href="https://mcp.com.ai/ai-automation-in-enterprises#1-governance-must-come-first" class="hash-link" aria-label="Direct link to 1. Governance must come first" title="Direct link to 1. Governance must come first" translate="no">​</a></h3>
+<p>AI cannot scale without security and compliance frameworks.</p>
+<p>Governance must be built into the architecture from the beginning.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-open-experimentation-accelerates-learning">2. Open experimentation accelerates learning<a href="https://mcp.com.ai/ai-automation-in-enterprises#2-open-experimentation-accelerates-learning" class="hash-link" aria-label="Direct link to 2. Open experimentation accelerates learning" title="Direct link to 2. Open experimentation accelerates learning" translate="no">​</a></h3>
+<p>Early experimentation with open tools helps teams understand real use cases quickly.</p>
+<p>Controlled environments allow safe exploration.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-integration-architecture-determines-success">3. Integration architecture determines success<a href="https://mcp.com.ai/ai-automation-in-enterprises#3-integration-architecture-determines-success" class="hash-link" aria-label="Direct link to 3. Integration architecture determines success" title="Direct link to 3. Integration architecture determines success" translate="no">​</a></h3>
+<p>AI becomes useful only when it connects to enterprise systems.</p>
+<p>Organizations should design integration layers intentionally.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-modular-architectures-outperform-monolithic-platforms">4. Modular architectures outperform monolithic platforms<a href="https://mcp.com.ai/ai-automation-in-enterprises#4-modular-architectures-outperform-monolithic-platforms" class="hash-link" aria-label="Direct link to 4. Modular architectures outperform monolithic platforms" title="Direct link to 4. Modular architectures outperform monolithic platforms" translate="no">​</a></h3>
+<p>Successful AI environments combine multiple specialized tools rather than relying on a single vendor solution.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-agent-workflows-unlock-real-automation">5. Agent workflows unlock real automation<a href="https://mcp.com.ai/ai-automation-in-enterprises#5-agent-workflows-unlock-real-automation" class="hash-link" aria-label="Direct link to 5. Agent workflows unlock real automation" title="Direct link to 5. Agent workflows unlock real automation" translate="no">​</a></h3>
+<p>The future of enterprise AI is not chatbots.</p>
+<p>It is <strong>AI-driven operational workflows.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-quiet-cornerstone-of-enterprise-ai">The Quiet Cornerstone of Enterprise AI<a href="https://mcp.com.ai/ai-automation-in-enterprises#the-quiet-cornerstone-of-enterprise-ai" class="hash-link" aria-label="Direct link to The Quiet Cornerstone of Enterprise AI" title="Direct link to The Quiet Cornerstone of Enterprise AI" translate="no">​</a></h2>
+<p>If there is one architectural insight becoming increasingly clear, it is this:</p>
+<p><strong>The integration layer determines whether enterprise AI succeeds or fails.</strong></p>
+<p>Without structured integration patterns, AI systems remain isolated assistants.</p>
+<p>With the right integration architecture, they become <strong>automation engines capable of transforming enterprise operations.</strong></p>
+<p>Protocols designed for AI-native integrations are rapidly becoming the cornerstone of this layer.</p>
+<p>They provide a standardized way to expose enterprise systems to AI agents safely, enabling scalable automation without rewriting integrations repeatedly.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-path-forward">The Path Forward<a href="https://mcp.com.ai/ai-automation-in-enterprises#the-path-forward" class="hash-link" aria-label="Direct link to The Path Forward" title="Direct link to The Path Forward" translate="no">​</a></h2>
+<p>Over the next few years, enterprise AI platforms will likely converge toward a common architecture:</p>
+<ul>
+<li class="">governed model infrastructure</li>
+<li class="">modular orchestration layers</li>
+<li class="">AI-native integration protocols</li>
+<li class="">agent-driven workflows</li>
+<li class="">business-accessible automation interfaces</li>
+</ul>
+<p>The organizations that embrace this architecture early will move faster.</p>
+<p>Not because they have better models.</p>
+<p>But because they have built the <strong>platform that allows AI to operate safely across the enterprise.</strong></p>
+<p>And once that platform exists, automation stops being an experiment.</p>
+<p>It becomes <strong>a new operating model for the business.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="faq-enterprise-ai-automation-and-architecture">FAQ: Enterprise AI automation and architecture<a href="https://mcp.com.ai/ai-automation-in-enterprises#faq-enterprise-ai-automation-and-architecture" class="hash-link" aria-label="Direct link to FAQ: Enterprise AI automation and architecture" title="Direct link to FAQ: Enterprise AI automation and architecture" translate="no">​</a></h2>
+<p><strong>Q: What is enterprise AI automation?</strong><br>
+<!-- -->A: Enterprise AI automation is the use of AI systems, agents, and workflows to execute business tasks across internal tools, data sources, and operational systems in a governed and secure way.</p>
+<p><strong>Q: Why are enterprises moving from AI experimentation to AI operations?</strong><br>
+<!-- -->A: Once early pilots show value, organizations need security, compliance, observability, and repeatable delivery. The focus shifts from trying AI tools to building a governed operating platform.</p>
+<p><strong>Q: What does a typical enterprise AI architecture look like?</strong><br>
+<!-- -->A: It usually includes business users, AI interfaces, agent and workflow engines, an integration layer connected to enterprise systems, and AI platform infrastructure. Governance and security span all of these as a cross-cutting vertical.</p>
+<p><strong>Q: Why is governance not optional in enterprise AI?</strong><br>
+<!-- -->A: Enterprise AI must be auditable, observable, privacy-aware, and compliant before it can be trusted in production, especially in regulated industries such as finance, healthcare, telecom, and government.</p>
+<p><strong>Q: What is AI sovereignty in enterprise AI?</strong><br>
+<!-- -->A: AI sovereignty means retaining control over compute, data, software choices, and operations so the enterprise can run AI in a trusted, governable, and vendor-resilient way.</p>
+<p><strong>Q: Why does the integration layer determine enterprise AI success?</strong><br>
+<!-- -->A: AI creates business value only when it can safely interact with internal systems. Without integration, it remains a chatbot. With integration, it becomes an operational automation engine.</p>
+<p><strong>Q: What is the biggest challenge in enterprise AI adoption?</strong><br>
+<!-- -->A: In most organizations, the biggest challenge is not the model. It is making AI useful for non-technical teams while connecting it safely to enterprise systems through repeatable integration patterns.</p>
+<p><strong>Q: What are AI-native integration protocols?</strong><br>
+<!-- -->A: They are standardized ways for AI agents to discover, understand, and invoke enterprise capabilities safely, reducing custom integration work and making automation more scalable.</p>
+<p><strong>Q: What is the future of enterprise AI platforms?</strong><br>
+<!-- -->A: The architecture is converging toward governed model infrastructure, modular orchestration, AI-native integration protocols, agent-driven workflows, and business-accessible automation interfaces.</p>]]></content:encoded>
+            <category>Agentic AI</category>
+            <category>Platform Engineering</category>
+            <category>MCP at Scale</category>
+            <category>Architecture</category>
+        </item>
         <item>
             <title><![CDATA[The Codex Desktop App: A Paradigm Shift in Developer Tooling]]></title>
             <link>https://mcp.com.ai/openai-codex-desktop-app</link>
@@ -3351,76 +3691,6 @@ If the feature is not visible, note that <strong>MCP connectors</strong> in Chat
             <category>LLM</category>
             <category>Guide</category>
             <category>AI Integration</category>
-        </item>
-        <item>
-            <title><![CDATA[OpenAI SDK Meets MCP (Model Context Protocol)]]></title>
-            <link>https://mcp.com.ai/openai-meets-mcp</link>
-            <guid>https://mcp.com.ai/openai-meets-mcp</guid>
-            <pubDate>Thu, 09 Oct 2025 12:02:09 GMT</pubDate>
-            <description><![CDATA[A comprehensive guide on how to integrate OpenAI's SDK with MCP (Model Context Protocol) to enhance AI model interactions through dynamic tool calling.]]></description>
-            <content:encoded><![CDATA[<p>An evolution of tool calling with MCP, thanks to OpenAI's latest SDK updates.</p>
-<p>Step-by-step, I'll guide you through setting up an MCP server, integrating it with the OpenAI SDK, and running a complete example that showcases <strong>dynamic tool calling</strong>. By the end of this post, you'll be equipped to leverage MCP in your own OpenAI-powered applications.</p>
-<p>End-to-End Example, Setting Up an MCP Server, Integrating with OpenAI LLM, and Running some tests to see it in action.</p>
-<p>MCP, or Model Context Protocol, is a framework that enhances how AI models interact with their operational context. By integrating MCP, you ensure your AI models are not only aware of the data they process but also the environment in which they operate. This leads to more accurate and contextually relevant outputs.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-integrate-openai-with-mcp">Why Integrate OpenAI with MCP?<a href="https://mcp.com.ai/openai-meets-mcp#why-integrate-openai-with-mcp" class="hash-link" aria-label="Direct link to Why Integrate OpenAI with MCP?" title="Direct link to Why Integrate OpenAI with MCP?" translate="no">​</a></h2>
-<p>OpenAI's powerful language models take tool calling to the next level when you leverage MCP. This integration enables dynamic interactions, letting you build applications that adapt to various scenarios and user needs. I explained <a class="" href="https://mcp.com.ai/oas-v4-is-out#how-does-mcp-work-for-mere-mortals">how MCP tool calling works</a> in a previous post. Now, I'll show you how OpenAI's implementation impressed me.</p>
-<p>With a simple, clever setup, you create applications that understand user queries in natural language and fetch relevant tools from MCP servers. This is extremely powerful—it enables seamless, efficient interactions with AI models, making them more useful in real-world applications. Imagine an automated customer-support bot using MCP: it instantly retrieves necessary tools from MCP servers to resolve complex queries, such as billing discrepancies or technical troubleshooting, on the first call. This opens new possibilities for building intelligent applications that respond to user needs with greater precision and context-awareness.</p>
-<p>Anthropic's Claude Desktop app (MCP Client) was groundbreaking almost a year ago. Early adopters were impressed, and now OpenAI seamlessly integrates these capabilities into their SDKs. As the Spanish saying goes, "Nadie sabe para quien trabaja" (Nobody knows for whom they work), but MCP is clearly shaping the future of AI applications. OpenAI is making significant strides by implementing Anthropic's legacy directly in the LLM.</p>
-<p>You can build smarter, more adaptive applications by letting AI models fetch and use tools from MCP servers, reducing manual integration and boosting context-awareness.</p>
-<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The OpenAI's MCP integration is currently in beta, so expect some rough edges. However, the potential is immense, and I'm excited to see how this evolves.</p></div></div>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="three-approaches-to-tool-calling">Three Approaches to Tool Calling<a href="https://mcp.com.ai/openai-meets-mcp#three-approaches-to-tool-calling" class="hash-link" aria-label="Direct link to Three Approaches to Tool Calling" title="Direct link to Three Approaches to Tool Calling" translate="no">​</a></h2>
-<p>You have three main ways to implement tool calling:</p>
-<table><thead><tr><th>Approach</th><th>Description</th><th>Key Strength</th></tr></thead><tbody><tr><td><strong>MCP Clients</strong></td><td>Intermediary applications bridging models and external tool servers.</td><td>Dynamic retrieval and adaptation</td></tr><tr><td><strong>Direct Tool Calling</strong></td><td>LLMs with built-in function calling via structured JSON.</td><td>Precise programmatic control</td></tr><tr><td><strong>Native MCP Integration</strong></td><td>OpenAI’s latest approach combining both worlds.</td><td>Automatic discovery and zero-config operation</td></tr></tbody></table>
-<p>When choosing, remember: Direct Tool Calling is easy to set up but requires manual tool management. MCP Clients offer dynamic adaptability, fetching tools as needed and calling them for the user. LLMs with Native MCP Support provide the most seamless experience, automatically integrating and using tools from MCP Servers, though you may need some upfront knowledge about OpenAI's system and SDKs.</p>
-<p><strong>Summary:</strong><br>
-<!-- -->Select the approach that best fits your workflow—manual, dynamic, or fully automated tool integration.</p>
-<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>The OpenAI's MCP integration may not be call by the model directly; my guess is that it uses an internal MCP Client to fetch and call the tools, similar to how <a href="https://docs.mcp.com.ai/components/qbot" target="_blank" rel="noopener noreferrer" class="">QBot</a> works.</p></div></div>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="end-to-end-example">End-to-End Example<a href="https://mcp.com.ai/openai-meets-mcp#end-to-end-example" class="hash-link" aria-label="Direct link to End-to-End Example" title="Direct link to End-to-End Example" translate="no">​</a></h2>
-<p>Quick check:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">curl -X POST "https://api.openai.com/v1/responses" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> -H "Authorization: Bearer $OPENAI_API_KEY" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> -H "Content-Type: application/json" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> -d '{</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "model": "gpt-4.1",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "tools": [</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "type": "mcp",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "server_label": "tacosmcp",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "server_url": "https://tacostore.run.mcp.com.ai",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "require_approval": "never"</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> ],</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> "input": "What tacos do you have in the menu?"</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"> }'</span><br></span></code></pre></div></div>
-<p>Let's walk through the process: set up an MCP server, integrate the OpenAI SDK, write the code, run it, and see the results. These steps help you use MCP to enhance your applications.</p>
-<p><strong>Summary:</strong><br>
-<!-- -->Follow these steps to quickly connect OpenAI models to MCP and unlock dynamic tool calling.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-set-up-an-mcp-server">1. Set Up an MCP Server<a href="https://mcp.com.ai/openai-meets-mcp#1-set-up-an-mcp-server" class="hash-link" aria-label="Direct link to 1. Set Up an MCP Server" title="Direct link to 1. Set Up an MCP Server" translate="no">​</a></h3>
-<p>First, set up an MCP server hosting the tools you want to use. You can run your own MCP server or use an existing one. For this example, use the HAPI MCP Server—a simple way to get started. Find the <a href="https://docs.mcp.com.ai/components/hapi-server/" target="_blank" rel="noopener noreferrer" class="">HAPI MCP Server docs here</a>.</p>
-<p>Open a terminal, ensure Bun is installed, and run:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Start a HAPI MCP Server</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">bun dev serve tacos --headless</span><br></span></code></pre></div></div>
-<p>This starts a local MCP server hosting a tacos online store at <code>http://localhost:3000</code>. I asked <a href="https://www.postman.com/product/ai-agent-builder/" target="_blank" rel="noopener noreferrer" class="">Postman Agent Builder</a> to create a simple tacos store API, which I used for the MCP server.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-create-an-openai-account">2. Create an OpenAI Account<a href="https://mcp.com.ai/openai-meets-mcp#2-create-an-openai-account" class="hash-link" aria-label="Direct link to 2. Create an OpenAI Account" title="Direct link to 2. Create an OpenAI Account" translate="no">​</a></h3>
-<p>If you don't have one, sign up for an OpenAI account and get your API key at the <a href="https://platform.openai.com/" target="_blank" rel="noopener noreferrer" class="">OpenAI platform</a>.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-install-the-openai-sdk">3. Install the OpenAI SDK<a href="https://mcp.com.ai/openai-meets-mcp#3-install-the-openai-sdk" class="hash-link" aria-label="Direct link to 3. Install the OpenAI SDK" title="Direct link to 3. Install the OpenAI SDK" translate="no">​</a></h3>
-<p>Use the OpenAI SDK in your preferred language. For this example, use JavaScript and TypeScript with Bun. In another terminal, run:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Initialize a new Bun project</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">bun init -y -m</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Install the OpenAI SDK</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">bun add openai</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-write-the-code">4. Write the Code<a href="https://mcp.com.ai/openai-meets-mcp#4-write-the-code" class="hash-link" aria-label="Direct link to 4. Write the Code" title="Direct link to 4. Write the Code" translate="no">​</a></h3>
-<p>Create a new file, for example, <code>index.js</code>, and add:</p>
-<div class="language-javascript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-javascript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword module" style="color:#00009f">import</span><span class="token plain"> </span><span class="token imports maybe-class-name">OpenAI</span><span class="token plain"> </span><span class="token keyword module" style="color:#00009f">from</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"openai"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> client </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">OpenAI</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">apiKey</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> process</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">env</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">'OPENAI_API_KEY'</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token comment" style="color:#999988;font-style:italic">// This is the default and can be omitted</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> resp </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword control-flow" style="color:#00009f">await</span><span class="token plain"> client</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">responses</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">create</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">model</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"gpt-5"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">tools</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token literal-property property" style="color:#36acaa">type</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"mcp"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token literal-property property" style="color:#36acaa">server_label</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"tacosmcp"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token literal-property property" style="color:#36acaa">server_description</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"The Tacos MCP Client"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token literal-property property" style="color:#36acaa">server_url</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"https://tacostore.run.mcp.com.ai"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      </span><span class="token literal-property property" style="color:#36acaa">require_approval</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"never"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token literal-property property" style="color:#36acaa">input</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"What tacos do you have in the menu?"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token console class-name">console</span><span class="token punctuation" style="color:#393A34">.</span><span class="token method function property-access" style="color:#d73a49">log</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">resp</span><span class="token punctuation" style="color:#393A34">.</span><span class="token property-access">output_text</span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-run-the-code">5. Run the Code<a href="https://mcp.com.ai/openai-meets-mcp#5-run-the-code" class="hash-link" aria-label="Direct link to 5. Run the Code" title="Direct link to 5. Run the Code" translate="no">​</a></h3>
-<p>Set your OpenAI API key in the <code>OPENAI_API_KEY</code> environment variable, then run:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun run index.js</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-see-the-magic">6. See the Magic<a href="https://mcp.com.ai/openai-meets-mcp#6-see-the-magic" class="hash-link" aria-label="Direct link to 6. See the Magic" title="Direct link to 6. See the Magic" translate="no">​</a></h3>
-<p>The model fetches tools from the MCP server and uses them to answer your query. You should see a response listing the tacos available on the menu. To reinforce your learning, validate the returned taco list against the API response. This simple verification ensures tool execution works correctly and builds confidence in using MCP.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-explore-further">7. Explore Further<a href="https://mcp.com.ai/openai-meets-mcp#7-explore-further" class="hash-link" aria-label="Direct link to 7. Explore Further" title="Direct link to 7. Explore Further" translate="no">​</a></h3>
-<p>Modify the input query to ask different questions or explore other tools on the MCP server. The possibilities are endless!</p>
-<p><strong>Summary:</strong><br>
-<!-- -->You can set up, connect, and validate MCP-powered tool calling in minutes, then experiment to discover more capabilities.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="demo-video">Demo Video<a href="https://mcp.com.ai/openai-meets-mcp#demo-video" class="hash-link" aria-label="Direct link to Demo Video" title="Direct link to Demo Video" translate="no">​</a></h2>
-<!--$?--><template id="B:0"></template><!--/$-->
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://mcp.com.ai/openai-meets-mcp#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
-<p>Integrating OpenAI with MCP unlocks a world of possibilities for building intelligent applications that adapt to various scenarios and user needs. By leveraging MCP, you create dynamic, context-aware interactions with AI models, leading to more accurate and relevant outputs.</p>
-<p><strong>Summary:</strong><br>
-<!-- -->Use MCP to make your AI applications smarter, more flexible, and better suited to real-world challenges.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="references">References<a href="https://mcp.com.ai/openai-meets-mcp#references" class="hash-link" aria-label="Direct link to References" title="Direct link to References" translate="no">​</a></h2>
-<ul>
-<li class=""><a href="https://platform.openai.com/docs/" target="_blank" rel="noopener noreferrer" class="">OpenAI API Documentation</a></li>
-<li class=""><a href="https://platform.openai.com/docs/guides/tools-connectors-mcp?lang=javascript" target="_blank" rel="noopener noreferrer" class="">Connectors and MCP servers (Beta)</a></li>
-<li class=""><a href="https://www.npmjs.com/package/openai" target="_blank" rel="noopener noreferrer" class="">OpenAI NPM Package</a></li>
-<li class=""><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer" class="">Model Context Protocol (MCP) Overview</a></li>
-</ul>]]></content:encoded>
-            <category>MCP</category>
-            <category>OpenAI</category>
-            <category>Tool Calling</category>
-            <category>OAS</category>
-            <category>Guide</category>
         </item>
     </channel>
 </rss>
