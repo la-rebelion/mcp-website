@@ -146,3 +146,9 @@ agentic-ai:
   permalink: /agentic-ai
   description: >
     Agentic AI refers to artificial intelligence systems that can autonomously perform tasks, make decisions, and interact with their environment to achieve specific goals.
+
+cost-optimization:
+  label: Cost Optimization
+  permalink: /cost-optimization
+  description: >
+    Cost Optimization involves strategies and techniques to reduce expenses while maintaining or improving performance and efficiency, particularly in the context of AI development and deployment.
