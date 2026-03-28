@@ -4,10 +4,243 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Sun, 15 Mar 2026 16:53:39 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 28 Mar 2026 14:55:27 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[AI Cost Optimization: Lessons from Database Applied]]></title>
+            <link>https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai</link>
+            <guid>https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai</guid>
+            <pubDate>Sat, 28 Mar 2026 14:55:27 GMT</pubDate>
+            <description><![CDATA[Discover how AI cost optimization strategies from database management can be applied to your AI projects. Learn about query optimization, indexing, and resource management to reduce costs while maintaining performance.]]></description>
+            <content:encoded><![CDATA[<p><strong>"We already solved this problem... and somehow we forgot."</strong></p>
+<p>Back in the day, database engineers learned this lesson the hard way.</p>
+<p>We didn't call it "AI cost optimization."
+We called it <strong>bad query design</strong>.</p>
+<p>And it hurt.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-déjà-vu-from-sql-disasters-to-ai-chatbots">The déjà vu: from SQL disasters to AI chatbots<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-d%C3%A9j%C3%A0-vu-from-sql-disasters-to-ai-chatbots" class="hash-link" aria-label="Direct link to The déjà vu: from SQL disasters to AI chatbots" title="Direct link to The déjà vu: from SQL disasters to AI chatbots" translate="no">​</a></h2>
+<p>I was reading a <a href="https://www.linkedin.com/posts/basmondragon_building-the-chatbot-cost-3000-running-activity-7443190087657627649-5vRB?utm_source=share&amp;utm_medium=mcp.com.ai&amp;rcm=ACoAAAA1gDoBpVJUNNFy5MqYYMJrgNBgerk7TS4" target="_blank" rel="noopener noreferrer" class="">LinkedIn post</a> about a chatbot that cost <strong>$3K to build... and $28K/month to run</strong>.</p>
+<p>And instantly, I had flashbacks.</p>
+<p>To teams building <strong>dynamic SQL queries</strong> like this:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">FROM</span><span class="token plain"> users </span><span class="token keyword" style="color:#00009f">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Adrian'</span><br></span></code></pre></div></div>
+<p>But instead of using parameters, they would literally <strong>inject values into strings</strong>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token string" style="color:#e3116c">"SELECT * FROM users WHERE name = '"</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> userInput </span><span class="token operator" style="color:#393A34">+</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"'"</span><br></span></code></pre></div></div>
+<p>At first, everything worked.</p>
+<p>Then scale happened.</p>
+<p>And everything broke.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-went-wrong-back-then-and-now">What went wrong back then (and now)<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#what-went-wrong-back-then-and-now" class="hash-link" aria-label="Direct link to What went wrong back then (and now)" title="Direct link to What went wrong back then (and now)" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-every-query-looked-new-to-the-database">1. Every query looked "new" to the database<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#1-every-query-looked-new-to-the-database" class="hash-link" aria-label="Direct link to 1. Every query looked &quot;new&quot; to the database" title="Direct link to 1. Every query looked &quot;new&quot; to the database" translate="no">​</a></h3>
+<p>Databases rely on <strong><a href="https://docs.cloud.google.com/spanner/docs/query-execution-plans" target="_blank" rel="noopener noreferrer" class="">query plan</a> caching</strong>.</p>
+<p>When you use <a href="https://www.postgresql.org/docs/current/sql-prepare.html" target="_blank" rel="noopener noreferrer" class="">prepared statements</a>, the database sees:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">FROM</span><span class="token plain"> users </span><span class="token keyword" style="color:#00009f">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> ?</span><br></span></code></pre></div></div>
+<p>It builds a plan once → reuses it forever.</p>
+<p>But with dynamic queries?</p>
+<p>Every variation is a <strong>brand new query</strong>:</p>
+<div class="language-sql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-sql codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">FROM</span><span class="token plain"> users </span><span class="token keyword" style="color:#00009f">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'John'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">FROM</span><span class="token plain"> users </span><span class="token keyword" style="color:#00009f">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Jane'</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">SELECT</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">*</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">FROM</span><span class="token plain"> users </span><span class="token keyword" style="color:#00009f">WHERE</span><span class="token plain"> name </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">'Mike'</span><br></span></code></pre></div></div>
+<p>➡️ The database <strong>can't reuse the plan efficiently</strong><br>
+<!-- -->➡️ It recompiles again and again<br>
+<!-- -->➡️ Performance drops hard</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-complexity-kills-performance-silently">2. Complexity kills performance silently<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#2-complexity-kills-performance-silently" class="hash-link" aria-label="Direct link to 2. Complexity kills performance silently" title="Direct link to 2. Complexity kills performance silently" translate="no">​</a></h3>
+<p>The worse part?</p>
+<p>It doesn't fail immediately.</p>
+<p>It <strong>degrades slowly</strong>:</p>
+<ul>
+<li class="">CPU spikes</li>
+<li class="">Memory pressure increases</li>
+<li class="">Latency creeps up</li>
+<li class="">Costs rise quietly</li>
+</ul>
+<p>Until one day:</p>
+<blockquote>
+<p>"Why is everything so slow?"</p>
+</blockquote>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-scale-exposes-the-flaw">3. Scale exposes the flaw<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#3-scale-exposes-the-flaw" class="hash-link" aria-label="Direct link to 3. Scale exposes the flaw" title="Direct link to 3. Scale exposes the flaw" translate="no">​</a></h3>
+<p>At small scale:</p>
+<blockquote>
+<p>"It works fine."</p>
+</blockquote>
+<p>At real scale:</p>
+<blockquote>
+<p>"This is burning money."</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="now-look-at-the-chatbot-story-again">Now look at the chatbot story again<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#now-look-at-the-chatbot-story-again" class="hash-link" aria-label="Direct link to Now look at the chatbot story again" title="Direct link to Now look at the chatbot story again" translate="no">​</a></h2>
+<p>Same pattern. Different technology.</p>
+<p>Let's translate:</p>
+<table><thead><tr><th>Old SQL World</th><th>AI Chatbot World</th></tr></thead><tbody><tr><td>Dynamic queries</td><td>Every prompt treated as new</td></tr><tr><td>No prepared statements</td><td>No semantic caching</td></tr><tr><td>No query reuse</td><td>No deduplication</td></tr><tr><td>Recompile every time</td><td>Call expensive model every time</td></tr><tr><td>CPU/memory waste</td><td>Token cost explosion</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-real-problem-treating-every-request-as-unique">The real problem: treating every request as unique<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-real-problem-treating-every-request-as-unique" class="hash-link" aria-label="Direct link to The real problem: treating every request as unique" title="Direct link to The real problem: treating every request as unique" translate="no">​</a></h2>
+<p>In the LinkedIn example:</p>
+<blockquote>
+<p>80% of queries were just <strong>variations of the same 12 questions</strong></p>
+</blockquote>
+<p>But the system treated them like:</p>
+<blockquote>
+<p>100% brand new problems.</p>
+</blockquote>
+<p>That's the mistake.</p>
+<p>Not the model.
+Not the infra.
+<strong>The design.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-principle-we-forgot">The principle we forgot<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-principle-we-forgot" class="hash-link" aria-label="Direct link to The principle we forgot" title="Direct link to The principle we forgot" translate="no">​</a></h2>
+<blockquote>
+<p><strong>Systems should recognize patterns. Not ignore them.</strong></p>
+</blockquote>
+<p>Databases solved this years ago:</p>
+<ul>
+<li class="">Prepared statements</li>
+<li class="">Query plan caching</li>
+<li class="">Indexing strategies</li>
+</ul>
+<p>But in AI systems?</p>
+<p>We're back to:</p>
+<blockquote>
+<p>"Let's just send everything to the model."</p>
+</blockquote>
+<p>Unfortunately, that approach is a recipe for:</p>
+<ul>
+<li class="">High costs</li>
+<li class="">Unpredictable performance</li>
+<li class="">Scaling nightmares</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-modern-prepared-statements-for-ai">The modern "prepared statements" for AI<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-modern-prepared-statements-for-ai" class="hash-link" aria-label="Direct link to The modern &quot;prepared statements&quot; for AI" title="Direct link to The modern &quot;prepared statements&quot; for AI" translate="no">​</a></h2>
+<p>The fix they implemented is basically <strong>database engineering... applied to AI</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-semantic-cache-query-plan-cache-equivalent">1. Semantic cache (query plan cache equivalent)<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#1-semantic-cache-query-plan-cache-equivalent" class="hash-link" aria-label="Direct link to 1. Semantic cache (query plan cache equivalent)" title="Direct link to 1. Semantic cache (query plan cache equivalent)" translate="no">​</a></h3>
+<p>Instead of exact matches:</p>
+<ul>
+<li class="">Use embeddings</li>
+<li class="">Detect <strong>"close enough" questions</strong></li>
+<li class="">Return cached answers</li>
+</ul>
+<p>➡️ Same intent → same response<br>
+<!-- -->➡️ Zero model cost</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-response-templates-precomputed-queries">2. Response templates (precomputed queries)<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#2-response-templates-precomputed-queries" class="hash-link" aria-label="Direct link to 2. Response templates (precomputed queries)" title="Direct link to 2. Response templates (precomputed queries)" translate="no">​</a></h3>
+<p>For high-frequency questions:</p>
+<ul>
+<li class="">Predefine structured responses</li>
+<li class="">Skip the model entirely</li>
+</ul>
+<p>➡️ Instant responses<br>
+<!-- -->➡️ Predictable cost</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-model-routing-query-optimizer">3. Model routing (query optimizer)<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#3-model-routing-query-optimizer" class="hash-link" aria-label="Direct link to 3. Model routing (query optimizer)" title="Direct link to 3. Model routing (query optimizer)" translate="no">​</a></h3>
+<p>Not all queries deserve the same treatment:</p>
+<ul>
+<li class="">Simple → cheap model or cache</li>
+<li class="">Complex → expensive model</li>
+</ul>
+<p>➡️ Just like a query optimizer choosing execution paths</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="business-impact-this-is-what-matters">Business impact (this is what matters)<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#business-impact-this-is-what-matters" class="hash-link" aria-label="Direct link to Business impact (this is what matters)" title="Direct link to Business impact (this is what matters)" translate="no">​</a></h2>
+<p>Let's translate this to what leaders actually care about:</p>
+<ul>
+<li class=""><strong>75% cost reduction</strong> ($28K → $7K/month)</li>
+<li class=""><strong>Faster response times</strong> (cache hits = instant)</li>
+<li class=""><strong>Better scalability</strong> (predictable cost curve)</li>
+<li class=""><strong>Lower operational risk</strong> (no runaway bills)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-dangerous-illusion-cheap-ai-build">The dangerous illusion: "cheap AI build"<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-dangerous-illusion-cheap-ai-build" class="hash-link" aria-label="Direct link to The dangerous illusion: &quot;cheap AI build&quot;" title="Direct link to The dangerous illusion: &quot;cheap AI build&quot;" translate="no">​</a></h2>
+<p>Here's the uncomfortable truth:</p>
+<blockquote>
+<p>The build cost is a <strong>demo metric</strong>
+The run cost is a <strong>business metric</strong></p>
+</blockquote>
+<p>And most teams optimize for the wrong one. If you focus on building something quickly without considering the long-term costs, you might end up with a system that's expensive to operate. This is especially true in AI, where every model call can incur significant costs.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-keeps-happening">Why this keeps happening<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#why-this-keeps-happening" class="hash-link" aria-label="Direct link to Why this keeps happening" title="Direct link to Why this keeps happening" translate="no">​</a></h2>
+<p>Because AI development today feels like:</p>
+<ul>
+<li class="">Early web development</li>
+<li class="">Early microservices</li>
+<li class="">Early cloud adoption</li>
+</ul>
+<p>Everyone is focused on:</p>
+<blockquote>
+<p>"Can we make it work?"</p>
+</blockquote>
+<p>Instead of:</p>
+<blockquote>
+<p>"Can we make it scale?"</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="history-repeating-itself">History repeating itself<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#history-repeating-itself" class="hash-link" aria-label="Direct link to History repeating itself" title="Direct link to History repeating itself" translate="no">​</a></h2>
+<p>We've seen this before:</p>
+<ul>
+<li class="">Monoliths → microservices chaos</li>
+<li class="">Cloud → bill shock</li>
+<li class="">APIs → integration sprawl</li>
+</ul>
+<p>Now:</p>
+<blockquote>
+<p>AI → <strong>token burn without control</strong></p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-shift-from-ai-features-to-ai-systems">The shift: from "AI features" to "AI systems"<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-shift-from-ai-features-to-ai-systems" class="hash-link" aria-label="Direct link to The shift: from &quot;AI features&quot; to &quot;AI systems&quot;" title="Direct link to The shift: from &quot;AI features&quot; to &quot;AI systems&quot;" translate="no">​</a></h2>
+<p>If you're building AI in production, this is the mindset shift:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-old-thinking">❌ Old thinking<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#-old-thinking" class="hash-link" aria-label="Direct link to ❌ Old thinking" title="Direct link to ❌ Old thinking" translate="no">​</a></h3>
+<ul>
+<li class="">Every request is unique</li>
+<li class="">Let the model handle it</li>
+<li class="">Optimize later</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-new-thinking">✅ New thinking<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#-new-thinking" class="hash-link" aria-label="Direct link to ✅ New thinking" title="Direct link to ✅ New thinking" translate="no">​</a></h3>
+<ul>
+<li class="">Most requests are patterns</li>
+<li class="">Design for reuse first</li>
+<li class="">Control cost at the architecture level</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-this-connects-to-mcp">Where this connects to MCP<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#where-this-connects-to-mcp" class="hash-link" aria-label="Direct link to Where this connects to MCP" title="Direct link to Where this connects to MCP" translate="no">​</a></h2>
+<p>This is exactly where <strong>MCP + API-first design</strong> changes the game.</p>
+<p>Instead of:</p>
+<blockquote>
+<p>Unstructured prompts → expensive model calls</p>
+</blockquote>
+<p>You move toward:</p>
+<ul>
+<li class="">Structured tools</li>
+<li class="">Deterministic workflows</li>
+<li class="">Reusable operations</li>
+</ul>
+<p>➡️ The system becomes <strong>predictable</strong><br>
+<!-- -->➡️ Costs become <strong>controllable</strong><br>
+<!-- -->➡️ Behavior becomes <strong>auditable</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-takeaway-dont-ignore-this">The takeaway (don't ignore this)<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#the-takeaway-dont-ignore-this" class="hash-link" aria-label="Direct link to The takeaway (don't ignore this)" title="Direct link to The takeaway (don't ignore this)" translate="no">​</a></h2>
+<blockquote>
+<p>If your AI system treats every request as new...
+your bill will grow faster than your users.</p>
+</blockquote>
+<p>And the worst part?</p>
+<p>You won't notice until it's already expensive.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-thought">Final thought<a href="https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai#final-thought" class="hash-link" aria-label="Direct link to Final thought" title="Direct link to Final thought" translate="no">​</a></h2>
+<p>We didn't fix dynamic SQL because it was "cool."</p>
+<p>We fixed it because:</p>
+<blockquote>
+<p>It was inefficient, unsafe, and impossible to scale.</p>
+</blockquote>
+<p>AI systems are hitting that exact same moment.</p>
+<p>The teams that win won't be the ones with the smartest models.</p>
+<p>They'll be the ones who remember:</p>
+<blockquote>
+<p><strong>Efficiency is architecture, not an afterthought.</strong></p>
+</blockquote>
+<p>How are you designing your AI system to recognize patterns instead of treating every request as unique?</p>]]></content:encoded>
+            <category>Cost Optimization</category>
+            <category>Agentic AI</category>
+            <category>MCP at Scale</category>
+            <category>Architecture</category>
+        </item>
         <item>
             <title><![CDATA[AI Automation in Enterprises: The Shift from Experimentation to Operations]]></title>
             <link>https://mcp.com.ai/ai-automation-in-enterprises</link>
@@ -3570,140 +3803,6 @@ It should mean <strong>unlocking what you already have</strong> — and letting 
             <category>LLM</category>
             <category>API</category>
             <category>MCP Gateway</category>
-        </item>
-        <item>
-            <title><![CDATA[Using OpenAI Response API for MCP Integration]]></title>
-            <link>https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration</link>
-            <guid>https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration</guid>
-            <pubDate>Sat, 01 Nov 2025 15:05:34 GMT</pubDate>
-            <description><![CDATA[A step-by-step guide to integrating OpenAI's Response API with Model Context Protocol (MCP) using HAPI Server.]]></description>
-            <content:encoded><![CDATA[<p>This guide demonstrates how to use the <strong>OpenAI Response API</strong> to integrate with the <strong>Model Context Protocol (MCP)</strong> for seamless, AI-driven API interactions.
-You will learn how to generate a REST API specification with Postman's AI Agent, deploy it as an <strong>MCP server using HAPI Server</strong>, and connect it through OpenAI's <strong>Response API</strong> for testing.</p>
-<p>The goal of this demo is to show how OpenAI's new <strong>Tools and Connectors for MCP</strong> feature simplifies integration between large language models and your APIs, making it possible to interact with services such as a "Taco Ordering System" directly from an LLM client like ChatGPT or a Bun-based application.</p>
-<p>By the end of this guide, you will have a working MCP server derived from a Swagger specification, exposed via ngrok, and connected to the OpenAI Response API for end-to-end interaction testing.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="prerequisites">Prerequisites<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites" translate="no">​</a></h2>
-<p>Before you begin:</p>
-<ul>
-<li class="">
-<p>Install the following tools:</p>
-<ul>
-<li class=""><a href="https://bun.sh/" target="_blank" rel="noopener noreferrer" class="">Bun</a> – A fast JavaScript runtime for modern apps.<!-- -->
-<ul>
-<li class="">Alternatively, you can use Node.js if preferred.</li>
-</ul>
-</li>
-<li class=""><a href="https://ngrok.com/" target="_blank" rel="noopener noreferrer" class="">ngrok</a> – To expose your local server to the internet.</li>
-<li class=""><a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">HAPI Server</a> – To host your MCP server.</li>
-<li class=""><a href="https://www.npmjs.com/package/openai" target="_blank" rel="noopener noreferrer" class="">OpenAI SDK</a> – For client testing.</li>
-<li class="">Obtain or install <strong>Postman Desktop Agent</strong> to generate APIs using AI.<!-- -->
-<ul>
-<li class="">Alternatively, you can ask <strong>ChatGPT</strong> to generate a Swagger specification (v3).</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>The example below uses a local environment and ngrok for simplicity, but you can deploy your server on any cloud instance or containerized environment.</p></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-1-generate-an-api-using-postman-agent">Step 1: Generate an API Using Postman Agent<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#step-1-generate-an-api-using-postman-agent" class="hash-link" aria-label="Direct link to Step 1: Generate an API Using Postman Agent" title="Direct link to Step 1: Generate an API Using Postman Agent" translate="no">​</a></h2>
-<p>You can use Postman's AI Agent to quickly generate an API for any use case.
-In this example, you will create a simple Taco Ordering System.</p>
-<ol>
-<li class="">
-<p>Open Postman's AI Agent and prompt:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Generate an API for a Taco ordering system with endpoints to view tacos and place an order.</span><br></span></code></pre></div></div>
-</li>
-<li class="">
-<p>The agent returns a Swagger (OpenAPI) specification for your taco API.</p>
-</li>
-<li class="">
-<p>Review the generated specification to confirm it includes paths for:</p>
-<ul>
-<li class=""><code>GET /tacos</code></li>
-<li class=""><code>POST /order</code></li>
-</ul>
-</li>
-</ol>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>Save the file in your <code>HAPI_HOME/specs</code> directory as <code>tacos.yaml</code> for use in the next step. (JSON format is also acceptable.)</p></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-2-start-an-mcp-server-using-hapi-server">Step 2: Start an MCP Server Using HAPI Server<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#step-2-start-an-mcp-server-using-hapi-server" class="hash-link" aria-label="Direct link to Step 2: Start an MCP Server Using HAPI Server" title="Direct link to Step 2: Start an MCP Server Using HAPI Server" translate="no">​</a></h2>
-<p>Use the <a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">HAPI Server</a> to host your Swagger API as an MCP server. This allows LLM-based clients such as ChatGPT to call your API directly.</p>
-<ol>
-<li class="">
-<p>Connect to your instance and run the following command to start the MCP server:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bunx @la-rebelion/hapimcp serve tacos --headless --chatgpt</span><br></span></code></pre></div></div>
-<p>Alternatively, you can use the native CLI (download from <a href="https://github.com/la-rebelion/hapimcp/releases" target="_blank" rel="noopener noreferrer" class="">GitHub releases</a>) and run:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve tacos --headless --chatgpt</span><br></span></code></pre></div></div>
-</li>
-<li class="">
-<p>Once running, expose the local server to the internet using ngrok:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">ngrok http 8000</span><br></span></code></pre></div></div>
-</li>
-<li class="">
-<p>Copy the public URL generated by ngrok (e.g., <code>https://abcd1234.ngrok.io</code>).</p>
-</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-3-connect-chatgpt-or-another-client-to-the-mcp-server">Step 3: Connect ChatGPT or Another Client to the MCP Server<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#step-3-connect-chatgpt-or-another-client-to-the-mcp-server" class="hash-link" aria-label="Direct link to Step 3: Connect ChatGPT or Another Client to the MCP Server" title="Direct link to Step 3: Connect ChatGPT or Another Client to the MCP Server" translate="no">​</a></h2>
-<ol>
-<li class="">Open ChatGPT's settings and add a new connector with the ngrok URL you copied earlier.</li>
-<li class="">Enable the connector.
-If the feature is not visible, note that <strong>MCP connectors</strong> in ChatGPT may still be in <strong>beta</strong>.</li>
-<li class="">Alternatively, you can connect directly from an MCP-compatible client using the OpenAI SDK.</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-4-test-the-mcp-server-with-openai-sdk">Step 4: Test the MCP Server With OpenAI SDK<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#step-4-test-the-mcp-server-with-openai-sdk" class="hash-link" aria-label="Direct link to Step 4: Test the MCP Server With OpenAI SDK" title="Direct link to Step 4: Test the MCP Server With OpenAI SDK" translate="no">​</a></h2>
-<p>You can test the endpoint by sending a prompt that interacts with your Taco API.</p>
-<ol>
-<li class="">
-<p>Initialize a new Bun project:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">mkdir taco-client &amp;&amp; cd taco-client</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">bun init</span><br></span></code></pre></div></div>
-</li>
-<li class="">
-<p>Install dependencies:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun install openai</span><br></span></code></pre></div></div>
-</li>
-<li class="">
-<p>Create an <code>index.ts</code> file and configure your endpoint:</p>
-<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> OpenAI </span><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"openai"</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> client </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">new</span><span class="token plain"> </span><span class="token class-name">OpenAI</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  apiKey</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> process</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">env</span><span class="token punctuation" style="color:#393A34">.</span><span class="token constant" style="color:#36acaa">OPENAI_API_KEY</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  baseURL</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"https://abcd1234.ngrok.io/v1"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> response </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">await</span><span class="token plain"> client</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">chat</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">completions</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">create</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  model</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"gpt-4.1"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  messages</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> role</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"user"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> content</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"What tacos do you have in the menu?"</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token builtin">console</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">log</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">response</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">choices</span><span class="token punctuation" style="color:#393A34">[</span><span class="token number" style="color:#36acaa">0</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">message</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
-</li>
-<li class="">
-<p>Run the client:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun run index.ts</span><br></span></code></pre></div></div>
-</li>
-</ol>
-<p>You should see a response such as:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">We have "carne asada" and "al pastor" tacos available.</span><br></span></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-5-place-an-order-through-the-api">Step 5: Place an Order Through the API<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#step-5-place-an-order-through-the-api" class="hash-link" aria-label="Direct link to Step 5: Place an Order Through the API" title="Direct link to Step 5: Place an Order Through the API" translate="no">​</a></h2>
-<p>Now that your MCP server is connected, you can test the ordering functionality.</p>
-<p>Run:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun run index.ts</span><br></span></code></pre></div></div>
-<p>With the following request:</p>
-<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">messages</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">[</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> role</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"user"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> content</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Place an order for 2 tacos al pastor and 1 carne asada."</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">]</span><br></span></code></pre></div></div>
-<p>The client confirms your order:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Order placed successfully!  </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">You ordered 2 tacos al pastor and 1 carne asada.</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="demo-video">Demo Video<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#demo-video" class="hash-link" aria-label="Direct link to Demo Video" title="Direct link to Demo Video" translate="no">​</a></h2>
-<!--$?--><template id="B:0"></template><!--/$-->
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://mcp.com.ai/use-openai-api-for-smooth-mcp-integration#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
-<p>You successfully:</p>
-<ul>
-<li class="">Generated a Swagger API with Postman's AI Agent.</li>
-<li class="">Deployed it as an MCP server using HAPI Server.</li>
-<li class="">Exposed the service securely with ngrok.</li>
-<li class="">Connected and interacted with it using ChatGPT and Bun.</li>
-</ul>
-<p>This setup allows you to prototype <strong>API-first AI integrations</strong> quickly. You can expand this demo to connect more endpoints or integrate it into a cluster for scalability.</p>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>To continue exploring, deploy your HAPI MCP server on <strong>cloud instances</strong> or integrate it into your existing CI/CD pipeline for real-world workloads.</p></div></div>
-<p>Be HAPI, and go Rebels! ✊🏽</p>]]></content:encoded>
-            <category>MCP</category>
-            <category>OpenAI</category>
-            <category>API-First</category>
-            <category>LLM</category>
-            <category>Guide</category>
-            <category>AI Integration</category>
         </item>
     </channel>
 </rss>
