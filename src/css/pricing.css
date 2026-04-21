@@ -1,396 +1,510 @@
-/* Pricing Page Styles */
+/* ═══════════════════════════════════════
+   Pricing Page — aligned with site design
+   Uses site-wide CSS variables; no hardcoded colors.
+   ═══════════════════════════════════════ */
 
-.mcpPricingPage {
-  --mcp-primary: #1193b0;
-  --mcp-secondary: #da7756;
-  --mcp-dark: #1a1a1a;
-  --mcp-light: #f9f9f9;
-  --mcp-border: #e0e0e0;
-  --mcp-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --mcp-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* Hero Section */
-.mcpPricingHero {
-  padding: 4rem 0 3rem;
-  background: linear-gradient(135deg, var(--mcp-primary) 0%, var(--mcp-secondary) 100%);
-  color: white;
+/* ─── Hero (inherits .mcpHero from custom.css) ─── */
+.mcpPricingHeroContent {
+  max-width: 720px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.mcpPricingHeroTitle {
-  font-size: 3rem;
+/* ─── Open Source strip ─── */
+.mcpOssStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.5rem auto 0;
+  padding: 0.6rem 1.25rem;
+  max-width: fit-content;
+  border-radius: 100px;
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.mcpOssStrip a {
+  color: var(--brand-primary);
+  text-underline-offset: 2px;
+}
+
+.mcpOssStrip code {
+  font-size: 0.82rem;
+  background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: var(--brand-primary);
+}
+
+/* ─── OSS pillars strip ─── */
+.mcpOssPillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .mcpOssPillars { grid-template-columns: 1fr; }
+}
+
+.mcpOssPillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  background: var(--ifm-background-surface-color);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.mcpOssPillar:hover {
+  border-color: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  transform: translateY(-2px);
+}
+
+.mcpOssPillarIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 0.1rem;
+}
+
+.mcpOssPillar h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  margin: 1rem 0;
-  line-height: 1.2;
 }
 
-.mcpPricingHeroSubtitle {
-  font-size: 1.25rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  opacity: 0.95;
+.mcpOssPillar p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.4;
 }
 
-/* Pricing Grid */
+/* ─── Pricing grid ─── */
 .mcpPricingGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  align-items: start;
 }
 
+@media (max-width: 1100px) {
+  .mcpPricingGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .mcpPricingGrid { grid-template-columns: 1fr; }
+}
+
+/* ─── Pricing card ─── */
 .mcpPricingCard {
-  background: white;
-  border: 2px solid var(--mcp-border);
-  border-radius: 16px;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-background-surface-color);
+  border: 1.5px solid color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
   position: relative;
-  transition: all 0.3s ease;
-  box-shadow: var(--mcp-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .mcpPricingCard:hover {
   transform: translateY(-4px);
-  box-shadow: var(--mcp-shadow-lg);
-  border-color: var(--mcp-primary);
+  box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  border-color: color-mix(in srgb, var(--brand-primary) 30%, transparent);
+}
+
+.mcpPricingCard--oss {
+  border-color: #22c55e;
+  border-top: 3px solid #22c55e;
+}
+
+.mcpPricingCard--oss:hover {
+  box-shadow: 0 12px 32px -8px rgba(34, 197, 94, 0.2);
 }
 
 .mcpPricingCard--popular {
-  border-color: var(--mcp-primary);
-  border-width: 3px;
-  box-shadow: 0 8px 24px rgba(17, 147, 176, 0.2);
+  border-color: var(--brand-primary);
+  border-top: 3px solid var(--brand-primary);
+  box-shadow: 0 8px 28px -6px color-mix(in srgb, var(--brand-primary) 22%, transparent);
 }
 
+/* ─── Tier badges ─── */
 .mcpPricingBadge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--mcp-primary), var(--mcp-secondary));
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  white-space: nowrap;
+  display: inline-block;
+  padding: 0.28rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.85rem;
 }
 
+.mcpPricingBadge--popular {
+  background: linear-gradient(90deg, var(--brand-primary), color-mix(in srgb, var(--brand-secondary) 40%, var(--brand-primary)));
+  color: #fff;
+}
+
+.mcpPricingBadge--oss {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+[data-theme='dark'] .mcpPricingBadge--oss {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.10);
+  border-color: rgba(74, 222, 128, 0.25);
+}
+
+/* ─── Card header ─── */
 .mcpPricingHeader {
-  text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .mcpPricingIcon {
-  font-size: 3rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 .mcpPricingName {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-  color: var(--mcp-dark);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem;
+  color: var(--ifm-font-color-base);
 }
 
 .mcpPricingTagline {
-  color: #666;
-  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.85rem;
   margin: 0;
+  line-height: 1.4;
 }
 
+/* ─── Price block ─── */
 .mcpPricingPrice {
-  text-align: center;
-  margin: 1.5rem 0;
+  margin: 1.1rem 0 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .mcpPricingAmount {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--mcp-primary);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  line-height: 1;
 }
 
+.mcpPricingCard--oss .mcpPricingAmount { color: #16a34a; }
+[data-theme='dark'] .mcpPricingCard--oss .mcpPricingAmount { color: #4ade80; }
+
 .mcpPricingPeriod {
-  font-size: 1rem;
-  color: #666;
-  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
 }
 
 .mcpPricingDescription {
-  text-align: center;
-  color: #555;
-  margin: 1rem 0 1.5rem;
-  min-height: 3rem;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0.4rem 0 1.25rem;
+  line-height: 1.5;
+  min-height: 2.5rem;
 }
 
-.mcpPricingCard .button {
-  width: 100%;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
+/* ─── Features list ─── */
 .mcpPricingFeatures {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1.5rem;
+  flex: 1;
+  border-top: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 8%, transparent);
+  padding-top: 1rem;
 }
 
 .mcpPricingFeatures li {
-  padding: 0.75rem 0;
-  border-top: 1px solid var(--mcp-border);
+  padding: 0.5rem 0;
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-  color: #444;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-800);
+  border-bottom: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 6%, transparent);
+  line-height: 1.4;
 }
 
-.mcpPricingFeatures li:first-child {
-  border-top: none;
-}
+.mcpPricingFeatures li:last-child { border-bottom: none; }
 
 .mcpCheckmark {
-  color: var(--mcp-primary);
+  color: var(--brand-primary);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
+  margin-top: 0.1rem;
 }
 
-/* Add-ons Grid */
+.mcpPricingCard--oss .mcpCheckmark { color: #16a34a; }
+[data-theme='dark'] .mcpPricingCard--oss .mcpCheckmark { color: #4ade80; }
+
+/* CTA button at the bottom of the card */
+.mcpPricingCard .button {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+}
+
+/* ─── Soft limits note ─── */
+.mcpSoftLimitsNote {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mcpSoftLimitsNote a {
+  color: var(--brand-primary);
+}
+
+/* ─── Add-ons grid ─── */
 .mcpAddonsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .mcpAddonCard {
-  background: white;
-  border: 2px solid var(--mcp-border);
-  border-radius: 12px;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-background-surface-color);
+  border: 1.5px solid color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.mcpAddonCard--oem {
+  border-color: color-mix(in srgb, var(--brand-secondary) 28%, transparent);
+  border-top: 3px solid var(--brand-secondary);
 }
 
 .mcpAddonCard:hover {
-  border-color: var(--mcp-secondary);
-  box-shadow: var(--mcp-shadow);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px -8px color-mix(in srgb, var(--brand-secondary) 20%, transparent);
+  border-color: color-mix(in srgb, var(--brand-secondary) 40%, transparent);
 }
 
 .mcpAddonIcon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
+  display: block;
 }
 
 .mcpAddonName {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-  color: var(--mcp-dark);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0 0 0.4rem;
+  color: var(--ifm-font-color-base);
 }
 
 .mcpAddonPrice {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--mcp-secondary);
-  margin: 1rem 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--brand-secondary);
+  margin: 0.5rem 0 0.75rem;
 }
 
 .mcpAddonDescription {
-  color: #666;
-  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  flex: 1;
 }
 
 .mcpAddonFeatures {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1.5rem;
   text-align: left;
+  border-top: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 8%, transparent);
+  padding-top: 0.85rem;
 }
 
 .mcpAddonFeatures li {
-  padding: 0.5rem 0;
-  padding-left: 1.5rem;
+  padding: 0.4rem 0 0.4rem 1.4rem;
   position: relative;
-  color: #555;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-800);
 }
 
 .mcpAddonFeatures li::before {
-  content: "•";
+  content: "✓";
   position: absolute;
   left: 0;
-  color: var(--mcp-secondary);
+  color: var(--brand-secondary);
   font-weight: 700;
 }
 
-/* Risk Reversals / Guarantees */
+.mcpAddonApplyBtn {
+  margin-top: auto;
+}
+
+/* ─── Guarantees ─── */
 .mcpRiskReversals {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
   margin-top: 2rem;
 }
 
 .mcpGuarantee {
   text-align: center;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 12px;
-  border: 2px solid var(--mcp-border);
+  padding: 1.5rem 1.25rem;
+  background: var(--ifm-background-surface-color);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 12%, transparent);
+  transition: transform 0.2s ease;
 }
 
+.mcpGuarantee:hover { transform: translateY(-3px); }
+
 .mcpGuaranteeIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+  display: block;
 }
 
 .mcpGuarantee h4 {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin: 0.5rem 0;
-  color: var(--mcp-dark);
+  margin: 0 0 0.4rem;
+  color: var(--ifm-font-color-base);
 }
 
 .mcpGuarantee p {
-  color: #666;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.875rem;
   margin: 0;
+  line-height: 1.4;
 }
 
-/* Comparison Table */
+/* ─── Comparison table ─── */
 .mcpComparisonTable {
   overflow-x: auto;
   margin-top: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
+  overflow: hidden;
 }
 
 .mcpComparisonTable table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--mcp-shadow);
+  background: var(--ifm-background-surface-color);
+  font-size: 0.9rem;
 }
 
 .mcpComparisonTable th,
 .mcpComparisonTable td {
-  padding: 1rem;
+  padding: 0.85rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid color-mix(in srgb, var(--ifm-font-color-base) 7%, transparent);
+}
+
+.mcpComparisonTable th:first-child,
+.mcpComparisonTable td:first-child {
   text-align: left;
-  border-bottom: 1px solid var(--mcp-border);
+  font-weight: 600;
+}
+
+.mcpComparisonTable thead tr {
+  background: color-mix(in srgb, var(--brand-primary) 8%, var(--ifm-background-surface-color));
 }
 
 .mcpComparisonTable th {
-  background: linear-gradient(135deg, var(--mcp-primary), var(--mcp-secondary));
-  color: white;
   font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ifm-font-color-base);
+  border-bottom: 2px solid color-mix(in srgb, var(--brand-primary) 20%, transparent);
 }
 
-.mcpComparisonTable th:first-child {
-  text-align: left;
-}
-
-.mcpComparisonTable th:not(:first-child) {
-  text-align: center;
-}
-
-.mcpComparisonTable td:not(:first-child) {
-  text-align: center;
+.mcpComparisonTable th:nth-child(4) {
+  color: var(--brand-primary);
 }
 
 .mcpComparisonTable tbody tr:hover {
-  background: #f9f9f9;
+  background: color-mix(in srgb, var(--ifm-color-primary) 3%, transparent);
 }
 
-.mcpComparisonTable tbody tr:last-child td {
-  border-bottom: none;
+.mcpComparisonTable tbody tr:last-child td { border-bottom: none; }
+
+.mcpComparisonTable td:nth-child(4) {
+  font-weight: 600;
+  color: var(--brand-primary);
 }
 
-/* CTA Section */
+.mcpComparisonCheckmark { color: var(--brand-primary); font-weight: 700; }
+.mcpComparisonDash { color: var(--ifm-color-emphasis-400); }
+.mcpComparisonOss { color: #16a34a; font-weight: 700; }
+[data-theme='dark'] .mcpComparisonOss { color: #4ade80; }
+
+/* ─── CTA section ─── */
 .mcpSection--cta {
-  background: linear-gradient(135deg, var(--mcp-primary) 0%, var(--mcp-secondary) 100%);
-  color: white;
+  background: radial-gradient(900px 300px at 50% 0%,
+    color-mix(in srgb, var(--brand-primary) 18%, transparent),
+    transparent 70%),
+    color-mix(in srgb, var(--ifm-color-primary) 4%, transparent);
 }
 
 .mcpCtaBox {
   text-align: center;
-  padding: 3rem 0;
+  padding: 3rem 0 2rem;
 }
 
 .mcpCtaBox h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: white;
+  font-size: clamp(1.6rem, 2rem + 0.5vw, 2.4rem);
+  margin-bottom: 0.75rem;
 }
 
 .mcpCtaBox p {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   margin-bottom: 2rem;
-  opacity: 0.95;
+  color: var(--ifm-color-emphasis-700);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .mcpPricingHeroTitle {
-    font-size: 2rem;
-  }
-
-  .mcpPricingHeroSubtitle {
-    font-size: 1.1rem;
-  }
-
-  .mcpPricingGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .mcpPricingAmount {
-    font-size: 2.5rem;
-  }
-
-  .mcpCtaBox h2 {
-    font-size: 1.75rem;
-  }
-
-  .mcpComparisonTable {
-    font-size: 0.875rem;
-  }
-
-  .mcpComparisonTable th,
-  .mcpComparisonTable td {
-    padding: 0.75rem 0.5rem;
-  }
+/* ─── FAQ ─── */
+.mcpPricingFaq .mcpFaq details {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
 }
 
-/* Dark mode support */
-[data-theme='dark'] .mcpPricingCard,
-[data-theme='dark'] .mcpAddonCard,
-[data-theme='dark'] .mcpGuarantee,
-[data-theme='dark'] .mcpComparisonTable table {
-  background: #1e1e1e;
-  border-color: #333;
+/* ─── OEM Modal ─── */
+.mcpOemModal {
+  max-width: min(90vw, 560px) !important;
 }
 
-[data-theme='dark'] .mcpPricingCard:hover {
-  border-color: var(--mcp-primary);
+.mcpOemGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
 }
 
-[data-theme='dark'] .mcpPricingName,
-[data-theme='dark'] .mcpAddonName,
-[data-theme='dark'] .mcpGuarantee h4 {
-  color: #fff;
-}
-
-[data-theme='dark'] .mcpPricingTagline,
-[data-theme='dark'] .mcpPricingDescription,
-[data-theme='dark'] .mcpAddonDescription,
-[data-theme='dark'] .mcpGuarantee p {
-  color: #aaa;
-}
-
-[data-theme='dark'] .mcpPricingFeatures li,
-[data-theme='dark'] .mcpAddonFeatures li {
-  color: #ccc;
-  border-color: #333;
-}
-
-[data-theme='dark'] .mcpComparisonTable tbody tr:hover {
-  background: #252525;
+@media (max-width: 480px) {
+  .mcpOemGrid { grid-template-columns: 1fr; }
 }

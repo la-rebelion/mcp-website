@@ -1,7 +1,7 @@
 ---
 draft: true
-title: "Introducing the HAPI MCP Registry: The Future of API Discovery for AI Agents"
-description: "The HAPI MCP Registry's acceptance in the OpenAI ecosystem is revolutionizing API and AI integration, enabling ChatGPT finding MCPs from the official MCP Registry."
+title: "HAPI MCP Servers Ecosystem"
+description: "List of public HAPI MCP servers available in the ecosystem, showcasing the growing adoption and diversity of MCP implementations."
 authors: ["adrian"]
 keywords: ["MCP Registry", "ChatGPT", "OpenAI ecosystem", "API integration", "AI agents", "Model Context Protocol"]
 ---

@@ -3,6 +3,7 @@ title: "HAPI MCP Registry Available in the ChatGPT Ecosystem"
 description: "The HAPI MCP Registry's acceptance in the OpenAI ecosystem is revolutionizing API and AI integration, enabling ChatGPT finding MCPs from the official MCP Registry."
 authors: ["adrian"]
 keywords: ["MCP Registry", "ChatGPT", "OpenAI ecosystem", "API integration", "AI agents", "Model Context Protocol"]
+date: 2026-04-20
 image: /img/marketplace/mcp-registry-logo.png
 ---
 
@@ -15,6 +16,8 @@ And this is bigger than a feature release.
 This is a shift in how APIs and AI finally connect.
 
 <!-- truncate -->
+
+[![HAPI MCP Registry in ChatGPT Marketplace](/img/marketplace/hapi-mcp-registry-chatgpt-app.png)](https://chatgpt.com/apps/hapi-mcp-registry/asdk_app_698f3015287081919ff958565ad957f0)
 
 ---
 
@@ -35,7 +38,7 @@ They need:
 * Discoverability
 * Governance
 
-That's exactly where MCP (Model Context Protocol) comes in.
+That's exactly where MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) comes in.
 
 And the [HAPI MCP Registry](https://chatgpt.com/apps/hapi-mcp-registry/asdk_app_698f3015287081919ff958565ad957f0) solves the missing layer:
 
@@ -54,7 +57,7 @@ Because this is how you:
 * Enable **controlled AI adoption at scale**
 
 **Translation:**
-You're not building AI from scratch—you're **activating existing assets**.
+You're not building AI from scratch, you're **activating existing assets**.
 
 ---
 
@@ -101,7 +104,7 @@ Most of them:
 
 HAPI MCP takes a different stance:
 
-👉 **MCP is the contract—not the platform**
+👉 **MCP is the contract, not the platform**
 
 That means:
 
@@ -167,7 +170,7 @@ The HAPI MCP Registry is a step toward fixing that:
 
 Instead of building new AI systems:
 
-👉 Expose internal APIs as MCP tools
+👉 Expose internal APIs as MCP tools  
 👉 Let agents operate safely within boundaries
 
 ---
@@ -188,13 +191,13 @@ That's monetization at scale.
 
 ---
 
-## 3. Developer Ecosystems
+### 3. Developer Ecosystems
 
 Instead of:
 
 * Docs + SDKs + manual integration
 
-You get:
+You get:  
 👉 Plug-and-play AI capabilities
 
 ---
@@ -225,7 +228,7 @@ More HAPI MCPs are coming:
 * More enterprise-ready tools
 * Expanded registry capabilities
 
-And yes... **Open sourcing the HAPI MCP framework** is on the horizon.
+And yes... **[Open sourcing the HAPI MCP framework](https://github.com/mcp-com-ai)** is on the horizon.
 
 👉 This will evolve into a full **distribution layer for AI-native APIs**
 
@@ -242,10 +245,10 @@ If you're building:
 
 You need to look at this now.
 
-👉 Explore the HAPI MCP Registry in ChatGPT
-👉 Test it
-👉 Break it
-👉 Tell me what's missing
+👉 Explore the [HAPI MCP Registry in ChatGPT](https://chatgpt.com/apps/hapi-mcp-registry/asdk_app_698f3015287081919ff958565ad957f0)  
+👉 Test it  
+👉 Break it  
+👉 Tell me what's missing  
 
 Because the future of AI won't be built in isolation.
 
