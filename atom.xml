@@ -2,11 +2,199 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mcp.com.ai</id>
     <title>The control plane for MCP in real environments Blog</title>
-    <updated>2026-03-28T14:55:27.000Z</updated>
+    <updated>2026-04-20T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mcp.com.ai"/>
     <subtitle>The control plane for MCP in real environments Blog</subtitle>
     <icon>https://mcp.com.ai/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[HAPI MCP Registry Available in the ChatGPT Ecosystem]]></title>
+        <id>https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt</id>
+        <link href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt"/>
+        <updated>2026-04-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[The HAPI MCP Registry's acceptance in the OpenAI ecosystem is revolutionizing API and AI integration, enabling ChatGPT finding MCPs from the official MCP Registry.]]></summary>
+        <content type="html"><![CDATA[<p>Today, we crossed a major milestone.</p>
+<p>👉 The <strong>HAPI MCP Registry is now available in the ChatGPT marketplace</strong>, officially aligning with the ecosystem driven by OpenAI.</p>
+<p>And this is bigger than a feature release.</p>
+<p>This is a shift in how APIs and AI finally connect.</p>
+<p><a href="https://chatgpt.com/apps/hapi-mcp-registry/asdk_app_698f3015287081919ff958565ad957f0" target="_blank" rel="noopener noreferrer" class=""><img decoding="async" loading="lazy" alt="HAPI MCP Registry in ChatGPT Marketplace" src="https://mcp.com.ai/assets/images/hapi-mcp-registry-chatgpt-app-db0585d00235cbd0cfb3c935e2935355.png" width="1065" height="986" class="img_ev3q"></a></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-what-is-the-hapi-mcp-registry-and-why-it-matters-now">🧠 What Is the HAPI MCP Registry (and Why It Matters Now)<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-what-is-the-hapi-mcp-registry-and-why-it-matters-now" class="hash-link" aria-label="Direct link to 🧠 What Is the HAPI MCP Registry (and Why It Matters Now)" title="Direct link to 🧠 What Is the HAPI MCP Registry (and Why It Matters Now)" translate="no">​</a></h2>
+<p><strong>Short answer:</strong>
+It's a <strong>centralized, public registry of MCP servers</strong> powered by <a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">HAPI MCP</a>, a framework designed to turn APIs into AI-ready tools.</p>
+<p><strong>Long answer (the one that matters):</strong></p>
+<p>For years, we've built APIs as products.
+But AI agents don't "use" APIs the way developers do.</p>
+<p>They need:</p>
+<ul>
+<li class="">Context</li>
+<li class="">Structure</li>
+<li class="">Discoverability</li>
+<li class="">Governance</li>
+</ul>
+<p>That's exactly where MCP (<a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer" class="">Model Context Protocol</a>) comes in.</p>
+<p>And the <a href="https://chatgpt.com/apps/hapi-mcp-registry/asdk_app_698f3015287081919ff958565ad957f0" target="_blank" rel="noopener noreferrer" class="">HAPI MCP Registry</a> solves the missing layer:</p>
+<p>👉 <strong>A place where agents can discover, understand, and safely use real-world capabilities.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-why-this-changes-the-game-for-real">⚡ Why This Changes the Game (For Real)<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-why-this-changes-the-game-for-real" class="hash-link" aria-label="Direct link to ⚡ Why This Changes the Game (For Real)" title="Direct link to ⚡ Why This Changes the Game (For Real)" translate="no">​</a></h2>
+<p><strong>Q: Why should leadership care about MCP registries?</strong></p>
+<p>Because this is how you:</p>
+<ul>
+<li class="">Avoid <strong>shadow AI implementations</strong></li>
+<li class="">Prevent <strong>duplicate integrations</strong></li>
+<li class="">Enable <strong>controlled AI adoption at scale</strong></li>
+</ul>
+<p><strong>Translation:</strong>
+You're not building AI from scratch, you're <strong>activating existing assets</strong>.</p>
+<hr>
+<p><strong>Q: What problem does this solve technically?</strong></p>
+<p>Before:</p>
+<ul>
+<li class="">Every agent needed custom integration</li>
+<li class="">APIs had to be adapted manually</li>
+<li class="">Governance was fragmented</li>
+</ul>
+<p>Now:</p>
+<ul>
+<li class="">APIs → MCP → Registry → Agent consumption</li>
+</ul>
+<p><strong>Translation:</strong>
+You move from <strong>integration chaos → standardized execution layer</strong></p>
+<hr>
+<p><strong>Q: How does this impact product delivery?</strong></p>
+<p>You can now:</p>
+<ul>
+<li class="">Turn APIs into features <strong>instantly</strong></li>
+<li class="">Expose capabilities to AI without new backend work</li>
+<li class="">Launch AI-driven features faster</li>
+</ul>
+<p><strong>Translation:</strong>
+Your roadmap accelerates without increasing engineering load.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-what-makes-hapi-mcp-registry-different">🔍 What Makes HAPI MCP Registry Different<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-what-makes-hapi-mcp-registry-different" class="hash-link" aria-label="Direct link to 🔍 What Makes HAPI MCP Registry Different" title="Direct link to 🔍 What Makes HAPI MCP Registry Different" translate="no">​</a></h2>
+<p>There are already tools trying to "connect APIs to AI."</p>
+<p>Most of them:</p>
+<ul>
+<li class="">Add wrappers and create shadow APIs</li>
+<li class="">Force you to re-implement logic in their system</li>
+<li class="">Create new infrastructure</li>
+<li class="">Introduce lock-in</li>
+</ul>
+<p>HAPI MCP takes a different stance:</p>
+<p>👉 <strong>MCP is the contract, not the platform</strong></p>
+<p>That means:</p>
+<ul>
+<li class="">No re-implementation of business logic</li>
+<li class="">No duplication</li>
+<li class="">No vendor dependency</li>
+</ul>
+<p>Just:</p>
+<ul>
+<li class="">Your APIs</li>
+<li class="">Standardized into MCP</li>
+<li class="">Ready for agents</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-how-it-works-simple-mental-model">🧩 How It Works (Simple Mental Model)<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-how-it-works-simple-mental-model" class="hash-link" aria-label="Direct link to 🧩 How It Works (Simple Mental Model)" title="Direct link to 🧩 How It Works (Simple Mental Model)" translate="no">​</a></h2>
+<p>Think of it like this:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Your API → HAPI MCP Server → Registry → AI Agent</span><br></span></code></pre></div></div>
+<p>That's it.</p>
+<p>No:</p>
+<ul>
+<li class="">Reinvented backends</li>
+<li class="">Complex pipelines</li>
+<li class="">Fragile integrations</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-why-this-matters-for-the-ai-economy">🌍 Why This Matters for the AI Economy<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-why-this-matters-for-the-ai-economy" class="hash-link" aria-label="Direct link to 🌍 Why This Matters for the AI Economy" title="Direct link to 🌍 Why This Matters for the AI Economy" translate="no">​</a></h2>
+<p>Let's zoom out.</p>
+<p>We're entering a world where:</p>
+<ul>
+<li class="">Agents are the new users</li>
+<li class="">APIs are the new interfaces</li>
+<li class="">MCP is the new contract</li>
+</ul>
+<p>The problem?</p>
+<p>👉 Everything is fragmented.</p>
+<p>Different tools.
+Different integrations.
+Different standards (or no standards).</p>
+<p>The HAPI MCP Registry is a step toward fixing that:</p>
+<p>✔ Standard discovery
+✔ Standard interaction
+✔ Standard governance</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-real-use-cases">🔥 Real Use Cases<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-real-use-cases" class="hash-link" aria-label="Direct link to 🔥 Real Use Cases" title="Direct link to 🔥 Real Use Cases" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-enterprise-ai-enablement">1. Enterprise AI Enablement<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#1-enterprise-ai-enablement" class="hash-link" aria-label="Direct link to 1. Enterprise AI Enablement" title="Direct link to 1. Enterprise AI Enablement" translate="no">​</a></h3>
+<p>Instead of building new AI systems:</p>
+<p>👉 Expose internal APIs as MCP tools<br>
+<!-- -->👉 Let agents operate safely within boundaries</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-telco--open-gateway">2. Telco / Open Gateway<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#2-telco--open-gateway" class="hash-link" aria-label="Direct link to 2. Telco / Open Gateway" title="Direct link to 2. Telco / Open Gateway" translate="no">​</a></h3>
+<p>Think about:</p>
+<ul>
+<li class=""><a href="https://camaraproject.org/sim-swap/" target="_blank" rel="noopener noreferrer" class="">SIM Swap APIs</a></li>
+<li class=""><a href="https://open-gateway.gsma.com/docs/device-location-retrieval" target="_blank" rel="noopener noreferrer" class="">Device Location</a></li>
+<li class=""><a href="https://opengateway.telefonica.com/en/apis/number-verification" target="_blank" rel="noopener noreferrer" class="">Number Verification</a></li>
+</ul>
+<p>Now imagine:</p>
+<p>👉 Agents consuming them <strong>securely via MCP</strong></p>
+<p>That's monetization at scale.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-developer-ecosystems">3. Developer Ecosystems<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#3-developer-ecosystems" class="hash-link" aria-label="Direct link to 3. Developer Ecosystems" title="Direct link to 3. Developer Ecosystems" translate="no">​</a></h3>
+<p>Instead of:</p>
+<ul>
+<li class="">Docs + SDKs + manual integration</li>
+</ul>
+<p>You get:<br>
+<!-- -->👉 Plug-and-play AI capabilities</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-the-bigger-vision">🧠 The Bigger Vision<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-the-bigger-vision" class="hash-link" aria-label="Direct link to 🧠 The Bigger Vision" title="Direct link to 🧠 The Bigger Vision" translate="no">​</a></h2>
+<p>This is not just about a registry.</p>
+<p>This is about:</p>
+<p>👉 <strong>Turning every API into an AI capability layer</strong></p>
+<p>And ultimately:</p>
+<p>👉 <strong>Building the execution layer of the AI economy</strong></p>
+<p>That's the real play.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-whats-next">🚀 What's Next<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-whats-next" class="hash-link" aria-label="Direct link to 🚀 What's Next" title="Direct link to 🚀 What's Next" translate="no">​</a></h2>
+<p>This is just the beginning.</p>
+<p>More HAPI MCPs are coming:</p>
+<ul>
+<li class="">New integrations</li>
+<li class="">More enterprise-ready tools</li>
+<li class="">Expanded registry capabilities</li>
+</ul>
+<p>And yes... <strong><a href="https://github.com/mcp-com-ai" target="_blank" rel="noopener noreferrer" class="">Open sourcing the HAPI MCP framework</a></strong> is on the horizon.</p>
+<p>👉 This will evolve into a full <strong>distribution layer for AI-native APIs</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-your-turn">🤝 Your Turn<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-your-turn" class="hash-link" aria-label="Direct link to 🤝 Your Turn" title="Direct link to 🤝 Your Turn" translate="no">​</a></h2>
+<p>If you're building:</p>
+<ul>
+<li class="">APIs</li>
+<li class="">Platforms</li>
+<li class="">AI tools</li>
+<li class="">Agent workflows</li>
+</ul>
+<p>You need to look at this now.</p>
+<p>👉 Explore the <a href="https://chatgpt.com/apps/hapi-mcp-registry/asdk_app_698f3015287081919ff958565ad957f0" target="_blank" rel="noopener noreferrer" class="">HAPI MCP Registry in ChatGPT</a><br>
+<!-- -->👉 Test it<br>
+<!-- -->👉 Break it<br>
+<!-- -->👉 Tell me what's missing</p>
+<p>Because the future of AI won't be built in isolation.</p>
+<p>It will be built on <strong>shared, standardized capabilities</strong>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="-final-thought">💬 Final Thought<a href="https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt#-final-thought" class="hash-link" aria-label="Direct link to 💬 Final Thought" title="Direct link to 💬 Final Thought" translate="no">​</a></h2>
+<p>We've spent years building APIs for humans.</p>
+<p>Now we're finally building them for agents.</p>
+<p>And this time...</p>
+<p>We're doing it right.</p>
+<p>Be HAPI and Go Rebels! ✊🏽</p>]]></content>
+        <author>
+            <name>Adrian Escutia</name>
+            <uri>https://adrian.escutia.me</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[AI Cost Optimization: Lessons from Database Applied]]></title>
         <id>https://mcp.com.ai/cost-optimization/lessons-from-database-applied-to-ai</id>
@@ -3800,75 +3988,5 @@ It's a <strong>bridge between AI intent and deterministic execution</strong>.</p
         <category label="LLM" term="LLM"/>
         <category label="Guide" term="Guide"/>
         <category label="AI Integration" term="AI Integration"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Composable Architectures and the Future of AI Integration: Why MCP Is the Missing Link]]></title>
-        <id>https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration</id>
-        <link href="https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration"/>
-        <updated>2025-11-01T15:05:34.000Z</updated>
-        <summary type="html"><![CDATA[Instead of rebuilding APIs, learn how composable architectures and MCP Gateways help enterprises move from API-First to AI-First.]]></summary>
-        <content type="html"><![CDATA[<p>For years, <strong>OpenAPI (OAS)</strong> has been the cornerstone of how we describe, document, and integrate APIs. It standardized how systems talk to each other — and in many ways, it made the modern internet possible.</p>
-<p>So when the <strong>Model Context Protocol (MCP)</strong> appeared, some developers were skeptical.
-"Another spec?" they asked. "Why do we need this when we already have OAS?"</p>
-<p>That skepticism was fair — until people started to realize <strong>what MCP actually unlocks</strong>:
-👉 <strong>Tool discovery for Large Language Models (LLMs)</strong>.</p>
-<p>This is the real spark — the value proposition that gave MCP its traction. It's not just another API spec; it's the bridge between traditional APIs and the AI agents that can use them.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-re-invent-when-you-can-re-compose">Why Re-Invent When You Can Re-Compose?<a href="https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration#why-re-invent-when-you-can-re-compose" class="hash-link" aria-label="Direct link to Why Re-Invent When You Can Re-Compose?" title="Direct link to Why Re-Invent When You Can Re-Compose?" translate="no">​</a></h3>
-<p>Many enterprises today already have a vast API ecosystem — especially in industries like <strong>telecommunications</strong>, <strong>finance</strong>, or <strong>healthcare</strong>.
-Hundreds of services, standardized and custom, all tested, audited, and certified.</p>
-<p>So when these organizations hear about "MCP servers," it's natural to worry that they'll need to rebuild everything. But here's the truth:</p>
-<blockquote>
-<p><strong>You don't need to re-implement your APIs as MCP servers. You just need to make them discoverable.</strong></p>
-</blockquote>
-<p>That's where the <strong>MCP Gateway</strong> comes in.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-role-of-the-mcp-gateway">The Role of the MCP Gateway<a href="https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration#the-role-of-the-mcp-gateway" class="hash-link" aria-label="Direct link to The Role of the MCP Gateway" title="Direct link to The Role of the MCP Gateway" translate="no">​</a></h3>
-<p>Think of an MCP Gateway as a <strong>translator and orchestrator</strong> between your existing APIs and AI-driven agents.</p>
-<ul>
-<li class="">It receives MCP requests from LLMs.</li>
-<li class="">It routes them to your existing APIs.</li>
-<li class="">It transforms the responses back into MCP format.</li>
-</ul>
-<p>No reinvention. No duplicate logic. Just a smarter bridge between systems.</p>
-<p>And because it sits at the intersection of APIs and AI, the MCP Gateway can handle the enterprise-grade essentials too —
-✅ Authentication &amp; authorization
-✅ Rate limiting
-✅ Logging &amp; observability
-✅ Policy enforcement &amp; compliance</p>
-<p>It's the perfect layer to keep everything <strong>secure, compliant, and manageable</strong> while opening the door to AI-powered integration.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="composable-architectures-the-future-of-integration">Composable Architectures: The Future of Integration<a href="https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration#composable-architectures-the-future-of-integration" class="hash-link" aria-label="Direct link to Composable Architectures: The Future of Integration" title="Direct link to Composable Architectures: The Future of Integration" translate="no">​</a></h3>
-<p>We've moved from monoliths to microservices, and now from <strong>API-First to AI-First</strong>.
-The next evolution is <strong>composability</strong> — the ability to assemble, re-use, and extend existing systems dynamically.</p>
-<p>MCP Gateways embody this principle.
-They empower teams to:</p>
-<ul>
-<li class="">Reuse what already works.</li>
-<li class="">Expose APIs as AI-ready tools.</li>
-<li class="">Integrate with LLMs and agents seamlessly.</li>
-<li class="">Accelerate innovation instead of rewriting history.</li>
-</ul>
-<p>Enterprises can finally focus on <strong>intent matching</strong> — connecting what an AI agent <em>wants to do</em> with the right existing service, without reinventing the wheel.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-mindset-shift">The Mindset Shift<a href="https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration#the-mindset-shift" class="hash-link" aria-label="Direct link to The Mindset Shift" title="Direct link to The Mindset Shift" translate="no">​</a></h3>
-<p>Adopting MCP isn't just a technical change — it's a cultural one.
-It's about moving from building APIs <em>for humans to consume</em> to building systems that <em>AI can understand and compose</em>.</p>
-<p>It's about trust — trusting that your existing architecture already has value, and that the future doesn't require you to start over, but to <strong>connect smarter</strong>.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="final-thought">Final Thought<a href="https://mcp.com.ai/composable-architectures-and-the-future-of-ai-integration#final-thought" class="hash-link" aria-label="Direct link to Final Thought" title="Direct link to Final Thought" translate="no">​</a></h3>
-<p><strong>Composable, AI-ready architectures are the future of integration.</strong>
-MCP Gateways are the missing link — enabling enterprises to evolve from <em>API-First</em> to <em>AI-First</em> without disruption.</p>
-<p>Because innovation shouldn't mean rebuilding everything.
-It should mean <strong>unlocking what you already have</strong> — and letting intelligence flow through it.</p>]]></content>
-        <author>
-            <name>Adrian Escutia</name>
-            <uri>https://adrian.escutia.me</uri>
-        </author>
-        <category label="MCP" term="MCP"/>
-        <category label="AI Integration" term="AI Integration"/>
-        <category label="LLM" term="LLM"/>
-        <category label="API" term="API"/>
-        <category label="MCP Gateway" term="MCP Gateway"/>
     </entry>
 </feed>
