@@ -105,10 +105,18 @@ const config: Config = {
         { to: '/', label: 'Home', position: 'left' },
         { to: '/archive', label: 'Blog', position: 'left' },
         { href: 'https://docs.mcp.com.ai', label: 'Docs', position: 'left' },
-        { href: 'https://hapi.mcp.com.ai', label: 'HAPI Server', position: 'left' },
-        { href: 'https://run.mcp.com.ai', label: 'Run MCP', position: 'left' },
-        { href: 'https://qbot.mcp.com.ai', label: 'QBot', position: 'left' },
-        { href: 'https://go.mcp.com.ai/demo-request', label: 'Request Demo', position: 'right' },
+        { type: 'dropdown',
+          label: 'Products',
+          position: 'left',
+          items: [
+            { href: 'https://hapi.mcp.com.ai', label: 'HAPI Server' },
+            { href: 'https://run.mcp.com.ai', label: 'Run MCP' },
+            { href: 'https://qbot.mcp.com.ai', label: 'QBot' },
+          ],
+        },
+        { href: '/get-my-mcp', label: 'Get My MCP', position: 'right' },
+        { href: '/get-the-news', label: 'Get The News', position: 'right' },
+        { href: '/request-demo', label: 'Request Demo', position: 'right' },
         { href: 'https://github.com/la-rebelion/hapimcp', label: 'GitHub', position: 'right' },
       ],
     },
@@ -122,7 +130,9 @@ const config: Config = {
             { label: 'HAPI Server', href: 'https://hapi.mcp.com.ai/' },
             { label: 'Run MCP', href: 'https://run.mcp.com.ai/' },
             { label: 'QBot', href: 'https://qbot.mcp.com.ai/' },
-            { label: 'Request Demo', href: 'https://go.mcp.com.ai/demo-request' },
+            { label: 'Get The News', href: '/get-the-news' },
+            { label: 'Request Demo', href: '/request-demo' },
+            { label: 'We build your MCP', href: '/get-my-mcp' },
           ],
         },
         {
@@ -154,6 +164,26 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    algolia: {
+      // The application ID provided by Algolia
+      appId: 'IWEZFBB82X',
+      // Public API key: it is safe to commit it
+      apiKey: '19cbd092be35d848a2645241f4538018',
+      indexName: 'HAPI MCP Blog',
+      // Optional: see doc section below
+      contextualSearch: true,
+      // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+      externalUrlRegex: 'clawster\\.my|rebelion\\.la',
+      // Optional: Algolia search parameters
+      searchParameters: {},
+      // Optional: path for search page that enabled by default (`false` to disable it)
+      searchPagePath: 'search',
+      // Optional: whether the insights feature is enabled or not on Docsearch (`false` by default)
+      insights: false,
+      // Optional: whether you want to use the new Ask AI feature (undefined by default)
+      askAi: 'YOUR_ALGOLIA_ASK_AI_ASSISTANT_ID',
+      //... other Algolia params
     },
   } satisfies Preset.ThemeConfig,
   scripts: [

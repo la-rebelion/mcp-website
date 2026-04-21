@@ -146,7 +146,7 @@ function NewsletterAndDemo() {
           <div className="col col--6">
             <div className="mcpPanel">
               <h3>Get the HAPI MCP Briefing</h3>
-              <p>Monthly, tactical updates on MCP, OpenAPI-first patterns, and how teams ship AI without rewrites.</p>
+              <p>Tactical updates on MCP, OpenAPI-first patterns, and how teams ship AI without rewrites.</p>
               {subscribed ? (
                 <p className="mcpSuccess">Thanks! Check your inbox to confirm.</p>
               ) : (

@@ -31,7 +31,7 @@ To teams building **dynamic SQL queries** like this:
 ```sql
 SELECT * FROM users WHERE name = 'Adrian'
 ```
-
+  
 But instead of using parameters, they would literally **inject values into strings**:
 
 ```sql

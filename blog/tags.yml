@@ -152,3 +152,9 @@ cost-optimization:
   permalink: /cost-optimization
   description: >
     Cost Optimization involves strategies and techniques to reduce expenses while maintaining or improving performance and efficiency, particularly in the context of AI development and deployment.
+
+testing:
+  label: Testing
+  permalink: /testing
+  description: >
+    Testing MCPs is the process of evaluating the functionality, performance, and security of Model Context Protocol implementations to ensure they meet specified requirements and standards.
