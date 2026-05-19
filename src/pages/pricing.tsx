@@ -206,10 +206,201 @@ const addons = [
   },
 ];
 
-// ─── OEM Modal ────────────────────────────────────────────────────────────────
-// @note: This form is structured as static HTML for HubSpot compliance
-// We use inline preventDefault in the form element to avoid navigation while allowing HubSpot to track
+// ─── Shared modal helpers ─────────────────────────────────────────────────────
+// @note: All forms are structured as static HTML for HubSpot compliance
+// We use inline preventDefault to avoid navigation while allowing HubSpot to track
 // See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
+
+function ModalThanks({ message }: { message: string }) {
+  return (
+    <div className="mcpExitThanks">
+      <CheckCircle style={{ width: 40, height: 40, color: 'var(--brand-primary)', margin: '0 auto 0.75rem', display: 'block' }} />
+      <h3>Request received!</h3>
+      <p>{message}</p>
+    </div>
+  );
+}
+
+function useModalForm(onClose: () => void) {
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) { onClose(); setSubmitted(false); setErrors({}); }
+  };
+  return { submitted, setSubmitted, errors, setErrors, handleOpenChange };
+}
+
+function validateBase(d: FormData): Record<string, string> {
+  const next: Record<string, string> = {};
+  const email = String(d.get('email') || '').trim();
+  if (!email) next.email = 'Email is required.';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = 'Enter a valid email.';
+  if (!String(d.get('firstname') || '').trim()) next.firstname = 'Name is required.';
+  return next;
+}
+
+// ─── Contact Sales Modal ──────────────────────────────────────────────────────
+
+function ContactSalesModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { submitted, setSubmitted, errors, setErrors, handleOpenChange } = useModalForm(onClose);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const found = validateBase(new FormData(e.currentTarget));
+    if (Object.keys(found).length > 0) { setErrors(found); return false; }
+    setErrors({});
+    setSubmitted(true);
+    return false;
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className={clsx('mcpExit', 'mcpOemModal')}>
+        <DialogHeader>
+          <DialogTitle className="mcpExitTitle">Contact Sales — Enterprise</DialogTitle>
+          <DialogDescription className="mcpExitLead">
+            Tell us about your organization and we'll reach out within 1 business day.
+          </DialogDescription>
+        </DialogHeader>
+
+        {submitted ? (
+          <ModalThanks message="Our enterprise team will reach out within 1 business day with a tailored proposal." />
+        ) : (
+          <form method="POST" action="#" onSubmit={handleSubmit} noValidate className="mcpExitForm">
+            <div className="mcpOemGrid" style={{ marginBottom: '0.6rem' }}>
+              <div>
+                <label htmlFor="cs-firstname" className="mcpLabel">Your Name *</label>
+                <input id="cs-firstname" name="firstname" type="text" placeholder="Full name"
+                  className={`mcpExitInput${errors.firstname ? ' is-invalid' : ''}`} />
+                {errors.firstname && <div className="mcpFieldError">{errors.firstname}</div>}
+              </div>
+              <div>
+                <label htmlFor="cs-email" className="mcpLabel">Work Email *</label>
+                <input id="cs-email" name="email" type="email" placeholder="you@company.com"
+                  className={`mcpExitInput${errors.email ? ' is-invalid' : ''}`} />
+                {errors.email && <div className="mcpFieldError">{errors.email}</div>}
+              </div>
+            </div>
+
+            <div className="mcpOemGrid" style={{ marginBottom: '0.6rem' }}>
+              <div>
+                <label htmlFor="cs-company" className="mcpLabel">Company</label>
+                <input id="cs-company" name="company" type="text" placeholder="Your company" className="mcpExitInput" />
+              </div>
+              <div>
+                <label htmlFor="cs-jobtitle" className="mcpLabel">Role / Title</label>
+                <input id="cs-jobtitle" name="jobtitle" type="text" placeholder="e.g., CTO, VP Engineering" className="mcpExitInput" />
+              </div>
+            </div>
+
+            <div className="mcpOemGrid" style={{ marginBottom: '0.6rem' }}>
+              <div>
+                <label htmlFor="cs-teamsize" className="mcpLabel">Engineering team size</label>
+                <select id="cs-teamsize" name="numemployees" className="mcpExitInput" defaultValue="" style={{ cursor: 'pointer' }}>
+                  <option value="" disabled>Select…</option>
+                  <option value="1-10">1 – 10</option>
+                  <option value="11-50">11 – 50</option>
+                  <option value="51-200">51 – 200</option>
+                  <option value="201+">201+</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="cs-deployment" className="mcpLabel">Deployment preference</label>
+                <select id="cs-deployment" name="deployment" className="mcpExitInput" defaultValue="" style={{ cursor: 'pointer' }}>
+                  <option value="" disabled>Select…</option>
+                  <option value="cloud">Cloud (managed)</option>
+                  <option value="onprem">On-premises / air-gap</option>
+                  <option value="hybrid">Hybrid</option>
+                  <option value="unsure">Not sure yet</option>
+                </select>
+              </div>
+            </div>
+
+            <label htmlFor="cs-usecase" className="mcpLabel">Use case &amp; requirements</label>
+            <textarea id="cs-usecase" name="message"
+              placeholder="Describe your use case, number of APIs, compliance requirements, or anything else we should know…"
+              className="mcpExitInput"
+              style={{ minHeight: 80, resize: 'vertical', marginBottom: '0.75rem' }} />
+
+            <div className="mcpExitActions">
+              <button type="button" className="mcpExitBtnGhost" onClick={onClose}>Cancel</button>
+              <input type="submit" value="Contact Sales" className="mcpExitBtnPrimary" />
+            </div>
+          </form>
+        )}
+
+        <p className="mcpExitFooter">No spam. We use this only to prepare for your conversation.</p>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ─── Lifetime Access Modal ────────────────────────────────────────────────────
+
+function LifetimeModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { submitted, setSubmitted, errors, setErrors, handleOpenChange } = useModalForm(onClose);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const found = validateBase(new FormData(e.currentTarget));
+    if (Object.keys(found).length > 0) { setErrors(found); return false; }
+    setErrors({});
+    setSubmitted(true);
+    return false;
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className={clsx('mcpExit', 'mcpOemModal')}>
+        <DialogHeader>
+          <DialogTitle className="mcpExitTitle">Get Lifetime Access</DialogTitle>
+          <DialogDescription className="mcpExitLead">
+            One-time payment. All Pro features. Forever. Limited to 100 seats.
+          </DialogDescription>
+        </DialogHeader>
+
+        {submitted ? (
+          <ModalThanks message="We'll send payment instructions and onboarding details to your inbox within 24 hours." />
+        ) : (
+          <form method="POST" action="#" onSubmit={handleSubmit} noValidate className="mcpExitForm">
+            <div className="mcpOemGrid" style={{ marginBottom: '0.6rem' }}>
+              <div>
+                <label htmlFor="lt-firstname" className="mcpLabel">Your Name *</label>
+                <input id="lt-firstname" name="firstname" type="text" placeholder="Full name"
+                  className={`mcpExitInput${errors.firstname ? ' is-invalid' : ''}`} />
+                {errors.firstname && <div className="mcpFieldError">{errors.firstname}</div>}
+              </div>
+              <div>
+                <label htmlFor="lt-email" className="mcpLabel">Email *</label>
+                <input id="lt-email" name="email" type="email" placeholder="you@company.com"
+                  className={`mcpExitInput${errors.email ? ' is-invalid' : ''}`} />
+                {errors.email && <div className="mcpFieldError">{errors.email}</div>}
+              </div>
+            </div>
+
+            <label htmlFor="lt-usecase" className="mcpLabel">
+              How do you plan to use HAPI MCP?
+              <span style={{ fontWeight: 400, color: 'var(--ifm-color-emphasis-600)', marginLeft: '0.4rem', fontSize: '0.8rem' }}>optional</span>
+            </label>
+            <textarea id="lt-usecase" name="message"
+              placeholder={'e.g. "We have 5 internal APIs and want to expose them as MCP tools to our team\'s Claude setup."'}
+              className="mcpExitInput"
+              style={{ minHeight: 72, resize: 'vertical', marginBottom: '0.75rem' }} />
+
+            <div className="mcpExitActions">
+              <button type="button" className="mcpExitBtnGhost" onClick={onClose}>Cancel</button>
+              <input type="submit" value="Reserve My Seat →" className="mcpExitBtnPrimary" />
+            </div>
+          </form>
+        )}
+
+        <p className="mcpExitFooter">$499 one-time. We'll send an invoice to your email. No spam.</p>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ─── OEM Modal ────────────────────────────────────────────────────────────────
 
 function OemModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
@@ -339,7 +530,7 @@ function OemModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 // ─── Components ───────────────────────────────────────────────────────────────
 
-function PricingCard({ tier }: { tier: PricingTier }) {
+function PricingCard({ tier, onCta }: { tier: PricingTier; onCta?: () => void }) {
   return (
     <div className={clsx(
       'mcpPricingCard',
@@ -377,15 +568,27 @@ function PricingCard({ tier }: { tier: PricingTier }) {
         ))}
       </ul>
 
-      <Link
-        className={clsx(
-          'button', 'button--lg',
-          tier.popular ? 'button--primary' : tier.oss ? 'mcpBtnOutline' : 'mcpBtnSecondary',
-        )}
-        href={tier.ctaLink}
-      >
-        {tier.cta}
-      </Link>
+      {onCta ? (
+        <button
+          className={clsx(
+            'button', 'button--lg',
+            tier.popular ? 'button--primary' : 'mcpBtnSecondary',
+          )}
+          onClick={onCta}
+        >
+          {tier.cta}
+        </button>
+      ) : (
+        <Link
+          className={clsx(
+            'button', 'button--lg',
+            tier.popular ? 'button--primary' : tier.oss ? 'mcpBtnOutline' : 'mcpBtnSecondary',
+          )}
+          href={tier.ctaLink}
+        >
+          {tier.cta}
+        </Link>
+      )}
     </div>
   );
 }
@@ -393,9 +596,11 @@ function PricingCard({ tier }: { tier: PricingTier }) {
 function AddonCard({
   addon,
   onApply,
+  onLifetime,
 }: {
   addon: typeof addons[0];
   onApply?: () => void;
+  onLifetime?: () => void;
 }) {
   return (
     <div className={clsx('mcpAddonCard', addon.id === 'oem' && 'mcpAddonCard--oem')}>
@@ -406,7 +611,7 @@ function AddonCard({
       <ul className="mcpAddonFeatures">
         {addon.features.map((f, idx) => <li key={idx}>{f}</li>)}
       </ul>
-      {addon.id === 'oem' && onApply ? (
+      {addon.id === 'oem' ? (
         <button
           className="button button--lg mcpBtnSecondary mcpAddonApplyBtn"
           onClick={onApply}
@@ -414,12 +619,12 @@ function AddonCard({
           Apply Now →
         </button>
       ) : (
-        <Link
+        <button
           className="button button--lg mcpBtnOutline mcpAddonApplyBtn"
-          href="mailto:sales@mcp.com.ai?subject=Lifetime%20Access"
+          onClick={onLifetime}
         >
           Get Lifetime Access
-        </Link>
+        </button>
       )}
     </div>
   );
@@ -612,6 +817,8 @@ function FAQ() {
 
 export default function Pricing(): ReactNode {
   const [oemModalOpen, setOemModalOpen] = useState(false);
+  const [salesModalOpen, setSalesModalOpen] = useState(false);
+  const [lifetimeModalOpen, setLifetimeModalOpen] = useState(false);
 
   return (
     <Layout
@@ -624,6 +831,8 @@ export default function Pricing(): ReactNode {
       </Head>
 
       <OemModal open={oemModalOpen} onClose={() => setOemModalOpen(false)} />
+      <ContactSalesModal open={salesModalOpen} onClose={() => setSalesModalOpen(false)} />
+      <LifetimeModal open={lifetimeModalOpen} onClose={() => setLifetimeModalOpen(false)} />
 
       {/* ── Hero ── */}
       <section className="mcpHero">
@@ -683,7 +892,11 @@ export default function Pricing(): ReactNode {
         <div className="container">
           <div className="mcpPricingGrid">
             {tiers.map((tier) => (
-              <PricingCard key={tier.name} tier={tier} />
+              <PricingCard
+                key={tier.name}
+                tier={tier}
+                onCta={tier.name === 'Enterprise' ? () => setSalesModalOpen(true) : undefined}
+              />
             ))}
           </div>
           <p className="mcpSoftLimitsNote">
@@ -707,6 +920,7 @@ export default function Pricing(): ReactNode {
                 key={addon.id}
                 addon={addon}
                 onApply={addon.id === 'oem' ? () => setOemModalOpen(true) : undefined}
+                onLifetime={addon.id === 'lifetime' ? () => setLifetimeModalOpen(true) : undefined}
               />
             ))}
           </div>
