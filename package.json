@@ -6,6 +6,7 @@
   "author": {
     "name": "Adrian Escutia"
   },
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",

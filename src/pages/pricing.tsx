@@ -1,6 +1,3 @@
-/**
- * Pricing page for HAPI MCP Stack — Open Source edition.
- */
 import React, { useState, type ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -42,38 +39,56 @@ interface PricingFaq {
 
 const tiers: PricingTier[] = [
   {
-    name: "Free Forever",
-    tagline: "Open source. No strings attached.",
+    name: "Free Community",
+    tagline: "Join the community. Read the source. Self-host within limits.",
     price: "$0",
     period: "forever",
-    description: "The full OSS core — self-host unlimited MCP servers or use our managed cloud for personal projects.",
+    description: "Free community membership unlocks source access under LRL-CL. Self-host the runtime on your own infrastructure within the community thresholds.",
     icon: "💚",
     oss: true,
-    badge: "Open Source",
+    badge: "Community Tier",
     features: [
-      "MIT-licensed core — fork & self-host free",
-      "Self-host unlimited MCP servers",
-      "OpenAPI → MCP conversion",
-      "Auto-generated connectors",
-      "Deploy to Cloudflare Workers",
-      "Up to 3 managed MCP servers (cloud)",
-      "Community support",
+      "LRL-CL source access (private repo, members-only)",
+      "Self-host free under the community thresholds*",
+      "OpenAPI → MCP conversion (self-hosted)",
+      "Community forum support",
     ],
-    cta: "Get the Source",
-    ctaLink: "https://github.com/la-rebelion/hapi-mcp",
+    cta: "Join the Community",
+    // ctaLink: "https://run.mcp.com.ai/signup",
+    ctaLink: "https://rebelion.la/subscribe?utm_source=mcp_website&utm_medium=pricing&utm_campaign=free-community",
+  },
+  {
+    name: "Starter",
+    tagline: "Try the managed service. Ship your first MCP in minutes.",
+    price: "$9",
+    period: "per month",
+    description: "Managed cloud essentials for early adopters validating the workflow. Stand up a few MCP servers without touching infrastructure.",
+    icon: "🚀",
+    badge: "Early Adopter",
+    features: [
+      "Everything in Free Community, plus:",
+      "Auto-generated connectors",
+      "Deploy to Cloudflare Workers (managed)",
+      "Up to 3 managed MCP servers (cloud)",
+      "Email support",
+      "1-click deployment",
+    ],
+    cta: "Start for $9/mo",
+    // ctaLink: "https://run.mcp.com.ai/signup?plan=starter",
+    ctaLink: "https://run.mcp.com.ai?utm_source=website&utm_medium=pricing&utm_campaign=starter",
   },
   {
     name: "Pro",
     tagline: "For teams shipping at scale",
     price: "$199",
     period: "per month",
-    description: "Unlimited MCP servers with soft limits. Auth, observability, and priority support.",
+    description: "Unlimited managed MCP servers with soft limits. Auth, observability, and priority support — all under one subscription.",
     icon: "⚡",
     popular: true,
     badge: "Most Popular",
     features: [
+      "Everything in Starter, plus:",
       "Unlimited MCP servers (soft limits)",
-      "Everything in Free, plus:",
       "OIDC + OAuth (Auth0, Keycloak)",
       "Built-in observability dashboard",
       "Real-time API synchronization",
@@ -82,17 +97,18 @@ const tiers: PricingTier[] = [
       "99.9% uptime SLA",
     ],
     cta: "Start Free Trial",
-    ctaLink: "https://run.mcp.com.ai/signup",
+    ctaLink: "https://run.mcp.com.ai?utm_source=website&utm_medium=pricing&utm_campaign=pro",
   },
   {
     name: "Enterprise",
     tagline: "For organizations at scale",
     price: "From $12,000",
     period: "per year",
-    description: "Air-gap deployments, multi-tenant gateways, advanced RBAC, and white-glove support.",
+    description: "Commercial license, air-gap deployments, multi-tenant gateways, advanced RBAC, and white-glove support.",
     icon: "🏢",
     features: [
       "Everything in Pro, plus:",
+      "Commercial license — usage above LRL-CL thresholds",
       "On-premise & air-gap deployment",
       "Multi-tenant MCP gateway",
       "Enterprise SSO (SAML, OIDC) — add-on",
@@ -127,7 +143,7 @@ const servicesTier: PricingTier = {
     "14 days – 12 weeks delivery",
   ],
   cta: "See the Pilot Accelerator →",
-  ctaLink: "https://mcp.com.ai/get-my-mcp",
+  ctaLink: "/pilot-accelerator",
 };
 
 const addons = [
@@ -162,9 +178,31 @@ const addons = [
 
 const pricingFaqs: PricingFaq[] = [
   {
-    question: "Is HAPI MCP really free and open source?",
-    answer: "Yes. The core is MIT-licensed. Free forever, fork it, self-host it. Paid plans are for the managed cloud service and enterprise features built on top.",
-    schemaAnswer: "Yes. The core is MIT-licensed. Free forever, fork it, self-host it. Paid plans are for the managed cloud service and enterprise features built on top.",
+    question: "Is HAPI MCP open source?",
+    answer: (
+      <>
+        HAPI MCP is <strong>source-available</strong>, not OSI-open-source. The source is licensed under the <Link href="https://rebelion.la/community-license-LRL-CL">La Rebelion Labs Community License (LRL-CL)</Link>. Free community members can read, modify, and self-host the code under the LRL-CL thresholds. Above those thresholds, a commercial license applies. We chose this model deliberately — it keeps the project accessible to individuals and small teams while protecting it from extractive use.
+      </>
+    ),
+    schemaAnswer: "HAPI MCP is source-available, not OSI-open-source. The source is licensed under the La Rebelion Labs Community License (LRL-CL). Free community members can read, modify, and self-host the code under the LRL-CL thresholds. Above those thresholds, a commercial license applies.",
+  },
+  {
+    question: "How do I access the HAPI MCP source code?",
+    answer: (
+      <>
+        Source access is gated by a free La Rebelion community membership. Sign up, get added to the private repository, and you can clone, read, and modify the source under the LRL-CL. We keep the repo private to validate the community model and prevent extractive use — not to hide what we're building.
+      </>
+    ),
+    schemaAnswer: "Source access is gated by a free La Rebelion community membership. Sign up, get added to the private repository, and you can clone, read, and modify the source under the LRL-CL.",
+  },
+  {
+    question: "What are the LRL-CL thresholds for free use?",
+    answer: (
+      <>
+        Free use is allowed if <em>all</em> of the following are true for your organization: fewer than 25 employees, fewer than 10 active agents or orchestrated workloads, fewer than 100,000 monthly requests/executions/workflows, and under $1M USD in annual revenue. Above any of those, or if you offer HAPI MCP as part of a hosted/managed service of your own, a commercial license applies. See the <Link href="https://rebelion.la/community-license-LRL-CL">full license text</Link>.
+      </>
+    ),
+    schemaAnswer: "Free use is allowed if your organization has fewer than 25 employees, fewer than 10 active agents, fewer than 100,000 monthly requests, and under $1M USD annual revenue. Above any of those, or if offered as a hosted service, a commercial license applies.",
   },
   {
     question: "What's the difference between Pro and Services?",
@@ -196,9 +234,13 @@ const pricingFaqs: PricingFaq[] = [
     schemaAnswer: "With managed cloud, your first MCP server is live in under 60 seconds. For more complex production-grade workflows, Services delivers a thin-slice implementation in as little as 14 days.",
   },
   {
-    question: "Can I self-host the Pro or Enterprise features for free?",
-    answer: "The OSS core is free forever. Advanced features like the observability dashboard, multi-tenant gateway, and on-premise or air-gap deployment are available in paid managed tiers or Enterprise licenses.",
-    schemaAnswer: "The OSS core is free forever. Advanced features like the observability dashboard, multi-tenant gateway, and on-premise or air-gap deployment are available in paid managed tiers or Enterprise licenses.",
+    question: "Can I self-host without a managed cloud subscription?",
+    answer: (
+      <>
+        Yes. Self-hosting is allowed under the LRL-CL within the community thresholds (under 25 employees, $1M revenue, 100K req/mo, 10 agents). You'll need a free community membership to access the source. Above the thresholds, a commercial license applies. Self-hosting is independent of any managed cloud subscription.
+      </>
+    ),
+    schemaAnswer: "Yes. Self-hosting is allowed under the LRL-CL within the community thresholds. A free community membership is required to access the source. Above the thresholds, a commercial license applies.",
   },
   {
     question: "Which AI clients can consume the tools?",
@@ -662,7 +704,6 @@ function AddonCard({
 function ComparisonTable() {
   const C = () => <span className="mcpComparisonCheckmark">✓</span>;
   const D = () => <span className="mcpComparisonDash">—</span>;
-  const O = () => <span className="mcpComparisonOss">OSS ∞</span>;
 
   return (
     <div className="mcpComparisonTable">
@@ -670,7 +711,8 @@ function ComparisonTable() {
         <thead>
           <tr>
             <th>Feature</th>
-            <th>Free Forever</th>
+            <th>Free Community</th>
+            <th>Starter</th>
             <th>Pro</th>
             <th>Enterprise</th>
             <th>Services</th>
@@ -678,21 +720,32 @@ function ComparisonTable() {
         </thead>
         <tbody>
           <tr>
-            <td>Self-host (OSS core)</td>
-            <td><O /></td>
-            <td><O /></td>
-            <td><O /></td>
-            <td>OSS ∞ (used in delivery)</td>
+            <td>LRL-CL source access</td>
+            <td>Members-only repo</td>
+            <td>Members-only repo</td>
+            <td>Members-only repo</td>
+            <td>Members-only repo + commercial license</td>
+            <td>Used in delivery</td>
+          </tr>
+          <tr>
+            <td>Self-host under LRL-CL thresholds*</td>
+            <td><C /></td>
+            <td><C /></td>
+            <td><C /></td>
+            <td><C /></td>
+            <td>By scope</td>
           </tr>
           <tr>
             <td>Managed MCP servers</td>
+            <td><D /></td>
             <td>Up to 3</td>
-            <td>Unlimited*</td>
+            <td>Unlimited**</td>
             <td>Unlimited</td>
             <td>1–10 (architect-built)</td>
           </tr>
           <tr>
             <td>OpenAPI → MCP Conversion</td>
+            <td>Self-hosted</td>
             <td><C /></td>
             <td><C /></td>
             <td><C /></td>
@@ -700,6 +753,15 @@ function ComparisonTable() {
           </tr>
           <tr>
             <td>Auto-generated connectors</td>
+            <td><D /></td>
+            <td><C /></td>
+            <td><C /></td>
+            <td><C /></td>
+            <td><C /></td>
+          </tr>
+          <tr>
+            <td>Deploy to Cloudflare Workers (managed)</td>
+            <td><D /></td>
             <td><C /></td>
             <td><C /></td>
             <td><C /></td>
@@ -708,6 +770,7 @@ function ComparisonTable() {
           <tr>
             <td>OIDC / OAuth</td>
             <td><D /></td>
+            <td><D /></td>
             <td><C /></td>
             <td><C /></td>
             <td>Configured for you</td>
@@ -715,12 +778,14 @@ function ComparisonTable() {
           <tr>
             <td>Observability dashboard</td>
             <td><D /></td>
+            <td><D /></td>
             <td><C /></td>
             <td><C /></td>
             <td>Custom dashboards</td>
           </tr>
           <tr>
             <td>Real-time API sync</td>
+            <td><D /></td>
             <td><D /></td>
             <td><C /></td>
             <td><C /></td>
@@ -730,11 +795,13 @@ function ComparisonTable() {
             <td>Multi-tenant gateway</td>
             <td><D /></td>
             <td><D /></td>
+            <td><D /></td>
             <td><C /></td>
             <td>By scope</td>
           </tr>
           <tr>
             <td>On-premise / air-gap</td>
+            <td><D /></td>
             <td><D /></td>
             <td><D /></td>
             <td><C /></td>
@@ -744,11 +811,21 @@ function ComparisonTable() {
             <td>Enterprise SSO (SAML)</td>
             <td><D /></td>
             <td><D /></td>
+            <td><D /></td>
             <td>Add-on</td>
             <td>Separate SOW</td>
           </tr>
           <tr>
+            <td>Commercial use above thresholds*</td>
+            <td><D /></td>
+            <td><D /></td>
+            <td><D /></td>
+            <td><C /></td>
+            <td>Included in engagement</td>
+          </tr>
+          <tr>
             <td>Governance + audit trail</td>
+            <td>Basic</td>
             <td>Basic</td>
             <td>Basic+</td>
             <td>Full</td>
@@ -759,17 +836,20 @@ function ComparisonTable() {
             <td><D /></td>
             <td><D /></td>
             <td><D /></td>
+            <td><D /></td>
             <td>14 days – 12 weeks</td>
           </tr>
           <tr>
             <td>Support</td>
-            <td>Community</td>
+            <td>Community forum</td>
+            <td>Email</td>
             <td>Priority email</td>
             <td>Dedicated CSM</td>
             <td>1-on-1 with MCP architects</td>
           </tr>
           <tr>
             <td>SLA</td>
+            <td><D /></td>
             <td><D /></td>
             <td>99.9%</td>
             <td>Custom</td>
@@ -830,8 +910,8 @@ export default function Pricing(): ReactNode {
 
   return (
     <Layout
-      title="Pricing — Free Forever, Open Source"
-      description="HAPI MCP is open source and free forever. Pay only for managed hosting, enterprise capabilities, or architect-led implementation when you actually need them.">
+      title="Pricing — Source-Available Community License"
+      description="HAPI MCP is source-available under the LRL-CL. Free for individuals and small teams within the community thresholds. Pay for managed cloud, enterprise capabilities, or architect-led implementation when scale calls for it.">
       <Head>
         <script type="application/ld+json">
           {JSON.stringify(pricingJsonLd)}
@@ -849,46 +929,47 @@ export default function Pricing(): ReactNode {
             <span className="mcpSectionBadge">Pricing</span>
             <h1 className="mcpHeroTitle">
               Simple Pricing.<br />
-              <strong>Free Forever, Open Source.</strong>
+              <strong>Free for the Community.</strong>
             </h1>
             <p className="mcpHeroSubtitle">
-              The core is <strong>MIT-licensed</strong> — fork it, self-host it, ship it.
-              Pay only for managed cloud, enterprise capabilities, or architect-led implementation when you actually need them.
+              HAPI MCP is <strong>source-available under the LRL-CL</strong> — free for individuals and small teams to read,
+              modify, and self-host within the community thresholds. Pay for managed cloud, enterprise capabilities,
+              or architect-led implementation only when your scale calls for it.
             </p>
             <div className="mcpOssStrip">
-              <span>🌟</span>
-              <span>Open Source on GitHub —</span>
-              <Link href="https://github.com/la-rebelion/hapi-mcp">la-rebelion/hapi-mcp</Link>
+              <span>🤝</span>
+              <span>Source-Available under</span>
+              <Link href="https://rebelion.la/community-license-LRL-CL">LRL-CL</Link>
               <span>·</span>
-              <code>MIT License</code>
+              <span>Join the community to access the source</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── OSS Pillars ── */}
+      {/* ── Community pillars ── */}
       <section className="mcpSection mcpSection--alt" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
         <div className="container">
           <div className="mcpOssPillars">
             <div className="mcpOssPillar">
-              <span className="mcpOssPillarIcon" aria-hidden>🍴</span>
+              <span className="mcpOssPillarIcon" aria-hidden>🔓</span>
               <div>
-                <h4>Fork It</h4>
-                <p>MIT licensed. Take the full source, modify it, and ship it inside your own stack.</p>
+                <h4>Read the Source</h4>
+                <p>Free community membership unlocks the private repository — read, learn, and modify the code under the LRL-CL.</p>
               </div>
             </div>
             <div className="mcpOssPillar">
               <span className="mcpOssPillarIcon" aria-hidden>🏠</span>
               <div>
-                <h4>Self-Host Free</h4>
-                <p>Run unlimited MCP servers on your own infrastructure — zero cost, zero lock-in.</p>
+                <h4>Self-Host Under LRL-CL</h4>
+                <p>Run unlimited MCP servers on your own infrastructure, free under the community thresholds — no lock-in.</p>
               </div>
             </div>
             <div className="mcpOssPillar">
               <span className="mcpOssPillarIcon" aria-hidden>🤝</span>
               <div>
-                <h4>Contribute</h4>
-                <p>Join the community, file issues, open PRs, and help shape the roadmap.</p>
+                <h4>Join the Community</h4>
+                <p>Help shape the roadmap, file issues, discuss patterns, and connect with engineers solving the same problems.</p>
               </div>
             </div>
           </div>
@@ -900,9 +981,9 @@ export default function Pricing(): ReactNode {
         <div className="container">
           <div className="mcpSectionHeader">
             <span className="mcpSectionBadge">Self-Serve Plans</span>
-            <h2 className="mcpSectionTitle">Run It Yourself, Then Scale on Demand</h2>
+            <h2 className="mcpSectionTitle">Start Free, Then Scale on Demand</h2>
             <p className="mcpSectionSubtitle">
-              Start with the OSS core, then upgrade to managed runtime and enterprise controls only when the workload justifies it.
+              Join the community for free source access. Upgrade to managed runtime and enterprise controls only when the workload justifies it.
             </p>
           </div>
           <div className="mcpPricingGrid">
@@ -916,7 +997,9 @@ export default function Pricing(): ReactNode {
           </div>
           <br/>
           <p className="mcpSoftLimitsNote">
-            * Soft limits: we won't cut your service without a conversation first.{' '}
+            * LRL-CL thresholds for free use: under 25 employees, 100K monthly requests, $1M revenue, and 10 active agents.
+            {' '}<Link href="https://rebelion.la/community-license-LRL-CL">Read the license ↗</Link>{' · '}
+            ** Soft limits: we won't cut your service without a conversation first.{' '}
             <Link href="#faq">Learn more ↓</Link>
           </p>
         </div>
@@ -941,7 +1024,7 @@ export default function Pricing(): ReactNode {
                 We design the workflow, build 1–10 MCP servers, install the governance gate, and hand the runbooks to your team. Best fit for enterprise buyers who want a fast, opinionated path to a working production slice.
               </p>
             </div>
-            <Link className="button button--primary button--lg" href="https://mcp.com.ai/get-my-mcp">
+            <Link className="button button--primary button--lg" href="/pilot-accelerator">
               See the Pilot Accelerator →
             </Link>
           </div>
@@ -998,7 +1081,9 @@ export default function Pricing(): ReactNode {
           <ComparisonTable />
           <br/>
           <p className="mcpSoftLimitsNote">
-            * Soft limits: we won't cut your service without a conversation first.{' '}
+            * LRL-CL thresholds for free use: under 25 employees, 100K monthly requests, $1M revenue, and 10 active agents.
+            {' '}<Link href="https://rebelion.la/community-license-LRL-CL">Read the license ↗</Link>{' · '}
+            ** Soft limits: we won't cut your service without a conversation first.{' '}
             <Link href="#faq">Learn more ↓</Link>
           </p>
         </div>
@@ -1014,15 +1099,15 @@ export default function Pricing(): ReactNode {
         <div className="container">
           <div className="mcpCtaBox">
             <h2>Ready to Make Your APIs AI-Ready?</h2>
-            <p>Open source at the core. Enterprise-grade when you need it. Architect-led when you want it done for you.</p>
+            <p>Source-available under LRL-CL. Enterprise-grade when you need it. Architect-led when you want it done for you.</p>
             <div className="mcpHeroCtas" style={{ justifyContent: 'center' }}>
-              <Link className="button button--primary button--lg" href="https://github.com/la-rebelion/hapi-mcp">
-                ⭐ Star on GitHub
+              <Link className="button button--primary button--lg" href="https://rebelion.la/subscribe?utm_source=mcp_website&utm_medium=pricing&utm_campaign=join_community">
+                🤝 Join the Community
               </Link>
               <Link className="button button--lg mcpBtnSecondary" href="https://go.mcp.com.ai/adrian-meet">
-                Book a Call with Adrian
+                Book a Call
               </Link>
-              <Link className="button button--lg mcpBtnOutline" href="https://mcp.com.ai/get-my-mcp">
+              <Link className="button button--lg mcpBtnOutline" href="/pilot-accelerator">
                 See the Pilot Accelerator
               </Link>
             </div>

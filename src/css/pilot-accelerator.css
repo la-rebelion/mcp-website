@@ -1,0 +1,598 @@
+/**
+ * Pilot Accelerator page — new class definitions
+ * Drop in at: src/css/pilot-accelerator.css
+ *
+ * Reuses existing tokens from pricing.css and the global theme. Only adds
+ * classes specific to the /pilot-accelerator page. Naming prefix: `pa*`.
+ *
+ * Design intent: enterprise-feeling, generous spacing, strong scannability,
+ * trust signals near every CTA. Optimized for the CIO/VP-Eng buyer who
+ * is forwarding this page internally to security and procurement.
+ */
+
+/* ─── Hero ────────────────────────────────────────────────────────────────── */
+
+.paHero {
+  /* slightly tighter than the pricing hero so the trust strip sits closer */
+  padding-bottom: 2rem;
+}
+
+.paHeroCtas {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.paHeroTrust {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.paHeroTrust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.paHeroTrust a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Problem grid ────────────────────────────────────────────────────────── */
+
+.paProblemGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.paProblemCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.paProblemCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.paProblemIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(218, 119, 86, 0.12);
+  color: var(--brand-primary, #DA7756);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.paProblemTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.paProblemBody {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ─── Differentiators ─────────────────────────────────────────────────────── */
+
+.paDiffGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.paDiffCard {
+  padding: 1.25rem 1.25rem 1.25rem 2rem;
+  position: relative;
+  border-left: 3px solid var(--brand-primary, #DA7756);
+  background: var(--ifm-background-surface-color);
+  border-radius: 4px 12px 12px 4px;
+}
+
+.paDiffMarker {
+  position: absolute;
+  left: -7px;
+  top: 1.25rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--brand-primary, #DA7756);
+}
+
+.paDiffCard h4 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.paDiffCard p {
+  margin: 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.92rem;
+}
+
+/* ─── Methodology timeline ────────────────────────────────────────────────── */
+
+.paMethodList {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.paMethodStep {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  align-items: start;
+}
+
+.paMethodNumber {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand-primary, #DA7756);
+  background: rgba(218, 119, 86, 0.1);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  letter-spacing: -0.03em;
+}
+
+.paMethodTitle {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.paMethodBody {
+  margin: 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+}
+
+/* ─── Deliverables ────────────────────────────────────────────────────────── */
+
+.paDeliverableGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.paDeliverableCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.paDeliverableIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(218, 119, 86, 0.12);
+  color: var(--brand-primary, #DA7756);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.paDeliverableTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.paDeliverableList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.paDeliverableList li {
+  font-size: 0.92rem;
+  display: flex;
+  gap: 0.5rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.paBonusBox {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    rgba(218, 119, 86, 0.08) 0%,
+    rgba(218, 119, 86, 0.02) 100%);
+  border: 1px dashed rgba(218, 119, 86, 0.35);
+}
+
+.paBonusBox h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  color: var(--brand-primary, #DA7756);
+}
+
+.paBonusBox ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.paBonusBox li {
+  font-size: 0.95rem;
+}
+
+/* ─── Tier cards ──────────────────────────────────────────────────────────── */
+
+.paTierGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.paTierCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 18px;
+  padding: 2rem 1.5rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.paTierCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+}
+
+.paTierCard--popular {
+  border-color: var(--brand-primary, #DA7756);
+  box-shadow: 0 12px 36px rgba(218, 119, 86, 0.18);
+  transform: translateY(-4px);
+}
+
+.paTierBadge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--brand-primary, #DA7756);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+}
+
+.paTierIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.paTierName {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0 0 0.25rem;
+}
+
+.paTierTagline {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.92rem;
+  margin: 0 0 1rem;
+}
+
+.paTierPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.paTierPriceAmount {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.paTierPriceMeta {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.paTierPriceStandard {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+}
+
+.paTierSpecs {
+  margin: 1rem 0 1.5rem;
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.paTierSpecs > div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  align-items: baseline;
+}
+
+.paTierSpecs dt {
+  color: var(--ifm-color-emphasis-600);
+  font-weight: 500;
+}
+
+.paTierSpecs dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.paTierCard .button {
+  margin-top: auto;
+}
+
+/* ─── Exclusions box ──────────────────────────────────────────────────────── */
+
+.paExclusionsBox {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.paExclusionsBox h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.paExclusionsBox ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.88rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+/* ─── Guarantee box ───────────────────────────────────────────────────────── */
+
+.paGuaranteeBox {
+  background: linear-gradient(135deg, #0B1220 0%, #1a2942 100%);
+  color: #fff;
+  border-radius: 22px;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.paGuaranteeIcon {
+  color: var(--brand-primary, #DA7756);
+  background: rgba(218, 119, 86, 0.2);
+  width: 90px;
+  height: 90px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paGuaranteeContent .mcpSectionBadge {
+  background: rgba(218, 119, 86, 0.18);
+  color: var(--brand-primary, #DA7756);
+}
+
+.paGuaranteeContent h2 {
+  margin: 0.5rem 0 1rem;
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.paGuaranteeContent p {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.paGuaranteeContent strong {
+  color: var(--brand-primary, #DA7756);
+}
+
+.paGuaranteeFine {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.85rem !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+@media (max-width: 700px) {
+  .paGuaranteeBox {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+}
+
+/* ─── Fit / Not fit ───────────────────────────────────────────────────────── */
+
+.paFitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.paFitCol {
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color);
+}
+
+.paFitCol h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.paFitCol--yes {
+  border-left: 4px solid #2ea44f;
+}
+
+.paFitCol--yes h3 {
+  color: #2ea44f;
+}
+
+.paFitCol--no {
+  border-left: 4px solid #d29922;
+}
+
+.paFitCol--no h3 {
+  color: #d29922;
+}
+
+.paFitCol ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.paFitCol li {
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+/* ─── Comparison table ───────────────────────────────────────────────────── */
+
+.paCompareTableWrap {
+  margin-top: 2rem;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.paCompareTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: var(--ifm-background-surface-color);
+}
+
+.paCompareTable thead th {
+  background: var(--ifm-color-emphasis-100);
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 2px solid var(--ifm-color-emphasis-300);
+}
+
+.paCompareTable tbody td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 0.92rem;
+  vertical-align: top;
+}
+
+.paCompareTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.paCompareRow--highlight {
+  background: linear-gradient(90deg,
+    rgba(218, 119, 86, 0.12) 0%,
+    rgba(218, 119, 86, 0.04) 100%);
+}
+
+.paCompareRow--highlight td {
+  font-weight: 600;
+}
+
+/* ─── Final CTA additions ─────────────────────────────────────────────────── */
+
+.paFinalNote {
+  margin-top: 1.5rem !important;
+  font-size: 0.85rem !important;
+  color: var(--ifm-color-emphasis-600) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* ─── Responsive tweaks ───────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .paMethodStep {
+    grid-template-columns: 56px 1fr;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+
+  .paMethodNumber {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+
+  .paTierSpecs > div {
+    grid-template-columns: 110px 1fr;
+  }
+
+  .paHeroTrust {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .paHeroTrust span:nth-of-type(2),
+  .paHeroTrust span:nth-of-type(4) {
+    display: none; /* hide separator bullets on mobile */
+  }
+}
