@@ -1,16 +1,3 @@
-/**
- * The AI Infrastructure Framework™ — Pilot Accelerator page
- * Route: /pilot-accelerator
- *
- * Companion CSS: src/css/pilot-accelerator.css (new file — see deployment notes)
- * Reuses many classes from src/css/pricing.css.
- *
- * Lead-capture flow:
- *   - Primary CTA → external scheduler at go.mcp.com.ai/adrian-meet
- *   - Secondary CTA → opens ProposalRequestModal → captures via HubSpot-style form
- *     → on submit, surface "Thanks" + a direct download link (replace stub with real PDF URL)
- */
-
 import React, { useState, type ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -233,7 +220,7 @@ const fitFor = [
 ];
 
 const notFitFor = [
-  "Pre-seed startups — use the open-source HAPI MCP and self-host for free.",
+  "Pre-seed startups — use the HAPI MCP and self-host for free.",
   "Teams that need full enterprise rollout in one engagement (the pilot is a starting point, not the rollout).",
   "Buyers seeking a 'compliance guarantee' — we reduce risk through controls, not promises.",
   "Teams whose primary need is SAML / Enterprise SSO integration — that's a separate, dedicated scope of work.",
@@ -598,7 +585,7 @@ export default function PilotAccelerator(): ReactNode {
               <span>·</span>
               <span>Beta: 5 logos cap · 3 active pilots / month</span>
               <span>·</span>
-              <span>Built on <Link href="https://github.com/la-rebelion/hapi-mcp">open-source HAPI MCP</Link></span>
+              <span>Built on <Link href="https://hapi.mcp.com.ai">HAPI MCP</Link></span>
             </div>
           </div>
         </div>
@@ -791,7 +778,7 @@ export default function PilotAccelerator(): ReactNode {
           <div className="mcpCtaBox">
             <h2>Ready to put one workflow into production?</h2>
             <p>
-              The conversation takes 20 minutes. Either we agree it's a fit and you have a clear path to a signed SOW within a week — or it isn't, and you walk away with an honest answer and a free pointer to the open-source HAPI MCP repo.
+              The conversation takes 20 minutes. Either we agree it's a fit and you have a clear path to a signed SOW within a week — or it isn't, and you walk away with an honest answer and a free pointer to the free HAPI MCP version if that's a better fit for your team. No hard feelings either way.
             </p>
             <div className="mcpHeroCtas" style={{ justifyContent: 'center' }}>
               <Link className="button button--primary button--lg" href="https://go.mcp.com.ai/adrian-meet">
