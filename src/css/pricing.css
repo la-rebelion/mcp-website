@@ -94,9 +94,11 @@
 /* ─── Pricing grid ─── */
 .mcpPricingGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
   align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 @media (max-width: 1100px) {
@@ -140,6 +142,16 @@
   box-shadow: 0 8px 28px -6px color-mix(in srgb, var(--brand-primary) 22%, transparent);
 }
 
+.mcpPricingCard--services {
+  border-color: color-mix(in srgb, var(--brand-secondary) 28%, transparent);
+  border-top: 3px solid var(--brand-secondary);
+}
+
+.mcpPricingCard--services:hover {
+  box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--brand-secondary) 24%, transparent);
+  border-color: color-mix(in srgb, var(--brand-secondary) 42%, transparent);
+}
+
 /* ─── Tier badges ─── */
 .mcpPricingBadge {
   display: inline-block;
@@ -161,6 +173,12 @@
   background: rgba(34, 197, 94, 0.12);
   color: #16a34a;
   border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.mcpPricingBadge--services {
+  background: color-mix(in srgb, var(--brand-secondary) 16%, transparent);
+  color: var(--brand-secondary);
+  border: 1px solid color-mix(in srgb, var(--brand-secondary) 35%, transparent);
 }
 
 [data-theme='dark'] .mcpPricingBadge--oss {
@@ -211,6 +229,9 @@
 }
 
 .mcpPricingCard--oss .mcpPricingAmount { color: #16a34a; }
+[data-theme='dark'] .mcpPricingCard--services .mcpPricingAmount { color: color-mix(in srgb, var(--brand-secondary) 85%, white); }
+[data-theme='light'] .mcpPricingCard--services .mcpPricingAmount,
+.mcpPricingCard--services .mcpPricingAmount { color: var(--brand-secondary); }
 [data-theme='dark'] .mcpPricingCard--oss .mcpPricingAmount { color: #4ade80; }
 
 .mcpPricingPeriod {
@@ -258,6 +279,8 @@
 }
 
 .mcpPricingCard--oss .mcpCheckmark { color: #16a34a; }
+[data-theme='light'] .mcpPricingCard--services .mcpCheckmark,
+.mcpPricingCard--services .mcpCheckmark { color: var(--brand-secondary); }
 [data-theme='dark'] .mcpPricingCard--oss .mcpCheckmark { color: #4ade80; }
 
 /* CTA button at the bottom of the card */
@@ -408,7 +431,8 @@
 /* ─── Comparison table ─── */
 .mcpComparisonTable {
   overflow-x: auto;
-  margin-top: 2rem;
+  max-width: 1100px;
+  margin: 2rem auto 0;
   border-radius: var(--radius-lg);
   border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 14%, transparent);
   overflow: hidden;
@@ -445,7 +469,7 @@
   border-bottom: 2px solid color-mix(in srgb, var(--brand-primary) 20%, transparent);
 }
 
-.mcpComparisonTable th:nth-child(4) {
+.mcpComparisonTable th:nth-child(3) {
   color: var(--brand-primary);
 }
 
@@ -455,7 +479,7 @@
 
 .mcpComparisonTable tbody tr:last-child td { border-bottom: none; }
 
-.mcpComparisonTable td:nth-child(4) {
+.mcpComparisonTable td:nth-child(3) {
   font-weight: 600;
   color: var(--brand-primary);
 }
@@ -464,6 +488,62 @@
 .mcpComparisonDash { color: var(--ifm-color-emphasis-400); }
 .mcpComparisonOss { color: #16a34a; font-weight: 700; }
 [data-theme='dark'] .mcpComparisonOss { color: #4ade80; }
+
+/* ─── Services banner ─── */
+.mcpServicesBanner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #0b1220 0%, #1a2942 100%);
+  color: #fff;
+}
+
+.mcpServicesBannerTag {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.28rem 0.8rem;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  color: color-mix(in srgb, var(--brand-primary) 78%, white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mcpServicesBannerTitle {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+  color: #fff;
+}
+
+.mcpServicesBannerDescription {
+  margin: 0;
+  max-width: 52rem;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.6;
+}
+
+.mcpServicesCardWrap {
+  max-width: 420px;
+  margin: 1.5rem auto 0;
+}
+
+@media (max-width: 760px) {
+  .mcpServicesBanner {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .mcpServicesBanner .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
 
 /* ─── CTA section ─── */
 .mcpSection--cta {

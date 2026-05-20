@@ -16,63 +16,6 @@ import {
 import { CheckCircle } from 'lucide-react';
 import '@site/src/css/pricing.css';
 
-// ─── JSON-LD ──────────────────────────────────────────────────────────────────
-
-const pricingJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is HAPI MCP really free and open source?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. The core HAPI MCP framework is MIT-licensed and free forever. Paid plans cover managed hosting, advanced auth, observability, and enterprise features on top of the OSS core."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What are 'soft limits' on the Pro plan?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Soft limits mean we won't hard-cut your service if you briefly exceed thresholds. We'll reach out to discuss usage before anything changes. Designed for teams that scale gradually."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to rewrite my services to use HAPI MCP?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. HAPI MCP lifts your existing OpenAPI specs directly into MCP tools. Your auth, validation, and business rules remain unchanged."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How quickly can I deploy an MCP server?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "With HAPI Starter, you can deploy your first MCP server in under 60 seconds. Upload your OpenAPI spec and we handle the rest."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in the Enterprise plan?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Enterprise includes on-premise deployment, air-gap bundles, multi-tenant gateway, SSO integration, dedicated support, and custom SLAs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I self-host HAPI MCP for free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolutely. The OSS core can be self-hosted indefinitely at zero cost. The Free managed tier is for those who want cloud hosting without the ops overhead."
-      }
-    }
-  ]
-};
-
 // ─── Types & data ─────────────────────────────────────────────────────────────
 
 interface PricingTier {
@@ -86,8 +29,15 @@ interface PricingTier {
   ctaLink: string;
   popular?: boolean;
   oss?: boolean;
+  services?: boolean;
   icon: string;
   badge?: string;
+}
+
+interface PricingFaq {
+  question: string;
+  answer: ReactNode;
+  schemaAnswer: string;
 }
 
 const tiers: PricingTier[] = [
@@ -104,33 +54,13 @@ const tiers: PricingTier[] = [
       "MIT-licensed core — fork & self-host free",
       "Self-host unlimited MCP servers",
       "OpenAPI → MCP conversion",
-      "Auto-generated connectors (WIP)",
+      "Auto-generated connectors",
       "Deploy to Cloudflare Workers",
+      "Up to 3 managed MCP servers (cloud)",
       "Community support",
     ],
     cta: "Get the Source",
     ctaLink: "https://github.com/la-rebelion/hapi-mcp",
-  },
-  {
-    name: "Starter",
-    tagline: "For indie devs & small teams",
-    price: "$99",
-    period: "one-time",
-    description: "Ship your first AI-ready API layer. Up to 10 MCP servers on managed cloud.",
-    icon: "🚀",
-    features: [
-      "Up to 10 MCP servers (managed)",
-      "Soft limits to grow at your pace",
-      "1-click deployment",
-      "Auto-generated ChatGPT connector",
-      "Basic auth (API keys)",
-      "Deploy to Cloudflare Workers",
-      "OpenAPI → MCP conversion",
-      "Community support",
-      "30-day money-back guarantee",
-    ],
-    cta: "Get Started",
-    ctaLink: "https://docs.mcp.com.ai/get-started",
   },
   {
     name: "Pro",
@@ -143,7 +73,7 @@ const tiers: PricingTier[] = [
     badge: "Most Popular",
     features: [
       "Unlimited MCP servers (soft limits)",
-      "Everything in Starter, plus:",
+      "Everything in Free, plus:",
       "OIDC + OAuth (Auth0, Keycloak)",
       "Built-in observability dashboard",
       "Real-time API synchronization",
@@ -157,14 +87,15 @@ const tiers: PricingTier[] = [
   {
     name: "Enterprise",
     tagline: "For organizations at scale",
-    price: "Custom",
-    description: "Air-gap deployments, SSO, multi-tenant gateways, and white-glove support.",
+    price: "From $12,000",
+    period: "per year",
+    description: "Air-gap deployments, multi-tenant gateways, advanced RBAC, and white-glove support.",
     icon: "🏢",
     features: [
       "Everything in Pro, plus:",
       "On-premise & air-gap deployment",
       "Multi-tenant MCP gateway",
-      "SSO (SAML, OIDC)",
+      "Enterprise SSO (SAML, OIDC) — add-on",
       "Advanced RBAC & policy enforcement",
       "Audit logs & compliance tooling",
       "Helm charts & Terraform modules",
@@ -176,18 +107,41 @@ const tiers: PricingTier[] = [
   },
 ];
 
+const servicesTier: PricingTier = {
+  name: "Services",
+  tagline: "Architect-led setup. Production-ready in weeks.",
+  price: "From $4,500",
+  period: "one-time engagement",
+  description: "Need someone to design the workflow, build the MCP servers, set up governance, and hand it to your team? The HAPI MCP Pilot Accelerator is the done-for-you path.",
+  icon: "🛠️",
+  services: true,
+  badge: "Architect-Led Services",
+  features: [
+    "Pilot Blueprint — workflow + ROI scoring",
+    "MCP Bridge Factory (1–10 MCP servers depending on tier)",
+    "Governance gate (OAuth/OIDC + least-privilege)",
+    "Audit & Ops Pack with runbooks",
+    "3 tiers: Thin-Slice / Standard / Enterprise",
+    "Ship-the-Foundation Guarantee",
+    "3×30×3 post-implementation support",
+    "14 days – 12 weeks delivery",
+  ],
+  cta: "See the Pilot Accelerator →",
+  ctaLink: "https://mcp.com.ai/get-my-mcp",
+};
+
 const addons = [
   {
     id: "lifetime",
     name: "Lifetime Access",
-    price: "$499",
-    description: "One-time payment for unlimited Pro features. No monthly fees — ever.",
+    price: "$1,499",
+    description: "One-time payment for unlimited Pro features. No monthly fees — ever. Less than 8 months of Pro, then it pays for itself.",
     icon: "♾️",
     features: [
       "All Pro features",
       "Lifetime updates",
       "No monthly fees",
-      "Limited to first 100 customers",
+      "Limited to first 25 customers",
     ],
   },
   {
@@ -205,6 +159,78 @@ const addons = [
     ],
   },
 ];
+
+const pricingFaqs: PricingFaq[] = [
+  {
+    question: "Is HAPI MCP really free and open source?",
+    answer: "Yes. The core is MIT-licensed. Free forever, fork it, self-host it. Paid plans are for the managed cloud service and enterprise features built on top.",
+    schemaAnswer: "Yes. The core is MIT-licensed. Free forever, fork it, self-host it. Paid plans are for the managed cloud service and enterprise features built on top.",
+  },
+  {
+    question: "What's the difference between Pro and Services?",
+    answer: (
+      <>
+        <strong>Pro</strong> gives you the runtime: unlimited managed MCP servers, OIDC/OAuth, observability, and an SLA. It fits teams that can design the workflow and configure governance themselves. <strong>Services</strong> is the HAPI MCP Pilot Accelerator: an architect-led engagement where we design the workflow, build the MCP servers, install the governance gate, and hand over runbooks so your team can operate it long-term.
+      </>
+    ),
+    schemaAnswer: "Pro gives you the runtime: unlimited managed MCP servers, OIDC/OAuth, observability, and an SLA. Services is the HAPI MCP Pilot Accelerator, an architect-led engagement where we design the workflow, build the MCP servers, install the governance gate, and hand over runbooks so your team can operate it long-term.",
+  },
+  {
+    question: "What are 'soft limits' on the Pro plan?",
+    answer: "Soft limits mean we won't hard-cut your service if you briefly exceed thresholds. We'll reach out and discuss usage before anything changes.",
+    schemaAnswer: "Soft limits mean we won't hard-cut your service if you briefly exceed thresholds. We'll reach out and discuss usage before anything changes.",
+  },
+  {
+    question: "Why isn't SAML SSO in Pro?",
+    answer: "SAML and enterprise SSO are IdP-specific and usually require coordination with security teams. It's available as an Enterprise add-on or through a scoped Services engagement, rather than being presented as a checkbox feature in Pro.",
+    schemaAnswer: "SAML and enterprise SSO are IdP-specific and usually require coordination with security teams. It's available as an Enterprise add-on or through a scoped Services engagement, rather than being presented as a checkbox feature in Pro.",
+  },
+  {
+    question: "Do I need to rewrite my services to use HAPI MCP?",
+    answer: "No. HAPI MCP lifts your existing OpenAPI specs directly into MCP tools. Your auth, validation, and business rules remain unchanged.",
+    schemaAnswer: "No. HAPI MCP lifts your existing OpenAPI specs directly into MCP tools. Your auth, validation, and business rules remain unchanged.",
+  },
+  {
+    question: "How quickly can I deploy an MCP server?",
+    answer: "With managed cloud, your first MCP server is live in under 60 seconds. For more complex production-grade workflows, Services delivers a thin-slice implementation in as little as 14 days.",
+    schemaAnswer: "With managed cloud, your first MCP server is live in under 60 seconds. For more complex production-grade workflows, Services delivers a thin-slice implementation in as little as 14 days.",
+  },
+  {
+    question: "Can I self-host the Pro or Enterprise features for free?",
+    answer: "The OSS core is free forever. Advanced features like the observability dashboard, multi-tenant gateway, and on-premise or air-gap deployment are available in paid managed tiers or Enterprise licenses.",
+    schemaAnswer: "The OSS core is free forever. Advanced features like the observability dashboard, multi-tenant gateway, and on-premise or air-gap deployment are available in paid managed tiers or Enterprise licenses.",
+  },
+  {
+    question: "Which AI clients can consume the tools?",
+    answer: "Any MCP client: ChatGPT, Claude, QBot, Agentico.dev, chatMCP, or your own custom orchestrators. HAPI MCP is vendor-neutral by design.",
+    schemaAnswer: "Any MCP client: ChatGPT, Claude, QBot, Agentico.dev, chatMCP, or your own custom orchestrators. HAPI MCP is vendor-neutral by design.",
+  },
+  {
+    question: "What happens if my API changes?",
+    answer: "Update your OpenAPI spec and HAPI automatically regenerates your MCP tools. Real-time sync is available on Pro and above.",
+    schemaAnswer: "Update your OpenAPI spec and HAPI automatically regenerates your MCP tools. Real-time sync is available on Pro and above.",
+  },
+  {
+    question: "What's the difference between Enterprise and Services?",
+    answer: "Enterprise is a product subscription for teams operating the platform themselves. Services is an engagement where we design and build the initial implementation for you. Many enterprise customers use Services to get to production faster, then run on Enterprise long-term.",
+    schemaAnswer: "Enterprise is a product subscription for teams operating the platform themselves. Services is an engagement where we design and build the initial implementation for you. Many enterprise customers use Services to get to production faster, then run on Enterprise long-term.",
+  },
+];
+
+// ─── JSON-LD ──────────────────────────────────────────────────────────────────
+
+const pricingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: pricingFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.schemaAnswer,
+    },
+  })),
+};
 
 // ─── Shared modal helpers ─────────────────────────────────────────────────────
 // @note: All forms are structured as static HTML for HubSpot compliance
@@ -259,12 +285,12 @@ function ContactSalesModal({ open, onClose }: { open: boolean; onClose: () => vo
         <DialogHeader>
           <DialogTitle className="mcpExitTitle">Contact Sales — Enterprise</DialogTitle>
           <DialogDescription className="mcpExitLead">
-            Tell us about your organization and we'll reach out within 1 business day.
+            Enterprise starts at $12,000/year. Tell us about your organization and we'll reach out within 1 business day.
           </DialogDescription>
         </DialogHeader>
 
         {submitted ? (
-          <ModalThanks message="Our enterprise team will reach out within 1 business day with a tailored proposal." />
+          <ModalThanks message="Our team will reach out within 1 business day with a tailored Enterprise or Enterprise + Services proposal." />
         ) : (
           <form method="POST" action="#" onSubmit={handleSubmit} noValidate className="mcpExitForm">
             <div className="mcpOemGrid" style={{ marginBottom: '0.6rem' }}>
@@ -355,7 +381,7 @@ function LifetimeModal({ open, onClose }: { open: boolean; onClose: () => void }
         <DialogHeader>
           <DialogTitle className="mcpExitTitle">Get Lifetime Access</DialogTitle>
           <DialogDescription className="mcpExitLead">
-            One-time payment. All Pro features. Forever. Limited to 100 seats.
+            One-time payment. All Pro features. Forever. Limited to 25 seats.
           </DialogDescription>
         </DialogHeader>
 
@@ -394,7 +420,7 @@ function LifetimeModal({ open, onClose }: { open: boolean; onClose: () => void }
           </form>
         )}
 
-        <p className="mcpExitFooter">$499 one-time. We'll send an invoice to your email. No spam.</p>
+        <p className="mcpExitFooter">$1,499 one-time. We'll send an invoice to your email. No spam.</p>
       </DialogContent>
     </Dialog>
   );
@@ -536,11 +562,14 @@ function PricingCard({ tier, onCta }: { tier: PricingTier; onCta?: () => void })
       'mcpPricingCard',
       tier.popular && 'mcpPricingCard--popular',
       tier.oss && 'mcpPricingCard--oss',
+      tier.services && 'mcpPricingCard--services',
     )}>
       {tier.badge && (
         <div className={clsx(
           'mcpPricingBadge',
-          tier.popular ? 'mcpPricingBadge--popular' : 'mcpPricingBadge--oss',
+          tier.popular && 'mcpPricingBadge--popular',
+          tier.oss && 'mcpPricingBadge--oss',
+          tier.services && 'mcpPricingBadge--services',
         )}>
           {tier.badge}
         </div>
@@ -572,7 +601,7 @@ function PricingCard({ tier, onCta }: { tier: PricingTier; onCta?: () => void })
         <button
           className={clsx(
             'button', 'button--lg',
-            tier.popular ? 'button--primary' : 'mcpBtnSecondary',
+            tier.popular || tier.services ? 'button--primary' : 'mcpBtnSecondary',
           )}
           onClick={onCta}
         >
@@ -582,7 +611,7 @@ function PricingCard({ tier, onCta }: { tier: PricingTier; onCta?: () => void })
         <Link
           className={clsx(
             'button', 'button--lg',
-            tier.popular ? 'button--primary' : tier.oss ? 'mcpBtnOutline' : 'mcpBtnSecondary',
+            tier.popular || tier.services ? 'button--primary' : tier.oss ? 'mcpBtnOutline' : 'mcpBtnSecondary',
           )}
           href={tier.ctaLink}
         >
@@ -642,9 +671,9 @@ function ComparisonTable() {
           <tr>
             <th>Feature</th>
             <th>Free Forever</th>
-            <th>Starter</th>
             <th>Pro</th>
             <th>Enterprise</th>
+            <th>Services</th>
           </tr>
         </thead>
         <tbody>
@@ -653,14 +682,14 @@ function ComparisonTable() {
             <td><O /></td>
             <td><O /></td>
             <td><O /></td>
-            <td><O /></td>
+            <td>OSS ∞ (used in delivery)</td>
           </tr>
           <tr>
             <td>Managed MCP servers</td>
             <td>Up to 3</td>
-            <td>Up to 10</td>
             <td>Unlimited*</td>
             <td>Unlimited</td>
+            <td>1–10 (architect-built)</td>
           </tr>
           <tr>
             <td>OpenAPI → MCP Conversion</td>
@@ -679,21 +708,21 @@ function ComparisonTable() {
           <tr>
             <td>OIDC / OAuth</td>
             <td><D /></td>
-            <td><D /></td>
             <td><C /></td>
             <td><C /></td>
+            <td>Configured for you</td>
           </tr>
           <tr>
             <td>Observability dashboard</td>
             <td><D /></td>
-            <td><D /></td>
             <td><C /></td>
             <td><C /></td>
+            <td>Custom dashboards</td>
           </tr>
           <tr>
             <td>Real-time API sync</td>
             <td><D /></td>
-            <td><D /></td>
+            <td><C /></td>
             <td><C /></td>
             <td><C /></td>
           </tr>
@@ -701,36 +730,50 @@ function ComparisonTable() {
             <td>Multi-tenant gateway</td>
             <td><D /></td>
             <td><D /></td>
-            <td><D /></td>
             <td><C /></td>
+            <td>By scope</td>
           </tr>
           <tr>
             <td>On-premise / air-gap</td>
             <td><D /></td>
             <td><D /></td>
-            <td><D /></td>
             <td><C /></td>
+            <td>By scope</td>
           </tr>
           <tr>
-            <td>SSO (SAML, OIDC)</td>
+            <td>Enterprise SSO (SAML)</td>
+            <td><D /></td>
+            <td><D /></td>
+            <td>Add-on</td>
+            <td>Separate SOW</td>
+          </tr>
+          <tr>
+            <td>Governance + audit trail</td>
+            <td>Basic</td>
+            <td>Basic+</td>
+            <td>Full</td>
+            <td>Full + runbooks</td>
+          </tr>
+          <tr>
+            <td>Done-for-you implementation</td>
             <td><D /></td>
             <td><D /></td>
             <td><D /></td>
-            <td><C /></td>
+            <td>14 days – 12 weeks</td>
           </tr>
           <tr>
             <td>Support</td>
             <td>Community</td>
-            <td>Community</td>
             <td>Priority email</td>
             <td>Dedicated CSM</td>
+            <td>1-on-1 with MCP architects</td>
           </tr>
           <tr>
             <td>SLA</td>
             <td><D /></td>
-            <td><D /></td>
             <td>99.9%</td>
             <td>Custom</td>
+            <td>Ship-the-Foundation Guarantee</td>
           </tr>
         </tbody>
       </table>
@@ -741,7 +784,7 @@ function ComparisonTable() {
 function RiskReversals() {
   const guarantees = [
     { icon: "🛡️", title: "No Deploy, No Charge", description: "If we can't get your MCP server running, you don't pay." },
-    { icon: "⚡", title: "60-Second Guarantee", description: "API not ChatGPT-visible in 10 minutes? Full refund." },
+    { icon: "⚡", title: "10-Minute Visibility Guarantee", description: "First MCP server not visible in 10 minutes? Full refund." },
     { icon: "🔄", title: "Lifetime Updates", description: "MCP manifest auto-updates as your API evolves." },
     { icon: "💬", title: "Unlimited Support", description: "Until your first integration works flawlessly." },
   ];
@@ -759,41 +802,6 @@ function RiskReversals() {
 }
 
 function FAQ() {
-  const faqs = [
-    {
-      q: "Is HAPI MCP really free and open source?",
-      a: "Yes. The core is MIT-licensed. Free forever, fork it, self-host it. Paid plans are for the managed cloud service and enterprise features built on top.",
-    },
-    {
-      q: "What are 'soft limits' on the Pro plan?",
-      a: "Soft limits mean we won't hard-cut your service if you briefly exceed thresholds. We'll reach out and discuss usage before anything changes.",
-    },
-    {
-      q: "Do I need to rewrite my services to use HAPI MCP?",
-      a: "No. HAPI MCP lifts your existing OpenAPI specs directly into MCP tools. Your auth, validation, and business rules remain unchanged.",
-    },
-    {
-      q: "How quickly can I deploy an MCP server?",
-      a: "With HAPI Starter, your first MCP server is live in under 60 seconds. Upload your OpenAPI spec and we handle the rest.",
-    },
-    {
-      q: "Can I self-host the Pro or Enterprise features for free?",
-      a: "The OSS core is free forever. Advanced features like the observability dashboard, multi-tenant gateway, and SSO are available in paid managed tiers or Enterprise licenses.",
-    },
-    {
-      q: "Which AI clients can consume the tools?",
-      a: "Any MCP client: ChatGPT, Claude, QBot, Agentico.dev, chatMCP, or your own custom orchestrators. Vendor-neutral by design.",
-    },
-    {
-      q: "What happens if my API changes?",
-      a: "Update your OpenAPI spec and HAPI automatically regenerates your MCP tools. Real-time sync on Pro and above.",
-    },
-    {
-      q: "Do you offer discounts for startups or educational institutions?",
-      a: "Yes. Special programs for YC-backed startups, students, and open-source projects. Contact us for details.",
-    },
-  ];
-
   return (
     <section className="mcpSection mcpPricingFaq">
       <div className="container">
@@ -801,10 +809,10 @@ function FAQ() {
           <h2 className="mcpSectionTitle">Frequently Asked Questions</h2>
         </div>
         <div className="mcpFaq">
-          {faqs.map((faq, idx) => (
+          {pricingFaqs.map((faq, idx) => (
             <details key={idx}>
-              <summary><strong>{faq.q}</strong></summary>
-              <p>{faq.a}</p>
+              <summary><strong>{faq.question}</strong></summary>
+              <p>{faq.answer}</p>
             </details>
           ))}
         </div>
@@ -823,7 +831,7 @@ export default function Pricing(): ReactNode {
   return (
     <Layout
       title="Pricing — Free Forever, Open Source"
-      description="HAPI MCP is open source and free forever. Paid plans for managed hosting, advanced auth, and enterprise scale. No shadow code. No vendor lock-in.">
+      description="HAPI MCP is open source and free forever. Pay only for managed hosting, enterprise capabilities, or architect-led implementation when you actually need them.">
       <Head>
         <script type="application/ld+json">
           {JSON.stringify(pricingJsonLd)}
@@ -845,7 +853,7 @@ export default function Pricing(): ReactNode {
             </h1>
             <p className="mcpHeroSubtitle">
               The core is <strong>MIT-licensed</strong> — fork it, self-host it, ship it.
-              Pay only for the managed cloud and enterprise capabilities you actually need.
+              Pay only for managed cloud, enterprise capabilities, or architect-led implementation when you actually need them.
             </p>
             <div className="mcpOssStrip">
               <span>🌟</span>
@@ -890,6 +898,13 @@ export default function Pricing(): ReactNode {
       {/* ── Pricing cards ── */}
       <section className="mcpSection">
         <div className="container">
+          <div className="mcpSectionHeader">
+            <span className="mcpSectionBadge">Self-Serve Plans</span>
+            <h2 className="mcpSectionTitle">Run It Yourself, Then Scale on Demand</h2>
+            <p className="mcpSectionSubtitle">
+              Start with the OSS core, then upgrade to managed runtime and enterprise controls only when the workload justifies it.
+            </p>
+          </div>
           <div className="mcpPricingGrid">
             {tiers.map((tier) => (
               <PricingCard
@@ -899,10 +914,41 @@ export default function Pricing(): ReactNode {
               />
             ))}
           </div>
+          <br/>
           <p className="mcpSoftLimitsNote">
             * Soft limits: we won't cut your service without a conversation first.{' '}
             <Link href="#faq">Learn more ↓</Link>
           </p>
+        </div>
+      </section>
+
+      {/* ── Services ── */}
+      <section className="mcpSection mcpSection--alt">
+        <div className="container">
+          <div className="mcpSectionHeader">
+            <span className="mcpSectionBadge">Architect-Led Services</span>
+            <h2 className="mcpSectionTitle">Need It Done-for-You?</h2>
+            <p className="mcpSectionSubtitle">
+              The HAPI MCP Pilot Accelerator takes one AI workflow from sandbox to production with an architect-led implementation.
+            </p>
+          </div>
+
+          <div className="mcpServicesBanner">
+            <div>
+              <span className="mcpServicesBannerTag">Pilot Accelerator</span>
+              <h3 className="mcpServicesBannerTitle">Production-ready in 14 days to 12 weeks.</h3>
+              <p className="mcpServicesBannerDescription">
+                We design the workflow, build 1–10 MCP servers, install the governance gate, and hand the runbooks to your team. Best fit for enterprise buyers who want a fast, opinionated path to a working production slice.
+              </p>
+            </div>
+            <Link className="button button--primary button--lg" href="https://mcp.com.ai/get-my-mcp">
+              See the Pilot Accelerator →
+            </Link>
+          </div>
+
+          <div className="mcpServicesCardWrap">
+            <PricingCard tier={servicesTier} />
+          </div>
         </div>
       </section>
 
@@ -945,8 +991,16 @@ export default function Pricing(): ReactNode {
         <div className="container">
           <div className="mcpSectionHeader">
             <h2 className="mcpSectionTitle">Feature Comparison</h2>
+            <p className="mcpSectionSubtitle">
+              Services is an implementation engagement. The other tiers are product plans you operate yourself.
+            </p>
           </div>
           <ComparisonTable />
+          <br/>
+          <p className="mcpSoftLimitsNote">
+            * Soft limits: we won't cut your service without a conversation first.{' '}
+            <Link href="#faq">Learn more ↓</Link>
+          </p>
         </div>
       </section>
 
@@ -960,13 +1014,16 @@ export default function Pricing(): ReactNode {
         <div className="container">
           <div className="mcpCtaBox">
             <h2>Ready to Make Your APIs AI-Ready?</h2>
-            <p>Open source at the core. Enterprise-grade when you need it.</p>
+            <p>Open source at the core. Enterprise-grade when you need it. Architect-led when you want it done for you.</p>
             <div className="mcpHeroCtas" style={{ justifyContent: 'center' }}>
               <Link className="button button--primary button--lg" href="https://github.com/la-rebelion/hapi-mcp">
                 ⭐ Star on GitHub
               </Link>
-              <Link className="button button--lg mcpBtnSecondary" href="/request-demo">
-                Request Demo
+              <Link className="button button--lg mcpBtnSecondary" href="https://go.mcp.com.ai/adrian-meet">
+                Book a Call with Adrian
+              </Link>
+              <Link className="button button--lg mcpBtnOutline" href="https://mcp.com.ai/get-my-mcp">
+                See the Pilot Accelerator
               </Link>
             </div>
           </div>
