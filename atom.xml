@@ -194,6 +194,8 @@ Different standards (or no standards).</p>
             <name>Adrian Escutia</name>
             <uri>https://adrian.escutia.me</uri>
         </author>
+        <category label="MCP Registry" term="MCP Registry"/>
+        <category label="API-First" term="API-First"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[AI Cost Optimization: Lessons from Database Applied]]></title>
