@@ -1,11 +1,27 @@
+---
+title: Privacy at a Glance
+description: A plain-English summary of how privacy works across La Rebelion Labs, HAPI MCP, My Clawster, and Clawne Me.
+slug: /privacy-at-a-glance
+---
+
 # Privacy at a Glance
 
-**HAPI MCP Stack** is built by **La Rebelion Labs** with a simple principle:
+La Rebelion Labs is built with a simple principle:
 
-> **Your data is yours. We only touch what is strictly necessary.**
+> **Your data is yours. We only touch what is necessary.**
 
-This page is a **plain-English summary** of how privacy works across the HAPI MCP Stack.  
-For full legal details, see our [Privacy Policy](/privacy).
+This page is a plain-English summary of how privacy works across:
+
+- [rebelion.la](https://rebelion.la)
+- [mcp.com.ai](https://mcp.com.ai)
+- [clawne.me](https://clawne.me)
+- [clawster.my](https://clawster.my)
+- HAPI MCP Stack
+- My Clawster
+- Clawne Me
+- La Rebelion Labs memberships, labs, documentation, templates, and related services
+
+For full legal details, read our [Privacy Policy](/privacy).
 
 <!-- truncate -->
 
@@ -14,105 +30,158 @@ For full legal details, see our [Privacy Policy](/privacy).
 ## TL;DR
 
 - We **do not sell your data**
-- We **do not train AI models on your data**
-- MCP payloads are **ephemeral by default**
-- Self-hosted and air-gapped deployments keep **100% control**
-- Minimal cookies are used to improve the product
+- We **do not train AI models on your data by default**
+- MCP, API, agent, and tool payloads are **ephemeral by default**
+- Self-hosted, local, on-premise, and air-gapped deployments keep control with you
+- We use minimal cookies for functionality, security, performance, and high-level usage insights
+- We do not use cookies for behavioral advertising or cross-site profiling
+- You control what systems, APIs, tools, agents, files, and workflows you connect
 - Using the platform means you agree to these practices
 
 ---
 
-## What Data We Collect (Minimal by Design)
+## What Data We Collect
 
-We collect **only what we need** to run and improve the service:
+We collect only what we need to run, secure, support, and improve the Services.
 
-- Account information (email, name, organization)
-- Basic technical metadata (IP, runtime, timestamps)
-- Optional feedback or support communications
+This may include:
 
-We **do not** collect:
-- MCP prompts or tool payloads by default
+- Account information, such as name, email, username, or organization
+- Membership, subscription, license, or billing status
+- Basic technical metadata, such as IP address, browser, runtime, timestamps, and errors
+- Support requests, feedback, or communications
+- Configuration or workflow data you intentionally provide to hosted Services
+
+We do **not** collect by default:
+
+- MCP prompts
+- MCP tool payloads
 - API business data
-- Customer secrets or credentials
+- Customer secrets
+- Credentials
+- Agent execution content
 - Model training data from your usage
 
 ---
 
-## MCP & Agent Data Handling
+## MCP, API, Agent, and Tooling Data
 
-**By default:**
-- MCP requests are processed **in-memory**
-- No prompt or tool execution data is stored
-- No MCP data is used for analytics or training
+By default:
 
-**Optional & configurable (you decide):**
+- MCP requests are processed only as needed to provide the requested functionality
+- Prompts and tool payloads are not stored by default
+- MCP data is not used for AI model training by default
+- API business data remains yours
+- Connected systems remain under your control
+
+Optional and configurable features may include:
+
 - Logging
 - Tracing
 - Observability
-- A/B testing for internal APIs
+- Debugging
+- Usage analytics
+- A/B testing
+- Enterprise monitoring
 
-For **on-premise and air-gapped deployments**, La Rebelion Labs has **no access** to your MCP traffic.
-
----
-
-## Cookies & Similar Technologies
-
-We use **cookies or similar technologies** only to:
-
-- Ensure core functionality
-- Improve performance and reliability
-- Understand high-level usage patterns
-
-We do **not** use cookies for:
-- Advertising
-- Cross-site tracking
-- Behavioral profiling
-
-By using the HAPI MCP Stack and related websites, **you agree to the use of these technologies** as described in our Privacy Policy.
-
-You can manage or disable cookies through your browser settings.
+You decide what to enable based on your deployment and product configuration.
 
 ---
 
 ## Cloud vs Self-Hosted
 
-| Deployment Type | Who Controls the Data |
-|---------------|----------------------|
-| Cloud (managed) | You |
+| Deployment Type | Who Controls the Data? |
+| --- | --- |
+| Hosted / Managed Cloud | You, with La Rebelion Labs processing only what is needed to provide the Service |
+| Self-hosted | You |
+| Local / CLI | You |
 | On-premise | You |
 | Air-gapped | You |
-| Local / CLI | You |
 
-**Always.**
+Always design with control first.
 
 ---
 
 ## What We Never Do
 
-- ❌ Sell user data  
-- ❌ Train AI models on customer data  
-- ❌ Inspect MCP payloads without consent  
-- ❌ Force cloud connectivity  
-- ❌ Require telemetry in self-hosted setups  
+- ❌ Sell your personal data
+- ❌ Train AI models on your customer data by default
+- ❌ Inspect MCP payloads without a product reason, configuration, or your consent
+- ❌ Force cloud connectivity for self-hosted or air-gapped deployments when the product supports offline operation
+- ❌ Require invasive tracking for normal use
+- ❌ Use cookies for behavioral advertising or cross-site profiling
 
 ---
 
-## Designed for Enterprises & Developers
+## Cookies and Similar Technologies
 
-HAPI MCP Stack is designed to pass:
+We use cookies or similar technologies only for:
+
+- Essential functionality
+- Authentication
+- Security
+- Session management
+- Preferences
+- Reliability
+- Performance
+- High-level usage insights
+
+You can manage or disable cookies through your browser settings.
+
+Some essential features may not work correctly without essential cookies.
+
+---
+
+## Third-Party Services
+
+Some features may connect to third-party providers, such as:
+
+- AI model providers
+- Cloud providers
+- Identity providers
+- Payment processors
+- Communication channels
+- Git providers
+- API platforms
+- Observability tools
+
+When you connect a third-party service, that provider may process data under its own terms and privacy policy.
+
+You should review third-party policies before connecting sensitive systems.
+
+---
+
+## Designed for Developers and Enterprises
+
+La Rebelion Labs products are designed to support:
+
 - Security reviews
 - Architecture reviews
-- Privacy assessments
+- Privacy reviews
+- Self-hosted deployments
+- Air-gapped deployments
+- Enterprise controls
+- Developer ownership
+- Minimal data collection
 
-Without special exceptions.
+The goal is not to hide how the system works.
+
+The goal is to make control clear.
 
 ---
 
 ## Want the Full Details?
 
-- 📄 [Privacy Policy](/privacy)
-- 📄 Terms of Service (/terms)
-- 📧 Questions? Contact [Contact Us](https://go.rebelion.la/contact-us)
+Read:
+
+- [Privacy Policy](/privacy)
+- [Terms of Service](/terms)
+
+Questions?
+
+**La Rebelion Labs**  
+🌐 [https://rebelion.la](https://rebelion.la)  
+📧 [Contact Us](https://go.rebelion.la/contact-us)
 
 ---
 
