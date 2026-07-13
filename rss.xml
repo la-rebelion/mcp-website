@@ -4,10 +4,259 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Mon, 20 Apr 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jul 2026 19:06:50 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[MCP-First? I Still Believe the Future Is API-First.]]></title>
+            <link>https://mcp.com.ai/api-first-vs-mcp-first</link>
+            <guid>https://mcp.com.ai/api-first-vs-mcp-first</guid>
+            <pubDate>Mon, 13 Jul 2026 19:06:50 GMT</pubDate>
+            <description><![CDATA[Exploring why APIs will remain the stable foundation for software, even as MCP emerges as a new abstraction for AI agents.]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-first-i-still-believe-the-future-is-api-first"><strong>MCP-First? I Still Believe the Future Is API-First.</strong><a href="https://mcp.com.ai/api-first-vs-mcp-first#mcp-first-i-still-believe-the-future-is-api-first" class="hash-link" aria-label="Direct link to mcp-first-i-still-believe-the-future-is-api-first" title="Direct link to mcp-first-i-still-believe-the-future-is-api-first" translate="no">​</a></h2>
+<p>Every few months, our industry declares the next abstraction layer "the new HTTP."</p>
+<p>First it was SOAP.</p>
+<p>Then REST.</p>
+<p>Then GraphQL.</p>
+<p>Then gRPC.</p>
+<p>Now, it's MCP.</p>
+<p>The excitement is understandable. Model Context Protocol (MCP) is changing how AI agents discover and use software. It removes friction. It standardizes tool access. It gives language models a common interface.</p>
+<p>But that doesn't mean APIs are going away.</p>
+<p>Quite the opposite.</p>
+<p>I believe the future is <strong>API-first, MCP-enabled</strong>.</p>
+<p>Not MCP-first.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-wrong-question">The Wrong Question<a href="https://mcp.com.ai/api-first-vs-mcp-first#the-wrong-question" class="hash-link" aria-label="Direct link to The Wrong Question" title="Direct link to The Wrong Question" translate="no">​</a></h2>
+<p>The discussion often starts with a question like this:</p>
+<blockquote>
+<p>"If agents are the future users of software, shouldn't we build for agents first?"</p>
+</blockquote>
+<p>I think that's the wrong question.</p>
+<p>The better question is:</p>
+<blockquote>
+<p><strong>What is the most stable contract a platform can expose over the next 10-20 years?</strong></p>
+</blockquote>
+<p>My answer is still:</p>
+<p><strong>APIs.</strong></p>
+<p>Whether REST, gRPC, or another protocol that hasn't been invented yet.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="apis-solve-a-different-problem">APIs Solve a Different Problem<a href="https://mcp.com.ai/api-first-vs-mcp-first#apis-solve-a-different-problem" class="hash-link" aria-label="Direct link to APIs Solve a Different Problem" title="Direct link to APIs Solve a Different Problem" translate="no">​</a></h2>
+<p>People sometimes compare REST APIs and MCP as if one replaces the other.</p>
+<p>They don't.</p>
+<p>They solve different problems.</p>
+<p>REST APIs answer:</p>
+<ul>
+<li class="">How do applications communicate?</li>
+<li class="">How is data represented?</li>
+<li class="">How are systems versioned?</li>
+<li class="">How are requests authenticated?</li>
+<li class="">How are responses cached?</li>
+<li class="">How are SLAs enforced?</li>
+<li class="">How are services monitored?</li>
+</ul>
+<p>MCP answers something else:</p>
+<ul>
+<li class="">What tools are available?</li>
+<li class="">How should an AI discover them?</li>
+<li class="">How should the model invoke them?</li>
+<li class="">What metadata helps the model use them correctly?</li>
+</ul>
+<p>Those are complementary questions.</p>
+<p>Not competing ones.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="developers-are-not-going-away">Developers Are Not Going Away<a href="https://mcp.com.ai/api-first-vs-mcp-first#developers-are-not-going-away" class="hash-link" aria-label="Direct link to Developers Are Not Going Away" title="Direct link to Developers Are Not Going Away" translate="no">​</a></h2>
+<p>One assumption behind "MCP-first" thinking is that AI agents will become the primary consumers of software.</p>
+<p>Maybe.</p>
+<p>But even if that happens...</p>
+<p>Someone still builds the software.</p>
+<p>Someone still designs the APIs.</p>
+<p>Someone still versions the contracts.</p>
+<p>Someone still debugs production.</p>
+<p>Someone still integrates systems.</p>
+<p>Even autonomous agents need reliable interfaces underneath.</p>
+<p>Ironically, many AI agents themselves generate REST calls today.</p>
+<p>Because APIs remain the most deterministic interface available.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="apis-are-the-infrastructure">APIs Are the Infrastructure<a href="https://mcp.com.ai/api-first-vs-mcp-first#apis-are-the-infrastructure" class="hash-link" aria-label="Direct link to APIs Are the Infrastructure" title="Direct link to APIs Are the Infrastructure" translate="no">​</a></h2>
+<p>Think about the Internet.</p>
+<p>Browsers don't replace HTTP.</p>
+<p>Mobile apps don't replace HTTP.</p>
+<p>SDKs don't replace HTTP.</p>
+<p>GraphQL didn't replace HTTP.</p>
+<p>Even gRPC often runs over HTTP/2.</p>
+<p>Every new abstraction eventually sits on top of the previous one.</p>
+<p>MCP feels similar.</p>
+<p>It is another abstraction.</p>
+<p>A useful one.</p>
+<p>But underneath?</p>
+<p>There is usually an API.</p>
+<p>Sometimes REST.</p>
+<p>Sometimes gRPC.</p>
+<p>Sometimes GraphQL.</p>
+<p>Sometimes something proprietary.</p>
+<p>The foundation hasn't changed.</p>
+<p>The interface exposed to the AI has.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-is-an-adapter-not-the-product">MCP Is an Adapter, Not the Product<a href="https://mcp.com.ai/api-first-vs-mcp-first#mcp-is-an-adapter-not-the-product" class="hash-link" aria-label="Direct link to MCP Is an Adapter, Not the Product" title="Direct link to MCP Is an Adapter, Not the Product" translate="no">​</a></h2>
+<p>One reason I built HAPI MCP the way I did is because I never wanted developers rewriting APIs just because AI arrived.</p>
+<p>Organizations have spent years designing APIs.</p>
+<p>They have:</p>
+<ul>
+<li class="">security reviews</li>
+<li class="">governance</li>
+<li class="">documentation</li>
+<li class="">SDKs</li>
+<li class="">monitoring</li>
+<li class="">observability</li>
+<li class="">rate limiting</li>
+<li class="">compliance</li>
+<li class="">audit trails</li>
+</ul>
+<p>Why throw that away?</p>
+<p>Instead, expose those capabilities through MCP.</p>
+<p>The API remains the source of truth.</p>
+<p>MCP becomes another consumer.</p>
+<p>Exactly like:</p>
+<ul>
+<li class="">a web frontend</li>
+<li class="">a mobile application</li>
+<li class="">an SDK</li>
+<li class="">a partner integration</li>
+</ul>
+<p>The difference is simply that the consumer happens to be an AI agent.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="todays-mcp-could-be-tomorrows-legacy-protocol">Today's MCP Could Be Tomorrow's Legacy Protocol<a href="https://mcp.com.ai/api-first-vs-mcp-first#todays-mcp-could-be-tomorrows-legacy-protocol" class="hash-link" aria-label="Direct link to Today's MCP Could Be Tomorrow's Legacy Protocol" title="Direct link to Today's MCP Could Be Tomorrow's Legacy Protocol" translate="no">​</a></h2>
+<p>History is surprisingly consistent.</p>
+<p>Technology stacks evolve.</p>
+<p>Standards evolve.</p>
+<p>Frameworks evolve.</p>
+<p>Developer preferences evolve.</p>
+<p>Imagine rebuilding your backend every time the industry discovers a new protocol.</p>
+<p>SOAP.</p>
+<p>REST.</p>
+<p>GraphQL.</p>
+<p>gRPC.</p>
+<p>MCP.</p>
+<p>Whatever comes next.</p>
+<p>That is expensive.</p>
+<p>Instead, stable organizations invest in one thing:</p>
+<p><strong>A durable business API.</strong></p>
+<p>Everything else becomes an adapter.</p>
+<p>That adapter may change every five years.</p>
+<p>Your business logic shouldn't have to.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="enterprise-architecture-already-solved-this">Enterprise Architecture Already Solved This<a href="https://mcp.com.ai/api-first-vs-mcp-first#enterprise-architecture-already-solved-this" class="hash-link" aria-label="Direct link to Enterprise Architecture Already Solved This" title="Direct link to Enterprise Architecture Already Solved This" translate="no">​</a></h2>
+<p>Enterprise integration has used this pattern for decades.</p>
+<p>Core systems expose stable interfaces.</p>
+<p>Around them sit adapters.</p>
+<p>Examples include:</p>
+<ul>
+<li class="">API gateways</li>
+<li class="">ESBs</li>
+<li class="">messaging systems</li>
+<li class="">event buses</li>
+<li class="">GraphQL layers</li>
+<li class="">mobile backends</li>
+<li class="">SDK generators</li>
+</ul>
+<p>MCP fits naturally into that architecture.</p>
+<p>It becomes another presentation layer.</p>
+<p>Not the domain model.</p>
+<p>Not the source of business rules.</p>
+<p>Not the canonical integration contract.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-doesnt-eliminate-apisit-increases-their-value">AI Doesn't Eliminate APIs—It Increases Their Value<a href="https://mcp.com.ai/api-first-vs-mcp-first#ai-doesnt-eliminate-apisit-increases-their-value" class="hash-link" aria-label="Direct link to AI Doesn't Eliminate APIs—It Increases Their Value" title="Direct link to AI Doesn't Eliminate APIs—It Increases Their Value" translate="no">​</a></h2>
+<p>Here's something interesting.</p>
+<p>As AI adoption grows, API quality becomes even more important.</p>
+<p>Why?</p>
+<p>Because agents amplify inconsistency.</p>
+<p>Humans compensate for poor APIs.</p>
+<p>Agents don't.</p>
+<p>If an endpoint behaves differently every Tuesday...</p>
+<p>An AI won't magically fix that.</p>
+<p>If your documentation is outdated...</p>
+<p>The model inherits that confusion.</p>
+<p>If your API isn't deterministic...</p>
+<p>The agent becomes unreliable.</p>
+<p>Good APIs become even more valuable in an AI-native world.</p>
+<p>Not less.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="my-architecture-preference">My Architecture Preference<a href="https://mcp.com.ai/api-first-vs-mcp-first#my-architecture-preference" class="hash-link" aria-label="Direct link to My Architecture Preference" title="Direct link to My Architecture Preference" translate="no">​</a></h2>
+<p>If I were designing a cloud platform today, my stack would look something like this:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Business Logic</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">REST / gRPC APIs</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│          │           │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">SDKs     Web Apps     Mobile Apps</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">MCP Adapter</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">AI Agents</span><br></span></code></pre></div></div>
+<p>Notice something important.</p>
+<p>The APIs don't exist because humans consume them.</p>
+<p>They exist because they are the most stable integration contract in the system.</p>
+<p>Everything else builds on top.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-about-skills">What About Skills?<a href="https://mcp.com.ai/api-first-vs-mcp-first#what-about-skills" class="hash-link" aria-label="Direct link to What About Skills?" title="Direct link to What About Skills?" translate="no">​</a></h2>
+<p>I think the same philosophy applies to AI Skills.</p>
+<p>Skills are fantastic.</p>
+<p>They improve discovery.</p>
+<p>They provide context.</p>
+<p>They help models make better decisions.</p>
+<p>But they are not where your business logic belongs.</p>
+<p>They describe capabilities.</p>
+<p>They don't replace implementation.</p>
+<p>Just like MCP.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-better-mental-model">A Better Mental Model<a href="https://mcp.com.ai/api-first-vs-mcp-first#a-better-mental-model" class="hash-link" aria-label="Direct link to A Better Mental Model" title="Direct link to A Better Mental Model" translate="no">​</a></h2>
+<p>Instead of asking:</p>
+<blockquote>
+<p>"Should I build APIs or MCP?"</p>
+</blockquote>
+<p>Ask:</p>
+<blockquote>
+<p>"What is my canonical interface?"</p>
+</blockquote>
+<p>For me, the answer is simple.</p>
+<p>The API.</p>
+<p>Everything else becomes an adapter.</p>
+<p>That includes:</p>
+<ul>
+<li class="">MCP</li>
+<li class="">Skills</li>
+<li class="">SDKs</li>
+<li class="">CLI tools</li>
+<li class="">Chat interfaces</li>
+<li class="">Future agent protocols we haven't invented yet</li>
+</ul>
+<p>Adapters evolve.</p>
+<p>Core contracts should not.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="practical-guidance-for-builders">Practical Guidance for Builders<a href="https://mcp.com.ai/api-first-vs-mcp-first#practical-guidance-for-builders" class="hash-link" aria-label="Direct link to Practical Guidance for Builders" title="Direct link to Practical Guidance for Builders" translate="no">​</a></h2>
+<p>If you're designing an AI-ready platform today, consider this approach:</p>
+<ol>
+<li class=""><strong>Design your APIs first.</strong> Make them deterministic, versioned, observable, and secure.</li>
+<li class=""><strong>Keep business logic in the API layer.</strong> Avoid duplicating rules across agent-specific interfaces.</li>
+<li class=""><strong>Expose APIs through MCP.</strong> Let AI agents consume existing capabilities instead of creating parallel implementations.</li>
+<li class=""><strong>Use Skills to improve discoverability.</strong> Help models understand when and how to use your capabilities.</li>
+<li class=""><strong>Treat AI interfaces as extensions.</strong> They are valuable access channels, not replacements for your platform's foundation.</li>
+</ol>
+<p>This approach reduces duplication, simplifies governance, and makes your platform resilient to future protocol changes.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently Asked Questions<a href="https://mcp.com.ai/api-first-vs-mcp-first#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="will-mcp-replace-rest-apis">Will MCP replace REST APIs?<a href="https://mcp.com.ai/api-first-vs-mcp-first#will-mcp-replace-rest-apis" class="hash-link" aria-label="Direct link to Will MCP replace REST APIs?" title="Direct link to Will MCP replace REST APIs?" translate="no">​</a></h3>
+<p>Probably not. MCP standardizes how AI agents discover and invoke capabilities, while REST APIs define how systems communicate. They address different layers of the architecture.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="should-every-api-have-an-mcp-interface">Should every API have an MCP interface?<a href="https://mcp.com.ai/api-first-vs-mcp-first#should-every-api-have-an-mcp-interface" class="hash-link" aria-label="Direct link to Should every API have an MCP interface?" title="Direct link to Should every API have an MCP interface?" translate="no">​</a></h3>
+<p>Not necessarily. Expose the capabilities that benefit AI-driven workflows. Internal or low-level APIs may never need an MCP representation.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="can-i-build-an-ai-native-application-without-rest">Can I build an AI-native application without REST?<a href="https://mcp.com.ai/api-first-vs-mcp-first#can-i-build-an-ai-native-application-without-rest" class="hash-link" aria-label="Direct link to Can I build an AI-native application without REST?" title="Direct link to Can I build an AI-native application without REST?" translate="no">​</a></h3>
+<p>Yes. Some applications may use gRPC, GraphQL, messaging, or other protocols internally. The broader principle remains the same: keep a stable integration contract and layer AI-specific interfaces on top.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="is-mcp-important">Is MCP important?<a href="https://mcp.com.ai/api-first-vs-mcp-first#is-mcp-important" class="hash-link" aria-label="Direct link to Is MCP important?" title="Direct link to Is MCP important?" translate="no">​</a></h3>
+<p>Absolutely. It is one of the most promising standards for AI interoperability today. The question isn't whether to support MCP—it's where it belongs in your architecture.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-bigger-picture">The Bigger Picture<a href="https://mcp.com.ai/api-first-vs-mcp-first#the-bigger-picture" class="hash-link" aria-label="Direct link to The Bigger Picture" title="Direct link to The Bigger Picture" translate="no">​</a></h2>
+<p>MCP is one of the most exciting developments in the AI ecosystem. It lowers the barrier for agents to interact with software and accelerates interoperability across platforms.</p>
+<p>But interoperability is not the same as architecture.</p>
+<p>History has shown that durable software platforms separate <strong>core business capabilities</strong> from <strong>access mechanisms</strong>. Web browsers, mobile apps, SDKs, CLIs, and now AI agents are all different ways of reaching the same underlying services.</p>
+<p>That is why I remain convinced that the future is not <strong>MCP-first</strong>.</p>
+<p>It is <strong>API-first, MCP-enabled</strong>.</p>
+<p>Because protocols will evolve.</p>
+<p>Agents will evolve.</p>
+<p>Models will evolve.</p>
+<p>The businesses that succeed will be the ones whose foundations don't have to be rebuilt every time the industry invents a new way to consume software.</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[HAPI MCP Registry Available in the ChatGPT Ecosystem]]></title>
             <link>https://mcp.com.ai/marketplace/mcp-registry-in-chatgpt</link>
@@ -3790,138 +4039,6 @@ It's a <strong>bridge between AI intent and deterministic execution</strong>.</p
             <category>Arazzo</category>
             <category>API-First</category>
             <category>REST</category>
-            <category>AI Integration</category>
-        </item>
-        <item>
-            <title><![CDATA[Integrate the OpenAI UI SDK for ChatGPT With MCP in 60 Seconds]]></title>
-            <link>https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt</link>
-            <guid>https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt</guid>
-            <pubDate>Mon, 24 Nov 2025 17:48:55 GMT</pubDate>
-            <description><![CDATA[Step-by-step guide to turn any OpenAPI 3.0+ spec into a ChatGPT-ready MCP server using HAPI MCP and the OpenAI UI SDK. Fast deployment, validation, and optimization for Generative and Answer Engine search.]]></description>
-            <content:encoded><![CDATA[<p>You want your API to be instantly usable inside AI assistants like ChatGPT, and Web UIs. The OpenAI UI SDK plus the Model Context Protocol (MCP) lets you expose your API as structured tools that large language models can call directly.</p>
-<p>In this hands-on guide, you deploy a fully functional MCP server from any OpenAPI 3.0 specification and make it usable by ChatGPT and other MCP-aware clients in under a minute using HAPI MCP. You learn to deploy using cloud and on‑premises workflows.</p>
-<hr>
-<p>Just two months ago, I wrote about how <a href="https://rebelion.la/chatgpt-meets-custom-mcps" target="_blank" rel="noopener noreferrer" class="">OpenAI announced the custom MCP</a> (Model Context Protocol) interface to allow developers to integrate their APIs directly into ChatGPT, but there was <a href="https://rebelion.la/chatgpt-meets-custom-mcps#heading-the-caveat-search-and-fetch" target="_blank" rel="noopener noreferrer" class="">this caveat</a>: Developers would need to implement two tools, a "search" tool to find relevant information and a "fetch" tool to retrieve that information. Today, with the OpenAI UI SDK, that process is greatly simplified.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-integrate-your-api-with-the-openai-ui-sdk-via-mcp">Why Integrate Your API With the OpenAI UI SDK via MCP?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#why-integrate-your-api-with-the-openai-ui-sdk-via-mcp" class="hash-link" aria-label="Direct link to Why Integrate Your API With the OpenAI UI SDK via MCP?" title="Direct link to Why Integrate Your API With the OpenAI UI SDK via MCP?" translate="no">​</a></h2>
-<ul>
-<li class="">You expose real-time, authoritative data to ChatGPT and other MCP-aware clients.</li>
-<li class="">You eliminate brittle prompt engineering for retrieval and action execution.</li>
-<li class="">You accelerate feature delivery—turn any supported OpenAPI spec into tool metadata.</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="architecture-overview">Architecture Overview<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#architecture-overview" class="hash-link" aria-label="Direct link to Architecture Overview" title="Direct link to Architecture Overview" translate="no">​</a></h2>
-<p>The deployment flow:</p>
-<ol>
-<li class="">Provide an OpenAPI 3.0+ JSON or YAML spec.</li>
-<li class="">HAPI MCP ingests paths, methods, parameters, and schemas.</li>
-<li class="">Tools are generated with typed argument definitions.</li>
-<li class="">The MCP server exposes a JSON-RPC style interface consumable by the OpenAI UI SDK or other MCP-clients.</li>
-<li class="">Clients query available tools, then issue structured calls.</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-components">Key Components<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#key-components" class="hash-link" aria-label="Direct link to Key Components" title="Direct link to Key Components" translate="no">​</a></h3>
-<table><thead><tr><th style="text-align:left">Component</th><th style="text-align:left">Role</th></tr></thead><tbody><tr><td style="text-align:left">OpenAPI Spec</td><td style="text-align:left">Source of truth for endpoints, params, schemas</td></tr><tr><td style="text-align:left">HAPI MCP CLI / Cloud</td><td style="text-align:left">Transforms spec → MCP tool registry</td></tr><tr><td style="text-align:left">MCP Server</td><td style="text-align:left">Serves tool metadata and handles invocations</td></tr><tr><td style="text-align:left">Client Runtime</td><td style="text-align:left">ChatGPT / custom app calling tools</td></tr></tbody></table>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="prerequisites">Prerequisites<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites" translate="no">​</a></h2>
-<ul>
-<li class="">An OpenAPI 3.0+ spec URL or local file (JSON or YAML).</li>
-<li class="">A workstation with terminal access, only if you plan to use the HAPI MCP CLI (on-premises deployment).</li>
-<li class="">Basic familiarity with REST API concepts (no MCP experience required).</li>
-<li class="">Optional: A converted OAS 2.0 (Swagger) spec if you start from legacy format.</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="quick-answer-what-is-the-fastest-way-to-get-an-api-inside-chatgpt">Quick Answer: What Is the Fastest Way to Get an API Inside ChatGPT?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#quick-answer-what-is-the-fastest-way-to-get-an-api-inside-chatgpt" class="hash-link" aria-label="Direct link to Quick Answer: What Is the Fastest Way to Get an API Inside ChatGPT?" title="Direct link to Quick Answer: What Is the Fastest Way to Get an API Inside ChatGPT?" translate="no">​</a></h2>
-<p>Provide an OpenAPI 3.0 spec to HAPI MCP (cloud or CLI), start the MCP server, then <a href="https://developers.openai.com/apps-sdk/deploy/connect-chatgpt" target="_blank" rel="noopener noreferrer" class="">connect ChatGPT</a> custom tools configuration at the generated endpoint.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cloud-deployment-fastest-path">Cloud Deployment (Fastest Path)<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#cloud-deployment-fastest-path" class="hash-link" aria-label="Direct link to Cloud Deployment (Fastest Path)" title="Direct link to Cloud Deployment (Fastest Path)" translate="no">​</a></h2>
-<ol>
-<li class="">Open the run portal: <code>https://run.mcp.com.ai/?oas=&lt;YOUR_OPENAPI_SPEC_URL&gt;&amp;apiServer=&lt;OPTIONAL_BASE_URL&gt;</code></li>
-<li class="">Replace <code>&lt;YOUR_OPENAPI_SPEC_URL&gt;</code> with a direct spec URL (must be publicly accessible).</li>
-<li class="">(Optional) Replace <code>&lt;OPTIONAL_BASE_URL&gt;</code> with your API server base URL if needed - not all specs include server definitions.</li>
-<li class="">Wait for provisioning; you receive an MCP server endpoint URL.</li>
-<li class="">Use that URL in the ChatGPT Apps &amp; Connectors settings.</li>
-<li class="">Validate tool listing (see Validation section below).</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="example-url">Example URL<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#example-url" class="hash-link" aria-label="Direct link to Example URL" title="Direct link to Example URL" translate="no">​</a></h3>
-<div class="language-console codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-console codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">https://run.mcp.com.ai/?oas=https://example.com/openapi.json</span><br></span></code></pre></div></div>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="on-premises-deployment-with-hapi-mcp-cli">On-Premises Deployment With HAPI MCP CLI<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#on-premises-deployment-with-hapi-mcp-cli" class="hash-link" aria-label="Direct link to On-Premises Deployment With HAPI MCP CLI" title="Direct link to On-Premises Deployment With HAPI MCP CLI" translate="no">​</a></h2>
-<ol>
-<li class="">Install the CLI
-<a href="https://github.com/la-rebelion/hapimcp/releases" target="_blank" rel="noopener noreferrer" class="">Download the latest release</a> and install the HAPI MCP CLI executable, depending on your OS.</li>
-</ol>
-<p>Or install via Bun/npm:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">bun install -g @la-rebelion/hapimcp</span><br></span></code></pre></div></div>
-<ol start="2">
-<li class="">Verify installation:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi --version</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Start a local MCP server (using a spec alias - located in <code>HAPI_HOME/specs</code>):</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve petstore --headless</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Or specify a direct spec URL:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve my-api --openapi="https://example.com/openapi.json" --headless</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Capture the printed MCP server endpoint (e.g., <code>http://localhost:3000/mcp</code>).</li>
-<li class="">Add that URL to ChatGPT Apps &amp; Connectors settings.</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deploy-to-cloud-via-cli">Deploy to Cloud via CLI<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#deploy-to-cloud-via-cli" class="hash-link" aria-label="Direct link to Deploy to Cloud via CLI" title="Direct link to Deploy to Cloud via CLI" translate="no">​</a></h2>
-<ol>
-<li class="">Run:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi deploy strava --var HAPI_OPENAPI:"https://docs.mcp.com.ai/apis/openapi/strava.json"</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Use <code>--dry-run</code> to inspect generated YAML or JSON before committing:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi deploy strava --var HAPI_OPENAPI:"https://docs.mcp.com.ai/apis/openapi/strava.json" --dry-run</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Store returned endpoint URL for ChatGPT integration.</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="converting-swagger-oas-20-to-openapi-30">Converting Swagger (OAS 2.0) to OpenAPI 3.0+<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#converting-swagger-oas-20-to-openapi-30" class="hash-link" aria-label="Direct link to Converting Swagger (OAS 2.0) to OpenAPI 3.0+" title="Direct link to Converting Swagger (OAS 2.0) to OpenAPI 3.0+" translate="no">​</a></h2>
-<p>Don't have an OpenAPI 3.0+ spec? Convert from Swagger (OAS 2.0) using these steps:</p>
-<ol>
-<li class="">Use the official online converter:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">curl -X POST -H "Content-Type: application/json" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -d @swagger.json https://converter.swagger.io/api/convert \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -o openapi3.json</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Confirm version:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">grep '"openapi"' openapi3.json</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Fix any <code>schema</code> vs <code>definitions</code> mismatches manually if needed.</li>
-<li class="">Retry deployment with the new file.</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="validating-your-mcp-server">Validating Your MCP Server<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#validating-your-mcp-server" class="hash-link" aria-label="Direct link to Validating Your MCP Server" title="Direct link to Validating Your MCP Server" translate="no">​</a></h2>
-<ol>
-<li class="">List tools:</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">curl -s https://your-mcp-endpoint.example/mcp/tools | jq</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Call a tool (example POST body):</li>
-</ol>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">curl -X POST https://your-mcp-endpoint.example/mcp/call \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -H 'Content-Type: application/json' \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -d '{</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "tool":"getPetById",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "params":{"petId": 123}</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  }'</span><br></span></code></pre></div></div>
-<ol>
-<li class="">Check response latency; target &lt; 1s for best conversational UX.</li>
-<li class="">Log errors; ensure input validation messages are concise and actionable.</li>
-<li class="">Confirm schema alignment with expected OpenAPI parameter types.</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently Asked Questions<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-fast-can-you-expose-an-api-to-chatgpt">How fast can you expose an API to ChatGPT?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#how-fast-can-you-expose-an-api-to-chatgpt" class="hash-link" aria-label="Direct link to How fast can you expose an API to ChatGPT?" title="Direct link to How fast can you expose an API to ChatGPT?" translate="no">​</a></h3>
-<p>You can expose a spec-driven API in under 60 seconds using the cloud portal or a single CLI command.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="do-you-need-to-write-glue-code">Do you need to write glue code?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#do-you-need-to-write-glue-code" class="hash-link" aria-label="Direct link to Do you need to write glue code?" title="Direct link to Do you need to write glue code?" translate="no">​</a></h3>
-<p>You do not need custom tool wrappers; HAPI MCP converts spec operations automatically.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="can-you-use-private-specs">Can you use private specs?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#can-you-use-private-specs" class="hash-link" aria-label="Direct link to Can you use private specs?" title="Direct link to Can you use private specs?" translate="no">​</a></h3>
-<p>Yes. Host the spec behind authenticated access or load from a local file via CLI.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-formats-are-supported">What formats are supported?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#what-formats-are-supported" class="hash-link" aria-label="Direct link to What formats are supported?" title="Direct link to What formats are supported?" translate="no">​</a></h3>
-<p>OpenAPI 3.0+ JSON or YAML. Convert OAS 2.0 (Swagger) before deployment.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="is-this-limited-to-chatgpt">Is this limited to ChatGPT?<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#is-this-limited-to-chatgpt" class="hash-link" aria-label="Direct link to Is this limited to ChatGPT?" title="Direct link to Is this limited to ChatGPT?" translate="no">​</a></h3>
-<p>No. Any MCP-aware client (custom apps, open-source chat UIs) can consume the server.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://mcp.com.ai/openai-ui-sdk-and-mcp-chatgpt#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
-<p>You now have a repeatable path to transform any OpenAPI 3.0+ specification into a production-ready MCP server consumable by the OpenAI UI SDK and AI assistants. By following validation, conversion, and optimization steps, you improve tool discoverability. Next, refine schema descriptions and add automated integration tests to ensure durable quality as your API evolves.</p>
-<p>Your APIs are now ready to be seamlessly integrated into ChatGPT and other MCP-aware clients, unlocking new possibilities for AI-driven interactions. Stop wasting time writing MCP Server code manually—leverage HAPI MCP to accelerate your AI integration journey!</p>
-<p>Be HAPI and Go Rebels! ✊🏽</p>]]></content:encoded>
-            <category>MCP</category>
-            <category>OpenAI</category>
-            <category>API-First</category>
-            <category>LLM</category>
-            <category>Guide</category>
             <category>AI Integration</category>
         </item>
     </channel>
