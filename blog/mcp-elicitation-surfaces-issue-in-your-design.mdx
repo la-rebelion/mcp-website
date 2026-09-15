@@ -1,0 +1,219 @@
+---
+title: "MCP Elicitation Is a Symptom, Not a Strategy"
+description: "Why reaching for MCP elicitation usually means a tool's input contract has a gap — and how atomic, stateless APIs plus HAPI Workflows remove the need for it before it ever reaches the user."
+authors: [adrian]
+tags: [mcp, api-first, architecture, best-practices, arazzo]
+keywords:
+  - mcp elicitation
+  - stateless api design
+  - atomic api design
+  - hapi workflows
+  - arazzo
+  - tool server design
+  - mcp best practices
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is MCP elicitation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MCP elicitation is a standardized feature (elicitation/create) that lets a server pause mid-task and ask the connected user for structured, schema-validated information through the client, instead of guessing a missing value or failing the request outright."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is MCP elicitation a bad practice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, but it's easy to overuse. Elicitation is the right tool for confirming a destructive action or asking for something only the user can know. It's the wrong tool for filling in a required field your API already knows is required, or for chaining together a multi-step process — both of those are design problems elicitation just papers over."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I reduce the need for elicitation in my MCP tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Design each API operation to be atomic and explicit about its required parameters in the OpenAPI spec, so an agent can see what's required before it calls the tool instead of finding out mid-call. For processes that genuinely need multiple steps, define the sequence explicitly with HAPI Workflows (Arazzo) instead of letting the model improvise it through back-and-forth elicitation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between elicitation and a multi-step workflow?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elicitation asks a human for one flat, primitive value mid-call, at runtime, on demand. A workflow defines the dependency between steps — 'this step's input comes from that step's output' — as an explicit, deterministic sequence the server executes, with no back-and-forth with the user needed to figure out what comes next."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can HAPI Workflows replace MCP elicitation for multi-step processes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For the class of elicitation that exists only to chain calls together — 'what's the ID from the last step?' — yes. HAPI Workflows, built on the Arazzo specification, let you define that dependency once as data, so the sequence runs deterministically instead of relying on the model to ask and remember it correctly every time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What data can I request through MCP elicitation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The MCP spec restricts elicitation's requestedSchema to flat objects with primitive properties only — strings, numbers, booleans, and enums, no nested objects or arrays of objects. It also explicitly forbids requesting sensitive information through elicitation."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+**If your tool server needs to interrupt the model to ask a question, ask why the question wasn't answerable before the call started.**
+
+MCP elicitation is a real, spec-defined capability, and it solves a real problem. It's also becoming a convenient place to hide a design problem instead of fixing it.
+
+<!-- truncate -->
+
+This is the third post in a series about building MCP the API-first way. The [first](/api-first-vs-mcp-first) makes the case that APIs — not MCP — are the durable contract. The [second](/openapi-to-mcp-to-ai-agent) walks through turning a production OpenAPI spec into a live MCP server and a ready-to-use agent prompt, zero code. This one is about a specific symptom that shows up once that server is live: how often it needs to stop and ask.
+
+## What Elicitation Actually Is
+
+The [MCP specification](https://modelcontextprotocol.io/specification/2025-06-18/client/elicitation) defines `elicitation/create`: a server-to-client request that pauses a tool call and asks the connected user for structured input, validated against a JSON Schema the server provides. The client responds with one of three actions — `accept` (with the data), `decline`, or `cancel` — and the server continues from there.
+
+It's a genuinely useful primitive, and the spec is deliberate about its shape. Two constraints matter more than they might look at first:
+
+1. **The requested schema is flat and primitive-only.** Strings, numbers, booleans, and enums — no nested objects, no arrays of objects. The spec is explicit that this is intentional, "to simplify client implementation."
+2. **Servers must not request sensitive information through elicitation.** It's designed for a missing username, a confirmation, a choice between options — not for carrying meaningful business data into a call.
+
+Put those together and elicitation's actual design target becomes clear: **one small, simple gap, confirmed on the spot.** It was never meant to be the mechanism that assembles a whole request out of pieces, or that stitches one API call to the next. If your server is asking it to do that, the schema constraints will fight you the entire way.
+
+## The Real Question: Why Was the Model Guessing?
+
+Every elicitation call starts from the same place: the model tried to call a tool and didn't have something it needed. Before reaching for elicitation as the fix, it's worth asking *why* that value wasn't already available — because the answer usually points somewhere more useful than "ask the user."
+
+There are really only two honest answers:
+
+**The tool's input contract didn't say the field was required.** If an operation genuinely can't run without a `channel` or a `recipientId`, and your OpenAPI spec doesn't mark it `required`, the model has no way to know it needs to supply one until the call already failed — or until your server stops mid-task to ask. That's not a limitation of the model. It's a spec that describes the operation less precisely than the operation actually behaves.
+
+**The value depends on a previous step's result.** "Which club?" only comes up because nothing told the agent that *this* call needs the output of an *earlier* call. That's not missing information — it's a missing sequence. Elicitation papers over it by asking the human to relay a value the system already computed two steps ago.
+
+Neither of those is what elicitation was built for. Both are fixable before the model ever has to ask.
+
+## Fix One: Make the Contract Say What It Means
+
+`hapi serve --dry-run` computes the exact tool list a live server exposes, including the required-parameter summary for every operation, straight from the OpenAPI spec:
+
+```bash
+hapi serve --dry-run --output markdown --specs ./openapi.yaml --headless
+```
+
+```text
+1. **getStats**: Get Athlete Stats - Returns the activity stats of an
+   athlete... Required parameters: id (integer).
+2. **sendMessage**: Send a message. No required parameters.
+```
+
+That second line is the tell. If `sendMessage` genuinely can't run without a recipient, "No required parameters" isn't a convenience — it's a gap that's going to surface at runtime, either as a failed call, a guessed value, or an elicitation request asking the user for something the spec should have already declared. The fix costs nothing at runtime: mark the field `required` in the OpenAPI document, and every consumer — the live MCP server, the dry-run preview, and any agent reasoning about the tool — sees the same accurate contract before a single call is made.
+
+It's the same principle behind how HAPI derives `readOnlyHint` and `destructiveHint` for every tool from the HTTP method or explicit `x-*` extensions, and how the [`hapi-agent-prompt-generator` skill](/openapi-to-mcp-to-ai-agent) writes "never guess a required parameter — ask the user for clarification" directly into the generated Tool-Use Policy. Precision in the spec is what lets every layer above it — the annotations, the agent prompt, the model's own judgment — stop guessing.
+
+## Fix Two: Make the Sequence a Workflow, Not a Conversation
+
+The second case is different. There's nothing wrong with the individual operations — `getLoggedInAthleteClubs` and `getClubActivitiesById` are both perfectly well-specified. The problem is that nothing connects them. The model has to either ask "which club?" or guess, because the dependency between the two calls only exists in its head, re-derived every single time.
+
+That's exactly what [HAPI Workflows](https://docs.mcp.com.ai/components/hapi-server/hapi-workflows), built on the [Arazzo specification](https://www.openapis.org/arazzo), are for: expressing the dependency once, as data, instead of leaving it to be reconstructed in conversation.
+
+```yaml
+workflowId: reviewClubActivity
+steps:
+  - stepId: findClub
+    operationId: getLoggedInAthleteClubs
+    outputs:
+      clubId: $response.body#/0/id
+
+  - stepId: fetchActivities
+    operationId: getClubActivitiesById
+    parameters:
+      - name: id
+        value: $steps.findClub.outputs.clubId
+```
+
+*(Illustrative shape — see the [HAPI Workflows guide](https://docs.mcp.com.ai/components/hapi-server/hapi-workflows) for the full, valid Arazzo syntax.)*
+
+`fetchActivities` doesn't need to ask anything, because `findClub`'s result is already wired into its input. Serve it and validate it offline before anything runs:
+
+```bash
+hapi arazzo validate --specs ./workflow.arazzo.yaml
+hapi workflows serve --specs ./workflow.arazzo.yaml --headless
+```
+
+The sequence is explicit, deterministic, and runs the same way every time — not reconstructed by an LLM's best guess about what the last tool call probably returned.
+
+## A Quick Way to Tell Which Fix You Need
+
+| What's triggering elicitation | Likely root cause | Better fix |
+|---|---|---|
+| A field that's missing on *every* call | The spec doesn't mark it `required` | Fix the OpenAPI spec — it costs nothing at runtime |
+| A value that depends on an earlier call's result | Missing orchestration between two operations | Define the dependency with HAPI Workflows / Arazzo |
+| Disambiguating between several valid matches | A lookup/search step is missing before the write | Add an explicit lookup tool, or a workflow step for it |
+| Confirming a destructive or irreversible action | — | This is exactly what elicitation is for. Keep it. |
+
+## Where Elicitation Is Actually the Right Call
+
+None of this is an argument against elicitation. It's an argument against reaching for it first.
+
+Confirming a destructive action — "you're about to cancel this subscription, confirm?" — is precisely the scenario the spec's three-action `accept`/`decline`/`cancel` model was built for, and precisely the boundary a well-written agent prompt's Guardrails section should already be enforcing before the tool is even called. Asking for something that is genuinely a human judgment call, not a system fact your API could have supplied, is the other legitimate case.
+
+There's also a practical reason to keep elicitation for exactly these narrow cases and nothing more: not every MCP client has implemented it yet. A server that depends on elicitation to complete ordinary, non-destructive operations only works with the subset of clients that support it. A server whose ordinary operations are fully specified — and whose multi-step processes are explicit workflows — works everywhere, and reserves elicitation for the one job every client that supports it will actually need it for: getting a human's explicit yes.
+
+## The Lesson
+
+If your MCP server needs to stop and ask, ask a harder question first:
+
+**Was that information genuinely unknowable in advance — or did it leak out of a spec that should have said "required," or a sequence that should have been a workflow?**
+
+Fix the spec. Wire the sequence. Save elicitation for the one thing nothing else can do: asking a human what only a human can decide.
+
+## Frequently Asked Questions
+
+<details>
+<summary><strong>What is MCP elicitation?</strong></summary>
+MCP elicitation is a standardized feature (<code>elicitation/create</code>) that lets a server pause mid-task and ask the connected user for structured, schema-validated information through the client, instead of guessing a missing value or failing the request outright.
+</details>
+
+<details>
+<summary><strong>Is MCP elicitation a bad practice?</strong></summary>
+No, but it's easy to overuse. Elicitation is the right tool for confirming a destructive action or asking for something only the user can know. It's the wrong tool for filling in a required field your API already knows is required, or for chaining together a multi-step process — both of those are design problems elicitation just papers over.
+</details>
+
+<details>
+<summary><strong>How do I reduce the need for elicitation in my MCP tools?</strong></summary>
+Design each API operation to be atomic and explicit about its required parameters in the OpenAPI spec, so an agent can see what's required before it calls the tool instead of finding out mid-call. For processes that genuinely need multiple steps, define the sequence explicitly with HAPI Workflows (Arazzo) instead of letting the model improvise it through back-and-forth elicitation.
+</details>
+
+<details>
+<summary><strong>What's the difference between elicitation and a multi-step workflow?</strong></summary>
+Elicitation asks a human for one flat, primitive value mid-call, at runtime, on demand. A workflow defines the dependency between steps — "this step's input comes from that step's output" — as an explicit, deterministic sequence the server executes, with no back-and-forth with the user needed to figure out what comes next.
+</details>
+
+<details>
+<summary><strong>Can HAPI Workflows replace MCP elicitation for multi-step processes?</strong></summary>
+For the class of elicitation that exists only to chain calls together — "what's the ID from the last step?" — yes. HAPI Workflows, built on the Arazzo specification, let you define that dependency once as data, so the sequence runs deterministically instead of relying on the model to ask and remember it correctly every time.
+</details>
+
+<details>
+<summary><strong>What data can I request through MCP elicitation?</strong></summary>
+The MCP spec restricts elicitation's <code>requestedSchema</code> to flat objects with primitive properties only — strings, numbers, booleans, and enums, no nested objects or arrays of objects. It also explicitly forbids requesting sensitive information through elicitation.
+</details>
+
+---
+
+**See it in your own spec.** Run `hapi serve --dry-run --output table --specs <your-openapi-spec>` and check the required-parameter column against what your operations actually need — that gap is usually where elicitation was about to start doing a spec's job for it.
