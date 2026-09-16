@@ -12,11 +12,7 @@ Every few months, our industry declares the next abstraction layer "the new HTTP
 
 First it was SOAP.
 
-Then REST.
-
-Then GraphQL.
-
-Then gRPC.
+Then REST. Then GraphQL. Then gRPC.
 
 Now, it's MCP.
 

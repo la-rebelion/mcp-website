@@ -1,0 +1,640 @@
+---
+title: "AI Made Code Cheap. Ownership Is Still Expensive."
+description: "AI can generate an MCP server for any API in minutes — at 1,000 APIs, that's 1,000 implementations to own. Why the MCP Multiplication Tax is a bigger cost than tokens, and how to expose capabilities without reproducing them."
+authors: [adrian]
+tags: [mcp, ai, architecture, api-first, best-practices]
+keywords:
+  - mcp multiplication tax
+  - technical debt
+  - ai code generation
+  - mcp server architecture
+  - shadow software
+  - api-first
+  - enterprise ai adoption
+date: 2026-09-16T00:00:00Z
+image: /img/blog/mcp-multiplication-tax.png
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the MCP Multiplication Tax?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The MCP Multiplication Tax is the hidden cost of generating a separate MCP implementation for every API an enterprise owns, instead of exposing existing APIs through MCP. Generating the code is nearly free with AI; owning, securing, and maintaining a second implementation of every business capability for the rest of its life is not."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does AI reduce the total cost of owning an MCP server, or just the cost of writing it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI mostly reduces generation cost, which is usually the smallest part of a system's lifetime cost. Validation, integration, security review, observability, synchronization with the source API, and eventual retirement still have to happen, generated code or not — and at enterprise scale, those recurring costs multiply by however many separate implementations exist."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should every API get its own hand-built or AI-generated MCP implementation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not if the API already has a maintained OpenAPI specification. A separate implementation per API means separate code, dependencies, auth wiring, and drift risk for every one of them. Translating the existing OpenAPI contract into MCP tools directly avoids creating a second implementation surface for a capability that already exists."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is 'shadow software' in the context of MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shadow software is a second implementation of a capability that already exists behind an API, built so an AI agent can reach it through MCP. If the API changes and the shadow doesn't change with it, the two start returning different behavior for the same capability — one for REST consumers, another for AI agents — and keeping them in sync becomes its own ongoing maintenance burden."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does HAPI MCP avoid duplicating existing API implementations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HAPI treats MCP as a contract, not a server: it reads an existing OpenAPI (or Arazzo) document and exposes it through MCP directly, rather than generating a standalone implementation that has to be kept in sync by hand. The API stays the one source of truth; MCP becomes another interface to it, the same way a web app or a mobile client is."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+**AI has dramatically reduced the cost of writing code. It has not reduced the cost of owning it.**
+
+That distinction may become one of the most important architecture lessons of the AI era.
+
+Today, almost anyone inside an engineering organization can open an AI coding assistant and say:
+
+> "Here is my API. Build an MCP server for it."
+
+<!-- truncate -->
+
+A few minutes later, there is code.
+
+It feels like productivity.
+
+Now imagine an enterprise with **10 APIs**.
+
+Still manageable.
+
+Now imagine **100 APIs**.
+
+Now imagine **1,000 APIs**, each exposing five, ten, or fifty operations.
+
+Suddenly, AI has helped us create an entirely new software estate sitting beside an estate we already had.
+
+And we should ask an uncomfortable question:
+
+**Did AI eliminate work—or did it simply make technical debt cheap enough that we stopped noticing we were creating it?**
+
+This post continues the same thesis as [API-first vs. MCP-first](/api-first-vs-mcp-first): APIs remain the durable contract, and MCP is an interface to it, not a replacement for it. What follows is the economic argument for why that distinction matters at scale — [From OpenAPI to MCP to AI Agent](/openapi-to-mcp-to-ai-agent) shows exactly what "translate, don't reproduce" looks like as a single, real command, and the [MCP With No Shadows](/mcp-with-no-shadows) series covers the enterprise-adoption side: technical debt, drift, scaling, and OAuth.
+
+---
+
+## The new enterprise problem isn't generating code
+
+For decades, software development had a natural constraint: **code was expensive to produce**.
+
+You needed engineers. Engineers needed time. Projects needed budgets.
+
+That friction forced organizations to ask:
+
+**Is this worth building?**
+
+Generative AI changes that equation.
+
+An engineer can now describe what she wants and receive hundreds of lines of reasonable code in seconds.
+
+That is extraordinary.
+
+But it creates a new architectural problem.
+
+When the marginal cost of generating software approaches zero, **the temptation is to generate software for everything.**
+
+And MCP gives us a very concrete example.
+
+Suppose an enterprise already operates 1,000 REST APIs.
+
+Each API exposes an average of five operations that should become AI-accessible.
+
+That's roughly:
+
+**1,000 APIs × 5 operations = 5,000 MCP tool surfaces.**
+
+One approach is straightforward:
+
+Give every API to an AI coding assistant and ask it to create an MCP implementation.
+
+AI can absolutely do that.
+
+But the important question isn't:
+
+**"Can AI generate 1,000 MCPs?"**
+
+It is:
+
+**"Why should the enterprise own 1,000 additional implementations just so AI can access capabilities the enterprise already owns?"**
+
+That is a very different question.
+
+---
+
+## Welcome to the MCP Multiplication Tax
+
+Let's call this the **MCP Multiplication Tax**.
+
+It starts innocently.
+
+You have:
+
+**API → Business capability**
+
+Then AI arrives, and we create:
+
+**API → Business capability**
+
+plus:
+
+**MCP implementation → same business capability**
+
+The organization hasn't necessarily created a new capability.
+
+It has created **another implementation surface for reaching an existing capability**.
+
+Now multiply that across the enterprise.
+
+10 APIs become 10 MCP projects.
+
+100 become 100.
+
+1,000 become 1,000.
+
+And the multiplication doesn't stop at source code.
+
+Each implementation potentially introduces its own:
+
+* code
+* dependencies
+* tests
+* CI/CD
+* deployment
+* vulnerabilities
+* observability
+* authentication integration
+* authorization behavior
+* documentation
+* versioning
+* debugging
+* operational ownership
+
+The tokens consumed generating those MCPs are almost the least interesting part of the equation.
+
+**The real bill arrives after generation.**
+
+---
+
+## Tokens are cheap compared with ownership
+
+We could estimate how many millions of tokens an enterprise might consume asking coding agents to generate thousands of MCP tools.
+
+It would make an interesting spreadsheet.
+
+But it could also distract us from the larger economic problem.
+
+Suppose AI makes the initial implementation **10× cheaper**.
+
+Great.
+
+What happens next year?
+
+An API changes.
+
+A security requirement changes.
+
+A scope changes.
+
+An endpoint is deprecated.
+
+A parameter changes from optional to required.
+
+A response schema changes.
+
+A vulnerability is discovered in a dependency.
+
+An observability standard changes.
+
+A new authentication mechanism is introduced.
+
+The generated code doesn't magically disappear from your software inventory.
+
+Someone—or another AI—must understand, modify, validate, test, deploy, monitor, and eventually retire it.
+
+So perhaps we need a new equation for the AI era:
+
+> **Cost of software ≠ cost of generating software.**
+>
+> **Cost of software = generation + validation + integration + operation + synchronization + maintenance + eventual retirement.**
+
+AI attacks the first term aggressively.
+
+It helps with several others.
+
+But it does not make them zero.
+
+And at enterprise scale, multiplication matters more than individual efficiency.
+
+---
+
+## Are we creating abundance-driven technical debt?
+
+Technical debt traditionally came from scarcity.
+
+"We don't have enough time."
+
+"We need to ship."
+
+"We'll refactor later."
+
+AI introduces something different:
+
+**technical debt created by abundance.**
+
+We can generate another service.
+
+So we do.
+
+We can generate another adapter.
+
+So we do.
+
+We can generate another MCP server.
+
+So we do.
+
+Each individual decision appears inexpensive.
+
+The architecture becomes expensive collectively.
+
+That changes the responsibility of architects.
+
+The question used to be:
+
+**How can we build this?**
+
+Increasingly, the important question will be:
+
+**Should this software exist at all?**
+
+That may sound strange during an era obsessed with generating more software.
+
+I think it becomes more important precisely because generating software is becoming so easy.
+
+---
+
+## Your API already knows how your business works
+
+Consider what mature enterprise APIs already contain.
+
+The API represents a contract around an existing business capability.
+
+And when an OpenAPI description is maintained properly, it can describe much of what another machine needs to understand that capability:
+
+**paths, operations, parameters, schemas, authentication mechanisms, scopes, responses, errors, descriptions, and constraints.**
+
+That is valuable machine-readable information.
+
+Now MCP introduces another machine interface.
+
+The immediate instinct is:
+
+**"Let's implement the MCP version."**
+
+But there is another architectural approach:
+
+**Don't reproduce the capability. Translate the contract.**
+
+That difference is fundamental.
+
+Instead of:
+
+**API → MCP code → AI**
+
+think:
+
+**API Contract → MCP interface → AI**
+
+The API remains where the capability lives.
+
+MCP becomes another way of exposing it.
+
+---
+
+## One capability. One source of truth. Multiple interfaces.
+
+This leads to a principle I believe enterprises should seriously consider:
+
+> **One capability. One source of truth. Multiple interfaces.**
+
+Your REST API might serve applications.
+
+Your CLI might serve engineers.
+
+Your web application might serve humans.
+
+And MCP might serve AI agents.
+
+Those consumers don't require four copies of your business logic.
+
+They require **different interfaces to the same capability**.
+
+That distinction becomes especially important as AI interfaces multiply.
+
+Today, we are discussing MCP.
+
+Tomorrow there will be additional agent protocols, interfaces, and interaction models.
+
+If every new interface requires enterprises to regenerate and maintain their business capabilities, we are heading toward enormous software duplication.
+
+The better architecture is one in which interfaces can evolve while the underlying business capability remains authoritative.
+
+---
+
+## MCP should not become the shadow of your API
+
+A duplicated MCP implementation doesn't stay identical to the API it was copied from. The API changes; the shadow doesn't change with it, unless someone remembers to update it too. Now `API behavior ≈ MCP behavior` — approximately, not exactly — and keeping that approximation close enough is itself ongoing work, multiplied by every implementation you created instead of exposing.
+
+The goal isn't to maintain a perfect shadow. It's to avoid needing one. *(I go deeper on exactly how this drift happens, and what to do instead, in [MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust](/mcp-with-no-shadows/mcp-shadow-implementations).)*
+
+---
+
+## What does this mean for HAPI MCP?
+
+This is one of the architectural ideas behind **HAPI MCP**.
+
+The premise is deliberately simple:
+
+> **MCP is a contract, not a server.**
+
+If an enterprise already has APIs describing and implementing its business capabilities, HAPI MCP shouldn't require those capabilities to be rewritten simply because an AI agent needs access to them.
+
+Instead, the existing API remains authoritative.
+
+HAPI MCP transparently exposes that API through MCP.
+
+Conceptually:
+
+**Existing API → OpenAPI contract → HAPI MCP → MCP tools → AI**
+
+The business logic stays where it belongs.
+
+In the API.
+
+The API team continues improving its API.
+
+Security remains anchored to the API architecture.
+
+Observability remains connected to real API execution.
+
+And the MCP interface becomes a machine-facing projection of that existing contract rather than another independent implementation of the business capability.
+
+That changes the scaling equation.
+
+---
+
+## What happens when you reach 1,000 APIs?
+
+This is where architecture stops being theoretical.
+
+At 10 APIs, almost anything works.
+
+You can manually generate MCP servers.
+
+Review them.
+
+Fix them.
+
+Deploy them.
+
+Maintain them.
+
+At 100 APIs, patterns start to matter.
+
+At 1,000 APIs, **architecture becomes economics**.
+
+The organization has to think about:
+
+**How many artifacts are we creating?**
+
+**How many systems need patching?**
+
+**How many repositories need governance?**
+
+**How many implementations can drift?**
+
+**How many security surfaces are we adding?**
+
+**How many engineering hours are required simply to keep equivalent capabilities equivalent?**
+
+This is why measuring only AI token consumption misses the bigger story.
+
+Suppose AI becomes dramatically cheaper next year.
+
+The argument becomes even stronger.
+
+Because the cheaper code generation becomes, the easier it becomes to accidentally generate an enormous amount of software nobody really needed to own.
+
+---
+
+## AI productivity needs an architecture counterweight
+
+There is a strange paradox developing.
+
+AI gives individual developers extraordinary leverage.
+
+An engineer can produce more code, faster than ever.
+
+But an enterprise does not necessarily want **maximum code production**.
+
+It wants maximum business value with minimum unnecessary complexity.
+
+Those are not the same thing.
+
+A developer might celebrate:
+
+**"AI generated our MCP server in 15 minutes."**
+
+An architect should ask:
+
+**"What did we just commit ourselves to owning for the next five years?"**
+
+Both perspectives matter.
+
+But at enterprise scale, the second question becomes increasingly important.
+
+---
+
+## The next AI optimization may be deleting the generation step
+
+We often talk about optimizing prompts.
+
+Optimizing context windows.
+
+Reducing tokens.
+
+Compressing schemas.
+
+Using smaller models.
+
+Caching responses.
+
+All of those can matter.
+
+But sometimes the largest optimization comes before inference even begins:
+
+**Don't generate software you don't need.**
+
+If an API already expresses a business capability, perhaps the most efficient MCP implementation is not another implementation at all.
+
+Perhaps it is a transparent interface over the capability that already exists.
+
+That means fewer generated artifacts.
+
+Less duplicated logic.
+
+Less synchronization.
+
+Less infrastructure.
+
+Less security surface.
+
+Less maintenance.
+
+And, yes, fewer tokens spent repeatedly asking AI to recreate representations of systems we already built.
+
+---
+
+## AI changed the architect's job
+
+There was a time when architecture helped organizations figure out **how to build difficult things**.
+
+AI is changing the constraint.
+
+Increasingly, building isn't the difficult part.
+
+**Resisting unnecessary building might be.**
+
+When an engineer can generate another service in minutes, architectural discipline becomes more valuable, not less.
+
+We need people asking:
+
+**Does this need to be code?**
+
+**Does this capability already exist?**
+
+**Can we expose rather than reproduce it?**
+
+**Where is the source of truth?**
+
+**What happens when the original changes?**
+
+**Who owns this five years from now?**
+
+And perhaps the most important:
+
+**Are we using AI to reduce complexity—or simply using AI to create complexity faster?**
+
+---
+
+## What "Translate, Don't Reproduce" Looks Like in Practice
+
+This isn't a hypothetical trade-off. It's the difference between two commands.
+
+Generating a standalone MCP implementation for one API — the version that becomes another repository, another CI pipeline, another thing that drifts — starts with an AI coding assistant and a prompt. Multiply that by however many APIs the organization owns, and the multiplication tax starts compounding immediately: 1,000 prompts, 1,000 repositories, 1,000 things that can drift from the API they were supposed to represent.
+
+Translating the existing contract instead looks like this:
+
+```bash
+hapi serve --specs ./openapi.yaml --url https://api.internal.example.com --headless
+```
+
+One command. No generated repository. No second implementation to patch when the API's auth scheme changes next quarter. The OpenAPI document is read, not reproduced — the same spec the REST clients already trust becomes the MCP contract, computed fresh every time the server starts, never drifting because there's nothing to keep in sync.
+
+At one API, both approaches look similar. At 1,000, one of them is still one command per API, and the other is 1,000 things somebody has to own. That gap *is* the multiplication tax, made concrete.
+
+---
+
+## Code is becoming abundant. Simplicity is becoming scarce.
+
+That may be one of the defining engineering challenges of the next few years.
+
+AI will generate astonishing amounts of software.
+
+Some of it will create enormous value.
+
+Some of it will exist only because creating it became almost free.
+
+Enterprises need to learn the difference.
+
+For MCP, my position is simple:
+
+> **Don't create another implementation of a capability merely because another interface needs access to it.**
+
+Keep the light on your APIs.
+
+Keep them authoritative.
+
+Make them machine-readable.
+
+Design them well.
+
+Then expose those capabilities to humans, applications, automation systems, and AI through the interfaces each consumer needs.
+
+That's the philosophy behind **HAPI MCP**:
+
+**Your APIs already do the work. MCP should make them accessible to AI—not make you build them again.**
+
+Because in the AI era, the competitive advantage may not belong to the company that generates the most code.
+
+**It may belong to the company that knows which code it never needed to generate.**
+
+## Frequently Asked Questions
+
+<details>
+<summary><strong>What is the MCP Multiplication Tax?</strong></summary>
+The MCP Multiplication Tax is the hidden cost of generating a separate MCP implementation for every API an enterprise owns, instead of exposing existing APIs through MCP. Generating the code is nearly free with AI; owning, securing, and maintaining a second implementation of every business capability for the rest of its life is not.
+</details>
+
+<details>
+<summary><strong>Does AI reduce the total cost of owning an MCP server, or just the cost of writing it?</strong></summary>
+AI mostly reduces generation cost, which is usually the smallest part of a system's lifetime cost. Validation, integration, security review, observability, synchronization with the source API, and eventual retirement still have to happen, generated code or not — and at enterprise scale, those recurring costs multiply by however many separate implementations exist.
+</details>
+
+<details>
+<summary><strong>Should every API get its own hand-built or AI-generated MCP implementation?</strong></summary>
+Not if the API already has a maintained OpenAPI specification. A separate implementation per API means separate code, dependencies, auth wiring, and drift risk for every one of them. Translating the existing OpenAPI contract into MCP tools directly avoids creating a second implementation surface for a capability that already exists.
+</details>
+
+<details>
+<summary><strong>What is "shadow software" in the context of MCP?</strong></summary>
+Shadow software is a second implementation of a capability that already exists behind an API, built so an AI agent can reach it through MCP. If the API changes and the shadow doesn't change with it, the two start returning different behavior for the same capability — one for REST consumers, another for AI agents — and keeping them in sync becomes its own ongoing maintenance burden.
+</details>
+
+<details>
+<summary><strong>How does HAPI MCP avoid duplicating existing API implementations?</strong></summary>
+HAPI treats MCP as a contract, not a server: it reads an existing OpenAPI (or Arazzo) document and exposes it through MCP directly, rather than generating a standalone implementation that has to be kept in sync by hand. The API stays the one source of truth; MCP becomes another interface to it, the same way a web app or a mobile client is.
+</details>
+
+---
+
+**See the one-command version for yourself.** Run `hapi serve --specs <your-openapi-spec> --headless` against an API you already own, then read [From OpenAPI to MCP to AI Agent](/openapi-to-mcp-to-ai-agent) for the full path from that command to a live server and a ready-to-use agent prompt — zero additional implementations to own.

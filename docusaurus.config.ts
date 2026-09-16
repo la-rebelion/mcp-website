@@ -117,7 +117,7 @@ const config: Config = {
         { href: '/get-my-mcp', label: 'Get My MCP', position: 'right' },
         { href: '/get-the-news', label: 'Get The News', position: 'right' },
         { href: '/request-demo', label: 'Request Demo', position: 'right' },
-        { href: 'https://github.com/la-rebelion/hapimcp', label: 'GitHub', position: 'right' },
+        { href: 'https://github.com/mcp-com-ai/hapimcp', label: 'GitHub', position: 'right' },
       ],
     },
     footer: {
@@ -138,9 +138,10 @@ const config: Config = {
         {
           title: 'Community',
           items: [
-            { label: 'Blog', to: '/' },
+            { label: 'Blog', to: '/archive' },
             { label: 'Tags', to: '/tags' },
-            { label: 'GitHub', href: 'https://github.com/la-rebelion/hapimcp' },
+            { label: 'MCP.com.ai GitHub', href: 'https://github.com/mcp-com-ai/hapimcp' },
+            { label: 'La Rebelion GitHub', href: 'https://github.com/la-rebelion' },
             {
               label: 'YouTube "La Rebelion"',
               href: 'https://www.youtube.com/@LaRebelion',
@@ -174,7 +175,7 @@ const config: Config = {
       // Optional: see doc section below
       contextualSearch: true,
       // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-      externalUrlRegex: 'clawster\\.my|rebelion\\.la',
+      externalUrlRegex: 'clawne\\.me|clawster\\.my|rebelion\\.la',
       // Optional: Algolia search parameters
       searchParameters: {},
       // Optional: path for search page that enabled by default (`false` to disable it)

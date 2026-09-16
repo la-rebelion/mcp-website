@@ -1,0 +1,792 @@
+---
+title: "MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust"
+description: "An MCP server that reimplements what your API already does becomes a shadow — code that looks right today and quietly drifts from the truth tomorrow. Here's how to keep MCP transparent instead."
+authors: [adrian]
+tags: [architecture, api-first, best-practices]
+keywords:
+  - mcp shadow implementation
+  - duplicated business logic
+  - mcp technical debt
+  - api-first architecture
+  - mcp single source of truth
+  - hapi mcp
+image: /img/mcp-with-no-shadows/mcp-shadow-implementation.png
+hide_table_of_contents: true
+date: 2026-09-14T00:00:00Z
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an MCP shadow implementation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An MCP shadow is an MCP server that duplicates capabilities, business logic, validation, or authorization already implemented by an existing API, instead of exposing that API directly. It can look identical to the original at first, then quietly drift as the API changes and the shadow doesn't."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is duplicating API logic into an MCP server risky?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because it creates two implementations of the same business capability that can disagree. If the API and the MCP shadow diverge — a validation rule fixed in one but not the other, an authorization change applied to one but not the other — traditional clients and AI agents can produce different outcomes for what's supposed to be the same operation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should every API endpoint become an MCP tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Curating which capabilities an agent actually needs — and designing tool descriptions around AI intent — is a separate problem from avoiding duplication. You can expose a small, curated set of MCP tools that still execute against the same production API, with no shadow implementation behind any of them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does HAPI MCP prevent shadow implementations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HAPI MCP treats your OpenAPI contract as the source of truth and projects it into MCP tools directly, rather than generating a standalone implementation that has to be manually kept in sync. When the API changes, the MCP projection reflects it — there's no second codebase that can quietly fall behind."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does keeping MCP transparent affect authentication and authorization?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It should improve it. If authorization rules stay anchored to the API that already enforces them, there's no second identity or permission model for MCP to get out of sync with. A shadow that diverges on authorization — the API denies an action the MCP layer allows — is a security incident, not just a bug."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+**Every line of business logic you duplicate into an MCP creates another place where your system can eventually disagree with itself.**
+
+And that disagreement has a cost.
+
+<!-- truncate -->
+
+More code to maintain. More tests to write. More infrastructure to operate. More security policies to keep aligned. More places where production behavior can drift.
+
+Most importantly, you may accidentally create **two versions of the truth**:
+
+**Your API behavior and your MCP behavior.**
+
+There is a simple analogy for this problem: **light and shadows.**
+
+A physical shadow appears when an opaque object blocks light. Change the position of the light, and the shadow changes. Morning shadows look different from noon shadows. Move the object, and its shadow moves too.
+
+Software can develop shadows in much the same way.
+
+Build an MCP server that independently reimplements what your API already does, and you have created a **shadow implementation**.
+
+It may look exactly like the original today.
+
+But what happens tomorrow?
+
+Your API changes.
+
+Traffic increases.
+
+Authentication rules evolve.
+
+A validation rule gets fixed.
+
+A new parameter appears.
+
+The business changes its pricing logic.
+
+Someone patches the API but forgets about the MCP implementation.
+
+Now the shadow no longer matches the object casting it.
+
+**That is exactly the architectural problem HAPI MCP was designed to avoid.**
+
+
+This post is part of the [MCP With No Shadows](/mcp-with-no-shadows) series on adopting MCP without quietly rebuilding your application behind it — see also [how to adopt MCP without creating technical debt](/mcp-with-no-shadows/adopt-mcp-without-technical-debt) and [the hidden scaling problem in MCP](/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it). It's also the deep dive behind the "shadow" section of [why AI made code cheap but ownership still expensive](/mcp-multiplication-tax).
+
+The idea behind HAPI MCP is simple:
+
+> **Do not rebuild your application for AI. Make the APIs you already trust transparently accessible to AI.**
+
+The light should remain pointed at your APIs.
+
+---
+
+## What Is an MCP Shadow?
+
+Let's define the term first.
+
+In this context, an **MCP shadow** is an MCP implementation that duplicates capabilities, business logic, validation, integration behavior, or operational responsibilities already implemented by an existing API.
+
+Imagine this architecture:
+
+**Application → Business Logic → REST API**
+
+Then AI arrives.
+
+The organization creates:
+
+**AI Agent → MCP Server → New Business Logic → Backend**
+
+At first, everything looks fine.
+
+The MCP tools produce the expected answers.
+
+The demos work.
+
+The AI can finally interact with the business.
+
+But something subtle happened.
+
+You did not simply create another interface.
+
+**You created another implementation.**
+
+Now there are two systems representing the same business capability.
+
+The REST API implements one version.
+
+The MCP server implements another.
+
+The shadow has been born.
+
+---
+
+## How Do MCP Shadows Form?
+
+A shadow needs three things: a light source, an object blocking the light, and a surface where the shadow appears.
+
+The software analogy is surprisingly useful.
+
+### The light: your engineering investment
+
+Your engineering organization continuously shines effort into your production APIs:
+
+Security.
+
+Testing.
+
+Observability.
+
+Performance.
+
+Reliability.
+
+Business logic.
+
+Authorization.
+
+Documentation.
+
+Compliance.
+
+Years of engineering work may already exist behind those endpoints.
+
+### The object: duplicated MCP implementation
+
+Instead of allowing AI consumers to reach those capabilities through the existing API contract, you build another MCP-specific implementation.
+
+Some API logic gets copied.
+
+Some gets simplified.
+
+Some gets rewritten.
+
+Some gets interpreted differently.
+
+The MCP implementation becomes an opaque layer between AI and the API.
+
+### The shadow: behavioral drift
+
+Eventually, the MCP implementation begins behaving differently from the API.
+
+And just like a physical shadow, its shape depends on conditions.
+
+---
+
+## Shadows Change Depending on the Light
+
+Think about your own shadow outside.
+
+At noon, with the sun directly overhead, your shadow might be small.
+
+Near sunset, that same person can cast a shadow several times their height.
+
+**The person did not change. The conditions did.**
+
+Software behaves similarly.
+
+An MCP implementation might work beautifully during development.
+
+Ten requests.
+
+One developer.
+
+A predictable dataset.
+
+Almost no concurrency.
+
+Then production happens.
+
+10 requests become 10,000.
+
+Authentication becomes multi-user.
+
+Rate limits appear.
+
+Retries happen.
+
+Network failures happen.
+
+Backend latency increases.
+
+Models make unexpected tool calls.
+
+Several agents invoke the same capability simultaneously.
+
+Suddenly, the shape of your shadow changes.
+
+That MCP-specific implementation now has its **own reliability profile, scaling characteristics, failure modes, security considerations, observability requirements, and operational burden.**
+
+You didn't just expose an API to AI.
+
+You created another system.
+
+And another system must be operated.
+
+---
+
+## The Most Dangerous Shadow Is Duplicated Business Logic
+
+Imagine an ecommerce platform already has:
+
+`POST /orders`
+
+Behind that endpoint might be years of work:
+
+* inventory validation
+* pricing rules
+* customer authorization
+* fraud checks
+* discounts
+* taxes
+* payment processing
+* fulfillment rules
+* audit logging
+* error handling
+
+Now someone creates an MCP tool:
+
+`create_order`
+
+There are two architectural possibilities.
+
+### Option A: Reimplement the capability
+
+The MCP server contains logic for interpreting the order, validating products, calculating some values, checking permissions, and eventually interacting with backend systems.
+
+Now there are two implementations of **create order**.
+
+### Option B: Expose the existing capability
+
+The MCP tool maps the model's request into the existing API contract.
+
+The API remains responsible for executing the business capability.
+
+The architecture becomes:
+
+**AI → MCP → API → Business Logic**
+
+The MCP is an interface.
+
+The API remains the system of record.
+
+That distinction matters enormously.
+
+---
+
+## What Happens When the API Changes?
+
+Suppose tomorrow the business adds a mandatory `deliveryMethod` field.
+
+With duplicated MCP logic, someone must remember:
+
+1. Update the API.
+2. Update API clients.
+3. Update the MCP implementation.
+4. Update MCP validation.
+5. Update MCP tests.
+6. Verify that both implementations behave consistently.
+
+Miss step three and something interesting happens.
+
+Traditional applications and AI agents can now produce **different business outcomes** while supposedly using the same capability.
+
+That is architectural drift.
+
+And drift rarely announces itself with a big red warning.
+
+It usually appears slowly.
+
+One edge case here.
+
+One authorization difference there.
+
+One outdated validation rule.
+
+Until somebody asks:
+
+> "Why did the AI allow this when the application doesn't?"
+
+Now you have to investigate two systems.
+
+---
+
+## Why Is a Single Source of Truth Important for MCP?
+
+Because MCP should not require organizations to duplicate everything they already built for APIs.
+
+If your API is already the production contract for a business capability, keep it that way.
+
+The ideal architecture is closer to:
+
+**Human applications → API**
+
+**Automation → API**
+
+**CLI → API**
+
+**AI agents → MCP → API**
+
+Different consumers.
+
+**Same underlying capability.**
+
+That gives your architecture a clear source of truth.
+
+When business logic changes, change it where it belongs.
+
+When security changes, change it where it belongs.
+
+When validation changes, change it where it belongs.
+
+When reliability needs improvement, improve the system everyone already depends on.
+
+Your engineering investment compounds instead of splitting.
+
+---
+
+## Make Your APIs Transparent
+
+This is where I like reversing the shadow analogy.
+
+Transparent objects allow light to pass through them.
+
+**That is how I want MCP to behave.**
+
+Not as another opaque application containing another version of my business.
+
+But as a contextual interface through which AI can discover and invoke capabilities already represented by APIs.
+
+Think:
+
+**AI Consumer**
+↓
+**MCP Contract**
+↓
+**API Contract**
+↓
+**Production Business Logic**
+
+The MCP layer provides what the AI needs:
+
+tool discovery, tool descriptions, schemas, contextual interfaces, authorization integration, and model-friendly capability exposure.
+
+But execution remains anchored to the existing API.
+
+**MCP becomes a window, not another building.**
+
+---
+
+## How Does HAPI MCP Work?
+
+This philosophy is one of the reasons I built HAPI MCP around a simple principle:
+
+> **MCP is a contract, not a server.**
+
+HAPI MCP starts with APIs.
+
+If an organization already exposes capabilities through REST APIs described using OpenAPI, those contracts can become the foundation for MCP tools.
+
+Instead of asking:
+
+> "How do we rewrite this application as an MCP server?"
+
+We ask:
+
+> **"Which existing API capabilities should AI consumers be allowed to use?"**
+
+That is a very different architectural question.
+
+HAPI MCP can expose selected API operations as MCP capabilities while the underlying APIs continue doing what they already do.
+
+The basic model becomes:
+
+**Agent / AI Application**
+↓
+**MCP**
+↓
+**HAPI MCP**
+↓
+**Existing REST APIs**
+↓
+**Existing Business Systems**
+
+The API does not need to become an MCP application.
+
+And the MCP layer does not need to become another copy of the application.
+
+---
+
+## If the API Changes, the MCP Changes With It
+
+This is where API-first architecture becomes especially valuable.
+
+Your OpenAPI contract already describes things such as:
+
+paths,
+
+operations,
+
+parameters,
+
+request bodies,
+
+response schemas,
+
+authentication mechanisms,
+
+security scopes,
+
+and errors.
+
+That contract can become the bridge between traditional software consumers and AI consumers.
+
+Instead of maintaining:
+
+**API implementation + MCP implementation**
+
+the goal is closer to:
+
+**API implementation + machine-readable contract + MCP projection**
+
+That word — **projection** — matters.
+
+The MCP representation should ideally be a projection of the underlying capability rather than an independent implementation of it.
+
+The API remains the source.
+
+MCP becomes another way of seeing it.
+
+---
+
+## But Should Every API Endpoint Become an MCP Tool?
+
+**Absolutely not.**
+
+Making APIs transparent to MCP does not mean blindly dumping your entire OpenAPI specification into an agent's context.
+
+A large API can contain hundreds or thousands of operations.
+
+An AI agent rarely needs all of them.
+
+This introduces another important HAPI MCP principle:
+
+> **API design and MCP tool design solve different problems.**
+
+Your API may expose capabilities optimized for developers.
+
+Your MCP surface should expose capabilities optimized around **AI intent and context**.
+
+For example, a commerce platform might have hundreds of endpoints.
+
+A customer-support agent may only need:
+
+`find_customer`
+
+`get_order`
+
+`check_order_status`
+
+`issue_refund`
+
+Those tools can still ultimately execute against the same production APIs.
+
+We reduce the **context exposed to the model** without duplicating the **business logic behind the context**.
+
+That distinction is critical.
+
+**Curate the MCP surface. Do not duplicate the application.**
+
+---
+
+## Why HAPI MCP?
+
+Because the cost of AI adoption should not include rebuilding systems that already work.
+
+Enterprises have spent years — sometimes decades — building reliable APIs.
+
+Those APIs already contain enormous organizational knowledge.
+
+They have been:
+
+tested,
+
+secured,
+
+observed,
+
+scaled,
+
+integrated,
+
+documented,
+
+audited,
+
+and hardened by production traffic.
+
+Why throw that investment away because the next consumer happens to be an AI agent?
+
+HAPI MCP takes the opposite approach.
+
+**Keep your APIs.**
+
+Keep your business logic.
+
+Keep your production systems.
+
+Keep improving them.
+
+Then expose the right capabilities to AI through MCP.
+
+This reduces duplicated logic and helps reduce the maintenance surface introduced by AI adoption.
+
+More importantly, it gives teams a cleaner architectural boundary:
+
+**Business capability belongs to the API.**
+
+**AI context belongs to MCP.**
+
+---
+
+## What About Authentication and Authorization?
+
+The same principle applies.
+
+If authorization rules already belong to your API architecture, MCP should not become an excuse to invent a second authorization universe.
+
+OAuth scopes, identity, permissions, and resource access should remain connected to the systems ultimately protecting the business capability.
+
+Otherwise, authorization itself becomes another shadow.
+
+Imagine:
+
+API says: **DENIED**
+
+MCP says: **ALLOWED**
+
+That is more than technical debt.
+
+That can become a security incident.
+
+The closer MCP remains to the existing API contract and authorization model, the smaller that divergence surface becomes.
+
+---
+
+## MCP Should Add Context, Not Duplicate Capability
+
+There is a useful architectural boundary here.
+
+MCP absolutely adds value.
+
+It gives AI systems a standardized way to discover and invoke capabilities.
+
+It provides descriptions models can reason about.
+
+It allows us to design tool surfaces around user intent.
+
+It gives agents a contextual interface into existing systems.
+
+But none of that requires MCP to own the business implementation.
+
+That is the distinction I believe matters as MCP architectures mature.
+
+**APIs execute capabilities.**
+
+**MCP contextualizes capabilities for AI consumers.**
+
+And HAPI MCP connects those worlds.
+
+---
+
+## The Architecture Gets Simpler
+
+Compare the two approaches.
+
+### Shadow architecture
+
+**Applications → API implementation → Backend**
+
+and independently:
+
+**AI → MCP implementation → Duplicated Logic → Backend**
+
+Now you maintain two paths.
+
+Two behavioral surfaces.
+
+Potentially two security models.
+
+Two reliability profiles.
+
+Two places to debug.
+
+### Transparent architecture
+
+**Applications → API**
+
+**CLI → API**
+
+**Automation → API**
+
+**AI → HAPI MCP → API**
+
+Everything eventually converges on the same production capabilities.
+
+One source of truth.
+
+Different interfaces.
+
+That is much closer to how I believe AI should enter existing enterprise architectures.
+
+---
+
+## Where Should the Light Go?
+
+This might be the most important question.
+
+Every engineering organization has limited light.
+
+Limited developers.
+
+Limited budget.
+
+Limited testing capacity.
+
+Limited security resources.
+
+Limited operational attention.
+
+Where should that light shine?
+
+I would rather put it here:
+
+**APIs**
+
+Make them more reliable.
+
+Make them faster.
+
+Improve authorization.
+
+Improve observability.
+
+Improve documentation.
+
+Improve contracts.
+
+Improve business logic.
+
+Improve tests.
+
+Because every consumer benefits.
+
+Your web application benefits.
+
+Your mobile application benefits.
+
+Your integrations benefit.
+
+Your automation benefits.
+
+And through HAPI MCP, **your AI consumers benefit too.**
+
+That is leverage.
+
+---
+
+## Don't Maintain the Shadow. Illuminate the Source.
+
+AI agents are becoming another important consumer of enterprise capabilities.
+
+That does not mean enterprises need another copy of their applications.
+
+We already learned this lesson with APIs.
+
+Separate interfaces from business capabilities.
+
+Create contracts.
+
+Centralize business rules.
+
+Design clear boundaries.
+
+Then let many different clients consume those capabilities.
+
+MCP should extend that architecture, not undo it.
+
+So when somebody asks:
+
+> **"Should we build an MCP server for this application?"**
+
+I think there is a better question:
+
+> **"Do we already have APIs representing these capabilities?"**
+
+If the answer is yes, start there.
+
+Then ask:
+
+> **"Which of those capabilities should AI consumers see, and how should they be represented as tools?"**
+
+That is the space HAPI MCP is designed for.
+
+Not rebuilding your application.
+
+Not copying your business logic.
+
+Not creating another operational shadow.
+
+But making the APIs you already trust accessible to a new generation of consumers.
+
+**Keep the light on your APIs.**
+
+**Make the MCP layer transparent.**
+
+**One source of truth. Many consumers. No shadow implementation.**
+
+That is the architecture behind HAPI MCP.
+
+**HAPI MCP transparently exposes your APIs as MCP.**
