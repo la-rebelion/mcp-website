@@ -1,5 +1,5 @@
 export type SelfServePlan = {
-  id: 'free' | 'starter' | 'pro' | 'scale'; name: string; price: string; period: string;
+  id: 'free' | 'starter' | 'pro' | 'pilot'; name: string; price: string; period: string;
   executions: string; throughput: string; audience: string; features: string[];
 };
 
@@ -7,7 +7,7 @@ export const selfServePlans: SelfServePlan[] = [
   { id: 'free', name: 'Free', price: '$0', period: 'no account required', executions: '36,000 MCP executions / month', throughput: '20 per minute', audience: 'Explore HAPI locally or in a low-volume environment.', features: ['npm/Bun packages, native binaries, and Docker', 'Community support', 'A genuine production-shaped evaluation allowance', 'On-prem or fully managed on the cloud'] },
   { id: 'starter', name: 'Starter', price: '$99', period: 'per month', executions: '250,000 MCP executions / month', throughput: '120 per minute', audience: 'For a first production integration and small engineering teams.', features: ['Commercial production capacity', 'Selected production capabilities', 'Standard support', 'Fully managed on the cloud', 'Production plugins (Open Telemetry, OAuth2, Webhooks, and more)'] },
   { id: 'pro', name: 'Pro', price: '$399', period: 'per month', executions: '2 million MCP executions / month', throughput: '600 per minute', audience: 'For teams making API capabilities part of their product.', features: ['Production capability set', 'Priority support', 'Capacity for sustained workloads', 'Fully managed on the cloud', 'Production plugins and Add-ons'] },
-  { id: 'scale', name: 'Scale', price: '$1,499', period: 'per month', executions: '10 million MCP executions / month', throughput: '3,000 per minute', audience: 'For high-volume workloads before an estate-wide agreement.', features: ['High-throughput production capacity', 'Most production capabilities', 'Priority support', 'Fully managed on the cloud'] },
+  { id: 'pilot', name: 'Pilot Accelerator', price: undefined, period: 'one-time engagement', executions: '14-day proof', throughput: 'One workflow · one MCP Server', audience: 'For teams that want evidence before choosing a production plan.', features: ['Dev/test environment', 'Basic governance', '30 days of follow-up support', 'A practical adoption recommendation'] },
 ];
 
 export const pricingFaqs = [
