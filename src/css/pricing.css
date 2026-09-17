@@ -41,6 +41,19 @@
 .pricingEnterprise h2, .pricingPilot h2 { margin-top: 0; font-size: clamp(2rem, 3.5vw, 3.4rem); }
 .pricingEnterprise p, .pricingPilot p { max-width: 68ch; line-height: 1.58; }
 .pricingApiUnit { padding-top: .75rem; border-top: 1px solid var(--pricing-rule); }
+.apiUnitEstimator { margin-top: 1.25rem; border-top: 1px solid var(--pricing-rule); border-bottom: 1px solid var(--pricing-rule); }
+.apiUnitEstimator summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; }
+.apiUnitEstimator summary:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand-secondary) 70%, transparent); outline-offset: 3px; }
+.apiUnitEstimatorBody { padding: .25rem 0 1.25rem; }
+.apiUnitEstimatorBody > p { margin: 0 0 1rem; font-size: .94rem; }
+.apiUnitEstimatorFields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.apiUnitEstimatorFields label { display: grid; gap: .45rem; font-size: .9rem; font-weight: 650; }
+.apiUnitEstimatorFields input { min-height: 44px; width: 100%; padding: .65rem .75rem; border: 1px solid var(--ifm-color-emphasis-400); border-radius: 0; background: var(--ifm-background-color); color: var(--ifm-font-color-base); font: inherit; }
+.apiUnitEstimatorFields input:focus-visible { outline: 3px solid color-mix(in srgb, var(--brand-secondary) 70%, transparent); outline-offset: 3px; }
+.apiUnitEstimatorResult { display: grid; gap: .25rem; margin-top: 1rem; padding: 1rem; background: color-mix(in srgb, var(--brand-primary) 9%, var(--ifm-background-color)); }
+.apiUnitEstimatorResult strong { font-size: 1.15rem; }
+.apiUnitEstimatorResult span, .apiUnitEstimatorRule { color: var(--ifm-color-emphasis-700); }
+.apiUnitEstimatorRule { margin: 1rem 0 0 !important; }
 .pricingEnterprise .button, .pricingPilot .button { min-height: 44px; flex: 0 0 auto; }
 .pricingPilot { border-bottom: 1px solid var(--pricing-rule); }
 .pricingForm { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--pricing-rule); background: var(--ifm-background-surface-color); }
@@ -57,4 +70,4 @@
 .pricingFaq details p { max-width: 68ch; margin: .55rem 0 0; line-height: 1.55; }
 @media (max-width: 1080px) { .pricingPlans { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .pricingHero { text-align: left; } .pricingDecision, .pricingComparison, .pricingFormLayout { grid-template-columns: 1fr; gap: 2rem; } .pricingEnterpriseInner, .pricingPilotInner { align-items: flex-start; flex-direction: column; } .pricingEnterprise .button, .pricingPilot .button { width: 100%; justify-content: center; } }
-@media (max-width: 520px) { .pricingSection { padding: 3rem 0; } .pricingHero { padding: 3.25rem 0; } .pricingPlans, .pricingComparisonRows, .pricingFormGrid { grid-template-columns: 1fr; } .pricingPlan { padding: 1.25rem; } .pricingForm { padding: 1.15rem; } .pricingForm input[type='submit'] { width: 100%; } }
+@media (max-width: 520px) { .pricingSection { padding: 3rem 0; } .pricingHero { padding: 3.25rem 0; } .pricingPlans, .pricingComparisonRows, .pricingFormGrid, .apiUnitEstimatorFields { grid-template-columns: 1fr; } .pricingPlan { padding: 1.25rem; } .pricingForm { padding: 1.15rem; } .pricingForm input[type='submit'] { width: 100%; } }

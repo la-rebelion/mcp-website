@@ -12,7 +12,7 @@ export const selfServePlans: SelfServePlan[] = [
 
 export const pricingFaqs = [
   { question: 'What is an MCP execution?', answer: 'An MCP execution is a completed tools/call operation. Initialization, discovery, tool listing, health checks, prompts, and resource reads do not consume execution capacity.' },
-  { question: 'What is an API Unit?', answer: 'For Enterprise licensing, one API Unit is one production API or OpenAPI service with up to roughly 50 operations. Larger definitions may use additional units. This reflects the API estate kept AI-ready, not an arbitrary count of MCP tools.' },
+  { question: 'What is an API Unit?', answer: 'For Enterprise licensing, one API Unit covers one production API or OpenAPI service with up to roughly 50 operations. An API with 51–100 operations uses two Units. Count every production API separately, then add the Units together. This reflects the API estate kept AI-ready, not an arbitrary count of MCP tools.' },
   { question: 'Why not charge by MCP tool?', answer: 'Tool design is an architecture decision. HAPI should help teams design useful AI capabilities, not reward them for combining or removing tools to lower an invoice.' },
   { question: 'What happens when capacity is reached?', answer: 'Self-service plans are designed to prompt an upgrade before capacity becomes a problem. Enterprise agreements use contracted capacity, negotiated bursts, and agreed review terms rather than surprise usage bills.' },
   { question: 'Can I use HAPI without creating an account?', answer: 'Yes. Free HAPI is available for experimentation and low-volume use through npm/Bun, native binaries, and Docker. A production conversation starts only when you want more capacity or commercial capabilities.' },
