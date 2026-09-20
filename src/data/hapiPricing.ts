@@ -16,6 +16,7 @@ export type SelfServePlan = {
 export const billingPublicOrigin = 'https://billing.mcp.com.ai';
 export const billingEndpoints = {
   checkout: `${billingPublicOrigin}/api/checkout`,
+  salesLead: `${billingPublicOrigin}/api/leads`,
   auth: `${billingPublicOrigin}/api/auth`,
   account: `${billingPublicOrigin}/api/account`,
   license: `${billingPublicOrigin}/api/account/license`,
