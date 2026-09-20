@@ -29,6 +29,8 @@
 .pricingPlan ul, .pricingComparisonRows ul { margin: .25rem 0 1.5rem; padding-left: 1.1rem; line-height: 1.55; }
 .pricingPlan li + li, .pricingComparisonRows li + li { margin-top: .45rem; }
 .pricingPlan .button { width: 100%; min-height: 44px; margin-top: auto; justify-content: center; }
+.pricingCheckoutForm { display: grid; margin-top: auto; }
+.pricingCheckoutForm .button { border: 0; cursor: pointer; }
 .pricingButtonSecondary { background: transparent; border: 1px solid var(--brand-primary); color: var(--brand-primary-700); }
 .pricingButtonSecondary:hover, .pricingButtonSecondary:focus-visible { background: color-mix(in srgb, var(--brand-primary) 10%, transparent); color: var(--brand-primary-700); }
 .pricingFinePrint { margin: 1.5rem 0 0; color: var(--ifm-color-emphasis-700); font-size: .92rem; }
@@ -74,6 +76,16 @@
 .pricingFaq details:last-child { border-bottom: 1px solid var(--pricing-rule); }
 .pricingFaq summary { min-height: 44px; cursor: pointer; display: flex; align-items: center; font-weight: 700; }
 .pricingFaq details p { max-width: 68ch; margin: .55rem 0 0; line-height: 1.55; }
+.accountLayout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.accountLayout h2 { margin-top: 0; font-size: clamp(1.9rem, 3vw, 3rem); letter-spacing: -0.035em; line-height: 1.05; }
+.accountLayout > div:first-child > p:last-child, .accountPanel > p { max-width: 62ch; line-height: 1.55; }
+.accountPanel { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--pricing-rule); background: var(--ifm-background-surface-color); }
+.accountPanel .pricingForm { padding: 0; border: 0; background: transparent; }
+.accountVerifyForm { padding-top: 1rem !important; border-top: 1px solid var(--pricing-rule) !important; }
+.accountActions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.accountActions form { margin: 0; }
+.accountActions .button { min-height: 44px; }
+.accountMessage { margin: 0; padding-top: 1rem; border-top: 1px solid var(--pricing-rule); }
 @media (max-width: 1080px) { .pricingPlans { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 760px) { .pricingHero { text-align: left; } .pricingDecision, .pricingComparison, .pricingFormLayout { grid-template-columns: 1fr; gap: 2rem; } .pricingEnterpriseInner, .pricingPilotInner { align-items: flex-start; flex-direction: column; } .pricingEnterprise .button, .pricingPilot .button { width: 100%; justify-content: center; } }
+@media (max-width: 760px) { .pricingHero { text-align: left; } .pricingDecision, .pricingComparison, .pricingFormLayout, .accountLayout { grid-template-columns: 1fr; gap: 2rem; } .pricingEnterpriseInner, .pricingPilotInner { align-items: flex-start; flex-direction: column; } .pricingEnterprise .button, .pricingPilot .button { width: 100%; justify-content: center; } }
 @media (max-width: 520px) { .pricingSection { padding: 3rem 0; } .pricingHero { padding: 3.25rem 0; } .pricingPlans, .pricingComparisonRows, .pricingFormGrid, .apiUnitEstimatorFields { grid-template-columns: 1fr; } .pricingPlan { padding: 1.25rem; } .pricingForm { padding: 1.15rem; } .pricingForm input[type='submit'] { width: 100%; } }

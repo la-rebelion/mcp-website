@@ -1,12 +1,31 @@
+export type CheckoutPlanKey = 'starter' | 'pro';
+
 export type SelfServePlan = {
-  id: 'free' | 'starter' | 'pro' | 'pilot'; name: string; price: string; period: string;
-  executions: string; throughput: string; audience: string; features: string[];
+  id: 'free' | CheckoutPlanKey | 'pilot';
+  name: string;
+  price?: string;
+  period: string;
+  executions: string;
+  throughput: string;
+  audience: string;
+  features: string[];
+  checkoutPlan?: CheckoutPlanKey;
 };
+
+/** Public Worker origin only. Stripe Price IDs and credentials never enter this site. */
+export const billingPublicOrigin = 'https://billing.mcp.com.ai';
+export const billingEndpoints = {
+  checkout: `${billingPublicOrigin}/api/checkout`,
+  auth: `${billingPublicOrigin}/api/auth`,
+  account: `${billingPublicOrigin}/api/account`,
+  license: `${billingPublicOrigin}/api/account/license`,
+  portal: `${billingPublicOrigin}/api/account/portal`,
+} as const;
 
 export const selfServePlans: SelfServePlan[] = [
   { id: 'free', name: 'Free', price: '$0', period: 'no account required', executions: '36,000 MCP executions / month', throughput: '20 per minute', audience: 'Explore HAPI locally or in a low-volume environment.', features: ['npm/Bun packages, native binaries, and Docker', 'Community support', 'A genuine production-shaped evaluation allowance', 'On-prem or fully managed on the cloud'] },
-  { id: 'starter', name: 'Starter', price: '$99', period: 'per month', executions: '250,000 MCP executions / month', throughput: '120 per minute', audience: 'For a first production integration and small engineering teams.', features: ['Commercial production capacity', 'Selected production capabilities', 'Standard support', 'Fully managed on the cloud', 'Production plugins (Open Telemetry, OAuth2, Webhooks, and more)'] },
-  { id: 'pro', name: 'Pro', price: '$399', period: 'per month', executions: '2 million MCP executions / month', throughput: '600 per minute', audience: 'For teams making API capabilities part of their product.', features: ['Production capability set', 'Priority support', 'Capacity for sustained workloads', 'Fully managed on the cloud', 'Production plugins and Add-ons'] },
+  { id: 'starter', name: 'Starter', price: '$99', period: 'per month', executions: '250,000 MCP executions / month', throughput: '120 per minute', audience: 'For a first production integration and small engineering teams.', features: ['Commercial production capacity', 'Selected production capabilities', 'Standard support', 'Fully managed on the cloud', 'Production plugins (Open Telemetry, OAuth2, Webhooks, and more)'], checkoutPlan: 'starter' },
+  { id: 'pro', name: 'Pro', price: '$399', period: 'per month', executions: '2 million MCP executions / month', throughput: '600 per minute', audience: 'For teams making API capabilities part of their product.', features: ['Production capability set', 'Priority support', 'Capacity for sustained workloads', 'Fully managed on the cloud', 'Production plugins and Add-ons'], checkoutPlan: 'pro' },
   { id: 'pilot', name: 'Pilot Accelerator', price: undefined, period: 'one-time engagement', executions: '14-day proof', throughput: 'One workflow · one MCP Server', audience: 'For teams that want evidence before choosing a production plan.', features: ['Dev/test environment', 'Basic governance', '30 days of follow-up support', 'A practical adoption recommendation'] },
 ];
 

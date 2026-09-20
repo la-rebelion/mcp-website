@@ -2,17 +2,19 @@ import React, { useState, type ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
 import { CheckCircle } from 'lucide-react';
-import { selfServePlans, pricingFaqs } from '@site/src/data/hapiPricing';
+import { billingEndpoints, selfServePlans, pricingFaqs } from '@site/src/data/hapiPricing';
 import '@site/src/css/pricing.css';
 
 const faqJsonLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: pricingFaqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) };
 
 function PlanCard({ plan }: { plan: typeof selfServePlans[number] }) {
   return <article className="pricingPlan">
-    <header><h3>{plan.name}</h3><p className="pricingPlanPrice">{plan.price}</p><p className="pricingPlanPeriod">{plan.period}</p></header>
+    <header><h3>{plan.name}</h3>{plan.price && <p className="pricingPlanPrice">{plan.price}</p>}<p className="pricingPlanPeriod">{plan.period}</p></header>
     <p className="pricingPlanCapacity">{plan.executions}<br /><span>{plan.throughput}</span></p>
     <p>{plan.audience}</p><ul>{plan.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-    {plan.id === 'free' ? <a className="button button--lg pricingButtonSecondary" href="https://hapi.mcp.com.ai">Use HAPI free</a> : <a className="button button--lg button--primary" href="#production-conversation">Discuss {plan.name}</a>}
+    {plan.id === 'free' ? <a className="button button--lg pricingButtonSecondary" href="https://hapi.mcp.com.ai">Use HAPI free</a>
+      : plan.checkoutPlan ? <form className="pricingCheckoutForm" method="post" action={billingEndpoints.checkout}><input type="hidden" name="plan" value={plan.checkoutPlan} /><input type="submit" className="button button--lg button--primary" value={`Choose ${plan.name}`} /></form>
+        : <a className="button button--lg button--primary" href="/pilot-accelerator">Explore the Pilot Accelerator</a>}
   </article>;
 }
 

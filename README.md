@@ -67,6 +67,20 @@ bun run serve   # preview the production build
 
 The static site is generated to the `build/` directory and can be hosted on any static hosting platform.
 
+## Starter and Pro Checkout
+
+`src/data/hapiPricing.ts` is the public pricing contract. It contains only the
+abstract `starter` and `pro` Checkout keys plus the public billing Worker
+origin; it must never contain Stripe Price IDs or credentials. The pricing
+page uses standard HTML forms for those two plans. Free, Pilot, and Enterprise
+keep their existing non-Checkout paths.
+
+After Checkout, `/account` uses the billing Worker for Email OTP sign-in,
+pending-fulfillment status, license download, and Stripe customer-portal
+launch. Configure the Worker hostname in that pricing module only after the
+Worker's D1, Stripe, Twilio, and Better Auth setup is ready. Run `bun test`,
+`bun run typecheck`, and `bun run build` before publishing.
+
 ## Deployment
 
 Deployments are handled by maintainers. If using GitHub Pages, the following can be used:
