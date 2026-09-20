@@ -57,6 +57,12 @@
 .pricingEnterprise .button, .pricingPilot .button { min-height: 44px; flex: 0 0 auto; }
 .pricingPilot { border-bottom: 1px solid var(--pricing-rule); }
 .pricingForm { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--pricing-rule); background: var(--ifm-background-surface-color); }
+.pricingFormThanks { display: grid; align-content: center; justify-items: start; gap: .8rem; min-height: 100%; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid color-mix(in srgb, var(--brand-primary) 45%, var(--pricing-rule)); background: var(--ifm-background-surface-color); }
+.pricingFormThanks svg { width: 2rem; height: 2rem; color: var(--brand-primary); }
+.pricingFormThanks h3, .pricingFormThanks p { margin: 0; }
+.pricingFormThanks h3 { font-size: 1.3rem; }
+.pricingFormThanks p { line-height: 1.55; }
+.pricingFormThanks .button { min-height: 44px; margin-top: .4rem; }
 .pricingForm label { display: grid; gap: .45rem; font-size: .92rem; font-weight: 650; }
 .pricingForm input:not([type='submit']), .pricingForm select, .pricingForm textarea { width: 100%; min-height: 44px; padding: .65rem .75rem; border: 1px solid var(--ifm-color-emphasis-400); border-radius: 0; background: var(--ifm-background-color); color: var(--ifm-font-color-base); font: inherit; }
 .pricingForm textarea { min-height: 108px; resize: vertical; }
