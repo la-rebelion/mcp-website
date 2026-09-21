@@ -1,0 +1,54 @@
+{
+  "title": {
+    "message": "MCP",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "MCP logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Home": {
+    "message": "Inicio",
+    "description": "Navbar item with label Home"
+  },
+  "item.label.Blog": {
+    "message": "Blog",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Products": {
+    "message": "Productos",
+    "description": "Navbar item with label Products"
+  },
+  "item.label.Get My MCP": {
+    "message": "Quiero Mi MCP",
+    "description": "Navbar item with label Get My MCP"
+  },
+  "item.label.Get The News": {
+    "message": "Recibe las Noticias",
+    "description": "Navbar item with label Get The News"
+  },
+  "item.label.Request Demo": {
+    "message": "Solicitar Demostración",
+    "description": "Navbar item with label Request Demo"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.HAPI Server": {
+    "message": "Servidor HAPI",
+    "description": "Navbar item with label HAPI Server"
+  },
+  "item.label.Run MCP": {
+    "message": "Run MCP",
+    "description": "Navbar item with label Run MCP"
+  },
+  "item.label.QBot": {
+    "message": "QBot",
+    "description": "Navbar item with label QBot"
+  }
+}
