@@ -1,17 +1,24 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from "prism-react-renderer";
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
 // Hubspot account id
 const hubspot = {
-  accountId: '21339207',
+  accountId: "21339207",
 };
+const isDevelopment = process.env.NODE_ENV !== "production";
+const billingPublicOrigin =
+  process.env.BILLING_PUBLIC_ORIGIN ??
+  (isDevelopment ? "http://localhost:8787" : "https://billing.mcp.com.ai");
+const publicSiteOrigin =
+  process.env.PUBLIC_SITE_ORIGIN ??
+  (isDevelopment ? "http://localhost:3000" : "https://mcp.com.ai");
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 const config: Config = {
-  title: 'The control plane for MCP in real environments',
+  title: "The control plane for MCP in real environments",
   tagline:
-    'The safest way to turn your existing APIs into production-ready AI tools — without rewriting your systems or exposing your infrastructure.',
-  favicon: 'img/favicon.ico',
+    "The safest way to turn your existing APIs into production-ready AI tools — without rewriting your systems or exposing your infrastructure.",
+  favicon: "img/favicon.ico",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -19,79 +26,83 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://mcp.com.ai',
+  url: "https://mcp.com.ai",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'la-rebelion',
-  projectName: 'mcp-website',
+  organizationName: "la-rebelion",
+  projectName: "mcp-website",
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: "throw",
   // onBrokenLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'es'],
+    defaultLocale: "en",
+    locales: ["en", "es"],
     localeConfigs: {
       en: {
-        label: 'English',
-        htmlLang: 'en-US',
+        label: "English",
+        htmlLang: "en-US",
       },
       es: {
-        label: 'Español',
-        htmlLang: 'es-MX',
+        label: "Español",
+        htmlLang: "es-MX",
       },
     },
   },
   trailingSlash: false,
+  customFields: {
+    billingPublicOrigin,
+    publicSiteOrigin,
+  },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         // Blog‑only mode
         docs: false,
         blog: {
-          routeBasePath: '/',
-          blogTitle: 'MCP Insights',
+          routeBasePath: "/",
+          blogTitle: "MCP Insights",
           blogDescription:
-            'Deep dives into Model Context Protocol: limits, misconceptions, patterns, and tools.',
+            "Deep dives into Model Context Protocol: limits, misconceptions, patterns, and tools.",
           showReadingTime: true,
           feedOptions: {
-            type: ['rss', 'atom'],
+            type: ["rss", "atom"],
             xslt: true,
           },
           // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onInlineTags: "warn",
+          onInlineAuthors: "warn",
+          onUntruncatedBlogPosts: "warn",
           blogSidebarCount: 0,
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
         gtag: {
-          trackingID: 'G-JJJXXEZWK9',
+          trackingID: "G-JJJXXEZWK9",
         },
         googleTagManager: {
-          containerId: 'GTM-W2QSRMJN',
+          containerId: "GTM-W2QSRMJN",
         },
         sitemap: {
-          lastmod: 'date',
-          changefreq: 'weekly',
+          lastmod: "date",
+          changefreq: "weekly",
           priority: 0.5,
-          ignorePatterns: ['/tags/**'],
-          filename: 'sitemap.xml',
+          ignorePatterns: ["/tags/**"],
+          filename: "sitemap.xml",
           createSitemapItems: async (params) => {
             const { defaultCreateSitemapItems, ...rest } = params;
             const items = await defaultCreateSitemapItems(rest);
-            return items.filter((item) => !item.url.includes('/page/'));
+            return items.filter((item) => !item.url.includes("/page/"));
           },
         },
       } satisfies Preset.Options,
@@ -99,74 +110,85 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/make-mcp-hapi.png',
+    image: "img/make-mcp-hapi.png",
     colorMode: {
       respectPrefersColorScheme: true,
-      defaultMode: 'light',
+      defaultMode: "light",
       disableSwitch: false,
     },
     navbar: {
-      title: 'MCP',
+      title: "MCP",
       logo: {
-        alt: 'MCP logo',
-        src: 'img/logo.svg',
+        alt: "MCP logo",
+        src: "img/logo.svg",
       },
       items: [
-        { to: '/', label: 'Home', position: 'left' },
-        { to: '/archive', label: 'Blog', position: 'left' },
-        { href: 'https://docs.mcp.com.ai', label: 'Docs', position: 'left' },
-        { type: 'dropdown',
-          label: 'Products',
-          position: 'left',
+        { to: "/", label: "Home", position: "left" },
+        { to: "/archive", label: "Blog", position: "left" },
+        { href: "https://docs.mcp.com.ai", label: "Docs", position: "left" },
+        {
+          type: "dropdown",
+          label: "Products",
+          position: "left",
           items: [
-            { href: 'https://hapi.mcp.com.ai', label: 'HAPI Server' },
-            { href: 'https://run.mcp.com.ai', label: 'Run MCP' },
-            { href: 'https://qbot.mcp.com.ai', label: 'QBot' },
+            { href: "https://hapi.mcp.com.ai", label: "HAPI Server" },
+            { href: "https://run.mcp.com.ai", label: "Run MCP" },
+            { href: "https://qbot.mcp.com.ai", label: "QBot" },
           ],
         },
-        { href: '/get-my-mcp', label: 'Get My MCP', position: 'right' },
-        { href: '/get-the-news', label: 'Get The News', position: 'right' },
-        { href: '/request-demo', label: 'Request Demo', position: 'right' },
-        { href: 'https://github.com/mcp-com-ai/hapimcp', label: 'GitHub', position: 'right' },
+        { href: "/get-my-mcp", label: "Get My MCP", position: "right" },
+        { href: "/get-the-news", label: "Get The News", position: "right" },
+        { href: "/request-demo", label: "Request Demo", position: "right" },
+        {
+          href: "https://github.com/mcp-com-ai/hapimcp",
+          label: "GitHub",
+          position: "right",
+        },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Agentic MCP',
+          title: "Agentic MCP",
           items: [
-            { label: 'Docs', href: 'https://docs.mcp.com.ai' },
-            { label: 'HAPI Server', href: 'https://hapi.mcp.com.ai/' },
-            { label: 'Run MCP', href: 'https://run.mcp.com.ai/' },
-            { label: 'QBot', href: 'https://qbot.mcp.com.ai/' },
-            { label: 'Get The News', href: '/get-the-news' },
-            { label: 'Request Demo', href: '/request-demo' },
-            { label: 'We build your MCP', href: '/get-my-mcp' },
+            { label: "Docs", href: "https://docs.mcp.com.ai" },
+            { label: "HAPI Server", href: "https://hapi.mcp.com.ai/" },
+            { label: "Run MCP", href: "https://run.mcp.com.ai/" },
+            { label: "QBot", href: "https://qbot.mcp.com.ai/" },
+            { label: "Get The News", href: "/get-the-news" },
+            { label: "Request Demo", href: "/request-demo" },
+            { label: "We build your MCP", href: "/get-my-mcp" },
           ],
         },
         {
-          title: 'Community',
+          title: "Community",
           items: [
-            { label: 'Blog', to: '/archive' },
-            { label: 'Tags', to: '/tags' },
-            { label: 'MCP.com.ai GitHub', href: 'https://github.com/mcp-com-ai/hapimcp' },
-            { label: 'La Rebelion GitHub', href: 'https://github.com/la-rebelion' },
+            { label: "Blog", to: "/archive" },
+            { label: "Tags", to: "/tags" },
+            {
+              label: "MCP.com.ai GitHub",
+              href: "https://github.com/mcp-com-ai/hapimcp",
+            },
+            {
+              label: "La Rebelion GitHub",
+              href: "https://github.com/la-rebelion",
+            },
             {
               label: 'YouTube "La Rebelion"',
-              href: 'https://www.youtube.com/@LaRebelion',
+              href: "https://www.youtube.com/@LaRebelion",
             },
             {
-              label: 'YouTube HAPI MCP',
-              href: 'https://www.youtube.com/@hapi-mcp',
+              label: "YouTube HAPI MCP",
+              href: "https://www.youtube.com/@hapi-mcp",
             },
           ],
         },
         {
-          title: 'More',
+          title: "More",
           items: [
-            { label: 'Privacy', href: '/privacy' },
-            { label: 'Terms', href: '/terms' },
+            { label: "Privacy", href: "/privacy" },
+            { label: "Terms", href: "/terms" },
           ],
         },
       ],
@@ -178,34 +200,34 @@ const config: Config = {
     },
     algolia: {
       // The application ID provided by Algolia
-      appId: 'IWEZFBB82X',
+      appId: "IWEZFBB82X",
       // Public API key: it is safe to commit it
-      apiKey: '19cbd092be35d848a2645241f4538018',
-      indexName: 'HAPI MCP Blog',
+      apiKey: "19cbd092be35d848a2645241f4538018",
+      indexName: "HAPI MCP Blog",
       // Optional: see doc section below
       contextualSearch: true,
       // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-      externalUrlRegex: 'clawne\\.me|clawster\\.my|rebelion\\.la',
+      externalUrlRegex: "clawne\\.me|clawster\\.my|rebelion\\.la",
       // Optional: Algolia search parameters
       searchParameters: {},
       // Optional: path for search page that enabled by default (`false` to disable it)
-      searchPagePath: 'search',
+      searchPagePath: "search",
       // Optional: whether the insights feature is enabled or not on Docsearch (`false` by default)
       insights: false,
       // Optional: whether you want to use the new Ask AI feature (undefined by default)
-      askAi: 'YOUR_ALGOLIA_ASK_AI_ASSISTANT_ID',
+      askAi: "YOUR_ALGOLIA_ASK_AI_ASSISTANT_ID",
       //... other Algolia params
     },
   } satisfies Preset.ThemeConfig,
   scripts: [
     {
-      src: 'https://js.hsforms.net/forms/embed/v2.js',
+      src: "https://js.hsforms.net/forms/embed/v2.js",
       async: true,
     },
   ],
   headTags: [
     {
-      tagName: 'script',
+      tagName: "script",
       attributes: {},
       innerHTML: `
         window.dataLayer = window.dataLayer || [];
@@ -215,22 +237,22 @@ const config: Config = {
       `,
     },
     {
-      tagName: 'script',
+      tagName: "script",
       attributes: {
         async: "true",
         defer: "true",
-        type: 'text/javascript',
-        id: 'hs-script-loader',
+        type: "text/javascript",
+        id: "hs-script-loader",
         src: `//js.hs-scripts.com/${hubspot.accountId}.js`,
       },
     },
   ],
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ["@docusaurus/theme-mermaid"],
   markdown: {
     mermaid: true,
     hooks: {
-      onBrokenMarkdownLinks: 'warn'
-    }
+      onBrokenMarkdownLinks: "warn",
+    },
   },
 };
 
