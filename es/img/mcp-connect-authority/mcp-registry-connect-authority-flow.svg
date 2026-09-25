@@ -1,0 +1,72 @@
+<svg width="1000" height="560" viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: bold 22px sans-serif; fill: #0f172a; }
+    .subtitle { font: 14px sans-serif; fill: #334155; }
+    .box { fill: #f8fafc; stroke: #0ea5e9; stroke-width: 2; rx: 14; }
+    .box-secondary { fill: #fff7ed; stroke: #f97316; stroke-width: 2; rx: 14; }
+    .box-runtime { fill: #ecfeff; stroke: #14b8a6; stroke-width: 2; rx: 14; }
+    .label { font: bold 14px sans-serif; fill: #0f172a; }
+    .text { font: 13px sans-serif; fill: #334155; }
+    .arrow { stroke: #334155; stroke-width: 2; marker-end: url(#arrow); }
+    .dashed { stroke-dasharray: 6,6; }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="36" text-anchor="middle" class="title">
+    MCP Registry as Connect Authority (Not a Gateway)
+  </text>
+  <text x="500" y="62" text-anchor="middle" class="subtitle">
+    Control-plane governance · Direct connections · Distributed enforcement
+  </text>
+
+  <!-- Registry -->
+  <rect x="60" y="140" width="260" height="200" class="box"/>
+  <text x="190" y="170" text-anchor="middle" class="label">MCP Registry</text>
+  <text x="190" y="195" text-anchor="middle" class="text">Discovery &amp; Metadata</text>
+  <text x="190" y="215" text-anchor="middle" class="text">Verification</text>
+  <text x="190" y="235" text-anchor="middle" class="text">Moderation / Revocation</text>
+  <text x="190" y="255" text-anchor="middle" class="text">Connect Descriptor Issuance</text>
+  <text x="190" y="285" text-anchor="middle" class="text">(Control-plane only)</text>
+
+  <!-- Client -->
+  <rect x="370" y="140" width="260" height="200" class="box-secondary"/>
+  <text x="500" y="170" text-anchor="middle" class="label">MCP Client</text>
+  <text x="500" y="195" text-anchor="middle" class="text">chatMCP / IDE / Agent</text>
+  <text x="500" y="225" text-anchor="middle" class="text">1. Discover server</text>
+  <text x="500" y="245" text-anchor="middle" class="text">2. Request descriptor</text>
+  <text x="500" y="265" text-anchor="middle" class="text">3. Extract endpoint</text>
+  <text x="500" y="285" text-anchor="middle" class="text">4. Connect directly</text>
+
+  <!-- Server -->
+  <rect x="680" y="140" width="260" height="200" class="box-runtime"/>
+  <text x="810" y="170" text-anchor="middle" class="label">HAPI MCP Server</text>
+  <text x="810" y="195" text-anchor="middle" class="text">Streamable HTTP</text>
+  <text x="810" y="225" text-anchor="middle" class="text">Auth termination</text>
+  <text x="810" y="245" text-anchor="middle" class="text">Policy / RBAC</text>
+  <text x="810" y="265" text-anchor="middle" class="text">Rate limits</text>
+  <text x="810" y="285" text-anchor="middle" class="text">Observability</text>
+
+  <!-- Arrows -->
+  <line x1="320" y1="240" x2="370" y2="240" class="arrow"/>
+  <text x="345" y="225" text-anchor="middle" class="text">Connect Descriptor</text>
+
+  <line x1="630" y1="240" x2="680" y2="240" class="arrow"/>
+  <text x="655" y="225" text-anchor="middle" class="text">Direct Connect</text>
+
+  <!-- No proxy -->
+  <line x1="190" y1="360" x2="810" y2="360" class="arrow dashed"/>
+  <text x="500" y="385" text-anchor="middle" class="text">
+    No traffic flows through the Registry (no proxy, no gateway data-plane)
+  </text>
+
+  <!-- Footer -->
+  <text x="500" y="520" text-anchor="middle" class="subtitle">
+    Think: “boarding pass”, not “passport”
+  </text>
+</svg>

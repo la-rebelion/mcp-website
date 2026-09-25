@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="es-MX" dir="ltr" class="blog-wrapper blog-post-page plugin-blog plugin-id-default" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust | The control plane for MCP in real environments</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mcp.com.ai/es/mcp-with-no-shadows/mcp-shadow-implementations"><meta data-rh="true" property="og:locale" content="es_MX"><meta data-rh="true" property="og:locale:alternate" content="en_US"><meta data-rh="true" name="docusaurus_locale" content="es"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="es"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust | The control plane for MCP in real environments"><meta data-rh="true" name="description" content="An MCP server that reimplements what your API already does becomes a shadow — code that looks right today and quietly drifts from the truth tomorrow. Here&#x27;s how to keep MCP transparent instead."><meta data-rh="true" property="og:description" content="An MCP server that reimplements what your API already does becomes a shadow — code that looks right today and quietly drifts from the truth tomorrow. Here&#x27;s how to keep MCP transparent instead."><meta data-rh="true" name="keywords" content="mcp shadow implementation,duplicated business logic,mcp technical debt,api-first architecture,mcp single source of truth,hapi mcp"><meta data-rh="true" property="og:image" content="https://mcp.com.ai/es/img/mcp-with-no-shadows/mcp-shadow-implementation.png"><meta data-rh="true" name="twitter:image" content="https://mcp.com.ai/es/img/mcp-with-no-shadows/mcp-shadow-implementation.png"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2026-09-14T00:00:00.000Z"><meta data-rh="true" property="article:author" content="https://adrian.escutia.me"><meta data-rh="true" property="article:tag" content="Architecture,API-First,Best Practices"><link data-rh="true" rel="icon" href="/es/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://mcp.com.ai/es/mcp-with-no-shadows/mcp-shadow-implementations"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/mcp-with-no-shadows/mcp-shadow-implementations" hreflang="en-US"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/es/mcp-with-no-shadows/mcp-shadow-implementations" hreflang="es-MX"><link data-rh="true" rel="alternate" href="https://mcp.com.ai/mcp-with-no-shadows/mcp-shadow-implementations" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://IWEZFBB82X-dsn.algolia.net" crossorigin="anonymous"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://mcp.com.ai/es/mcp-with-no-shadows/mcp-shadow-implementations","mainEntityOfPage":"https://mcp.com.ai/es/mcp-with-no-shadows/mcp-shadow-implementations","url":"https://mcp.com.ai/es/mcp-with-no-shadows/mcp-shadow-implementations","headline":"MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust","name":"MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust","description":"An MCP server that reimplements what your API already does becomes a shadow — code that looks right today and quietly drifts from the truth tomorrow. Here's how to keep MCP transparent instead.","datePublished":"2026-09-14T00:00:00.000Z","author":{"@type":"Person","name":"Adrian Escutia","description":"La Rebelion Founder","url":"https://adrian.escutia.me","image":"https://github.com/adrianescutia.png"},"image":{"@type":"ImageObject","@id":"https://mcp.com.ai/es/img/mcp-with-no-shadows/mcp-shadow-implementation.png","url":"https://mcp.com.ai/es/img/mcp-with-no-shadows/mcp-shadow-implementation.png","contentUrl":"https://mcp.com.ai/es/img/mcp-with-no-shadows/mcp-shadow-implementation.png","caption":"title image for the blog post: MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust"},"keywords":["mcp shadow implementation","duplicated business logic","mcp technical debt","api-first architecture","mcp single source of truth","hapi mcp"],"isPartOf":{"@type":"Blog","@id":"https://mcp.com.ai/es/","name":"MCP Insights"}}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an MCP shadow implementation?","acceptedAnswer":{"@type":"Answer","text":"An MCP shadow is an MCP server that duplicates capabilities, business logic, validation, or authorization already implemented by an existing API, instead of exposing that API directly. It can look identical to the original at first, then quietly drift as the API changes and the shadow doesn't."}},{"@type":"Question","name":"Why is duplicating API logic into an MCP server risky?","acceptedAnswer":{"@type":"Answer","text":"Because it creates two implementations of the same business capability that can disagree. If the API and the MCP shadow diverge — a validation rule fixed in one but not the other, an authorization change applied to one but not the other — traditional clients and AI agents can produce different outcomes for what's supposed to be the same operation."}},{"@type":"Question","name":"Should every API endpoint become an MCP tool?","acceptedAnswer":{"@type":"Answer","text":"No. Curating which capabilities an agent actually needs — and designing tool descriptions around AI intent — is a separate problem from avoiding duplication. You can expose a small, curated set of MCP tools that still execute against the same production API, with no shadow implementation behind any of them."}},{"@type":"Question","name":"How does HAPI MCP prevent shadow implementations?","acceptedAnswer":{"@type":"Answer","text":"HAPI MCP treats your OpenAPI contract as the source of truth and projects it into MCP tools directly, rather than generating a standalone implementation that has to be manually kept in sync. When the API changes, the MCP projection reflects it — there's no second codebase that can quietly fall behind."}},{"@type":"Question","name":"Does keeping MCP transparent affect authentication and authorization?","acceptedAnswer":{"@type":"Answer","text":"It should improve it. If authorization rules stay anchored to the API that already enforces them, there's no second identity or permission model for MCP to get out of sync with. A shadow that diverges on authorization — the API denies an action the MCP layer allows — is a security incident, not just a bug."}}]}</script><link rel="alternate" type="application/rss+xml" href="/es/rss.xml" title="The control plane for MCP in real environments RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/es/atom.xml" title="The control plane for MCP in real environments Atom Feed">
+
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJJXXEZWK9"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-JJJXXEZWK9",{})</script>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script>window.dataLayer=window.dataLayer||[]</script>
+<script>!function(e,t,a,n){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var g=t.getElementsByTagName(a)[0],m=t.createElement(a);m.async=!0,m.src="https://www.googletagmanager.com/gtm.js?id=GTM-W2QSRMJN",g.parentNode.insertBefore(m,g)}(window,document,"script","dataLayer")</script>
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" title="The control plane for MCP in real environments" href="/es/opensearch.xml">
+
+<script>window.dataLayer=window.dataLayer||[],window.gtag=window.gtag||function(){window.dataLayer.push(arguments)}</script>
+<script async="true" defer="true" id="hs-script-loader" src="//js.hs-scripts.com/21339207.js"></script>
+<script src="https://js.hsforms.net/forms/embed/v2.js" async></script><link rel="stylesheet" href="/es/assets/css/styles.bc94ec5a.css">
+<script src="/es/assets/js/runtime~main.74ed0b6e.js" defer="defer"></script>
+<script src="/es/assets/js/main.903408ed.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2QSRMJN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/es/img/logo.svg"><link rel="preload" as="image" href="/img/mcp-with-no-shadows/mcp-shadow-implementation.png"><link rel="preload" as="image" href="https://github.com/adrianescutia.png"><div role="region" aria-label="Saltar al contenido principal"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Saltar al contenido principal</a></div><nav aria-label="Principal" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Alternar barra lateral" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/es/"><div class="navbar__logo"><img src="/es/img/logo.svg" alt="MCP logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/es/img/logo.svg" alt="MCP logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">MCP</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/es/">Inicio</a><a class="navbar__item navbar__link" href="/es/archive">Blog</a><a href="https://docs.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Docs<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Productos</a><ul class="dropdown__menu"><li><a href="https://hapi.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="dropdown__link">Servidor HAPI<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://run.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="dropdown__link">Run MCP<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://qbot.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="dropdown__link">QBot<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a class="navbar__item navbar__link" href="/es/get-my-mcp">Quiero Mi MCP</a><a class="navbar__item navbar__link" href="/es/get-the-news">Recibe las Noticias</a><a class="navbar__item navbar__link" href="/es/request-demo">Solicitar Demostración</a><a href="https://github.com/mcp-com-ai/hapimcp" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Cambiar entre modo oscuro y claro (actualmente system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><button type="button" class="DocSearch DocSearch-Button" aria-label="Buscar (Meta+k)" aria-keyshortcuts="Meta+k"><span class="DocSearch-Button-Container"><svg width="20" height="20" class="DocSearch-Search-Icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8" stroke="currentColor" fill="none" stroke-width="1.4"></circle><path d="m21 21-4.3-4.3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">Buscar</span></span><span class="DocSearch-Button-Keys"></span></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="container margin-vert--lg"><div class="row"><main class="col col--9 col--offset-1"><article class="card shadow--sm"><div class="card__body"><header><div class="mcpPostHero" style="max-height:280px;overflow:hidden;margin-bottom:24px"><img src="/img/mcp-with-no-shadows/mcp-shadow-implementation.png" alt="" loading="eager" style="width:100%;height:auto;max-height:280px;object-fit:cover;display:block;margin:0"></div><h1 class="title_f1Hy">MCP Shadow Implementations: Why Duplicated Business Logic Breaks Trust</h1><div class="container_mt6G margin-vert--md"><time datetime="2026-09-14T00:00:00.000Z">14 de septiembre de 2026</time> · <!-- -->14 min de lectura</div><div class="margin-top--md margin-bottom--sm row"><div class="col col--12 authorCol_Hf19"><div class="avatar margin-bottom--sm"><a class="avatar__photo-link" href="/es/authors/adrian"><img class="avatar__photo authorImage_XqGP" src="https://github.com/adrianescutia.png" alt="Adrian Escutia"></a><div class="avatar__intro authorDetails_lV9A"><div class="avatar__name"><a href="/es/authors/adrian"><span class="authorName_yefp" translate="no">Adrian Escutia</span></a></div><small class="authorTitle_nd0D" title="La Rebelion Founder">La Rebelion Founder</small><div class="authorSocials_rSDt"><a href="https://x.com/ades_mx" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="X"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" viewBox="0 0 1200 1227" style="--dark:#000;--light:#fff" class="authorSocialIcon_XYv3 xSvg_y3PF"><path d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"></path></svg></a><a href="https://www.linkedin.com/in/adrianescutia/" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256" style="--dark:#0a66c2;--light:#ffffffe6" class="authorSocialIcon_XYv3 linkedinSvg_FCgI"><path d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"></path></svg></a><a href="https://github.com/adrianescutia" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 250" preserveAspectRatio="xMidYMid" style="--dark:#000;--light:#fff" class="authorSocialIcon_XYv3 githubSvg_Uu4N"><path d="M128.001 0C57.317 0 0 57.307 0 128.001c0 56.554 36.676 104.535 87.535 121.46 6.397 1.185 8.746-2.777 8.746-6.158 0-3.052-.12-13.135-.174-23.83-35.61 7.742-43.124-15.103-43.124-15.103-5.823-14.795-14.213-18.73-14.213-18.73-11.613-7.944.876-7.78.876-7.78 12.853.902 19.621 13.19 19.621 13.19 11.417 19.568 29.945 13.911 37.249 10.64 1.149-8.272 4.466-13.92 8.127-17.116-28.431-3.236-58.318-14.212-58.318-63.258 0-13.975 5-25.394 13.188-34.358-1.329-3.224-5.71-16.242 1.24-33.874 0 0 10.749-3.44 35.21 13.121 10.21-2.836 21.16-4.258 32.038-4.307 10.878.049 21.837 1.47 32.066 4.307 24.431-16.56 35.165-13.12 35.165-13.12 6.967 17.63 2.584 30.65 1.255 33.873 8.207 8.964 13.173 20.383 13.173 34.358 0 49.163-29.944 59.988-58.447 63.157 4.591 3.972 8.682 11.762 8.682 23.704 0 17.126-.148 30.91-.148 35.126 0 3.407 2.304 7.398 8.792 6.14C219.37 232.5 256 184.537 256 128.002 256 57.307 198.691 0 128.001 0Zm-80.06 182.34c-.282.636-1.283.827-2.194.39-.929-.417-1.45-1.284-1.15-1.922.276-.655 1.279-.838 2.205-.399.93.418 1.46 1.293 1.139 1.931Zm6.296 5.618c-.61.566-1.804.303-2.614-.591-.837-.892-.994-2.086-.375-2.66.63-.566 1.787-.301 2.626.591.838.903 1 2.088.363 2.66Zm4.32 7.188c-.785.545-2.067.034-2.86-1.104-.784-1.138-.784-2.503.017-3.05.795-.547 2.058-.055 2.861 1.075.782 1.157.782 2.522-.019 3.08Zm7.304 8.325c-.701.774-2.196.566-3.29-.49-1.119-1.032-1.43-2.496-.726-3.27.71-.776 2.213-.558 3.315.49 1.11 1.03 1.45 2.505.701 3.27Zm9.442 2.81c-.31 1.003-1.75 1.459-3.199 1.033-1.448-.439-2.395-1.613-2.103-2.626.301-1.01 1.747-1.484 3.207-1.028 1.446.436 2.396 1.602 2.095 2.622Zm10.744 1.193c.036 1.055-1.193 1.93-2.715 1.95-1.53.034-2.769-.82-2.786-1.86 0-1.065 1.202-1.932 2.733-1.958 1.522-.03 2.768.818 2.768 1.868Zm10.555-.405c.182 1.03-.875 2.088-2.387 2.37-1.485.271-2.861-.365-3.05-1.386-.184-1.056.893-2.114 2.376-2.387 1.514-.263 2.868.356 3.061 1.403Z"></path></svg></a><a href="https://rebelion.la" target="_blank" rel="noopener noreferrer" class="authorSocialLink_owbf" title="newsletter"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="authorSocialIcon_XYv3"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M1.2 12a10.8 10.8 0 1 0 21.6 0a10.8 10.8 0 0 0 -21.6 0"></path><path d="M1.92 8.4h20.16"></path><path d="M1.92 15.6h20.16"></path><path d="M11.4 1.2a20.4 20.4 0 0 0 0 21.6"></path><path d="M12.6 1.2a20.4 20.4 0 0 1 0 21.6"></path></svg></a></div></div></div></div></div></header><div id="__blog-post-container" class="markdown">
+<p><strong>Every line of business logic you duplicate into an MCP creates another place where your system can eventually disagree with itself.</strong></p>
+<p>And that disagreement has a cost.</p>
+<p>More code to maintain. More tests to write. More infrastructure to operate. More security policies to keep aligned. More places where production behavior can drift.</p>
+<p>Most importantly, you may accidentally create <strong>two versions of the truth</strong>:</p>
+<p><strong>Your API behavior and your MCP behavior.</strong></p>
+<p>There is a simple analogy for this problem: <strong>light and shadows.</strong></p>
+<p>A physical shadow appears when an opaque object blocks light. Change the position of the light, and the shadow changes. Morning shadows look different from noon shadows. Move the object, and its shadow moves too.</p>
+<p>Software can develop shadows in much the same way.</p>
+<p>Build an MCP server that independently reimplements what your API already does, and you have created a <strong>shadow implementation</strong>.</p>
+<p>It may look exactly like the original today.</p>
+<p>But what happens tomorrow?</p>
+<p>Your API changes.</p>
+<p>Traffic increases.</p>
+<p>Authentication rules evolve.</p>
+<p>A validation rule gets fixed.</p>
+<p>A new parameter appears.</p>
+<p>The business changes its pricing logic.</p>
+<p>Someone patches the API but forgets about the MCP implementation.</p>
+<p>Now the shadow no longer matches the object casting it.</p>
+<p><strong>That is exactly the architectural problem HAPI MCP was designed to avoid.</strong></p>
+<p>This post is part of the <a class="" href="/es/mcp-with-no-shadows">MCP With No Shadows</a> series on adopting MCP without quietly rebuilding your application behind it — see also <a class="" href="/es/mcp-with-no-shadows/adopt-mcp-without-technical-debt">how to adopt MCP without creating technical debt</a> and <a class="" href="/es/mcp-with-no-shadows/scaling-problem-with-mcp-and-how-to-fix-it">the hidden scaling problem in MCP</a>. It&#x27;s also the deep dive behind the &quot;shadow&quot; section of <a class="" href="/es/mcp-multiplication-tax">why AI made code cheap but ownership still expensive</a>.</p>
+<p>The idea behind HAPI MCP is simple:</p>
+<blockquote>
+<p><strong>Do not rebuild your application for AI. Make the APIs you already trust transparently accessible to AI.</strong></p>
+</blockquote>
+<p>The light should remain pointed at your APIs.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-an-mcp-shadow">What Is an MCP Shadow?<a href="#what-is-an-mcp-shadow" class="hash-link" aria-label="Enlace directo al What Is an MCP Shadow?" title="Enlace directo al What Is an MCP Shadow?" translate="no">​</a></h2>
+<p>Let&#x27;s define the term first.</p>
+<p>In this context, an <strong>MCP shadow</strong> is an MCP implementation that duplicates capabilities, business logic, validation, integration behavior, or operational responsibilities already implemented by an existing API.</p>
+<p>Imagine this architecture:</p>
+<p><strong>Application → Business Logic → REST API</strong></p>
+<p>Then AI arrives.</p>
+<p>The organization creates:</p>
+<p><strong>AI Agent → MCP Server → New Business Logic → Backend</strong></p>
+<p>At first, everything looks fine.</p>
+<p>The MCP tools produce the expected answers.</p>
+<p>The demos work.</p>
+<p>The AI can finally interact with the business.</p>
+<p>But something subtle happened.</p>
+<p>You did not simply create another interface.</p>
+<p><strong>You created another implementation.</strong></p>
+<p>Now there are two systems representing the same business capability.</p>
+<p>The REST API implements one version.</p>
+<p>The MCP server implements another.</p>
+<p>The shadow has been born.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-do-mcp-shadows-form">How Do MCP Shadows Form?<a href="#how-do-mcp-shadows-form" class="hash-link" aria-label="Enlace directo al How Do MCP Shadows Form?" title="Enlace directo al How Do MCP Shadows Form?" translate="no">​</a></h2>
+<p>A shadow needs three things: a light source, an object blocking the light, and a surface where the shadow appears.</p>
+<p>The software analogy is surprisingly useful.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-light-your-engineering-investment">The light: your engineering investment<a href="#the-light-your-engineering-investment" class="hash-link" aria-label="Enlace directo al The light: your engineering investment" title="Enlace directo al The light: your engineering investment" translate="no">​</a></h3>
+<p>Your engineering organization continuously shines effort into your production APIs:</p>
+<p>Security.</p>
+<p>Testing.</p>
+<p>Observability.</p>
+<p>Performance.</p>
+<p>Reliability.</p>
+<p>Business logic.</p>
+<p>Authorization.</p>
+<p>Documentation.</p>
+<p>Compliance.</p>
+<p>Years of engineering work may already exist behind those endpoints.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-object-duplicated-mcp-implementation">The object: duplicated MCP implementation<a href="#the-object-duplicated-mcp-implementation" class="hash-link" aria-label="Enlace directo al The object: duplicated MCP implementation" title="Enlace directo al The object: duplicated MCP implementation" translate="no">​</a></h3>
+<p>Instead of allowing AI consumers to reach those capabilities through the existing API contract, you build another MCP-specific implementation.</p>
+<p>Some API logic gets copied.</p>
+<p>Some gets simplified.</p>
+<p>Some gets rewritten.</p>
+<p>Some gets interpreted differently.</p>
+<p>The MCP implementation becomes an opaque layer between AI and the API.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-shadow-behavioral-drift">The shadow: behavioral drift<a href="#the-shadow-behavioral-drift" class="hash-link" aria-label="Enlace directo al The shadow: behavioral drift" title="Enlace directo al The shadow: behavioral drift" translate="no">​</a></h3>
+<p>Eventually, the MCP implementation begins behaving differently from the API.</p>
+<p>And just like a physical shadow, its shape depends on conditions.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="shadows-change-depending-on-the-light">Shadows Change Depending on the Light<a href="#shadows-change-depending-on-the-light" class="hash-link" aria-label="Enlace directo al Shadows Change Depending on the Light" title="Enlace directo al Shadows Change Depending on the Light" translate="no">​</a></h2>
+<p>Think about your own shadow outside.</p>
+<p>At noon, with the sun directly overhead, your shadow might be small.</p>
+<p>Near sunset, that same person can cast a shadow several times their height.</p>
+<p><strong>The person did not change. The conditions did.</strong></p>
+<p>Software behaves similarly.</p>
+<p>An MCP implementation might work beautifully during development.</p>
+<p>Ten requests.</p>
+<p>One developer.</p>
+<p>A predictable dataset.</p>
+<p>Almost no concurrency.</p>
+<p>Then production happens.</p>
+<p>10 requests become 10,000.</p>
+<p>Authentication becomes multi-user.</p>
+<p>Rate limits appear.</p>
+<p>Retries happen.</p>
+<p>Network failures happen.</p>
+<p>Backend latency increases.</p>
+<p>Models make unexpected tool calls.</p>
+<p>Several agents invoke the same capability simultaneously.</p>
+<p>Suddenly, the shape of your shadow changes.</p>
+<p>That MCP-specific implementation now has its <strong>own reliability profile, scaling characteristics, failure modes, security considerations, observability requirements, and operational burden.</strong></p>
+<p>You didn&#x27;t just expose an API to AI.</p>
+<p>You created another system.</p>
+<p>And another system must be operated.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-most-dangerous-shadow-is-duplicated-business-logic">The Most Dangerous Shadow Is Duplicated Business Logic<a href="#the-most-dangerous-shadow-is-duplicated-business-logic" class="hash-link" aria-label="Enlace directo al The Most Dangerous Shadow Is Duplicated Business Logic" title="Enlace directo al The Most Dangerous Shadow Is Duplicated Business Logic" translate="no">​</a></h2>
+<p>Imagine an ecommerce platform already has:</p>
+<p><code>POST /orders</code></p>
+<p>Behind that endpoint might be years of work:</p>
+<ul>
+<li class="">inventory validation</li>
+<li class="">pricing rules</li>
+<li class="">customer authorization</li>
+<li class="">fraud checks</li>
+<li class="">discounts</li>
+<li class="">taxes</li>
+<li class="">payment processing</li>
+<li class="">fulfillment rules</li>
+<li class="">audit logging</li>
+<li class="">error handling</li>
+</ul>
+<p>Now someone creates an MCP tool:</p>
+<p><code>create_order</code></p>
+<p>There are two architectural possibilities.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="option-a-reimplement-the-capability">Option A: Reimplement the capability<a href="#option-a-reimplement-the-capability" class="hash-link" aria-label="Enlace directo al Option A: Reimplement the capability" title="Enlace directo al Option A: Reimplement the capability" translate="no">​</a></h3>
+<p>The MCP server contains logic for interpreting the order, validating products, calculating some values, checking permissions, and eventually interacting with backend systems.</p>
+<p>Now there are two implementations of <strong>create order</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="option-b-expose-the-existing-capability">Option B: Expose the existing capability<a href="#option-b-expose-the-existing-capability" class="hash-link" aria-label="Enlace directo al Option B: Expose the existing capability" title="Enlace directo al Option B: Expose the existing capability" translate="no">​</a></h3>
+<p>The MCP tool maps the model&#x27;s request into the existing API contract.</p>
+<p>The API remains responsible for executing the business capability.</p>
+<p>The architecture becomes:</p>
+<p><strong>AI → MCP → API → Business Logic</strong></p>
+<p>The MCP is an interface.</p>
+<p>The API remains the system of record.</p>
+<p>That distinction matters enormously.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-happens-when-the-api-changes">What Happens When the API Changes?<a href="#what-happens-when-the-api-changes" class="hash-link" aria-label="Enlace directo al What Happens When the API Changes?" title="Enlace directo al What Happens When the API Changes?" translate="no">​</a></h2>
+<p>Suppose tomorrow the business adds a mandatory <code>deliveryMethod</code> field.</p>
+<p>With duplicated MCP logic, someone must remember:</p>
+<ol>
+<li class="">Update the API.</li>
+<li class="">Update API clients.</li>
+<li class="">Update the MCP implementation.</li>
+<li class="">Update MCP validation.</li>
+<li class="">Update MCP tests.</li>
+<li class="">Verify that both implementations behave consistently.</li>
+</ol>
+<p>Miss step three and something interesting happens.</p>
+<p>Traditional applications and AI agents can now produce <strong>different business outcomes</strong> while supposedly using the same capability.</p>
+<p>That is architectural drift.</p>
+<p>And drift rarely announces itself with a big red warning.</p>
+<p>It usually appears slowly.</p>
+<p>One edge case here.</p>
+<p>One authorization difference there.</p>
+<p>One outdated validation rule.</p>
+<p>Until somebody asks:</p>
+<blockquote>
+<p>&quot;Why did the AI allow this when the application doesn&#x27;t?&quot;</p>
+</blockquote>
+<p>Now you have to investigate two systems.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-is-a-single-source-of-truth-important-for-mcp">Why Is a Single Source of Truth Important for MCP?<a href="#why-is-a-single-source-of-truth-important-for-mcp" class="hash-link" aria-label="Enlace directo al Why Is a Single Source of Truth Important for MCP?" title="Enlace directo al Why Is a Single Source of Truth Important for MCP?" translate="no">​</a></h2>
+<p>Because MCP should not require organizations to duplicate everything they already built for APIs.</p>
+<p>If your API is already the production contract for a business capability, keep it that way.</p>
+<p>The ideal architecture is closer to:</p>
+<p><strong>Human applications → API</strong></p>
+<p><strong>Automation → API</strong></p>
+<p><strong>CLI → API</strong></p>
+<p><strong>AI agents → MCP → API</strong></p>
+<p>Different consumers.</p>
+<p><strong>Same underlying capability.</strong></p>
+<p>That gives your architecture a clear source of truth.</p>
+<p>When business logic changes, change it where it belongs.</p>
+<p>When security changes, change it where it belongs.</p>
+<p>When validation changes, change it where it belongs.</p>
+<p>When reliability needs improvement, improve the system everyone already depends on.</p>
+<p>Your engineering investment compounds instead of splitting.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="make-your-apis-transparent">Make Your APIs Transparent<a href="#make-your-apis-transparent" class="hash-link" aria-label="Enlace directo al Make Your APIs Transparent" title="Enlace directo al Make Your APIs Transparent" translate="no">​</a></h2>
+<p>This is where I like reversing the shadow analogy.</p>
+<p>Transparent objects allow light to pass through them.</p>
+<p><strong>That is how I want MCP to behave.</strong></p>
+<p>Not as another opaque application containing another version of my business.</p>
+<p>But as a contextual interface through which AI can discover and invoke capabilities already represented by APIs.</p>
+<p>Think:</p>
+<p><strong>AI Consumer</strong>
+↓
+<strong>MCP Contract</strong>
+↓
+<strong>API Contract</strong>
+↓
+<strong>Production Business Logic</strong></p>
+<p>The MCP layer provides what the AI needs:</p>
+<p>tool discovery, tool descriptions, schemas, contextual interfaces, authorization integration, and model-friendly capability exposure.</p>
+<p>But execution remains anchored to the existing API.</p>
+<p><strong>MCP becomes a window, not another building.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-does-hapi-mcp-work">How Does HAPI MCP Work?<a href="#how-does-hapi-mcp-work" class="hash-link" aria-label="Enlace directo al How Does HAPI MCP Work?" title="Enlace directo al How Does HAPI MCP Work?" translate="no">​</a></h2>
+<p>This philosophy is one of the reasons I built HAPI MCP around a simple principle:</p>
+<blockquote>
+<p><strong>MCP is a contract, not a server.</strong></p>
+</blockquote>
+<p>HAPI MCP starts with APIs.</p>
+<p>If an organization already exposes capabilities through REST APIs described using OpenAPI, those contracts can become the foundation for MCP tools.</p>
+<p>Instead of asking:</p>
+<blockquote>
+<p>&quot;How do we rewrite this application as an MCP server?&quot;</p>
+</blockquote>
+<p>We ask:</p>
+<blockquote>
+<p><strong>&quot;Which existing API capabilities should AI consumers be allowed to use?&quot;</strong></p>
+</blockquote>
+<p>That is a very different architectural question.</p>
+<p>HAPI MCP can expose selected API operations as MCP capabilities while the underlying APIs continue doing what they already do.</p>
+<p>The basic model becomes:</p>
+<p><strong>Agent / AI Application</strong>
+↓
+<strong>MCP</strong>
+↓
+<strong>HAPI MCP</strong>
+↓
+<strong>Existing REST APIs</strong>
+↓
+<strong>Existing Business Systems</strong></p>
+<p>The API does not need to become an MCP application.</p>
+<p>And the MCP layer does not need to become another copy of the application.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="if-the-api-changes-the-mcp-changes-with-it">If the API Changes, the MCP Changes With It<a href="#if-the-api-changes-the-mcp-changes-with-it" class="hash-link" aria-label="Enlace directo al If the API Changes, the MCP Changes With It" title="Enlace directo al If the API Changes, the MCP Changes With It" translate="no">​</a></h2>
+<p>This is where API-first architecture becomes especially valuable.</p>
+<p>Your OpenAPI contract already describes things such as:</p>
+<p>paths,</p>
+<p>operations,</p>
+<p>parameters,</p>
+<p>request bodies,</p>
+<p>response schemas,</p>
+<p>authentication mechanisms,</p>
+<p>security scopes,</p>
+<p>and errors.</p>
+<p>That contract can become the bridge between traditional software consumers and AI consumers.</p>
+<p>Instead of maintaining:</p>
+<p><strong>API implementation + MCP implementation</strong></p>
+<p>the goal is closer to:</p>
+<p><strong>API implementation + machine-readable contract + MCP projection</strong></p>
+<p>That word — <strong>projection</strong> — matters.</p>
+<p>The MCP representation should ideally be a projection of the underlying capability rather than an independent implementation of it.</p>
+<p>The API remains the source.</p>
+<p>MCP becomes another way of seeing it.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="but-should-every-api-endpoint-become-an-mcp-tool">But Should Every API Endpoint Become an MCP Tool?<a href="#but-should-every-api-endpoint-become-an-mcp-tool" class="hash-link" aria-label="Enlace directo al But Should Every API Endpoint Become an MCP Tool?" title="Enlace directo al But Should Every API Endpoint Become an MCP Tool?" translate="no">​</a></h2>
+<p><strong>Absolutely not.</strong></p>
+<p>Making APIs transparent to MCP does not mean blindly dumping your entire OpenAPI specification into an agent&#x27;s context.</p>
+<p>A large API can contain hundreds or thousands of operations.</p>
+<p>An AI agent rarely needs all of them.</p>
+<p>This introduces another important HAPI MCP principle:</p>
+<blockquote>
+<p><strong>API design and MCP tool design solve different problems.</strong></p>
+</blockquote>
+<p>Your API may expose capabilities optimized for developers.</p>
+<p>Your MCP surface should expose capabilities optimized around <strong>AI intent and context</strong>.</p>
+<p>For example, a commerce platform might have hundreds of endpoints.</p>
+<p>A customer-support agent may only need:</p>
+<p><code>find_customer</code></p>
+<p><code>get_order</code></p>
+<p><code>check_order_status</code></p>
+<p><code>issue_refund</code></p>
+<p>Those tools can still ultimately execute against the same production APIs.</p>
+<p>We reduce the <strong>context exposed to the model</strong> without duplicating the <strong>business logic behind the context</strong>.</p>
+<p>That distinction is critical.</p>
+<p><strong>Curate the MCP surface. Do not duplicate the application.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-hapi-mcp">Why HAPI MCP?<a href="#why-hapi-mcp" class="hash-link" aria-label="Enlace directo al Why HAPI MCP?" title="Enlace directo al Why HAPI MCP?" translate="no">​</a></h2>
+<p>Because the cost of AI adoption should not include rebuilding systems that already work.</p>
+<p>Enterprises have spent years — sometimes decades — building reliable APIs.</p>
+<p>Those APIs already contain enormous organizational knowledge.</p>
+<p>They have been:</p>
+<p>tested,</p>
+<p>secured,</p>
+<p>observed,</p>
+<p>scaled,</p>
+<p>integrated,</p>
+<p>documented,</p>
+<p>audited,</p>
+<p>and hardened by production traffic.</p>
+<p>Why throw that investment away because the next consumer happens to be an AI agent?</p>
+<p>HAPI MCP takes the opposite approach.</p>
+<p><strong>Keep your APIs.</strong></p>
+<p>Keep your business logic.</p>
+<p>Keep your production systems.</p>
+<p>Keep improving them.</p>
+<p>Then expose the right capabilities to AI through MCP.</p>
+<p>This reduces duplicated logic and helps reduce the maintenance surface introduced by AI adoption.</p>
+<p>More importantly, it gives teams a cleaner architectural boundary:</p>
+<p><strong>Business capability belongs to the API.</strong></p>
+<p><strong>AI context belongs to MCP.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-about-authentication-and-authorization">What About Authentication and Authorization?<a href="#what-about-authentication-and-authorization" class="hash-link" aria-label="Enlace directo al What About Authentication and Authorization?" title="Enlace directo al What About Authentication and Authorization?" translate="no">​</a></h2>
+<p>The same principle applies.</p>
+<p>If authorization rules already belong to your API architecture, MCP should not become an excuse to invent a second authorization universe.</p>
+<p>OAuth scopes, identity, permissions, and resource access should remain connected to the systems ultimately protecting the business capability.</p>
+<p>Otherwise, authorization itself becomes another shadow.</p>
+<p>Imagine:</p>
+<p>API says: <strong>DENIED</strong></p>
+<p>MCP says: <strong>ALLOWED</strong></p>
+<p>That is more than technical debt.</p>
+<p>That can become a security incident.</p>
+<p>The closer MCP remains to the existing API contract and authorization model, the smaller that divergence surface becomes.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mcp-should-add-context-not-duplicate-capability">MCP Should Add Context, Not Duplicate Capability<a href="#mcp-should-add-context-not-duplicate-capability" class="hash-link" aria-label="Enlace directo al MCP Should Add Context, Not Duplicate Capability" title="Enlace directo al MCP Should Add Context, Not Duplicate Capability" translate="no">​</a></h2>
+<p>There is a useful architectural boundary here.</p>
+<p>MCP absolutely adds value.</p>
+<p>It gives AI systems a standardized way to discover and invoke capabilities.</p>
+<p>It provides descriptions models can reason about.</p>
+<p>It allows us to design tool surfaces around user intent.</p>
+<p>It gives agents a contextual interface into existing systems.</p>
+<p>But none of that requires MCP to own the business implementation.</p>
+<p>That is the distinction I believe matters as MCP architectures mature.</p>
+<p><strong>APIs execute capabilities.</strong></p>
+<p><strong>MCP contextualizes capabilities for AI consumers.</strong></p>
+<p>And HAPI MCP connects those worlds.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-architecture-gets-simpler">The Architecture Gets Simpler<a href="#the-architecture-gets-simpler" class="hash-link" aria-label="Enlace directo al The Architecture Gets Simpler" title="Enlace directo al The Architecture Gets Simpler" translate="no">​</a></h2>
+<p>Compare the two approaches.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="shadow-architecture">Shadow architecture<a href="#shadow-architecture" class="hash-link" aria-label="Enlace directo al Shadow architecture" title="Enlace directo al Shadow architecture" translate="no">​</a></h3>
+<p><strong>Applications → API implementation → Backend</strong></p>
+<p>and independently:</p>
+<p><strong>AI → MCP implementation → Duplicated Logic → Backend</strong></p>
+<p>Now you maintain two paths.</p>
+<p>Two behavioral surfaces.</p>
+<p>Potentially two security models.</p>
+<p>Two reliability profiles.</p>
+<p>Two places to debug.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="transparent-architecture">Transparent architecture<a href="#transparent-architecture" class="hash-link" aria-label="Enlace directo al Transparent architecture" title="Enlace directo al Transparent architecture" translate="no">​</a></h3>
+<p><strong>Applications → API</strong></p>
+<p><strong>CLI → API</strong></p>
+<p><strong>Automation → API</strong></p>
+<p><strong>AI → HAPI MCP → API</strong></p>
+<p>Everything eventually converges on the same production capabilities.</p>
+<p>One source of truth.</p>
+<p>Different interfaces.</p>
+<p>That is much closer to how I believe AI should enter existing enterprise architectures.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-should-the-light-go">Where Should the Light Go?<a href="#where-should-the-light-go" class="hash-link" aria-label="Enlace directo al Where Should the Light Go?" title="Enlace directo al Where Should the Light Go?" translate="no">​</a></h2>
+<p>This might be the most important question.</p>
+<p>Every engineering organization has limited light.</p>
+<p>Limited developers.</p>
+<p>Limited budget.</p>
+<p>Limited testing capacity.</p>
+<p>Limited security resources.</p>
+<p>Limited operational attention.</p>
+<p>Where should that light shine?</p>
+<p>I would rather put it here:</p>
+<p><strong>APIs</strong></p>
+<p>Make them more reliable.</p>
+<p>Make them faster.</p>
+<p>Improve authorization.</p>
+<p>Improve observability.</p>
+<p>Improve documentation.</p>
+<p>Improve contracts.</p>
+<p>Improve business logic.</p>
+<p>Improve tests.</p>
+<p>Because every consumer benefits.</p>
+<p>Your web application benefits.</p>
+<p>Your mobile application benefits.</p>
+<p>Your integrations benefit.</p>
+<p>Your automation benefits.</p>
+<p>And through HAPI MCP, <strong>your AI consumers benefit too.</strong></p>
+<p>That is leverage.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="dont-maintain-the-shadow-illuminate-the-source">Don&#x27;t Maintain the Shadow. Illuminate the Source.<a href="#dont-maintain-the-shadow-illuminate-the-source" class="hash-link" aria-label="Enlace directo al Don&#x27;t Maintain the Shadow. Illuminate the Source." title="Enlace directo al Don&#x27;t Maintain the Shadow. Illuminate the Source." translate="no">​</a></h2>
+<p>AI agents are becoming another important consumer of enterprise capabilities.</p>
+<p>That does not mean enterprises need another copy of their applications.</p>
+<p>We already learned this lesson with APIs.</p>
+<p>Separate interfaces from business capabilities.</p>
+<p>Create contracts.</p>
+<p>Centralize business rules.</p>
+<p>Design clear boundaries.</p>
+<p>Then let many different clients consume those capabilities.</p>
+<p>MCP should extend that architecture, not undo it.</p>
+<p>So when somebody asks:</p>
+<blockquote>
+<p><strong>&quot;Should we build an MCP server for this application?&quot;</strong></p>
+</blockquote>
+<p>I think there is a better question:</p>
+<blockquote>
+<p><strong>&quot;Do we already have APIs representing these capabilities?&quot;</strong></p>
+</blockquote>
+<p>If the answer is yes, start there.</p>
+<p>Then ask:</p>
+<blockquote>
+<p><strong>&quot;Which of those capabilities should AI consumers see, and how should they be represented as tools?&quot;</strong></p>
+</blockquote>
+<p>That is the space HAPI MCP is designed for.</p>
+<p>Not rebuilding your application.</p>
+<p>Not copying your business logic.</p>
+<p>Not creating another operational shadow.</p>
+<p>But making the APIs you already trust accessible to a new generation of consumers.</p>
+<p><strong>Keep the light on your APIs.</strong></p>
+<p><strong>Make the MCP layer transparent.</strong></p>
+<p><strong>One source of truth. Many consumers. No shadow implementation.</strong></p>
+<p>That is the architecture behind HAPI MCP.</p>
+<p><strong>HAPI MCP transparently exposes your APIs as MCP.</strong></p></div><footer class="docusaurus-mt-lg"><div class="row margin-top--sm theme-blog-footer-edit-meta-row"><div class="col"><ul class="mcpTags padding--none"><li class="mcpTagItem"><a rel="tag" title="The structural design and organization of systems, components, and their interactions within a software or hardware environment.
+" class="tag_zVej tagRegular_sFm0" href="/es/tags/architecture">Architecture</a></li><li class="mcpTagItem"><a rel="tag" title="API-First is a design approach that prioritizes the development of APIs before building the actual application, ensuring better integration and scalability.
+" class="tag_zVej tagRegular_sFm0" href="/es/tags/api-first">API-First</a></li><li class="mcpTagItem"><a rel="tag" title="Best Practices are established methods or techniques that have been proven to yield optimal results in a particular field or industry.
+" class="tag_zVej tagRegular_sFm0" href="/es/tags/best-practices">Best Practices</a></li></ul></div></div></footer></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Barra de paginación de publicaciones del blog"><a class="pagination-nav__link pagination-nav__link--prev" href="/es/stateless-mcp-servers-the-enterprise-way"><div class="pagination-nav__sublabel">Publicación más reciente</div><div class="pagination-nav__label">Stateless MCP Servers the Enterprise Way</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/es/api-first-vs-mcp-first"><div class="pagination-nav__sublabel">Publicación más antigua</div><div class="pagination-nav__label">MCP-First? I Still Believe the Future Is API-First.</div></a></nav></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Agentes MCP</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://docs.mcp.com.ai" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docs<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Servidor HAPI<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://run.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Run MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://qbot.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="footer__link-item">QBot<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/es/get-the-news">Recibe las Noticias</a></li><li class="footer__item"><a class="footer__link-item" href="/es/request-demo">Request Demo</a></li><li class="footer__item"><a class="footer__link-item" href="/es/get-my-mcp">Construimos tu MCP</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Comunidad</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/es/archive">Blog</a></li><li class="footer__item"><a class="footer__link-item" href="/es/tags">Etiquetas</a></li><li class="footer__item"><a href="https://github.com/mcp-com-ai/hapimcp" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP.com.ai GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/la-rebelion" target="_blank" rel="noopener noreferrer" class="footer__link-item">La Rebelion GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.youtube.com/@LaRebelion" target="_blank" rel="noopener noreferrer" class="footer__link-item">YouTube &quot;La Rebelion&quot;<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.youtube.com/@hapi-mcp" target="_blank" rel="noopener noreferrer" class="footer__link-item">YouTube HAPI MCP<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Más</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/es/privacy">Privacidad</a></li><li class="footer__item"><a class="footer__link-item" href="/es/terms">Términos</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 MCP.com.ai by <a href="https://rebelion.la">La Rebelion Labs</a>. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

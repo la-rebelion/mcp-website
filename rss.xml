@@ -4,10 +4,225 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Wed, 16 Sep 2026 19:08:53 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 25 Sep 2026 17:30:04 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[HAPI Capability Graph and Jev: Safer MCP Planning for AI Agents]]></title>
+            <link>https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md</link>
+            <guid>https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md</guid>
+            <pubDate>Fri, 25 Sep 2026 17:30:04 GMT</pubDate>
+            <description><![CDATA[HAPI Capability Graph and Capability Planning help AI agents discover the right MCP tools, identify missing information, and propose the next safe step. Add optional Jev from TypeSafe AI for structured semantic ranking.]]></description>
+            <content:encoded><![CDATA[
+<p>A common problem in production happens when an agent can see many tools,
+but it still needs to know which action is appropriate <em>now</em>, what must
+happen first, and when it should stop and ask. The non-deterministic nature of AI agents makes this particularly challenging without structured guidance.</p>
+<p>The HAPI Capability Graph and Capability Planning address this problem by providing structured guidance for the agent.</p>
+<p><strong>HAPI Capability Graph and Capability Planning help an AI agent identify the
+right MCP tool, the information still missing, and the next safe step before it
+calls a production API.</strong> Teams can optionally add <strong>Jev</strong>, TypeSafe AI's
+System One Model, to interpret nuanced user language and rank a bounded set of
+eligible candidates with structured decisions and confidence.</p>
+<p>An AI assistant can understand a request. That is useful. But when the request
+touches a real business process—booking an appointment, changing an order,
+onboarding a customer, resolving an account issue—understanding is only the
+beginning.</p>
+<p>The assistant still has to answer the questions that matter:</p>
+<ul>
+<li class="">What can I safely do right now?</li>
+<li class="">What information is missing?</li>
+<li class="">Which tool is the right next tool?</li>
+<li class="">Should I ask a question, show options, or prepare an action?</li>
+<li class="">Does this change need authorization or a human confirmation?</li>
+</ul>
+<p>Until now, most MCP servers have handed the model a list of tools and hoped it
+would infer the rest.</p>
+<p>That works for a demo. It is not enough for work that matters.</p>
+<p>Today, we are excited to share what we have been building for <strong>HAPI v1.2</strong>:
+<strong>Capability Graph</strong>, <strong>Capability Planning</strong>, and an optional classifier
+powered by <a href="https://docs.typesafe.ai/introduction/coding-agents" target="_blank" rel="noopener noreferrer" class=""><strong>Jev from TypeSafe</strong></a>.</p>
+<p>Together, they help turn an API from a menu of possible actions into a
+decision guide an AI assistant can actually use.</p>
+<p><strong>Coming soon in HAPI v1.2. Private Beta is available by request:</strong>
+<a href="https://mcp.com.ai/request-demo" target="_blank" rel="noopener noreferrer" class="">request a demo</a>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-are-hapi-capability-graph-and-capability-planning">What are HAPI Capability Graph and Capability Planning?<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#what-are-hapi-capability-graph-and-capability-planning" class="hash-link" aria-label="Direct link to What are HAPI Capability Graph and Capability Planning?" title="Direct link to What are HAPI Capability Graph and Capability Planning?" translate="no">​</a></h2>
+<p><strong>HAPI Capability Graph</strong> is a contract-first map of what an API can do. It
+captures what an operation accomplishes, when it applies, whether it reads or
+changes state, and what must be true before it is useful. Rather than make an
+agent reason from a flat list of tool names, the graph gives HAPI enough
+declared context to deterministically shortlist the relevant MCP tools.</p>
+<p><strong>Capability Planning</strong> asks a narrower, operational question: given the
+request and explicit business state, what is the next safe step? Its answer is
+bounded and explainable: the goal is complete, an action is planned, a specific
+detail or confirmation is required, or there is no declared safe path.</p>
+<p>Neither feature duplicates the application. The API contract remains the source
+of truth for authorization, validation, side effects, and business rules.
+Planning prepares a proposal; it does <strong>not</strong> invoke the production API.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-problem-with-a-flat-list-of-tools">The problem with a flat list of tools<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#the-problem-with-a-flat-list-of-tools" class="hash-link" aria-label="Direct link to The problem with a flat list of tools" title="Direct link to The problem with a flat list of tools" translate="no">​</a></h2>
+<p>MCP made it possible to connect AI clients to the APIs businesses already
+trust. That is a big deal. With HAPI, an OpenAPI contract can become MCP tools
+without rebuilding the backend or duplicating business logic in a prompt.</p>
+<p>But a large API can expose dozens—or hundreds—of operations.</p>
+<p>To a person, the difference between <em>cancel an appointment</em>, <em>reschedule an
+appointment</em>, and <em>book a new appointment</em> is obvious. Each has different
+consequences. Each needs different information. One may be irreversible;
+another may preserve the customer’s place and simply move it.</p>
+<p>To an AI client looking at a flat tool list, those differences are easy to
+miss. The model has to infer a workflow from names, descriptions, and whatever
+happened to be said in the conversation. That is where assistants start asking
+the wrong question, selecting a nearly-right tool, or trying an action before
+the necessary information exists.</p>
+<p>The answer is not more prompt instructions. It is a better contract.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="from-a-pile-of-tools-to-a-map-of-what-is-possible">From a pile of tools to a map of what is possible<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#from-a-pile-of-tools-to-a-map-of-what-is-possible" class="hash-link" aria-label="Direct link to From a pile of tools to a map of what is possible" title="Direct link to From a pile of tools to a map of what is possible" translate="no">​</a></h2>
+<p><strong>Capability Graph</strong> gives HAPI a structured understanding of an API’s
+operations. It can use the signals already in a well-designed OpenAPI contract
+and, where helpful, a small amount of explicit business context:</p>
+<ul>
+<li class="">what an operation helps someone accomplish;</li>
+<li class="">when it should be used—and when it should not;</li>
+<li class="">whether it reads information, changes something, or removes something;</li>
+<li class="">what needs to be true before it is useful.</li>
+</ul>
+<p>That creates a more useful discovery experience. Instead of presenting an AI
+client with every operation at once, HAPI can deterministically narrow the
+field to the tools that fit the request.</p>
+<p>Ask to “move my appointment without cancelling it,” and the assistant has a
+clear reason to consider rescheduling before cancellation. Ask to “find a
+pediatrician in Morelia,” and discovery can focus on professionals, specialties,
+and availability—not unrelated billing or account actions.</p>
+<p>The API remains the source of truth. HAPI does not create a shadow workflow in
+an agent prompt. It makes the intent already present in the API easier to use.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-next-leap-knowing-what-is-ready">The next leap: knowing what is ready<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#the-next-leap-knowing-what-is-ready" class="hash-link" aria-label="Direct link to The next leap: knowing what is ready" title="Direct link to The next leap: knowing what is ready" translate="no">​</a></h2>
+<p>Finding a relevant tool is only part of the job. The next question is more
+important:</p>
+<blockquote>
+<p>Given what we know right now, what can happen next?</p>
+</blockquote>
+<p>That is what <strong>Capability Planning</strong> is for.</p>
+<p>Capability Planning lets an MCP client ask HAPI for a bounded, deterministic
+proposal based on explicit business state. It can tell the client whether a
+goal is already complete, what is missing, or which safe step can move the
+conversation forward.</p>
+<p>Imagine a healthcare scheduling assistant:</p>
+<ol>
+<li class="">A patient asks for a pediatrician next week.</li>
+<li class="">The assistant finds verified professionals.</li>
+<li class="">The patient selects one.</li>
+<li class="">The assistant checks live availability.</li>
+<li class="">The patient selects a time.</li>
+<li class="">The assistant verifies the details and asks for confirmation before booking.</li>
+</ol>
+<p>At every step, the assistant can be conversational and dynamic. But it does
+not lose the thread of the real process.</p>
+<p>If the patient says, “Actually, I want to cancel my current appointment,” the
+assistant sees a different path: identify the appointment, verify the person,
+and obtain a clear confirmation before making an irreversible change.</p>
+<p>This is not a rigid chatbot script. It is a live decision guide grounded in
+the current situation.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="four-answers-that-make-an-assistant-more-trustworthy">Four answers that make an assistant more trustworthy<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#four-answers-that-make-an-assistant-more-trustworthy" class="hash-link" aria-label="Direct link to Four answers that make an assistant more trustworthy" title="Direct link to Four answers that make an assistant more trustworthy" translate="no">​</a></h2>
+<p>Capability Planning gives MCP clients four clear outcomes:</p>
+<table><thead><tr><th>Outcome</th><th>What the assistant can say</th></tr></thead><tbody><tr><td><strong>Complete</strong></td><td>“This is already done. There is nothing else to do.”</td></tr><tr><td><strong>Planned</strong></td><td>“Everything is ready. Here is the next safe step.”</td></tr><tr><td><strong>Clarification required</strong></td><td>“I can help, but I need this specific detail or confirmation first.”</td></tr><tr><td><strong>Unplannable</strong></td><td>“There is no declared, safe path to that result from the information we have.”</td></tr></tbody></table>
+<p>That is a much better experience than an assistant guessing, failing, and
+trying again. It is also a better experience for the teams responsible for
+the API: the reasons for a next step, a missing detail, or a pause are visible
+and reviewable.</p>
+<p>And one boundary is important: <strong>planning does not call the API.</strong> It does not
+book, cancel, charge, update, or delete anything. It prepares a proposal so a
+person and an AI client can decide what should happen next.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-jev-from-typesafe-ai-fits-into-mcp-planning">How Jev from TypeSafe AI fits into MCP planning<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#how-jev-from-typesafe-ai-fits-into-mcp-planning" class="hash-link" aria-label="Direct link to How Jev from TypeSafe AI fits into MCP planning" title="Direct link to How Jev from TypeSafe AI fits into MCP planning" translate="no">​</a></h2>
+<p>Deterministic rules are the right foundation for authorization, policy, and
+known business transitions. But people do not always describe what they need
+with the same words your API uses.</p>
+<p>“Can you move my visit?”</p>
+<p>“I need a different time.”</p>
+<p>“Don’t cancel it—I still need the doctor.”</p>
+<p>Those are related, but they carry nuance. That is where the optional
+<strong>Jev-powered TypeSafe classifier</strong> comes in.</p>
+<p>Jev is TypeSafe AI's first public <strong>System One Model</strong>. TypeSafe describes it
+as an automation-oriented model that returns typed decisions with probabilities
+and confidence, rather than generated text for a person to interpret. In HAPI,
+Jev is not asked to invent an entire workflow or take control of the API. It
+can help interpret intent and rank a bounded set of already eligible tool
+candidates. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer" class="">Read TypeSafe's Jev introduction</a>.</p>
+<p>The division of responsibility is deliberate:</p>
+<ul>
+<li class=""><strong>HAPI and the API contract</strong> keep authorization, policy, and declared safety
+rules in control.</li>
+<li class=""><strong>Capability Graph</strong> builds a deterministic shortlist.</li>
+<li class=""><strong>Jev</strong> adds semantic judgment when the user’s language is nuanced or
+ambiguous.</li>
+<li class=""><strong>Capability Planning</strong> explains whether the next step is ready, missing
+information, or needs a confirmation.</li>
+</ul>
+<p>That is the opportunity we are most excited about: conversational intelligence
+where language is fuzzy, predictable controls where the business process must
+be exact.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="hapi-capability-graph-and-jev-have-different-jobs">HAPI, Capability Graph, and Jev have different jobs<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#hapi-capability-graph-and-jev-have-different-jobs" class="hash-link" aria-label="Direct link to HAPI, Capability Graph, and Jev have different jobs" title="Direct link to HAPI, Capability Graph, and Jev have different jobs" translate="no">​</a></h3>
+<table><thead><tr><th>Layer</th><th>Job</th><th>What it must not replace</th></tr></thead><tbody><tr><td><strong>API contract and HAPI</strong></td><td>Declare operations, effects, prerequisites, authorization, and policy.</td><td>Production business logic and API enforcement.</td></tr><tr><td><strong>Capability Graph</strong></td><td>Deterministically shortlist the MCP tools that fit the request.</td><td>An agent-owned shadow workflow.</td></tr><tr><td><strong>Jev from TypeSafe AI</strong></td><td>Optionally classify or rank eligible candidates when language is ambiguous.</td><td>Authorization, policy, or unbounded tool selection.</td></tr><tr><td><strong>Capability Planning</strong></td><td>Explain whether an action is ready, what is missing, or why the agent should pause.</td><td>API execution or irreversible action.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="no-black-box-no-prompt-spaghetti">No black box. No prompt spaghetti.<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#no-black-box-no-prompt-spaghetti" class="hash-link" aria-label="Direct link to No black box. No prompt spaghetti." title="Direct link to No black box. No prompt spaghetti." translate="no">​</a></h2>
+<p>The AI world does not need another layer that quietly reimplements the
+business.</p>
+<p>Your API already carries hard-won knowledge: validation, permissions, state,
+rates, limits, and rules that have survived real customers and real edge cases.
+HAPI’s job is to make that knowledge available to MCP clients without copying
+it into a brittle agent layer.</p>
+<p>Capability Graph and Capability Planning build on that principle.</p>
+<p>They let teams describe the meaningful parts of a workflow once, alongside the
+contract they already maintain. They allow assistants to be more useful without
+turning them into unchecked operators. And they make it possible to introduce
+semantic AI judgment from Jev without giving up deterministic safeguards.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="who-should-care">Who should care?<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#who-should-care" class="hash-link" aria-label="Direct link to Who should care?" title="Direct link to Who should care?" translate="no">​</a></h2>
+<p>This is especially interesting for teams with:</p>
+<ul>
+<li class="">APIs that expose many MCP tools;</li>
+<li class="">operations that sound similar but have very different consequences;</li>
+<li class="">sensitive workflows with real authorization and confirmation requirements;</li>
+<li class="">assistants that need to guide people through multi-step work without becoming
+a second application.</li>
+</ul>
+<p>Healthcare scheduling is one example. So are customer support, order changes,
+travel adjustments, financial operations, internal IT workflows, and any
+service where “what comes next?” has a real business answer.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-coming-next">What is coming next<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#what-is-coming-next" class="hash-link" aria-label="Direct link to What is coming next" title="Direct link to What is coming next" translate="no">​</a></h2>
+<p>Capability Graph, Capability Planning, and the optional Jev-powered classifier
+are coming in <strong>HAPI v1.2</strong>.</p>
+<p>We are opening a <strong>Private Beta</strong> for teams that want to try the experience on
+real APIs and real workflows. We are particularly interested in teams ready to
+test a focused use case, evaluate the quality of tool discovery, and help shape
+the right boundaries for planning and controlled execution.</p>
+<p>If your API is already the place where your business rules live, you are closer
+than you think.</p>
+<p>Start at <a href="https://jev-mcp.dev/" target="_blank" rel="noopener noreferrer" class="">jev-mcp.dev</a>, explore the
+<a href="https://docs.mcp.com.ai/jev" target="_blank" rel="noopener noreferrer" class="">HAPI documentation</a>, or
+<a href="https://mcp.com.ai/request-demo" target="_blank" rel="noopener noreferrer" class="">request a Private Beta demo</a>.</p>
+<p>Your API already knows what comes next.</p>
+<p>Now your AI can too.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently Asked Questions<a href="https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows.md#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions" translate="no">​</a></h2>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>What is HAPI Capability Graph?</strong></summary><div><div class="collapsibleContent_i85q"><p>HAPI Capability Graph is a contract-first representation of what API operations
+accomplish, when they apply, what effects they have, and which prerequisites
+must be true. It lets an MCP client narrow a large tool list to the operations
+that fit a user's request.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>What is Capability Planning for MCP?</strong></summary><div><div class="collapsibleContent_i85q"><p>Capability Planning evaluates explicit business state and returns a bounded
+next-step proposal. It can say the goal is complete, an action is ready, a
+specific detail or confirmation is missing, or no declared safe path exists.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>How do HAPI Capability Graph and Jev work together?</strong></summary><div><div class="collapsibleContent_i85q"><p>HAPI and the API contract define the allowed tools, policies, prerequisites, and
+deterministic shortlist. Jev can optionally interpret nuanced language and rank
+that already eligible shortlist with structured decisions and confidence. Jev
+does not replace API authorization, business rules, or HAPI planning.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>Does Capability Planning execute API actions?</strong></summary><div><div class="collapsibleContent_i85q"><p>No. Capability Planning does not book, cancel, charge, update, delete, or call
+the API. It returns an explainable proposal so the MCP client and user can
+decide whether to execute the next approved action.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>Why use a Capability Graph instead of exposing every MCP tool?</strong></summary><div><div class="collapsibleContent_i85q"><p>A flat list forces an AI agent to infer workflow, prerequisites, and risk from
+tool names alone. A Capability Graph lets HAPI focus discovery on relevant
+operations and make missing information, confirmation requirements, and safe
+next steps explicit.</p></div></div></details>]]></content:encoded>
+            <category>MCP</category>
+            <category>OAS</category>
+            <category>Agentic AI</category>
+            <category>API-First</category>
+            <category>TypeSafe AI</category>
+        </item>
         <item>
             <title><![CDATA[MCP With No Shadows: Adopting MCP Without Rebuilding Your Stack]]></title>
             <link>https://mcp.com.ai/mcp-with-no-shadows</link>
@@ -3846,33 +4061,6 @@ Be HAPI, and Go Rebels! ✊🏼</p>]]></content:encoded>
 <p>Ready to build your own? Check out the full documentation at <a href="https://docs.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">docs.mcp.com.ai</a>.</p>
 <p>🏁 <strong>Done. Be HAPI, and go Rebels! ✊</strong></p>]]></content:encoded>
             <category>Guide</category>
-        </item>
-        <item>
-            <title><![CDATA[MCP at Scale: Engineering the Future of AI Platforms]]></title>
-            <link>https://mcp.com.ai/mcp-at-scale</link>
-            <guid>https://mcp.com.ai/mcp-at-scale</guid>
-            <pubDate>Tue, 20 Jan 2026 00:33:45 GMT</pubDate>
-            <description><![CDATA[A deep dive series into the architectural challenges of running Model Context Protocol in production at enterprise scale.]]></description>
-            <content:encoded><![CDATA[<p><strong>The "Hello World" phase of the Model Context Protocol is over.</strong></p>
-<p>As enterprises move from experimental chatbots to production-grade agentic systems, they are hitting the invisible walls of scale: token bloat, latency, governance, and discovery. What works for ten tools fails catastrophically at ten thousand.</p>
-<p><a class="" href="https://mcp.com.ai/mcp-at-scale"><strong>MCP at Scale</strong></a> is a dedicated series exploring the engineering reality of building robust, high-performance AI platforms.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-series-exists">Why This Series Exists<a href="https://mcp.com.ai/mcp-at-scale#why-this-series-exists" class="hash-link" aria-label="Direct link to Why This Series Exists" title="Direct link to Why This Series Exists" translate="no">​</a></h2>
-<p>We are witnessing a shift. MCP is evolving from a simple connector protocol into the <strong>operating system for AI execution</strong>. This transition demands a new set of architectural patterns. It's no longer just about exposing an API; it's about orchestration, security, and efficiency.</p>
-<p>In this ongoing series, we dissect the critical challenges of <strong>large-scale MCP deployments</strong>:</p>
-<ul>
-<li class=""><strong>Token Economics &amp; Efficiency:</strong> Managing the cost and latency of massive tool contexts.</li>
-<li class=""><strong>Dynamic Discovery:</strong> Moving beyond static injection to search-driven tool loading.</li>
-<li class=""><strong>Governance &amp; Security:</strong> Implementing "<a class="" href="https://mcp.com.ai/tags/mcp-connect-authority">Connect Authorities</a>" and preventing Shadow AI.</li>
-<li class=""><strong>High-Volume Orchestration:</strong> Handling thousands of concurrent agent sessions without degradation.</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-guide">The Guide<a href="https://mcp.com.ai/mcp-at-scale#the-guide" class="hash-link" aria-label="Direct link to The Guide" title="Direct link to The Guide" translate="no">​</a></h2>
-<p>This series is written for platform engineers, architects, and technical leaders who are building the infrastructure that will power the next generation of AI.</p>
-<hr>
-<p><strong>Join us as we define the standards for enterprise MCP architecture.</strong></p>
-<p>Be HAPI, and Go Rebels! ✊🏼</p>]]></content:encoded>
-            <category>MCP at Scale</category>
-            <category>Architecture</category>
-            <category>Platform Engineering</category>
         </item>
     </channel>
 </rss>
