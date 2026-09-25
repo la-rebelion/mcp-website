@@ -147,6 +147,12 @@ agentic-ai:
   description: >
     Agentic AI refers to artificial intelligence systems that can autonomously perform tasks, make decisions, and interact with their environment to achieve specific goals.
 
+typesafe-ai:
+  label: TypeSafe AI
+  permalink: /typesafe-ai
+  description: >
+    TypeSafe AI builds System One Models, including Jev, for fast, structured decisions that software can use in reliable automation workflows.
+
 cost-optimization:
   label: Cost Optimization
   permalink: /cost-optimization

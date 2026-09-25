@@ -1,19 +1,91 @@
 ---
-title: "Your API Knows What Comes Next. Now Your AI Can Too."
-description: "HAPI Capability Graph and Capability Planning give MCP clients a safer, more useful way to discover API tools, understand what is missing, and prepare the next step—with optional Jev-powered classification from TypeSafe."
+title: "HAPI Capability Graph and Jev: Safer MCP Planning for AI Agents"
+description: "HAPI Capability Graph and Capability Planning help AI agents discover the right MCP tools, identify missing information, and propose the next safe step. Add optional Jev from TypeSafe AI for structured semantic ranking."
+image: /img/blog/jev-mcp-capability-graph-for-agentic-workflows.png
+authors: [adrian]
+tags: [mcp, oas, agentic-ai, api-first, typesafe-ai]
 keywords:
   - API Capability Graph
   - Capability Planning
+  - MCP planning
   - MCP
   - Jev
-  - TypeSafe
+  - Jev System One Model
+  - TypeSafe AI
   - OpenAPI
   - AI agents
   - tool discovery
   - agentic workflows
 ---
 
-# Your API Knows What Comes Next. Now Your AI Can Too.
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is HAPI Capability Graph?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HAPI Capability Graph is a contract-first representation of what API operations accomplish, when they apply, what effects they have, and which prerequisites must be true. It helps an MCP client narrow a large tool list to the operations that fit the user's request."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Capability Planning for MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Capability Planning evaluates explicit business state and returns a bounded next-step proposal. It can report that a goal is complete, that an action is ready, that information or confirmation is missing, or that no declared safe path exists. Planning prepares an action; it does not call the production API."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do HAPI Capability Graph and Jev from TypeSafe AI work together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HAPI and the API contract define the allowed tools, policies, prerequisites, and deterministic shortlist. Jev can optionally interpret nuanced user language and rank that already eligible shortlist with structured decisions and confidence. Jev does not replace API authorization, business rules, or HAPI planning."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Capability Planning execute API actions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Capability Planning does not book, cancel, charge, update, delete, or otherwise call the API. It returns an explainable proposal so the MCP client and user can decide whether to execute the next approved action."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why use a Capability Graph instead of giving an AI agent every MCP tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A flat list forces an AI agent to infer workflow, prerequisites, and risk from tool names alone. A Capability Graph lets HAPI deterministically focus discovery on relevant operations and make missing information, confirmation requirements, and safe next steps explicit."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+A common problem in production happens when an agent can see many tools, 
+but it still needs to know which action is appropriate *now*, what must 
+happen first, and when it should stop and ask. The non-deterministic nature of AI agents makes this particularly challenging without structured guidance.
+
+The HAPI Capability Graph and Capability Planning address this problem by providing structured guidance for the agent.
+
+<!-- truncate -->
+
+**HAPI Capability Graph and Capability Planning help an AI agent identify the
+right MCP tool, the information still missing, and the next safe step before it
+calls a production API.** Teams can optionally add **Jev**, TypeSafe AI's
+System One Model, to interpret nuanced user language and rank a bounded set of
+eligible candidates with structured decisions and confidence.
 
 An AI assistant can understand a request. That is useful. But when the request
 touches a real business process—booking an appointment, changing an order,
@@ -35,13 +107,30 @@ That works for a demo. It is not enough for work that matters.
 
 Today, we are excited to share what we have been building for **HAPI v1.2**:
 **Capability Graph**, **Capability Planning**, and an optional classifier
-powered by **Jev from TypeSafe**.
+powered by [**Jev from TypeSafe**](https://docs.typesafe.ai/introduction/coding-agents).
 
 Together, they help turn an API from a menu of possible actions into a
 decision guide an AI assistant can actually use.
 
 **Coming soon in HAPI v1.2. Private Beta is available by request:**
 [request a demo](https://mcp.com.ai/request-demo).
+
+## What are HAPI Capability Graph and Capability Planning?
+
+**HAPI Capability Graph** is a contract-first map of what an API can do. It
+captures what an operation accomplishes, when it applies, whether it reads or
+changes state, and what must be true before it is useful. Rather than make an
+agent reason from a flat list of tool names, the graph gives HAPI enough
+declared context to deterministically shortlist the relevant MCP tools.
+
+**Capability Planning** asks a narrower, operational question: given the
+request and explicit business state, what is the next safe step? Its answer is
+bounded and explainable: the goal is complete, an action is planned, a specific
+detail or confirmation is required, or there is no declared safe path.
+
+Neither feature duplicates the application. The API contract remains the source
+of truth for authorization, validation, side effects, and business rules.
+Planning prepares a proposal; it does **not** invoke the production API.
 
 ## The problem with a flat list of tools
 
@@ -140,7 +229,7 @@ And one boundary is important: **planning does not call the API.** It does not
 book, cancel, charge, update, or delete anything. It prepares a proposal so a
 person and an AI client can decide what should happen next.
 
-## Where Jev changes the conversation
+## How Jev from TypeSafe AI fits into MCP planning
 
 Deterministic rules are the right foundation for authorization, policy, and
 known business transitions. But people do not always describe what they need
@@ -155,10 +244,12 @@ with the same words your API uses.
 Those are related, but they carry nuance. That is where the optional
 **Jev-powered TypeSafe classifier** comes in.
 
-Jev is TypeSafe’s flagship System One model: it takes state and typed questions
-and returns structured answers that software can use directly. In HAPI, Jev is
-not asked to invent an entire workflow or take control of the API. It can help
-interpret intent and rank a bounded set of already eligible tool candidates.
+Jev is TypeSafe AI's first public **System One Model**. TypeSafe describes it
+as an automation-oriented model that returns typed decisions with probabilities
+and confidence, rather than generated text for a person to interpret. In HAPI,
+Jev is not asked to invent an entire workflow or take control of the API. It
+can help interpret intent and rank a bounded set of already eligible tool
+candidates. [Read TypeSafe's Jev introduction](https://typesafe.ai/blog/introducing-system-one-models-and-jev).
 
 The division of responsibility is deliberate:
 
@@ -173,6 +264,15 @@ The division of responsibility is deliberate:
 That is the opportunity we are most excited about: conversational intelligence
 where language is fuzzy, predictable controls where the business process must
 be exact.
+
+### HAPI, Capability Graph, and Jev have different jobs
+
+| Layer | Job | What it must not replace |
+| --- | --- | --- |
+| **API contract and HAPI** | Declare operations, effects, prerequisites, authorization, and policy. | Production business logic and API enforcement. |
+| **Capability Graph** | Deterministically shortlist the MCP tools that fit the request. | An agent-owned shadow workflow. |
+| **Jev from TypeSafe AI** | Optionally classify or rank eligible candidates when language is ambiguous. | Authorization, policy, or unbounded tool selection. |
+| **Capability Planning** | Explain whether an action is ready, what is missing, or why the agent should pause. | API execution or irreversible action. |
 
 ## No black box. No prompt spaghetti.
 
@@ -226,23 +326,47 @@ Your API already knows what comes next.
 
 Now your AI can too.
 
----
+## Frequently Asked Questions
 
-## Suggested social copy
+<details>
+<summary><strong>What is HAPI Capability Graph?</strong></summary>
 
-An API with 50 MCP tools is useful.
+HAPI Capability Graph is a contract-first representation of what API operations
+accomplish, when they apply, what effects they have, and which prerequisites
+must be true. It lets an MCP client narrow a large tool list to the operations
+that fit a user's request.
+</details>
 
-An AI assistant that knows which tool is relevant, what information is missing,
-and when to pause for confirmation? That changes the experience.
+<details>
+<summary><strong>What is Capability Planning for MCP?</strong></summary>
 
-Coming in HAPI v1.2: Capability Graph, Capability Planning, and an optional
-Jev-powered TypeSafe classifier for more useful, safer MCP interactions.
+Capability Planning evaluates explicit business state and returns a bounded
+next-step proposal. It can say the goal is complete, an action is ready, a
+specific detail or confirmation is missing, or no declared safe path exists.
+</details>
 
-Private Beta available by request: https://mcp.com.ai/request-demo
+<details>
+<summary><strong>How do HAPI Capability Graph and Jev work together?</strong></summary>
 
-## Suggested featured-image direction
+HAPI and the API contract define the allowed tools, policies, prerequisites, and
+deterministic shortlist. Jev can optionally interpret nuanced language and rank
+that already eligible shortlist with structured decisions and confidence. Jev
+does not replace API authorization, business rules, or HAPI planning.
+</details>
 
-**Concept:** A clean navigation map emerging from an API contract: “Request” on
-the left, a highlighted “next safe step” in the center, and “Trusted outcome”
-on the right. Use HAPI teal and warm orange accents, with a subtle node graph
-in the background. Avoid robot imagery, brains, or generic chatbot bubbles.
+<details>
+<summary><strong>Does Capability Planning execute API actions?</strong></summary>
+
+No. Capability Planning does not book, cancel, charge, update, delete, or call
+the API. It returns an explainable proposal so the MCP client and user can
+decide whether to execute the next approved action.
+</details>
+
+<details>
+<summary><strong>Why use a Capability Graph instead of exposing every MCP tool?</strong></summary>
+
+A flat list forces an AI agent to infer workflow, prerequisites, and risk from
+tool names alone. A Capability Graph lets HAPI focus discovery on relevant
+operations and make missing information, confirmation requirements, and safe
+next steps explicit.
+</details>
