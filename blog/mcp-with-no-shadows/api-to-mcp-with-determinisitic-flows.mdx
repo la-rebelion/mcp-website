@@ -1,0 +1,375 @@
+---
+title: "From API to MCP with Deterministic Workflows: Let AI Interpret, Let Systems Execute"
+description: "AI agents can interpret a user's intent, but production workflows need deterministic execution. Learn how OpenAPI, Arazzo, HAPI Workflows, and MCP connect intent to governed API outcomes without shadow logic."
+authors: [adrian]
+tags: [mcp, oas, arazzo, agentic-ai, api-first, architecture]
+image: /img/blog/api-to-mcp-with-determinisitic-flows.png
+keywords:
+  - deterministic workflows for AI agents
+  - API to MCP
+  - MCP workflows
+  - HAPI Workflows
+  - Arazzo workflows
+  - OpenAPI AI agents
+  - agentic workflows
+  - AI workflow orchestration
+  - deterministic execution
+hide_table_of_contents: true
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a deterministic workflow for an AI agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A deterministic workflow is an explicit sequence of approved operations, prerequisites, and failure paths. An AI agent may interpret a user's request, but the workflow defines how the resulting business action executes and how the outcome is verified."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between AI planning and deterministic execution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI planning interprets ambiguous language, proposes an outcome, and asks for missing details or approval. Deterministic execution carries out the approved operations in a declared order, applies API validation and authorization, and handles known failures or compensation paths."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do HAPI Workflows expose deterministic workflows through MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HAPI Workflows validates an Arazzo workflow that references documented OpenAPI operations, then exposes each supported workflow as an MCP tool. An agent can request a meaningful outcome instead of manually coordinating every low-level API call."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does HAPI Workflows replace Camunda or Temporal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. Camunda, Temporal, and other workflow engines remain appropriate when they own durable process state, timers, people tasks, or complex orchestration. HAPI Workflows provides an API-contract and MCP layer for declared OpenAPI workflows; it should complement, not duplicate, an existing system of record."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why expose a workflow as an MCP tool instead of every API endpoint?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A workflow tool gives the agent a meaningful outcome with declared step dependencies, rather than asking it to reconstruct a business process from unrelated low-level operations. The underlying APIs remain the authority for authentication, authorization, validation, and business rules."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+# From API to MCP with Deterministic Workflows
+
+**An AI agent can understand what a person means. It should not improvise how a
+production business process runs.**
+
+The architecture is simple:
+
+> **AI interprets intent. APIs define the rules. Deterministic workflows execute approved outcomes.**
+
+<!-- truncate -->
+
+That distinction matters the moment an agent can change a reservation, issue a
+refund, update a delivery, or move an appointment. The user may express a
+perfectly reasonable outcome in one sentence. Getting there can require a
+sequence of validated API calls, an authorization check, a confirmation, and a
+reliable response when one step fails.
+
+---
+
+This post walks through that boundary with a travel-booking scenario, then shows
+how OpenAPI, Arazzo, HAPI Workflows, and MCP can make the same model available
+to an AI agent without creating a second implementation of your business.
+
+## The problem: one request, many consequences
+
+Laura has already booked a trip to Cancun: a flight, a hotel, and airport
+transportation. Then she writes:
+
+> “Move my vacation two days later, but keep my flight home.”
+
+The request is short. The consequences are not.
+
+The system needs to understand the current itinerary, determine what can and
+cannot change, check availability, update dependent reservations, obtain any
+required confirmation, and leave the trip in a coherent state if one of those
+steps fails.
+
+That is not a task for a model to reconstruct from a list of raw endpoints on
+every turn. It is a business process with an explicit outcome.
+
+## The mental model: state, outcome, rules, execution
+
+The useful model for this class of automation is:
+
+```text
+Current state + desired outcome + business rules
+    -> approved deterministic workflow
+    -> verified new state
+```
+
+For Laura, the input is not simply “change the dates.” The relevant state might
+be:
+
+| Current state | Desired outcome | Rules that matter |
+| --- | --- | --- |
+| Flight outbound: booked Oct 10 | Depart Oct 12 | Fare-change policy, seats, price difference |
+| Flight return: booked Oct 15 | Keep unchanged | Reservation must remain valid |
+| Hotel: booked Oct 10–15 | Shift hotel dates | Availability, cancellation window |
+| Airport transport: booked Oct 10 | Move pickup | Pickup must match arrival time |
+
+The workflow does not decide what Laura wants. It guarantees what must happen
+once Laura's requested outcome is known and approved.
+
+<!-- VIDEO PLACEHOLDER: Insert a 45-75 second slide animation here: request -> current itinerary and desired outcome -> contract-constrained eligible actions -> approved deterministic route -> hotel-unavailable recovery branch -> verified new itinerary. -->
+
+## What the agent does, and what it must not do
+
+An agent has a valuable job before execution starts. It can:
+
+- interpret “two days later” against the conversation and current itinerary;
+- recognize that “keep my flight home” excludes one possible change;
+- identify missing information, such as whether Laura accepts a fare increase;
+- propose the intended outcome in language Laura can approve.
+
+But the agent should not invent a hidden process such as “cancel everything and
+start again,” or guess that a canceled hotel automatically means an airport
+pickup should disappear. Those are business decisions, not language decisions.
+
+Once the outcome is explicit, the deterministic side takes over:
+
+- retrieve the current reservation state;
+- validate that the requested changes are allowed;
+- apply the declared operations in the required order;
+- verify each result and preserve an auditable state;
+- stop, compensate, retry, or ask a focused question when a known failure path
+  is reached.
+
+This is the boundary that makes an agent useful without making it the system of
+record.
+
+## A scenario: Laura changes one part of the trip
+
+Suppose Laura changes her mind after the initial bookings:
+
+> “Keep the flight, but cancel that hotel. I found another one.”
+
+The desired outcome is not “rebuild the vacation.” It is specific:
+
+```text
+Keep Flight A
+Cancel Hotel A
+Book Hotel B
+Review transportation if the new hotel changes pickup details
+```
+
+Most of the complexity in managing changes comes from understanding the dependencies between different parts of the itinerary. LLMs executing MCP tool calls must respect those dependencies to ensure consistent, predictable outcomes. Today, MCPs often fail to enforce them reliably because they do not provide an explicit representation of the dependency chain. Nondeterministic workflow behavior can lead to unexpected results and user frustration.
+
+An explicit workflow can make the dependency chain visible:
+
+```text
+1. Verify Hotel A can be canceled
+2. Cancel Hotel A
+3. Verify the cancellation result
+4. Book Hotel B
+5. Update transportation only when the new itinerary requires it
+6. Return the verified itinerary
+```
+
+The order is not incidental. It carries policy: perhaps the system must confirm
+a cancellation before booking a replacement, or perhaps it must keep the
+existing reservation until a replacement is secured. Either policy can be
+declared and reviewed. Neither should be inferred from a tool description at
+runtime.
+
+## Failure is not an edge case
+
+Now assume Hotel A is canceled successfully, but Hotel B becomes unavailable
+before booking completes.
+
+The state is uncomfortable but knowable:
+
+```text
+Flight: booked
+Hotel A: canceled
+Hotel B: unavailable
+Transportation: booked
+```
+
+A deterministic workflow does not continue blindly. It has an explicit next
+move: preserve the known state, return the failure reason, and ask Laura to
+choose a replacement. If the process has a defined compensation action, it can
+execute that too. If it does not, it should say so plainly.
+
+That is more reliable than allowing an agent to attempt unrelated tool calls
+until the conversation appears resolved.
+
+## From documented APIs to an MCP workflow tool
+
+The pieces fit together without turning the MCP layer into a second backend:
+
+| Layer | Responsibility |
+| --- | --- |
+| **OpenAPI** | Documents each API operation, inputs, responses, security requirements, and validation contract. |
+| **Arazzo** | Declares how documented operations compose into a workflow and pass data between steps. |
+| **HAPI Workflows** | Validates supported Arazzo workflows and exposes each workflow as an MCP tool. |
+| **MCP client or AI agent** | Understands the user's request, selects an appropriate outcome-level tool, gathers approval when needed, and presents the result. |
+| **Production APIs and workflow engine** | Remain the authority for durable state, authorization, business rules, side effects, timers, and compensation. |
+
+With this design, the agent can use a meaningful capability such as
+`rescheduleTrip` rather than separately coordinating `findReservation`,
+`changeFlight`, `updateHotelDates`, and `changePickup` from scratch.
+
+HAPI Workflows uses an Arazzo document to expose a supported workflow as an MCP
+tool. That makes the sequence inspectable and reusable, while the APIs behind
+it remain responsible for the real business behavior. See the [HAPI Workflows
+documentation](https://docs.mcp.com.ai/components/hapi-server/hapi-workflows)
+for supported workflow behavior and validation details.
+
+## Where Capability Graph and planning fit
+
+Not every request begins with a known workflow. An assistant may first need to
+decide whether Laura wants to reschedule, cancel, rebook, or simply inspect the
+trip. That is a discovery and planning problem.
+
+HAPI Capability Graph can describe what operations help achieve, when they
+apply, their effects, and their prerequisites. It gives an MCP client a
+structured way to narrow eligible tools instead of reasoning over every API
+operation at once. Capability Planning can then make the next decision
+explicit: an action is ready, a detail is missing, confirmation is required, or
+there is no declared safe path.
+
+The sequence is deliberate:
+
+```text
+User request
+  -> agent interprets intent
+  -> Capability Graph narrows eligible capabilities
+  -> planning identifies the next safe step
+  -> user approves when required
+  -> deterministic workflow executes
+  -> APIs verify and persist the outcome
+```
+
+This leaves room for AI where language is ambiguous and keeps the process
+deterministic where correctness, policy, and side effects matter.
+
+## HAPI Workflows and workflow engines are complementary
+
+Camunda, Temporal, BPMN engines, and similar platforms solve important
+problems: long-running state, timers, human tasks, retries, compensation, and
+operational visibility. They should remain in place when they own those
+responsibilities.
+
+HAPI Workflows does not require replacing them. Its role is to make declared
+API workflows available as MCP capabilities. Where an existing workflow engine
+already exposes the right API boundary, HAPI can project that contract to MCP.
+Where Arazzo describes a compact API sequence directly, HAPI can validate and
+serve that workflow without asking the model to improvise the glue.
+
+The design goal is not “put every workflow in one tool.” It is to avoid a new,
+agent-specific implementation of the same workflow logic.
+
+## What this avoids: workflow shadows
+
+The tempting alternative is to put the process in an agent prompt or custom MCP
+server code:
+
+```text
+Agent -> custom MCP logic -> copied business rules -> production APIs
+```
+
+That creates a shadow of the application. Over time, an API validation rule,
+permission change, cancellation policy, or failure path changes in one place
+but not the other.
+
+The contract-first alternative is:
+
+```text
+Agent -> MCP workflow capability -> declared API contract -> production APIs
+```
+
+There is still design work: APIs need clear operations, workflows need explicit
+dependencies, and high-risk actions need appropriate approval. But the business
+rules stay close to the systems that already enforce them.
+
+That is the difference between adding an AI interface and accidentally building
+another application behind it.
+
+## Frequently Asked Questions
+
+<details>
+<summary><strong>What is a deterministic workflow for an AI agent?</strong></summary>
+
+A deterministic workflow is an explicit sequence of approved operations,
+prerequisites, and failure paths. An AI agent may interpret a user's request,
+but the workflow defines how the resulting business action executes and how the
+outcome is verified.
+</details>
+
+<details>
+<summary><strong>What is the difference between AI planning and deterministic execution?</strong></summary>
+
+AI planning interprets ambiguous language, proposes an outcome, and asks for
+missing details or approval. Deterministic execution carries out the approved
+operations in a declared order, applies API validation and authorization, and
+handles known failures or compensation paths.
+</details>
+
+<details>
+<summary><strong>How do HAPI Workflows expose deterministic workflows through MCP?</strong></summary>
+
+HAPI Workflows validates an Arazzo workflow that references documented OpenAPI
+operations, then exposes each supported workflow as an MCP tool. An agent can
+request a meaningful outcome instead of manually coordinating every low-level
+API call.
+</details>
+
+<details>
+<summary><strong>Does HAPI Workflows replace Camunda or Temporal?</strong></summary>
+
+Not necessarily. Camunda, Temporal, and other workflow engines remain
+appropriate when they own durable process state, timers, people tasks, or
+complex orchestration. HAPI Workflows provides an API-contract and MCP layer
+for declared OpenAPI workflows; it should complement, not duplicate, an
+existing system of record.
+</details>
+
+<details>
+<summary><strong>Why expose a workflow as an MCP tool instead of every API endpoint?</strong></summary>
+
+A workflow tool gives the agent a meaningful outcome with declared step
+dependencies, rather than asking it to reconstruct a business process from
+unrelated low-level operations. The underlying APIs remain the authority for
+authentication, authorization, validation, and business rules.
+</details>
+
+## The takeaway
+
+AI makes the front door conversational. It does not make production behavior
+safe by itself.
+
+When a request has real consequences, keep the roles clear:
+
+- let the agent understand the person;
+- let the contract describe the allowed capabilities;
+- let planning identify the next safe step;
+- let deterministic workflows execute the approved outcome;
+- let production APIs remain the source of truth.
+
+That is how an API becomes useful to an AI agent without becoming a shadow of
+itself.
