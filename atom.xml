@@ -2,11 +2,199 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mcp.com.ai</id>
     <title>The control plane for MCP in real environments Blog</title>
-    <updated>2026-09-25T17:30:04.000Z</updated>
+    <updated>2026-09-27T23:12:33.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mcp.com.ai"/>
     <subtitle>The control plane for MCP in real environments Blog</subtitle>
     <icon>https://mcp.com.ai/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[From API to MCP with Deterministic Workflows: Let AI Interpret, Let Systems Execute]]></title>
+        <id>https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows</id>
+        <link href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows"/>
+        <updated>2026-09-27T23:12:33.000Z</updated>
+        <summary type="html"><![CDATA[AI agents can interpret a user's intent, but production workflows need deterministic execution. Learn how OpenAPI, Arazzo, HAPI Workflows, and MCP connect intent to governed API outcomes without shadow logic.]]></summary>
+        <content type="html"><![CDATA[
+<p><strong>An AI agent can understand what a person means. It should not improvise how a
+production business process runs.</strong></p>
+<p>The architecture is simple:</p>
+<blockquote>
+<p><strong>AI interprets intent. APIs define the rules. Deterministic workflows execute approved outcomes.</strong></p>
+</blockquote>
+<p>That distinction matters the moment an agent can change a reservation, issue a
+refund, update a delivery, or move an appointment. The user may express a
+perfectly reasonable outcome in one sentence. Getting there can require a
+sequence of validated API calls, an authorization check, a confirmation, and a
+reliable response when one step fails.</p>
+<hr>
+<p>This post walks through that boundary with a travel-booking scenario, then shows
+how OpenAPI, Arazzo, HAPI Workflows, and MCP can make the same model available
+to an AI agent without creating a second implementation of your business.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-problem-one-request-many-consequences">The problem: one request, many consequences<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#the-problem-one-request-many-consequences" class="hash-link" aria-label="Direct link to The problem: one request, many consequences" title="Direct link to The problem: one request, many consequences" translate="no">​</a></h2>
+<p>Laura has already booked a trip to Cancun: a flight, a hotel, and airport
+transportation. Then she writes:</p>
+<blockquote>
+<p>“Move my vacation two days later, but keep my flight home.”</p>
+</blockquote>
+<p>The request is short. The consequences are not.</p>
+<p>The system needs to understand the current itinerary, determine what can and
+cannot change, check availability, update dependent reservations, obtain any
+required confirmation, and leave the trip in a coherent state if one of those
+steps fails.</p>
+<p>That is not a task for a model to reconstruct from a list of raw endpoints on
+every turn. It is a business process with an explicit outcome.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-mental-model-state-outcome-rules-execution">The mental model: state, outcome, rules, execution<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#the-mental-model-state-outcome-rules-execution" class="hash-link" aria-label="Direct link to The mental model: state, outcome, rules, execution" title="Direct link to The mental model: state, outcome, rules, execution" translate="no">​</a></h2>
+<p>The useful model for this class of automation is:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Current state + desired outcome + business rules</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    -&gt; approved deterministic workflow</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    -&gt; verified new state</span><br></span></code></pre></div></div>
+<p>For Laura, the input is not simply “change the dates.” The relevant state might
+be:</p>
+<table><thead><tr><th>Current state</th><th>Desired outcome</th><th>Rules that matter</th></tr></thead><tbody><tr><td>Flight outbound: booked Oct 10</td><td>Depart Oct 12</td><td>Fare-change policy, seats, price difference</td></tr><tr><td>Flight return: booked Oct 15</td><td>Keep unchanged</td><td>Reservation must remain valid</td></tr><tr><td>Hotel: booked Oct 10–15</td><td>Shift hotel dates</td><td>Availability, cancellation window</td></tr><tr><td>Airport transport: booked Oct 10</td><td>Move pickup</td><td>Pickup must match arrival time</td></tr></tbody></table>
+<p>The workflow does not decide what Laura wants. It guarantees what must happen
+once Laura's requested outcome is known and approved.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-the-agent-does-and-what-it-must-not-do">What the agent does, and what it must not do<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#what-the-agent-does-and-what-it-must-not-do" class="hash-link" aria-label="Direct link to What the agent does, and what it must not do" title="Direct link to What the agent does, and what it must not do" translate="no">​</a></h2>
+<p>An agent has a valuable job before execution starts. It can:</p>
+<ul>
+<li class="">interpret “two days later” against the conversation and current itinerary;</li>
+<li class="">recognize that “keep my flight home” excludes one possible change;</li>
+<li class="">identify missing information, such as whether Laura accepts a fare increase;</li>
+<li class="">propose the intended outcome in language Laura can approve.</li>
+</ul>
+<p>But the agent should not invent a hidden process such as “cancel everything and
+start again,” or guess that a canceled hotel automatically means an airport
+pickup should disappear. Those are business decisions, not language decisions.</p>
+<p>Once the outcome is explicit, the deterministic side takes over:</p>
+<ul>
+<li class="">retrieve the current reservation state;</li>
+<li class="">validate that the requested changes are allowed;</li>
+<li class="">apply the declared operations in the required order;</li>
+<li class="">verify each result and preserve an auditable state;</li>
+<li class="">stop, compensate, retry, or ask a focused question when a known failure path
+is reached.</li>
+</ul>
+<p>This is the boundary that makes an agent useful without making it the system of
+record.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-scenario-laura-changes-one-part-of-the-trip">A scenario: Laura changes one part of the trip<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#a-scenario-laura-changes-one-part-of-the-trip" class="hash-link" aria-label="Direct link to A scenario: Laura changes one part of the trip" title="Direct link to A scenario: Laura changes one part of the trip" translate="no">​</a></h2>
+<p>Suppose Laura changes her mind after the initial bookings:</p>
+<blockquote>
+<p>“Keep the flight, but cancel that hotel. I found another one.”</p>
+</blockquote>
+<p>The desired outcome is not “rebuild the vacation.” It is specific:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Keep Flight A</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Cancel Hotel A</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Book Hotel B</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Review transportation if the new hotel changes pickup details</span><br></span></code></pre></div></div>
+<p>Most of the complexity in managing changes comes from understanding the dependencies between different parts of the itinerary. LLMs executing MCP tool calls must respect those dependencies to ensure consistent, predictable outcomes. Today, MCPs often fail to enforce them reliably because they do not provide an explicit representation of the dependency chain. Nondeterministic workflow behavior can lead to unexpected results and user frustration.</p>
+<p>An explicit workflow can make the dependency chain visible:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">1. Verify Hotel A can be canceled</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. Cancel Hotel A</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. Verify the cancellation result</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. Book Hotel B</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">5. Update transportation only when the new itinerary requires it</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">6. Return the verified itinerary</span><br></span></code></pre></div></div>
+<p>The order is not incidental. It carries policy: perhaps the system must confirm
+a cancellation before booking a replacement, or perhaps it must keep the
+existing reservation until a replacement is secured. Either policy can be
+declared and reviewed. Neither should be inferred from a tool description at
+runtime.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="failure-is-not-an-edge-case">Failure is not an edge case<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#failure-is-not-an-edge-case" class="hash-link" aria-label="Direct link to Failure is not an edge case" title="Direct link to Failure is not an edge case" translate="no">​</a></h2>
+<p>Now assume Hotel A is canceled successfully, but Hotel B becomes unavailable
+before booking completes.</p>
+<p>The state is uncomfortable but knowable:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Flight: booked</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Hotel A: canceled</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Hotel B: unavailable</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Transportation: booked</span><br></span></code></pre></div></div>
+<p>A deterministic workflow does not continue blindly. It has an explicit next
+move: preserve the known state, return the failure reason, and ask Laura to
+choose a replacement. If the process has a defined compensation action, it can
+execute that too. If it does not, it should say so plainly.</p>
+<p>That is more reliable than allowing an agent to attempt unrelated tool calls
+until the conversation appears resolved.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="from-documented-apis-to-an-mcp-workflow-tool">From documented APIs to an MCP workflow tool<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#from-documented-apis-to-an-mcp-workflow-tool" class="hash-link" aria-label="Direct link to From documented APIs to an MCP workflow tool" title="Direct link to From documented APIs to an MCP workflow tool" translate="no">​</a></h2>
+<p>The pieces fit together without turning the MCP layer into a second backend:</p>
+<table><thead><tr><th>Layer</th><th>Responsibility</th></tr></thead><tbody><tr><td><strong>OpenAPI</strong></td><td>Documents each API operation, inputs, responses, security requirements, and validation contract.</td></tr><tr><td><strong>Arazzo</strong></td><td>Declares how documented operations compose into a workflow and pass data between steps.</td></tr><tr><td><strong>HAPI Workflows</strong></td><td>Validates supported Arazzo workflows and exposes each workflow as an MCP tool.</td></tr><tr><td><strong>MCP client or AI agent</strong></td><td>Understands the user's request, selects an appropriate outcome-level tool, gathers approval when needed, and presents the result.</td></tr><tr><td><strong>Production APIs and workflow engine</strong></td><td>Remain the authority for durable state, authorization, business rules, side effects, timers, and compensation.</td></tr></tbody></table>
+<p>With this design, the agent can use a meaningful capability such as
+<code>rescheduleTrip</code> rather than separately coordinating <code>findReservation</code>,
+<code>changeFlight</code>, <code>updateHotelDates</code>, and <code>changePickup</code> from scratch.</p>
+<p>HAPI Workflows uses an Arazzo document to expose a supported workflow as an MCP
+tool. That makes the sequence inspectable and reusable, while the APIs behind
+it remain responsible for the real business behavior. See the <a href="https://docs.mcp.com.ai/components/hapi-server/hapi-workflows" target="_blank" rel="noopener noreferrer" class="">HAPI Workflows
+documentation</a>
+for supported workflow behavior and validation details.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-capability-graph-and-planning-fit">Where Capability Graph and planning fit<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#where-capability-graph-and-planning-fit" class="hash-link" aria-label="Direct link to Where Capability Graph and planning fit" title="Direct link to Where Capability Graph and planning fit" translate="no">​</a></h2>
+<p>Not every request begins with a known workflow. An assistant may first need to
+decide whether Laura wants to reschedule, cancel, rebook, or simply inspect the
+trip. That is a discovery and planning problem.</p>
+<p>HAPI Capability Graph can describe what operations help achieve, when they
+apply, their effects, and their prerequisites. It gives an MCP client a
+structured way to narrow eligible tools instead of reasoning over every API
+operation at once. Capability Planning can then make the next decision
+explicit: an action is ready, a detail is missing, confirmation is required, or
+there is no declared safe path.</p>
+<p>The sequence is deliberate:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">User request</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; agent interprets intent</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; Capability Graph narrows eligible capabilities</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; planning identifies the next safe step</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; user approves when required</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; deterministic workflow executes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; APIs verify and persist the outcome</span><br></span></code></pre></div></div>
+<p>This leaves room for AI where language is ambiguous and keeps the process
+deterministic where correctness, policy, and side effects matter.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="hapi-workflows-and-workflow-engines-are-complementary">HAPI Workflows and workflow engines are complementary<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#hapi-workflows-and-workflow-engines-are-complementary" class="hash-link" aria-label="Direct link to HAPI Workflows and workflow engines are complementary" title="Direct link to HAPI Workflows and workflow engines are complementary" translate="no">​</a></h2>
+<p>Camunda, Temporal, BPMN engines, and similar platforms solve important
+problems: long-running state, timers, human tasks, retries, compensation, and
+operational visibility. They should remain in place when they own those
+responsibilities.</p>
+<p>HAPI Workflows does not require replacing them. Its role is to make declared
+API workflows available as MCP capabilities. Where an existing workflow engine
+already exposes the right API boundary, HAPI can project that contract to MCP.
+Where Arazzo describes a compact API sequence directly, HAPI can validate and
+serve that workflow without asking the model to improvise the glue.</p>
+<p>The design goal is not “put every workflow in one tool.” It is to avoid a new,
+agent-specific implementation of the same workflow logic.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-this-avoids-workflow-shadows">What this avoids: workflow shadows<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#what-this-avoids-workflow-shadows" class="hash-link" aria-label="Direct link to What this avoids: workflow shadows" title="Direct link to What this avoids: workflow shadows" translate="no">​</a></h2>
+<p>The tempting alternative is to put the process in an agent prompt or custom MCP
+server code:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Agent -&gt; custom MCP logic -&gt; copied business rules -&gt; production APIs</span><br></span></code></pre></div></div>
+<p>That creates a shadow of the application. Over time, an API validation rule,
+permission change, cancellation policy, or failure path changes in one place
+but not the other.</p>
+<p>The contract-first alternative is:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Agent -&gt; MCP workflow capability -&gt; declared API contract -&gt; production APIs</span><br></span></code></pre></div></div>
+<p>There is still design work: APIs need clear operations, workflows need explicit
+dependencies, and high-risk actions need appropriate approval. But the business
+rules stay close to the systems that already enforce them.</p>
+<p>That is the difference between adding an AI interface and accidentally building
+another application behind it.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently Asked Questions<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#frequently-asked-questions" class="hash-link" aria-label="Direct link to Frequently Asked Questions" title="Direct link to Frequently Asked Questions" translate="no">​</a></h2>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>What is a deterministic workflow for an AI agent?</strong></summary><div><div class="collapsibleContent_i85q"><p>A deterministic workflow is an explicit sequence of approved operations,
+prerequisites, and failure paths. An AI agent may interpret a user's request,
+but the workflow defines how the resulting business action executes and how the
+outcome is verified.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>What is the difference between AI planning and deterministic execution?</strong></summary><div><div class="collapsibleContent_i85q"><p>AI planning interprets ambiguous language, proposes an outcome, and asks for
+missing details or approval. Deterministic execution carries out the approved
+operations in a declared order, applies API validation and authorization, and
+handles known failures or compensation paths.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>How do HAPI Workflows expose deterministic workflows through MCP?</strong></summary><div><div class="collapsibleContent_i85q"><p>HAPI Workflows validates an Arazzo workflow that references documented OpenAPI
+operations, then exposes each supported workflow as an MCP tool. An agent can
+request a meaningful outcome instead of manually coordinating every low-level
+API call.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>Does HAPI Workflows replace Camunda or Temporal?</strong></summary><div><div class="collapsibleContent_i85q"><p>Not necessarily. Camunda, Temporal, and other workflow engines remain
+appropriate when they own durable process state, timers, people tasks, or
+complex orchestration. HAPI Workflows provides an API-contract and MCP layer
+for declared OpenAPI workflows; it should complement, not duplicate, an
+existing system of record.</p></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>Why expose a workflow as an MCP tool instead of every API endpoint?</strong></summary><div><div class="collapsibleContent_i85q"><p>A workflow tool gives the agent a meaningful outcome with declared step
+dependencies, rather than asking it to reconstruct a business process from
+unrelated low-level operations. The underlying APIs remain the authority for
+authentication, authorization, validation, and business rules.</p></div></div></details>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-takeaway">The takeaway<a href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows#the-takeaway" class="hash-link" aria-label="Direct link to The takeaway" title="Direct link to The takeaway" translate="no">​</a></h2>
+<p>AI makes the front door conversational. It does not make production behavior
+safe by itself.</p>
+<p>When a request has real consequences, keep the roles clear:</p>
+<ul>
+<li class="">let the agent understand the person;</li>
+<li class="">let the contract describe the allowed capabilities;</li>
+<li class="">let planning identify the next safe step;</li>
+<li class="">let deterministic workflows execute the approved outcome;</li>
+<li class="">let production APIs remain the source of truth.</li>
+</ul>
+<p>That is how an API becomes useful to an AI agent without becoming a shadow of
+itself.</p>]]></content>
+        <author>
+            <name>Adrian Escutia</name>
+            <uri>https://adrian.escutia.me</uri>
+        </author>
+        <category label="MCP" term="MCP"/>
+        <category label="OAS" term="OAS"/>
+        <category label="Arazzo" term="Arazzo"/>
+        <category label="Agentic AI" term="Agentic AI"/>
+        <category label="API-First" term="API-First"/>
+        <category label="Architecture" term="Architecture"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HAPI Capability Graph and Jev: Safer MCP Planning for AI Agents]]></title>
         <id>https://mcp.com.ai/jev-mcp-capability-graph-for-agentic-workflows</id>
@@ -4068,69 +4256,5 @@ Be HAPI, and Go Rebels! ✊🏼</p>]]></content>
             <uri>https://adrian.escutia.me</uri>
         </author>
         <category label="Skills" term="Skills"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[How to Deploy MCP Servers]]></title>
-        <id>https://mcp.com.ai/university/deploy-mcp-server-in-seconds</id>
-        <link href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds"/>
-        <updated>2026-01-27T10:08:04.000Z</updated>
-        <summary type="html"><![CDATA[A step-by-step guide to deploying MCP servers using HAPI CLI.]]></summary>
-        <content type="html"><![CDATA[<p>Setting up a <strong>Model Context Protocol (MCP)</strong> server is easier than you might think! It is a straightforward process that doesn't require extensive DevOps skills. Whether you're testing, packaging, or scaling globally, the <strong>HAPI MCP Stack</strong> equips you with everything you need to launch your server in just seconds.</p>
-<p>In this guide, we'll explore <strong>4 different ways</strong> to run and deploy MCP servers using the HAPI CLI.</p>
-<p><strong>Bonus:</strong> Agent Skills provided to automate MCP server deployment.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-local-development-the-quickest-way">1. Local Development (The Quickest Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#1-local-development-the-quickest-way" class="hash-link" aria-label="Direct link to 1. Local Development (The Quickest Way)" title="Direct link to 1. Local Development (The Quickest Way)" translate="no">​</a></h2>
-<p>For rapid iteration and testing, running your MCP server locally is the best approach. You can instantly spin up a server and inspect its tools using the official MCP Inspector.</p>
-<p>In this example, we'll run an <strong>OpenAI Tools</strong> server.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Run the MCP Server Locally and pipe to Inspector</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">hapi serve openai-tools \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --headless \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --port 3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.openai.com/v1 | bunx @modelcontextprotocol/inspector</span><br></span></code></pre></div></div>
-<p>Find more MCP server definitions in the official <a href="https://registry.modelcontextprotocol.io/?q=ai.com.mcp" target="_blank" rel="noopener noreferrer" class="">MCP Registry</a>.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-happening-here">What's happening here?<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#whats-happening-here" class="hash-link" aria-label="Direct link to What's happening here?" title="Direct link to What's happening here?" translate="no">​</a></h3>
-<ul>
-<li class=""><code>hapi serve</code>: Starts the MCP server.</li>
-<li class=""><code>--headless</code>: Runs without a UI (optimized for machine interaction).</li>
-<li class=""><code>--port 3030</code>: Binds the server to port 3030.</li>
-<li class=""><code>| bunx @modelcontextprotocol/inspector</code>: Pipes the output directly to the MCP Inspector, allowing you to interact with your tools in a web interface locally.</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-docker-containers-the-portable-way">2. Docker Containers (The Portable Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#2-docker-containers-the-portable-way" class="hash-link" aria-label="Direct link to 2. Docker Containers (The Portable Way)" title="Direct link to 2. Docker Containers (The Portable Way)" translate="no">​</a></h2>
-<p>If you need to ship your server to Kubernetes, ECS, or any container orchestration platform, Docker is the industry standard. We provide a pre-built image <code>hapimcp/hapi-cli</code> that is ready to serve.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">docker run --name hapi-openai -d \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -p 3030:3030 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  hapimcp/hapi-cli:latest serve \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --openapi https://docs.mcp.com.ai/servers-apis/openapi/openai-tools.yaml \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --headless \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.openai.com/v1</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="breakdown">Breakdown:<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#breakdown" class="hash-link" aria-label="Direct link to Breakdown:" title="Direct link to Breakdown:" translate="no">​</a></h3>
-<ul>
-<li class=""><code>hapimcp/hapi-cli:latest</code>: The official HAPI CLI Docker image.</li>
-<li class=""><code>--openapi ...</code>: Specifies the OpenAPI definition for the server (defining the tools/resources).</li>
-<li class=""><code>-p 3030:3030</code>: Maps the container port to your host.</li>
-</ul>
-<p>Your server is now running in a container, ready to accept connections on port 3030!</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-cloudflare-workers-the-scalable-way">3. Cloudflare Workers (The Scalable Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#3-cloudflare-workers-the-scalable-way" class="hash-link" aria-label="Direct link to 3. Cloudflare Workers (The Scalable Way)" title="Direct link to 3. Cloudflare Workers (The Scalable Way)" translate="no">​</a></h2>
-<p>For a serverless solution with global low latency, <strong>Cloudflare Workers</strong> is the ultimate deployment target. HAPI CLI handles the entire build and deployment process for you.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">hapi deploy --name openai-tools \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --project openai \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --openapi https://docs.mcp.com.ai/servers-apis/openapi/openai-tools.yaml \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  --url https://api.openai.com/v1</span><br></span></code></pre></div></div>
-<p>You'll see output like this:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">📝 Generating temporary Wrangler config...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">⚙️ Deploying to Cloudflare Workers...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">🌍 Live at: https://openai-tools.runmcp.workers.dev</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">✅ Deployed successfully!</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-cloudflare-workers">Why Cloudflare Workers?<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#why-cloudflare-workers" class="hash-link" aria-label="Direct link to Why Cloudflare Workers?" title="Direct link to Why Cloudflare Workers?" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Zero Cold Starts:</strong> Instant response times.</li>
-<li class=""><strong>Global Distribution:</strong> Deployed to 300+ cities worldwide.</li>
-<li class=""><strong>Cost Effective:</strong> Pay only for what you use.</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-flyio-the-global-way">4. Fly.io (The Global Way)<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#4-flyio-the-global-way" class="hash-link" aria-label="Direct link to 4. Fly.io (The Global Way)" title="Direct link to 4. Fly.io (The Global Way)" translate="no">​</a></h2>
-<p>For those who prefer running on <strong>Fly.io</strong>, you can deploy your MCP server instantly using our pre-built image, bypassing the need for Dockerfiles or complex overrides.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">fly machine run hapimcp/hapi-cli:latest --command "hapi serve" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -e openapi="https://docs.mcp.com.ai/servers-apis/openapi/openai-tools.yaml" \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -e url="https://api.openai.com/v1"</span><br></span></code></pre></div></div>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-flyio">Why Fly.io?<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#why-flyio" class="hash-link" aria-label="Direct link to Why Fly.io?" title="Direct link to Why Fly.io?" translate="no">​</a></h3>
-<ul>
-<li class=""><strong>Instant Machines:</strong> Boot full VM instances in milliseconds.</li>
-<li class=""><strong>Global Anycast:</strong> Run close to your users.</li>
-<li class=""><strong>Pre-built Image:</strong> No build step required—just run.</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agent-skills-to-automate-deployment">Agent Skills to Automate Deployment<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#agent-skills-to-automate-deployment" class="hash-link" aria-label="Direct link to Agent Skills to Automate Deployment" title="Direct link to Agent Skills to Automate Deployment" translate="no">​</a></h2>
-<p>To make deployment even easier, we provide <strong>Agent Skills</strong> that automate the entire process of deploying MCP servers across different platforms. You can find this and more skills in the <a href="https://skills.sh/?q=mcp-com-ai" target="_blank" rel="noopener noreferrer" class="">mcp.com.ai skills registry</a>.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npx skills add https://github.com/mcp-com-ai/api-to-mcp-skills --skill api-to-mcp</span><br></span></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="https://mcp.com.ai/university/deploy-mcp-server-in-seconds#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
-<table><thead><tr><th style="text-align:left">Method</th><th style="text-align:left">Best For</th><th style="text-align:left">Requirement</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Local</strong></td><td style="text-align:left">Development, Testing, Debugging</td><td style="text-align:left">HAPI CLI</td></tr><tr><td style="text-align:left"><strong>Docker</strong></td><td style="text-align:left">Enterprise, Kubernetes, VPS</td><td style="text-align:left">Docker Engine</td></tr><tr><td style="text-align:left"><strong>Workers</strong></td><td style="text-align:left">Serverless, Scaling, Public APIs</td><td style="text-align:left">Cloudflare Account</td></tr><tr><td style="text-align:left"><strong>Fly.io</strong></td><td style="text-align:left">Global VMs, Persistent Apps</td><td style="text-align:left">Fly.io Account</td></tr></tbody></table>
-<p>Ready to build your own? Check out the full documentation at <a href="https://docs.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">docs.mcp.com.ai</a>.</p>
-<p>🏁 <strong>Done. Be HAPI, and go Rebels! ✊</strong></p>]]></content>
-        <category label="Guide" term="Guide"/>
     </entry>
 </feed>
