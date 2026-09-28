@@ -1,0 +1,133 @@
+---
+title: "OrcA for VS Code: From OpenAPI and Arazzo to MCP Server, Without Leaving Your Editor"
+description: "OrcA is the new VS Code extension of the HAPI MCP Stack: discover OpenAPI (Swagger) and Arazzo contracts, preview their MCP tools, run them locally on a free port, deploy them, and connect them to your AI assistant."
+authors: [adrian]
+date: 2026-09-27T00:00:00Z
+image: /img/blog/orca-vscode-openapi-arazzo-to-mcp.png
+tags: [mcp, vscode, oas, arazzo, swagger, api-first, agentic-ai]
+keywords:
+  - orca vs code extension
+  - openapi to mcp
+  - swagger to mcp
+  - arazzo to mcp
+  - mcp server vs code
+  - hapi serve
+  - mcp dry run
+  - add mcp server to vs code
+---
+
+import Head from '@docusaurus/Head';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is OrcA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OrcA (Orchestrator for APIs and Agents) is a VS Code extension, part of the HAPI MCP Stack. It turns OpenAPI and Arazzo contracts into MCP servers inside the editor: it finds your contracts, previews their MCP tools, runs them locally with the HAPI CLI, deploys them, and registers them with your AI assistant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I turn an OpenAPI or Swagger spec into an MCP server in VS Code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Install OrcA, open your OpenAPI 3.x file, and click Run with HAPI in the editor title bar. OrcA starts hapi serve on a free port and shows the server in the MCP Servers view; Add to VS Code then registers it in .vscode/mcp.json. Swagger 2.0 documents need converting to OpenAPI 3 first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I see which MCP tools an API will expose before running it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. OrcA's Dry Run runs hapi serve --dry-run and opens the tool list beside your contract as JSON (a ChatGPT App submission dump), Markdown (an AI-agent system prompt template), YAML, or a table. No server is started."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if port 3000 is already in use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OrcA checks that the port is really free before starting HAPI. If port 3000 is taken, it starts on the next free port and notes it; if you chose the port yourself, it asks and offers the next free one. It never gives two of its own runs the same port."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does OrcA replace the runMCP VS Code extension?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The runMCP VS Code extension is deprecated and all of its features, including deploying and managing MCP servers, now live in OrcA."
+      }
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify(faqJsonLd)}
+  </script>
+</Head>
+
+Your API contracts live in your editor. Until today, your MCP servers lived somewhere else: a terminal running a CLI, a browser tab with a console, a dashboard for deployments, and a doc page you kept re-reading. **OrcA** puts that whole journey in one place.
+
+<!-- truncate -->
+
+**OrcA (Orchestrator for APIs and Agents)** is the new VS Code extension of the HAPI MCP Stack. You open an OpenAPI or Arazzo contract, see the exact MCP tools an agent will get, run it as a local MCP server, and connect it to your AI assistant, without leaving VS Code.
+
+<p align="center">
+  <img src="/img/mcp-products/orca/orca-logo-trans.png" alt="OrcA, Orchestrator for APIs and Agents" width="360" />
+</p>
+
+## Why an extension, and why now
+
+The HAPI CLI already turns any OpenAPI or Arazzo document into an MCP server, with no code (see [From OpenAPI to MCP to AI Agent](/openapi-to-mcp-to-ai-agent)). But a CLI is only one stop in the loop. You still have to find the right spec, check which tools it produces, start the server on a port nobody else is using, remember its URL, and wire it into your assistant.
+
+Every one of those steps is a context switch, and context switches are where contracts and servers drift apart. OrcA removes them by keeping the contract, its tools, the running server and your assistant side by side.
+
+## What you get
+
+**Contracts, found for you.** OrcA recognizes OpenAPI 3.x and Arazzo 1.1 documents by their content, not their file names. It lists them from your workspace and from your HAPI Home (`~/.hapi/specs`). Need a new one? **New Contract…** starts from a clean OpenAPI 3.1 or Arazzo 1.1 template.
+
+**An outline that follows your file.** Paths and operations, schemas, security schemes, Arazzo workflows and steps. Click a node and OrcA selects its exact line, even in a 5,000-line spec.
+
+**Dry Run: see the tools before you serve them.** One click shows the MCP tool list as a table, as JSON ready for a ChatGPT App submission, or as a Markdown agent system prompt with every tool already listed.
+
+**Run with HAPI, on a port that is actually free.** OrcA starts `hapi serve` in a terminal and tracks the server in the **MCP Servers** view: *provisioning* → *running* (with its MCP URL) → *stopped*. If port 3000 is busy with another service, OrcA moves to the next free port instead of colliding.
+
+**Add to VS Code.** When a server is running, one click registers it in `.vscode/mcp.json`, so GitHub Copilot, Claude and other MCP clients in VS Code can call your API immediately.
+
+**Deploy and manage.** Deploy an OpenAPI contract as an MCP server by giving it a name. Your HAPI profile decides where it runs. Start, stop, restart, view logs and delete from the sidebar.
+
+**Arazzo, first-class.** Author Arazzo 1.1 workflows with schema validation in the Problems panel. HAPI serves each workflow as one deterministic MCP tool, so the model doesn't have to improvise the sequence of calls.
+
+## Sixty seconds, start to finish
+
+1. Install **OrcA** from the VS Code Marketplace.
+2. Open an OpenAPI file (or **OrcA: New Contract… → OpenAPI**).
+3. Click **Dry Run → Table** to see the tools.
+4. Click **Run with HAPI**. The server turns *running* in **MCP Servers**.
+5. Click **Add to VS Code**, then ask your assistant to use the API.
+
+Don't have the HAPI CLI yet? OrcA notices, and offers to install v1 for you with the official installer for your OS.
+
+## Local by default
+
+OrcA's default **local** mode makes no network calls; your contracts and servers stay on your machine. Switch to **remote** mode when you want HAPI to host your MCP servers, and sign in from the status bar. Tokens are kept in VS Code's secret storage.
+
+## Goodbye runMCP extension, hello OrcA
+
+OrcA replaces the **runMCP VS Code extension**, which is now deprecated. Everything it did, including sign-in, deploying and managing servers, and the OpenAPI outline, is in OrcA, alongside everything above.
+
+## Get started
+
+- ⬇️ **Install:** search for **OrcA** in VS Code Extensions, or run `code --install-extension la-rebelion-labs.orca`.
+- 📘 **Guide:** [VS Code extension (OrcA)](https://docs.mcp.com.ai/integrations/vscode) walks through the install, quickstart and how-tos.
+- 🧭 **Concepts:** [OrcA in the HAPI MCP Stack](https://docs.mcp.com.ai/components/orca) and [How OrcA works](https://docs.mcp.com.ai/components/orca/how-it-works).
+- 🛠️ **HAPI CLI:** [hapi.mcp.com.ai](https://hapi.mcp.com.ai).
+
+Your API contract is already the source of truth. With OrcA, it is also one click away from being an MCP server your agents can use.
+
+*Be HAPI, and enjoy building!*

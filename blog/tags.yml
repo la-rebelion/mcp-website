@@ -164,3 +164,9 @@ testing:
   permalink: /testing
   description: >
     Testing MCPs is the process of evaluating the functionality, performance, and security of Model Context Protocol implementations to ensure they meet specified requirements and standards.
+
+vscode:
+  label: VS Code
+  permalink: /vscode
+  description: >
+    Visual Studio Code extensions and workflows for building, running, and connecting MCP servers from the editor.
