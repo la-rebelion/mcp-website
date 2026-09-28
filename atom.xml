@@ -2,16 +2,71 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mcp.com.ai</id>
     <title>The control plane for MCP in real environments Blog</title>
-    <updated>2026-09-27T23:12:33.000Z</updated>
+    <updated>2026-09-27T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mcp.com.ai"/>
     <subtitle>The control plane for MCP in real environments Blog</subtitle>
     <icon>https://mcp.com.ai/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[From API to MCP with Deterministic Workflows: Let AI Interpret, Let Systems Execute]]></title>
+        <title type="html"><![CDATA[OrcA for VS Code: From OpenAPI and Arazzo to MCP Server, Without Leaving Your Editor]]></title>
+        <id>https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp</id>
+        <link href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp"/>
+        <updated>2026-09-27T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[OrcA is the new VS Code extension of the HAPI MCP Stack: discover OpenAPI (Swagger) and Arazzo contracts, preview their MCP tools, run them locally on a free port, deploy them, and connect them to your AI assistant.]]></summary>
+        <content type="html"><![CDATA[
+<p>Your API contracts live in your editor. Until today, your MCP servers lived somewhere else: a terminal running a CLI, a browser tab with a console, a dashboard for deployments, and a doc page you kept re-reading. <strong>OrcA</strong> puts that whole journey in one place.</p>
+<p><strong>OrcA (Orchestrator for APIs and Agents)</strong> is the new VS Code extension of the HAPI MCP Stack. You open an OpenAPI or Arazzo contract, see the exact MCP tools an agent will get, run it as a local MCP server, and connect it to your AI assistant, without leaving VS Code.</p>
+<p align="center"><img src="https://mcp.com.ai/img/mcp-products/orca/orca-logo-trans.png" alt="OrcA, Orchestrator for APIs and Agents" width="360"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-an-extension-and-why-now">Why an extension, and why now<a href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp#why-an-extension-and-why-now" class="hash-link" aria-label="Direct link to Why an extension, and why now" title="Direct link to Why an extension, and why now" translate="no">​</a></h2>
+<p>The HAPI CLI already turns any OpenAPI or Arazzo document into an MCP server, with no code (see <a class="" href="https://mcp.com.ai/openapi-to-mcp-to-ai-agent">From OpenAPI to MCP to AI Agent</a>). But a CLI is only one stop in the loop. You still have to find the right spec, check which tools it produces, start the server on a port nobody else is using, remember its URL, and wire it into your assistant.</p>
+<p>Every one of those steps is a context switch, and context switches are where contracts and servers drift apart. OrcA removes them by keeping the contract, its tools, the running server and your assistant side by side.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-you-get">What you get<a href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp#what-you-get" class="hash-link" aria-label="Direct link to What you get" title="Direct link to What you get" translate="no">​</a></h2>
+<p><strong>Contracts, found for you.</strong> OrcA recognizes OpenAPI 3.x and Arazzo 1.1 documents by their content, not their file names. It lists them from your workspace and from your HAPI Home (<code>~/.hapi/specs</code>). Need a new one? <strong>New Contract…</strong> starts from a clean OpenAPI 3.1 or Arazzo 1.1 template.</p>
+<p><strong>An outline that follows your file.</strong> Paths and operations, schemas, security schemes, Arazzo workflows and steps. Click a node and OrcA selects its exact line, even in a 5,000-line spec.</p>
+<p><strong>Dry Run: see the tools before you serve them.</strong> One click shows the MCP tool list as a table, as JSON ready for a ChatGPT App submission, or as a Markdown agent system prompt with every tool already listed.</p>
+<p><strong>Run with HAPI, on a port that is actually free.</strong> OrcA starts <code>hapi serve</code> in a terminal and tracks the server in the <strong>MCP Servers</strong> view: <em>provisioning</em> → <em>running</em> (with its MCP URL) → <em>stopped</em>. If port 3000 is busy with another service, OrcA moves to the next free port instead of colliding.</p>
+<p><strong>Add to VS Code.</strong> When a server is running, one click registers it in <code>.vscode/mcp.json</code>, so GitHub Copilot, Claude and other MCP clients in VS Code can call your API immediately.</p>
+<p><strong>Deploy and manage.</strong> Deploy an OpenAPI contract as an MCP server by giving it a name. Your HAPI profile decides where it runs. Start, stop, restart, view logs and delete from the sidebar.</p>
+<p><strong>Arazzo, first-class.</strong> Author Arazzo 1.1 workflows with schema validation in the Problems panel. HAPI serves each workflow as one deterministic MCP tool, so the model doesn't have to improvise the sequence of calls.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sixty-seconds-start-to-finish">Sixty seconds, start to finish<a href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp#sixty-seconds-start-to-finish" class="hash-link" aria-label="Direct link to Sixty seconds, start to finish" title="Direct link to Sixty seconds, start to finish" translate="no">​</a></h2>
+<ol>
+<li class="">Install <strong>OrcA</strong> from the VS Code Marketplace.</li>
+<li class="">Open an OpenAPI file (or <strong>OrcA: New Contract… → OpenAPI</strong>).</li>
+<li class="">Click <strong>Dry Run → Table</strong> to see the tools.</li>
+<li class="">Click <strong>Run with HAPI</strong>. The server turns <em>running</em> in <strong>MCP Servers</strong>.</li>
+<li class="">Click <strong>Add to VS Code</strong>, then ask your assistant to use the API.</li>
+</ol>
+<p>Don't have the HAPI CLI yet? OrcA notices, and offers to install v1 for you with the official installer for your OS.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="local-by-default">Local by default<a href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp#local-by-default" class="hash-link" aria-label="Direct link to Local by default" title="Direct link to Local by default" translate="no">​</a></h2>
+<p>OrcA's default <strong>local</strong> mode makes no network calls; your contracts and servers stay on your machine. Switch to <strong>remote</strong> mode when you want HAPI to host your MCP servers, and sign in from the status bar. Tokens are kept in VS Code's secret storage.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="goodbye-runmcp-extension-hello-orca">Goodbye runMCP extension, hello OrcA<a href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp#goodbye-runmcp-extension-hello-orca" class="hash-link" aria-label="Direct link to Goodbye runMCP extension, hello OrcA" title="Direct link to Goodbye runMCP extension, hello OrcA" translate="no">​</a></h2>
+<p>OrcA replaces the <strong>runMCP VS Code extension</strong>, which is now deprecated. Everything it did, including sign-in, deploying and managing servers, and the OpenAPI outline, is in OrcA, alongside everything above.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="get-started">Get started<a href="https://mcp.com.ai/orca-vscode-openapi-arazzo-to-mcp#get-started" class="hash-link" aria-label="Direct link to Get started" title="Direct link to Get started" translate="no">​</a></h2>
+<ul>
+<li class="">⬇️ <strong>Install:</strong> search for <strong>OrcA</strong> in VS Code Extensions, or run <code>code --install-extension la-rebelion-labs.orca-mcp</code>.</li>
+<li class="">📘 <strong>Guide:</strong> <a href="https://docs.mcp.com.ai/integrations/vscode" target="_blank" rel="noopener noreferrer" class="">VS Code extension (OrcA)</a> walks through the install, quickstart and how-tos.</li>
+<li class="">🧭 <strong>Concepts:</strong> <a href="https://docs.mcp.com.ai/components/orca" target="_blank" rel="noopener noreferrer" class="">OrcA in the HAPI MCP Stack</a> and <a href="https://docs.mcp.com.ai/components/orca/how-it-works" target="_blank" rel="noopener noreferrer" class="">How OrcA works</a>.</li>
+<li class="">🛠️ <strong>HAPI CLI:</strong> <a href="https://hapi.mcp.com.ai/" target="_blank" rel="noopener noreferrer" class="">hapi.mcp.com.ai</a>.</li>
+</ul>
+<p>Your API contract is already the source of truth. With OrcA, it is also one click away from being an MCP server your agents can use.</p>
+<p><em>Be HAPI, and enjoy building!</em></p>]]></content>
+        <author>
+            <name>Adrian Escutia</name>
+            <uri>https://adrian.escutia.me</uri>
+        </author>
+        <category label="MCP" term="MCP"/>
+        <category label="VS Code" term="VS Code"/>
+        <category label="OAS" term="OAS"/>
+        <category label="Arazzo" term="Arazzo"/>
+        <category label="Swagger" term="Swagger"/>
+        <category label="API-First" term="API-First"/>
+        <category label="Agentic AI" term="Agentic AI"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[From API to MCP with Deterministic Workflows]]></title>
         <id>https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows</id>
         <link href="https://mcp.com.ai/mcp-with-no-shadows/api-to-mcp-with-determinisitic-flows"/>
-        <updated>2026-09-27T23:12:33.000Z</updated>
+        <updated>2026-09-26T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[AI agents can interpret a user's intent, but production workflows need deterministic execution. Learn how OpenAPI, Arazzo, HAPI Workflows, and MCP connect intent to governed API outcomes without shadow logic.]]></summary>
         <content type="html"><![CDATA[
 <p><strong>An AI agent can understand what a person means. It should not improvise how a
@@ -4094,167 +4149,5 @@ HAPI itself is free to use locally. Cloudflare Workers and other providers have 
         <category label="Skills" term="Skills"/>
         <category label="AI Integration" term="AI Integration"/>
         <category label="Agentic AI" term="Agentic AI"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Mastering Skills: Your Gateway to Enhanced AI Capabilities]]></title>
-        <id>https://mcp.com.ai/skills</id>
-        <link href="https://mcp.com.ai/skills"/>
-        <updated>2026-01-27T10:08:04.000Z</updated>
-        <summary type="html"><![CDATA[Unlock the full potential of AI with our comprehensive guide to Skills, empowering developers to create smarter, more efficient applications.]]></summary>
-        <content type="html"><![CDATA[<p>In the rapidly evolving landscape of AI, <strong>Skills</strong> have emerged as a transformative force, enabling developers to extend the capabilities of AI models far beyond their native functions. Whether you're building chatbots, virtual assistants, or complex AI-driven applications, mastering Skills is essential to unlocking new levels of performance and user engagement.</p>
-<p><strong>Where agents stop guessing — and start acting</strong></p>
-<p>AI agents don’t fail because they’re not smart.<br>
-<!-- -->They fail because they don’t know <strong>what they’re allowed to do</strong>.</p>
-<p>Skills are the missing layer between <em>reasoning</em> and <em>execution</em>.<br>
-<!-- -->They turn vague prompts into <strong>explicit, auditable, testable actions</strong>.</p>
-<p>This section is the home of everything you need to <strong>understand, design, and operationalize Skills</strong> using the <strong>Model Context Protocol (MCP)</strong>.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-are-skills">What are Skills?<a href="https://mcp.com.ai/skills#what-are-skills" class="hash-link" aria-label="Direct link to What are Skills?" title="Direct link to What are Skills?" translate="no">​</a></h2>
-<p>A <strong>Skill</strong> is a structured, declarative capability that an AI agent can invoke safely and deterministically.</p>
-<p>Think of a Skill as:</p>
-<ul>
-<li class="">A <strong>contract</strong>, not a prompt</li>
-<li class="">A <strong>capability</strong>, not a suggestion</li>
-<li class="">A <strong>tool with boundaries</strong>, not a magic trick</li>
-</ul>
-<p>At a technical level, a Skill is:</p>
-<ul>
-<li class="">Defined using <strong>MCP</strong></li>
-<li class="">Exposed as a <strong>tool</strong> with a clear schema</li>
-<li class="">Executed by <strong>systems</strong>, not the model itself</li>
-</ul>
-<blockquote>
-<p>Reasoning stays with the model.<br>
-<!-- -->Authority stays with the system.</p>
-</blockquote>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-skills-exist-and-prompts-are-not-enough">Why Skills exist (and prompts are not enough)<a href="https://mcp.com.ai/skills#why-skills-exist-and-prompts-are-not-enough" class="hash-link" aria-label="Direct link to Why Skills exist (and prompts are not enough)" title="Direct link to Why Skills exist (and prompts are not enough)" translate="no">​</a></h2>
-<p>Prompt-only agents break at scale.</p>
-<p>They:</p>
-<ul>
-<li class="">Hallucinate actions</li>
-<li class="">Overreach permissions</li>
-<li class="">Leak secrets</li>
-<li class="">Fail silently</li>
-<li class="">Cannot be audited, tested, or governed</li>
-</ul>
-<p>Skills exist to solve that.</p>
-<p>They allow you to:</p>
-<ul>
-<li class="">Explicitly declare <strong>what an agent can do</strong></li>
-<li class="">Control <strong>how and when execution happens</strong></li>
-<li class="">Separate <strong>decision-making from authority</strong></li>
-<li class="">Build agents that pass <strong>security, compliance, and platform reviews</strong></li>
-</ul>
-<p>If prompts are <strong>thoughts</strong>, Skills are <strong>hands</strong>.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-are-not-plugins-not-functions-not-workflows">Skills are not plugins. Not functions. Not workflows.<a href="https://mcp.com.ai/skills#skills-are-not-plugins-not-functions-not-workflows" class="hash-link" aria-label="Direct link to Skills are not plugins. Not functions. Not workflows." title="Direct link to Skills are not plugins. Not functions. Not workflows." translate="no">​</a></h2>
-<p>Skills are often misunderstood.</p>
-<p>They are <strong>not</strong>:</p>
-<ul>
-<li class="">Plugins (too UI-driven)</li>
-<li class="">Functions (too low-level)</li>
-<li class="">Workflows (too rigid)</li>
-</ul>
-<p>Skills live in between.</p>
-<p>They are:</p>
-<ul>
-<li class=""><strong>Composable</strong></li>
-<li class=""><strong>Discoverable</strong></li>
-<li class=""><strong>Context-aware</strong></li>
-<li class=""><strong>Governable</strong></li>
-</ul>
-<p>This is why MCP matters: it gives Skills a <strong>standardized, machine-readable contract</strong> that works across:</p>
-<ul>
-<li class="">IDEs</li>
-<li class="">Agents</li>
-<li class="">Runtimes</li>
-<li class="">Enterprises</li>
-<li class="">Air-gapped environments</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-youll-learn-in-this-section">What you’ll learn in this section<a href="https://mcp.com.ai/skills#what-youll-learn-in-this-section" class="hash-link" aria-label="Direct link to What you’ll learn in this section" title="Direct link to What you’ll learn in this section" translate="no">​</a></h2>
-<p>This Skills section is not a tutorial dump.<br>
-<!-- -->It’s a <strong>mental model + execution guide</strong>.</p>
-<p>Here you’ll learn how to:</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-design-skills">🔹 Design Skills<a href="https://mcp.com.ai/skills#-design-skills" class="hash-link" aria-label="Direct link to 🔹 Design Skills" title="Direct link to 🔹 Design Skills" translate="no">​</a></h3>
-<ul>
-<li class="">How to think in <strong>capabilities</strong>, not endpoints</li>
-<li class="">How to model inputs, outputs, and constraints</li>
-<li class="">How to avoid over-privileged Skills</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-build-skills">🔹 Build Skills<a href="https://mcp.com.ai/skills#-build-skills" class="hash-link" aria-label="Direct link to 🔹 Build Skills" title="Direct link to 🔹 Build Skills" translate="no">​</a></h3>
-<ul>
-<li class="">API-to-MCP (a2m) Skill patterns</li>
-<li class="">Tool schemas that scale</li>
-<li class="">Error handling for agents (not humans)</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-test--evaluate-skills">🔹 Test &amp; Evaluate Skills<a href="https://mcp.com.ai/skills#-test--evaluate-skills" class="hash-link" aria-label="Direct link to 🔹 Test &amp; Evaluate Skills" title="Direct link to 🔹 Test &amp; Evaluate Skills" translate="no">​</a></h3>
-<ul>
-<li class="">Skill evaluation (mcp-eval)</li>
-<li class="">Deterministic vs probabilistic behavior</li>
-<li class="">Guardrails, contracts, and failure modes</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-deploy-skills">🔹 Deploy Skills<a href="https://mcp.com.ai/skills#-deploy-skills" class="hash-link" aria-label="Direct link to 🔹 Deploy Skills" title="Direct link to 🔹 Deploy Skills" translate="no">​</a></h3>
-<ul>
-<li class="">Local vs remote MCP servers</li>
-<li class="">Enterprise-ready Skill exposure</li>
-<li class="">Air-gap and zero-trust patterns</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-govern-skills">🔹 Govern Skills<a href="https://mcp.com.ai/skills#-govern-skills" class="hash-link" aria-label="Direct link to 🔹 Govern Skills" title="Direct link to 🔹 Govern Skills" translate="no">​</a></h3>
-<ul>
-<li class="">Skill registries</li>
-<li class="">Versioning and deprecation</li>
-<li class="">Security reviews and auditability</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="who-this-section-is-for">Who this section is for<a href="https://mcp.com.ai/skills#who-this-section-is-for" class="hash-link" aria-label="Direct link to Who this section is for" title="Direct link to Who this section is for" translate="no">​</a></h2>
-<p>This section is written for people building <strong>real systems</strong>, not demos.</p>
-<ul>
-<li class=""><strong>Platform teams</strong> defining agent capabilities</li>
-<li class=""><strong>API teams</strong> turning services into agent-ready tools</li>
-<li class=""><strong>Security teams</strong> asking “what can this agent actually do?”</li>
-<li class=""><strong>Product leaders</strong> trying to ship AI features without chaos</li>
-<li class=""><strong>Builders</strong> who want agents that survive production</li>
-</ul>
-<p>If you’ve ever asked:</p>
-<blockquote>
-<p>“How do we control what the agent can do?”</p>
-</blockquote>
-<p>You’re in the right place.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-are-the-unit-of-scale-for-agents">Skills are the unit of scale for agents<a href="https://mcp.com.ai/skills#skills-are-the-unit-of-scale-for-agents" class="hash-link" aria-label="Direct link to Skills are the unit of scale for agents" title="Direct link to Skills are the unit of scale for agents" translate="no">​</a></h2>
-<p>Agents don’t scale by being smarter.<br>
-<!-- -->They scale by being <strong>better constrained</strong>.</p>
-<p>Skills are:</p>
-<ul>
-<li class="">The unit of <strong>execution</strong></li>
-<li class="">The unit of <strong>security</strong></li>
-<li class="">The unit of <strong>governance</strong></li>
-<li class="">The unit of <strong>enterprise adoption</strong></li>
-</ul>
-<p>This section exists because Skills are not optional anymore.</p>
-<p>They are the foundation.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="start-here">Start here<a href="https://mcp.com.ai/skills#start-here" class="hash-link" aria-label="Direct link to Start here" title="Direct link to Start here" translate="no">​</a></h2>
-<p>If you’re new:</p>
-<ul>
-<li class="">Read <strong>What is a Skill?</strong></li>
-<li class="">Then <strong>API → MCP Skills (a2m)</strong></li>
-<li class="">Then <strong>Skill Evaluation &amp; Safety</strong></li>
-</ul>
-<p>If you’re advanced:</p>
-<ul>
-<li class="">Jump straight to <strong>Skill Lifecycle Management</strong></li>
-<li class="">Or <strong>Enterprise Skill Architectures</strong></li>
-</ul>
-<p>Either way — welcome.</p>
-<p>This is where agents become systems.
-Be HAPI, and Go Rebels! ✊🏼</p>]]></content>
-        <author>
-            <name>Adrian Escutia</name>
-            <uri>https://adrian.escutia.me</uri>
-        </author>
-        <category label="Skills" term="Skills"/>
     </entry>
 </feed>
