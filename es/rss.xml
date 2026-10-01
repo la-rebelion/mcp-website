@@ -4,10 +4,120 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai/es</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Sun, 27 Sep 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 01 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>es</language>
+        <item>
+            <title><![CDATA[OrcA 0.3: See Every MCP Tool Call and LLM Round in VS Code]]></title>
+            <link>https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode</link>
+            <guid>https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode</guid>
+            <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[OrcA 0.3 turns VS Code into an MCP traffic analyzer: chat with your MCP servers and see every tool call, LLM round, latency and token, with no telemetry.]]></description>
+            <content:encoded><![CDATA[
+<p><strong>OrcA 0.3 lets you see exactly what your AI agent does with your MCP servers, without leaving VS Code.</strong> Chat with your servers using the model you already have, watch every LLM round and every MCP tool call in a live Git-style graph, and capture what GitHub Copilot or Claude send to your server. No telemetry, no extra app, no code changes.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tldr">TL;DR<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#tldr" class="hash-link" aria-label="Enlace directo al TL;DR" title="Enlace directo al TL;DR" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>What:</strong> OrcA 0.3, a free VS Code extension of the HAPI MCP Stack.</li>
+<li class=""><strong>New:</strong> an MCP <strong>traffic analyzer</strong>, a <strong>chat</strong> with your MCP servers, and a local <strong>capture proxy</strong> for any MCP client.</li>
+<li class=""><strong>Why it matters:</strong> when an agent calls the wrong tool, sends bad arguments, or gets slow, you see the whole chain (prompt → LLM round → tool calls → results) on one screen.</li>
+<li class=""><strong>Install:</strong> search <strong>OrcA MCP</strong> in VS Code Extensions, or <code>code --install-extension la-rebelion-labs.orca-mcp</code>.</li>
+</ul>
+<figure><video src="/es/assets/medias/OrcA-Traffic-Walkthrough-web-995f416bc8849d3cf18afa2d0f366e84.mp4" poster="/es/assets/images/OrcA-Traffic-Walkthrough-poster-7e6cd2fb68affb90551283f387f8c940.jpg" controls="" autoplay="" muted="" loop="" playsinline="" preload="none" width="1280" height="720" style="width:100%;height:auto;border-radius:8px" aria-label="OrcA 0.3 walkthrough: chatting with an MCP server and following each LLM round and tool call in the OrcA Traffic graph"></video><figcaption>OrcA 0.3 walkthrough: chat with an MCP server and follow each LLM round and tool call in the OrcA Traffic graph.</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-problem-agents-are-a-black-box">The problem: agents are a black box<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#the-problem-agents-are-a-black-box" class="hash-link" aria-label="Enlace directo al The problem: agents are a black box" title="Enlace directo al The problem: agents are a black box" translate="no">​</a></h2>
+<p>You built an MCP server. You connected it to Copilot. You asked a question, and the answer was wrong. Now what?</p>
+<ul>
+<li class="">Did the model see your tool at all?</li>
+<li class="">Which arguments did it send?</li>
+<li class="">Did the server answer with an error, or with data the model misread?</li>
+<li class="">Which of the three calls took four seconds?</li>
+<li class="">How many tokens did your 40 tool schemas cost on <em>every</em> turn?</li>
+</ul>
+<p>Most teams answer these with <code>console.log</code>, a separate inspector app, and guesswork. The LLM half and the MCP half of the conversation live in different places, so you never see cause and effect together. <strong>OrcA 0.3 puts both halves on one timeline.</strong></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-new-in-orca-03">What's new in OrcA 0.3<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#whats-new-in-orca-03" class="hash-link" aria-label="Enlace directo al What's new in OrcA 0.3" title="Enlace directo al What's new in OrcA 0.3" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-mcp-traffic-every-message-as-a-git-graph">📡 MCP Traffic: every message, as a Git graph<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#-mcp-traffic-every-message-as-a-git-graph" class="hash-link" aria-label="Enlace directo al 📡 MCP Traffic: every message, as a Git graph" title="Enlace directo al 📡 MCP Traffic: every message, as a Git graph" translate="no">​</a></h3>
+<p><strong>OrcA Traffic</strong> is a new view in the bottom Panel (or an editor tab). Each row is one exchange: an LLM round, an MCP request with its response, or a notification.</p>
+<p>The <strong>graph column</strong> works like Git history: one lane for the LLM and one per server. An LLM round <strong>forks</strong> to the tool calls it caused, and the next round <strong>merges</strong> them back. You see at a glance that round 2 called <code>getPetById</code> on <code>petstore</code> and <code>search_issues</code> on <code>github</code>, which one failed, and how long each took.</p>
+<p>From any row you can:</p>
+<ul>
+<li class=""><strong>Open Request / Open Response</strong> as read-only JSON in a regular editor.</li>
+<li class=""><strong>Compare with Previous Call</strong> in VS Code's diff editor, to see what changed between two calls of the same tool.</li>
+<li class=""><strong>Copy as cURL</strong>, with credentials replaced by shell variables.</li>
+<li class=""><strong>Replay</strong> the request; tools that may change data ask first.</li>
+<li class=""><strong>Open Operation in Contract</strong>: jump from a tool call to the OpenAPI operation or Arazzo workflow behind it, at its exact line.</li>
+</ul>
+<p>Filter by <strong>MCP</strong>, <strong>LLM</strong> or <strong>Errors</strong>, search across payloads, narrow by server or client, and keep an eye on the live totals: calls, errors, p95 latency, bytes, tokens and cost. Save a session to a <code>.orca-traffic.json</code> file to share it with your team or attach it to a bug report.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-chat-with-your-mcp-servers">💬 Chat with your MCP servers<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#-chat-with-your-mcp-servers" class="hash-link" aria-label="Enlace directo al 💬 Chat with your MCP servers" title="Enlace directo al 💬 Chat with your MCP servers" translate="no">​</a></h3>
+<p>The Secondary Sidebar has a new <strong>OrcA</strong> view with a <strong>Chat</strong> tab. Connect your servers in <strong>MCP Servers</strong>, choose a model, and ask.</p>
+<ul>
+<li class=""><strong>No API key needed</strong> with VS Code's language models (for example GitHub Copilot's).</li>
+<li class="">Or use <strong>OpenAI</strong> (Chat Completions or Responses), <strong>Anthropic</strong>, <strong>Groq</strong>, <strong>OpenRouter</strong>, <strong>Ollama</strong>, <strong>LM Studio</strong>, or any OpenAI-compatible endpoint.</li>
+<li class="">Every tool call appears as a card with the server, arguments, status, latency and size.</li>
+<li class="">Tools that are not marked read-only ask first: <strong>Allow Once</strong>, <strong>Allow for This Session</strong>, or <strong>Deny</strong>.</li>
+<li class="">Each answer ends with a summary, for example <em>2 tool calls on 2 servers · 3,902 tok in · 214 out · 2.1 s · $0.01</em>.</li>
+<li class="">The header shows how many tools you are offering and roughly how many tokens their schemas cost per turn, the hidden tax of large tool catalogs.</li>
+</ul>
+<p>It is the fastest way to answer "can an agent actually use my API?" before you wire it into a product.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-capture-copilot-claude-and-any-mcp-client">⇄ Capture Copilot, Claude, and any MCP client<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#-capture-copilot-claude-and-any-mcp-client" class="hash-link" aria-label="Enlace directo al ⇄ Capture Copilot, Claude, and any MCP client" title="Enlace directo al ⇄ Capture Copilot, Claude, and any MCP client" translate="no">​</a></h3>
+<p>Your users won't use OrcA's chat; they'll use Copilot, Claude, Cursor or their own agent. To see what <em>those</em> clients send, right-click a server and choose <strong>Expose via Proxy</strong>.</p>
+<p>OrcA starts a local proxy at <code>http://127.0.0.1:7331/mcp/&lt;server&gt;</code> (loopback only) that forwards everything to your server and streams responses through untouched. <strong>Add to VS Code</strong> now offers <strong>Through OrcA (captured)</strong>, which writes that address to <code>.vscode/mcp.json</code>. Use Copilot as usual; every request appears in OrcA Traffic as <code>petstore ⇄ Visual Studio Code</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="-a-real-mcp-client-for-your-servers">🔌 A real MCP client for your servers<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#-a-real-mcp-client-for-your-servers" class="hash-link" aria-label="Enlace directo al 🔌 A real MCP client for your servers" title="Enlace directo al 🔌 A real MCP client for your servers" translate="no">​</a></h3>
+<p>Connecting is explicit and works with several servers at once. A connected server expands into its <strong>Tools</strong>, <strong>Resources</strong> and <strong>Prompts</strong>, with read-only markers. Bearer tokens and other headers are stored in VS Code's secret storage. Dropped connections are retried automatically, and servers that return a malformed list (it happens) are still usable: OrcA skips that list and tells you.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="orca-03-compared-with-the-usual-workflow">OrcA 0.3 compared with the usual workflow<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#orca-03-compared-with-the-usual-workflow" class="hash-link" aria-label="Enlace directo al OrcA 0.3 compared with the usual workflow" title="Enlace directo al OrcA 0.3 compared with the usual workflow" translate="no">​</a></h2>
+<table><thead><tr><th>Question</th><th>Without OrcA</th><th>With OrcA 0.3</th></tr></thead><tbody><tr><td>Which tool did the model call, with what arguments?</td><td>Logs on the server, if you added them</td><td>Tool card in the chat and a frame in Traffic</td></tr><tr><td>Which LLM round caused which tool calls?</td><td>Not visible</td><td>Fork and merge lines in the Traffic graph</td></tr><tr><td>What does Copilot send to my server?</td><td>Not visible</td><td>Capture proxy, frames labeled with the client name</td></tr><tr><td>Did a change break a tool's output?</td><td>Re-run and eyeball</td><td>Compare with Previous Call in the diff editor</td></tr><tr><td>How much do my tool schemas cost?</td><td>Count by hand</td><td>Estimated tokens per turn in the chat header</td></tr><tr><td>Where is this tool defined?</td><td>Search the spec</td><td>Open Operation in Contract, exact line</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-debug-an-mcp-server-in-vs-code-2-minutes">How to debug an MCP server in VS Code (2 minutes)<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#how-to-debug-an-mcp-server-in-vs-code-2-minutes" class="hash-link" aria-label="Enlace directo al How to debug an MCP server in VS Code (2 minutes)" title="Enlace directo al How to debug an MCP server in VS Code (2 minutes)" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Install OrcA</strong> from the VS Code Marketplace.</li>
+<li class=""><strong>Run your API:</strong> open an OpenAPI or Arazzo file and click <strong>Run with HAPI</strong> (or use any running MCP server listed in <strong>MCP Servers</strong>).</li>
+<li class=""><strong>Connect:</strong> right-click the server → <strong>Connect</strong>. Its tools appear underneath.</li>
+<li class=""><strong>Chat:</strong> open <strong>OrcA → Chat</strong>, click the model button to pick a model, and ask a question that needs your API.</li>
+<li class=""><strong>Inspect:</strong> run <strong>OrcA: Show Traffic</strong>. Click the LLM round, then the tool calls it caused. Open a response, compare it with the previous call, or copy it as cURL.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="private-by-design">Private by design<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#private-by-design" class="hash-link" aria-label="Enlace directo al Private by design" title="Enlace directo al Private by design" translate="no">​</a></h2>
+<p>Debugging tools see everything, so they must be trustworthy:</p>
+<ul>
+<li class=""><strong>No telemetry</strong> and no analytics code. No vendor AI SDKs: providers are called with plain HTTP.</li>
+<li class="">The chat only contacts the provider you selected (or VS Code's own models).</li>
+<li class="">Traffic stays in memory (the last 5,000 frames), with authorization headers, tokens, passwords and API keys redacted.</li>
+<li class="">API keys and server headers live in VS Code's secret storage, never in settings.</li>
+<li class="">The proxy listens on 127.0.0.1 only and never adds your stored credentials.</li>
+<li class="">Nothing is written to disk until you choose <strong>Save Session…</strong>.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="good-to-know">Good to know<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#good-to-know" class="hash-link" aria-label="Enlace directo al Good to know" title="Enlace directo al Good to know" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>OAuth-protected MCP servers</strong> are detected but not supported yet; static headers (for example a bearer token) work today. OAuth is next.</li>
+<li class="">The <strong>Activity</strong> view moved into the new <strong>OrcA</strong> view as a tab, next to Chat.</li>
+<li class="">If a provider rejects tools combined with a reasoning effort on Chat Completions (some OpenAI models do), choose <strong>OpenAI (Responses)</strong> in <strong>Select Chat Model…</strong> or clear <code>orca.llm.reasoningEffort</code>.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently asked questions<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#frequently-asked-questions" class="hash-link" aria-label="Enlace directo al Frequently asked questions" title="Enlace directo al Frequently asked questions" translate="no">​</a></h2>
+<p><strong>How do I debug an MCP server in VS Code?</strong>
+Install OrcA 0.3, <strong>Connect</strong> to the running server from <strong>MCP Servers</strong>, and run <strong>OrcA: Show Traffic</strong>. Every request, response and notification appears with latency, size and status, and you can open, diff, copy and replay each one.</p>
+<p><strong>How can I see what GitHub Copilot sends to my MCP server?</strong>
+Use <strong>Expose via Proxy</strong>, then <strong>Add to VS Code → Through OrcA (captured)</strong>. Copilot talks to the local proxy, and each request shows up in OrcA Traffic with the client name.</p>
+<p><strong>Can I chat with my MCP server without an API key?</strong>
+Yes, with VS Code's language models (such as GitHub Copilot's). Other providers need their own key, stored in VS Code's secret storage.</p>
+<p><strong>Is OrcA an alternative to MCP Inspector?</strong>
+For everyday work inside VS Code, yes: several servers at once, the catalog, an LLM chat, and LLM rounds plus tool calls correlated in one graph, plus capture of other clients. Calling a single tool by hand from a form comes in a later release.</p>
+<p><strong>Does OrcA send my data anywhere?</strong>
+No. There is no telemetry; the chat talks only to the provider you chose, and traffic never leaves your machine unless you save and share a session file.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="get-orca-03">Get OrcA 0.3<a href="https://mcp.com.ai/es/orca/0-3-mcp-traffic-analyzer-chat-vscode#get-orca-03" class="hash-link" aria-label="Enlace directo al Get OrcA 0.3" title="Enlace directo al Get OrcA 0.3" translate="no">​</a></h2>
+<ul>
+<li class="">⬇️ <strong>Install:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=la-rebelion-labs.orca-mcp" target="_blank" rel="noopener noreferrer" class="">OrcA MCP on the VS Code Marketplace</a>, or <code>code --install-extension la-rebelion-labs.orca-mcp</code>.</li>
+<li class="">📘 <strong>Guide:</strong> <a href="https://docs.mcp.com.ai/integrations/vscode" target="_blank" rel="noopener noreferrer" class="">VS Code extension (OrcA)</a>.</li>
+<li class="">🧭 <strong>Concepts:</strong> <a href="https://docs.mcp.com.ai/components/orca/how-it-works" target="_blank" rel="noopener noreferrer" class="">How OrcA works</a>, including connections, chat and traffic.</li>
+<li class="">🆕 <strong>New to OrcA?</strong> Start with the 0.2 announcement: <a class="" href="https://mcp.com.ai/es/orca-vscode-openapi-arazzo-to-mcp">OrcA for VS Code: From OpenAPI and Arazzo to MCP Server</a>.</li>
+</ul>
+<p>Your agent is only as good as the conversation it has with your tools. Now you can see that conversation.</p>
+<p><em>Be HAPI, and enjoy building!</em></p>]]></content:encoded>
+            <category>MCP</category>
+            <category>VS Code</category>
+            <category>Tool Calling</category>
+            <category>Agentic AI</category>
+            <category>Testing</category>
+            <category>LLM</category>
+            <category>OAS</category>
+            <category>Arazzo</category>
+        </item>
         <item>
             <title><![CDATA[OrcA for VS Code: From OpenAPI and Arazzo to MCP Server, Without Leaving Your Editor]]></title>
             <link>https://mcp.com.ai/es/orca-vscode-openapi-arazzo-to-mcp</link>
@@ -3875,207 +3985,6 @@ HAPI itself is free to use locally. Cloudflare Workers and other providers have 
             <category>MCP Registry</category>
             <category>Swagger</category>
             <category>API</category>
-        </item>
-        <item>
-            <title><![CDATA[What Is an Agent Skill? The Standard Unit for AI Agent Capabilities]]></title>
-            <link>https://mcp.com.ai/es/skills/what-is-agent-skills</link>
-            <guid>https://mcp.com.ai/es/skills/what-is-agent-skills</guid>
-            <pubDate>Tue, 27 Jan 2026 12:38:19 GMT</pubDate>
-            <description><![CDATA[Agent Skills define what AI agents can do with explicit, governable capabilities. Learn how Skills replace prompt-only behavior with structured, auditable execution.]]></description>
-            <content:encoded><![CDATA[
-<p><strong>AI agents are getting smarter — and more dangerous.</strong></p>
-<p>Not because they reason better, but because they act without boundaries.</p>
-<p><strong>Agent Skills exist to fix that.</strong></p>
-<p>They define <strong>what an agent can do</strong>, <strong>how it can do it</strong>, and <strong>under what constraints</strong> — in a way machines can enforce, not humans hope for.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-an-agent-skill-simple-definition">What Is an Agent Skill? (Simple Definition)<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#what-is-an-agent-skill-simple-definition" class="hash-link" aria-label="Enlace directo al What Is an Agent Skill? (Simple Definition)" title="Enlace directo al What Is an Agent Skill? (Simple Definition)" translate="no">​</a></h2>
-<p>An <strong>Agent Skill</strong> is a structured, declarative capability that an AI agent can invoke to perform an action through a system.</p>
-<ul>
-<li class=""><strong>Not a suggestion</strong> — it's enforceable</li>
-<li class=""><strong>Not a prompt</strong> — it's structured</li>
-<li class=""><strong>Not open-ended</strong> — it has boundaries</li>
-</ul>
-<p>A capability with rules that machines enforce.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-agent-skills-became-inevitable">Why Agent Skills Became Inevitable<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#why-agent-skills-became-inevitable" class="hash-link" aria-label="Enlace directo al Why Agent Skills Became Inevitable" title="Enlace directo al Why Agent Skills Became Inevitable" translate="no">​</a></h2>
-<p>Prompt-driven agents don't scale beyond experimentation.</p>
-<p><strong>At small scale</strong>, prompts feel powerful and flexible.<br>
-<strong>At enterprise scale</strong>, they create unacceptable risk:</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-prompt-problem">The Prompt Problem<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-prompt-problem" class="hash-link" aria-label="Enlace directo al The Prompt Problem" title="Enlace directo al The Prompt Problem" translate="no">​</a></h3>
-<ul>
-<li class="">🚨 Agents hallucinate actions that don't exist</li>
-<li class="">🔓 Permissions are implicit and unenforceable</li>
-<li class="">🌫️ Execution paths are opaque and unpredictable</li>
-<li class="">❌ Security reviews are nearly impossible</li>
-<li class="">📝 Audits have no structured artifacts to examine</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-industry-response">The Industry Response<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-industry-response" class="hash-link" aria-label="Enlace directo al The Industry Response" title="Enlace directo al The Industry Response" translate="no">​</a></h3>
-<p>Skills emerged because <strong>enterprises demanded control</strong>.</p>
-<p>The industry responded with:</p>
-<ul>
-<li class="">Shared <strong>Skill specifications</strong> (not vendor-locked)</li>
-<li class="">Standard schemas for cross-platform compatibility</li>
-<li class="">Public registries and catalogs for discovery</li>
-<li class="">Installation, versioning, and tracking mechanisms</li>
-<li class="">Observability and governance tooling</li>
-</ul>
-<p>Skills are now appearing everywhere — AI frameworks, runtime environments, marketplaces, and enterprise dashboards.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-vs-prompts-the-real-difference">Skills vs Prompts: The Real Difference<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#skills-vs-prompts-the-real-difference" class="hash-link" aria-label="Enlace directo al Skills vs Prompts: The Real Difference" title="Enlace directo al Skills vs Prompts: The Real Difference" translate="no">​</a></h2>
-<p>Understanding this distinction is critical for building production-grade AI systems.</p>
-<table><thead><tr><th>Aspect</th><th>Prompts</th><th>Skills</th></tr></thead><tbody><tr><td><strong>Behavior</strong></td><td>Implicit, suggested</td><td>Explicit, enforced</td></tr><tr><td><strong>Format</strong></td><td>Natural language</td><td>Structured schema</td></tr><tr><td><strong>Security</strong></td><td>Trust-based</td><td>Contract-based</td></tr><tr><td><strong>Auditability</strong></td><td>Hard to audit</td><td>Fully auditable</td></tr><tr><td><strong>Execution</strong></td><td>Non-deterministic</td><td>Governable</td></tr><tr><td><strong>Permissions</strong></td><td>Implied</td><td>Explicit</td></tr><tr><td><strong>Lifecycle</strong></td><td>Ad-hoc</td><td>Versioned &amp; tracked</td></tr></tbody></table>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-core-distinction">The Core Distinction<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-core-distinction" class="hash-link" aria-label="Enlace directo al The Core Distinction" title="Enlace directo al The Core Distinction" translate="no">​</a></h3>
-<p><strong>Prompts</strong> decide <em>what to try</em>.<br>
-<strong>Skills</strong> define <em>what is allowed</em>.</p>
-<p>Prompts ask. Skills authorize.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-vs-tools-vs-workflows-clearing-the-confusion">Skills vs Tools vs Workflows: Clearing the Confusion<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#skills-vs-tools-vs-workflows-clearing-the-confusion" class="hash-link" aria-label="Enlace directo al Skills vs Tools vs Workflows: Clearing the Confusion" title="Enlace directo al Skills vs Tools vs Workflows: Clearing the Confusion" translate="no">​</a></h2>
-<p>These terms are often used interchangeably. They shouldn't be.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-hierarchy-of-agent-capabilities">The Hierarchy of Agent Capabilities<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-hierarchy-of-agent-capabilities" class="hash-link" aria-label="Enlace directo al The Hierarchy of Agent Capabilities" title="Enlace directo al The Hierarchy of Agent Capabilities" translate="no">​</a></h3>
-<p><strong>🔧 Tools</strong> are low-level primitives</p>
-<ul>
-<li class="">Individual functions or API calls</li>
-<li class="">Example: <code>get_user(id)</code> or <code>send_email(to, subject, body)</code></li>
-<li class="">No decision-making, just execution</li>
-</ul>
-<p><strong>🔄 Workflows</strong> are pre-wired sequences</p>
-<ul>
-<li class="">Fixed chains of predetermined steps</li>
-<li class="">Example: "When form submitted → validate → save → send email"</li>
-<li class="">No agent choice, just automation</li>
-</ul>
-<p><strong>🎯 Skills</strong> are bounded capabilities that agents choose to invoke</p>
-<ul>
-<li class="">Define what CAN be done and under what constraints</li>
-<li class="">Example: "Search customer database (read-only, max 100 results, audit logged)"</li>
-<li class="">Agent decides WHEN to use them based on context</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters">Why This Matters<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#why-this-matters" class="hash-link" aria-label="Enlace directo al Why This Matters" title="Enlace directo al Why This Matters" translate="no">​</a></h3>
-<p>Skills sit at the <strong>decision boundary</strong> between reasoning and execution.</p>
-<ul>
-<li class="">The <strong>model reasons</strong> about what to do</li>
-<li class="">The <strong>Skill authorizes</strong> what can be done</li>
-<li class="">The <strong>tool executes</strong> the actual action</li>
-</ul>
-<p>This separation is what makes AI agents governable.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agent-skills-are-becoming-a-standard-layer">Agent Skills Are Becoming a Standard Layer<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#agent-skills-are-becoming-a-standard-layer" class="hash-link" aria-label="Enlace directo al Agent Skills Are Becoming a Standard Layer" title="Enlace directo al Agent Skills Are Becoming a Standard Layer" translate="no">​</a></h2>
-<p>What started as framework-specific abstractions is now converging into industry standards.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-standardization-wave">The Standardization Wave<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-standardization-wave" class="hash-link" aria-label="Enlace directo al The Standardization Wave" title="Enlace directo al The Standardization Wave" translate="no">​</a></h3>
-<p><strong>Foundation:</strong></p>
-<ul>
-<li class="">Shared specifications (like MCP)</li>
-<li class="">Common schemas and interfaces</li>
-<li class="">Cross-platform compatibility</li>
-</ul>
-<p><strong>Distribution:</strong></p>
-<ul>
-<li class="">Public registries and catalogs</li>
-<li class="">Installation and discovery tooling</li>
-<li class="">Version management</li>
-</ul>
-<p><strong>Operations:</strong></p>
-<ul>
-<li class="">Usage tracking and observability</li>
-<li class="">Permission management</li>
-<li class="">Audit logging and compliance</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters-1">Why This Matters<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#why-this-matters-1" class="hash-link" aria-label="Enlace directo al Why This Matters" title="Enlace directo al Why This Matters" translate="no">​</a></h3>
-<p>This is how sustainable AI ecosystems form.</p>
-<p><strong>Not around models</strong> (which change constantly)<br>
-<strong>But around capabilities</strong> (which systems can rely on)</p>
-<p>When Skills become standardized:</p>
-<ul>
-<li class="">Developers can publish once, run anywhere</li>
-<li class="">Enterprises can audit once, trust everywhere</li>
-<li class="">Agents can discover capabilities dynamically</li>
-<li class="">Security teams can govern at the Skill level</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-mcp-matters-for-agent-skills">Why MCP Matters for Agent Skills<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#why-mcp-matters-for-agent-skills" class="hash-link" aria-label="Enlace directo al Why MCP Matters for Agent Skills" title="Enlace directo al Why MCP Matters for Agent Skills" translate="no">​</a></h2>
-<p><strong>Critical insight:</strong> Skills don't live in the model. They live in systems.</p>
-<p>The model generates <em>reasoning</em>. Systems provide <em>capabilities</em>.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-mcp-provides">What MCP Provides<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#what-mcp-provides" class="hash-link" aria-label="Enlace directo al What MCP Provides" title="Enlace directo al What MCP Provides" translate="no">​</a></h3>
-<p>The <a class="" href="https://mcp.com.ai/es/">Model Context Protocol (MCP)</a> solves the infrastructure problem for Skills:</p>
-<p><strong>Execution Layer:</strong></p>
-<ul>
-<li class="">Transport-agnostic communication (stdio, HTTP, SSE)</li>
-<li class="">Remote skill invocation across boundaries</li>
-<li class="">Standardized request/response patterns</li>
-</ul>
-<p><strong>Enterprise Requirements:</strong></p>
-<ul>
-<li class="">Security boundaries and permissions</li>
-<li class="">Air-gap compatibility for sensitive environments</li>
-<li class="">Authentication and authorization hooks</li>
-</ul>
-<p><strong>Governance &amp; Compliance:</strong></p>
-<ul>
-<li class="">Audit trails for all skill invocations</li>
-<li class="">Usage tracking and monitoring</li>
-<li class="">Policy enforcement points</li>
-</ul>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-transformation">The Transformation<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-transformation" class="hash-link" aria-label="Enlace directo al The Transformation" title="Enlace directo al The Transformation" translate="no">​</a></h3>
-<p>MCP turns Skills from <strong>abstract ideas</strong> into <strong>operational infrastructure</strong>.</p>
-<ul>
-<li class="">Before MCP: Each framework had its own Skill implementation</li>
-<li class="">After MCP: Skills work across frameworks, runtimes, and platforms</li>
-<li class="">Result: True interoperability and enterprise adoption</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-mental-model-to-remember">The Mental Model to Remember<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#the-mental-model-to-remember" class="hash-link" aria-label="Enlace directo al The Mental Model to Remember" title="Enlace directo al The Mental Model to Remember" translate="no">​</a></h2>
-<blockquote>
-<p><strong>Reasoning stays with the model.</strong><br>
-<strong>Authority stays with the system.</strong></p>
-</blockquote>
-<p>Skills are where that line is drawn.</p>
-<p>This separation ensures:</p>
-<ul>
-<li class="">AI can be creative within bounds</li>
-<li class="">Systems maintain control</li>
-<li class="">Humans can audit and govern</li>
-<li class="">Security isn't dependent on prompt engineering</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="faq-understanding-agent-skills">FAQ: Understanding Agent Skills<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#faq-understanding-agent-skills" class="hash-link" aria-label="Enlace directo al FAQ: Understanding Agent Skills" title="Enlace directo al FAQ: Understanding Agent Skills" translate="no">​</a></h2>
-<p><strong>Q: What is an Agent Skill?</strong><br>
-<!-- -->A: An Agent Skill is a structured, declarative capability that an AI agent can invoke to perform an action through a system. Unlike prompts, Skills define explicit boundaries, permissions, and execution rules that machines can enforce.</p>
-<p><strong>Q: How do Agent Skills differ from prompts?</strong><br>
-<!-- -->A: Prompts are implicit natural language suggestions with trust-based, non-deterministic behavior. Skills are explicit structured capabilities with contract-based, auditable, and governable execution. Prompts decide what to try; Skills define what is allowed.</p>
-<p><strong>Q: What's the difference between Skills, tools, and workflows?</strong><br>
-<!-- -->A: Tools are low-level primitives (individual functions), workflows are pre-wired sequences (fixed automation), and Skills are bounded capabilities that agents choose to invoke. Skills sit at the decision boundary between AI reasoning and system execution.</p>
-<p><strong>Q: Why do AI agents need Skills instead of just prompts?</strong><br>
-<!-- -->A: Prompt-driven agents don't scale at enterprise level. They can hallucinate actions, have implicit permissions, opaque execution paths, and are impossible to audit. Skills provide the control, governance, and security that enterprises demand.</p>
-<p><strong>Q: What role does MCP play with Agent Skills?</strong><br>
-<!-- -->A: MCP (Model Context Protocol) provides a transport-agnostic execution layer for Skills, enabling remote skill invocation, enterprise security boundaries, air-gap compatibility, and audit/governance hooks. MCP turns Skills from ideas into infrastructure.</p>
-<p><strong>Q: Are Agent Skills becoming a standard?</strong><br>
-<!-- -->A: Yes. What started as framework-specific abstractions is converging into shared specifications, common schemas, public registries, installation tooling, and usage tracking. Skills are becoming the standard unit of agent execution, governance, and enterprise adoption.</p>
-<p><strong>Q: Can Agent Skills be audited for security?</strong><br>
-<!-- -->A: Yes. Unlike prompts, Skills are structured with explicit schemas, making them auditable and governable. They provide clear artifacts for security reviews, permission tracking, and execution path analysis.</p>
-<p><strong>Q: Where do Agent Skills execute?</strong><br>
-<!-- -->A: Skills don't live in the model—they live in systems. The model handles reasoning, while Skills execute in controlled environments with proper security boundaries and governance. This separation ensures authority stays with the system, not the AI.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-comes-next-the-skill-first-future">What Comes Next: The Skill-First Future<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#what-comes-next-the-skill-first-future" class="hash-link" aria-label="Enlace directo al What Comes Next: The Skill-First Future" title="Enlace directo al What Comes Next: The Skill-First Future" translate="no">​</a></h2>
-<p>Agent Skills are now the fundamental unit of:</p>
-<p>✅ <strong>Agent execution</strong> — how AI agents perform actions<br>
-<!-- -->✅ <strong>Platform governance</strong> — how organizations control AI behavior<br>
-<!-- -->✅ <strong>Security review</strong> — how teams audit AI capabilities<br>
-<!-- -->✅ <strong>Enterprise adoption</strong> — how AI becomes production-ready</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="your-next-steps">Your Next Steps<a href="https://mcp.com.ai/es/skills/what-is-agent-skills#your-next-steps" class="hash-link" aria-label="Enlace directo al Your Next Steps" title="Enlace directo al Your Next Steps" translate="no">​</a></h3>
-<p>The rest of this section explores how to:</p>
-<ul>
-<li class=""><strong>Design</strong> Skills that are secure and maintainable</li>
-<li class=""><strong>Build</strong> Skills using MCP and standard patterns</li>
-<li class=""><strong>Evaluate</strong> Skills for quality and safety</li>
-<li class=""><strong>Deploy</strong> Skills across environments</li>
-<li class=""><strong>Govern</strong> Skills at enterprise scale</li>
-</ul>
-<p>We're treating Skills <strong>as systems</strong> — because that's what they are.</p>
-<p><strong>The era of prompt-only agents is ending.</strong><br>
-<strong>The era of Skill-driven systems is here.</strong></p>]]></content:encoded>
-            <category>Skills</category>
-            <category>AI Integration</category>
-            <category>Agentic AI</category>
         </item>
     </channel>
 </rss>
