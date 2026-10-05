@@ -1,0 +1,517 @@
+---
+title: How to Make Intent-Based Contracts and APIs AI-Ready
+description: Deterministic workflows are rigid and free tool calling guesses. Learn how intent-based HAPI contracts and Arazzo workflows work together so AI agents ask the right questions, respect confirmations, and re-plan after failures.
+authors: [adrian]
+date: 2026-10-04T00:00:00Z
+tags: [mcp, agentic-ai, oas, arazzo, api, guide, best-practices, tool-calling]
+keywords:
+  - intent-based api
+  - ai-ready api
+  - arazzo vs intent-based
+  - deterministic workflows vs ai agents
+  - capability graph
+  - hapi mcp
+---
+import Head from '@docusaurus/Head';
+
+export const aeoJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to Make Intent-Based Contracts and APIs AI-Ready",
+      "description": "Deterministic workflows are rigid and free tool calling guesses. Learn how intent-based HAPI contracts and Arazzo workflows work together so AI agents ask the right questions, respect confirmations, and re-plan after failures.",
+      "datePublished": "2026-10-04T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "name": "Adrian Escutia",
+        "url": "https://adrian.escutia.me"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "La Rebelion Labs",
+        "url": "https://mcp.com.ai"
+      },
+      "mainEntityOfPage": "https://mcp.com.ai/guides/intent-based-ai-api-ai-ready",
+      "about": [
+        "Model Context Protocol",
+        "OpenAPI",
+        "AI agents"
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to Make Intent-Based Contracts and APIs AI-Ready",
+      "description": "Deterministic workflows are rigid and free tool calling guesses. Learn how intent-based HAPI contracts and Arazzo workflows work together so AI agents ask the right questions, respect confirmations, and re-plan after failures.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Compare Deterministic Workflows, Free Tool Calling, and Intent-Based Planning"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Question the Assumptions About Workflows"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Understand Why an API Description Is Not Enough"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Describe Intent and Effects in the Contract"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Model State as Facts and Transitions"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Wrap Fixed Sequences in a Planning-Eligible Workflow"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Verify the Plan Before Any Agent Calls the API"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 8,
+          "name": "Watch an Agent Re-Plan in OrcA"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an intent-based API?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An intent-based API contract adds a decision layer to an API description: when each operation applies, what it changes, which verified facts it requires and produces, and what a failure means. HAPI compiles this metadata into a capability graph, so an agent can map a request to a goal and receive a deterministic plan that names the missing information."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are Arazzo workflows and HAPI intent-based contracts redundant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Arazzo workflows encode fixed sequences that must always run together. Intent-based contracts let a planner decide which atomic operations, and which workflows, to run from the current state. A workflow with x-hapi-planning becomes one atomic step in those plans."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are Arazzo workflows all-or-nothing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. An Arazzo workflow stops at the first step whose success criteria fail, but earlier steps have already changed state in the source API. Neither Arazzo nor HAPI undoes earlier steps automatically, so compensation is a design decision."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are API workflows idempotent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only when every step is idempotent or carries an idempotency key. A step that creates a record with a new identifier is not idempotent, so running the workflow twice creates two records."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is an OpenAPI description enough for AI agents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is enough to call an API, not to use it safely. OpenAPI describes paths, schemas, status codes, and security, but not when an operation is the right choice, what it changes, what must already be true, or what a failure means for the next step."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does intent-based planning stop LLM hallucinations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It limits their impact. The model still interprets the request, but permissions, prerequisites, ordering, and confirmations come from the contract and are enforced deterministically. The planner never invents facts; it accepts only facts the client verified and reports the missing ones."
+          }
+        }
+      ]
+    }
+  ]
+};
+
+<Head>
+  <script type="application/ld+json">{JSON.stringify(aeoJsonLd)}</script>
+</Head>
+
+What you will learn
+
+- How intent-based planning balances model interpretation with deterministic enforcement.
+- How to make an OpenAPI contract intent-based AI contract.
+- How to verify contracts and workflows.
+- How to observe re-planning behavior in VS Code.
+
+<!-- truncate -->
+
+AI agents now call business APIs through the Model Context Protocol (MCP). Two approaches compete for the job. A deterministic workflow, such as an Arazzo 1.1 document, fixes every step in advance and runs them in order. Free tool calling hands a Large Language Model (LLM) a list of operations and lets it choose. The first approach breaks when a person changes their mind halfway through, and the second approach books the wrong appointment with total confidence. An intent-based contract sits between them: the model interprets what the person wants, and a deterministic engine decides what is allowed, what is missing, and which step comes next.
+
+This guide explains what an intent-based workflow is, why an Application Programming Interface (API) description alone is not enough for an agent, and why HAPI contracts and Arazzo workflows complement each other instead of overlapping. You then make a clinic appointments contract intent-based, wrap a fixed sequence in a planning-eligible Arazzo workflow, verify both with the HAPI Command Line Interface (CLI), and watch an agent re-plan in OrcA when a booking fails. At the end of this guide, you have a contract that HAPI serves as MCP tools, plans over deterministically, and explains to any agent, including Clooney, the AI teammate from [Clawne Me](https://clawne.me).
+
+## Key Takeaways
+
+This section answers the main question of this guide in five statements.
+
+* Deterministic workflows fix every step at design time, and free tool calling lets the model decide everything; intent-based planning lets the model interpret the request while a deterministic engine decides what is allowed and what comes next.
+* Arazzo workflows are not transactions, and a workflow is idempotent only when every step is idempotent.
+* An OpenAPI description explains how to call an operation, not when to use it, what it changes, what must be true first, or what a failure means.
+* HAPI contracts and Arazzo workflows complement each other: a planning-eligible workflow becomes one atomic step in a plan.
+* Verify contracts offline with `hapi graph audit`, `hapi graph simulate`, and `hapi arazzo validate --strict`.
+
+## Prerequisites
+
+Before you begin, you need:
+
+* An OpenAPI 3.x contract for an API you maintain, with stable `operationId` values.
+* The [HAPI CLI](https://hapi.mcp.com.ai) with the Capability Graph and Arazzo plugins (v1.2). Run `hapi graph --help` and `hapi arazzo --help` to confirm both respond.
+* Visual Studio Code (VS Code) with the OrcA extension and a configured chat model.
+* Working knowledge of YAML, OpenAPI operations, and HTTP status codes.
+
+:::note
+The examples use a fictional clinic API with the operations `searchProfessionals`, `getAvailability`, `bookAppointment`, `listPatientAppointments`, and `cancelAppointment`. Replace the names and facts with the ones from your domain.
+:::
+
+## Compare Deterministic Workflows, Free Tool Calling, and Intent-Based Planning
+
+This section compares the three ways an agent can drive an API, so you can see where each one fails and where each one belongs.
+
+Picture a patient who writes: "Book me with a pediatrician next Tuesday afternoon." The journey has four decisions: which professional, which slot, whether the details are correct, and whether to confirm. Any of them can change mid-conversation, and the slot can disappear before the booking call.
+
+| Aspect | Deterministic workflow | Free tool calling | Intent-based planning |
+| --- | --- | --- | --- |
+| Who decides the next step | The workflow author, at design time | The model, at run time | A deterministic planner, from verified state |
+| Who interprets the request | Nobody; the caller passes exact inputs | The model | The model, constrained by declared goals |
+| Handles a changed mind or a new choice | Only branches the author predicted | Yes, but without guarantees | Yes; the plan recomputes from the new state |
+| Asks for missing information | No; missing inputs fail the call | Sometimes; often guesses | Yes; the plan names the missing facts |
+| Respects confirmation and authorization | When the author encodes it | When the model remembers | Always; gates are explicit and checked |
+| Typical failure | Rigid: stops at the first unexpected answer | Hallucinates a tool, an argument, or a choice | Asks one more question than strictly needed |
+| Auditable | Yes | Hard | Yes: goals, facts, gates, and plan digests |
+
+The common framing of "deterministic versus non-deterministic" is close, but imprecise. Intent-based planning does not split the difference; it assigns each job to the component that does it well. Language understanding stays probabilistic because human requests are ambiguous. Permissions, prerequisites, ordering, and confirmations stay deterministic because a business cannot negotiate them with a model.
+
+## Question the Assumptions About Workflows
+
+This section corrects three common assumptions about deterministic workflows:
+
+**Assumption 1: a workflow is all-or-nothing.** An Arazzo workflow runs its steps in order and stops at the first step whose success criteria fail. It is not a database transaction. If the second of three steps fails, the first step already changed state in the source API. Arazzo describes success and failure actions, such as retrying or ending, but compensation is your design work; neither Arazzo nor HAPI undoes an earlier step automatically.
+
+**Assumption 2: workflows are idempotent.** A workflow is idempotent only when every step is idempotent or carries an idempotency key. A step that creates a booking with a new identifier is not idempotent, so running the workflow twice books twice. HAPI reflects this distinction at run time: its guarded execution mode retries only read-only or explicitly idempotent operations.
+
+**Assumption 3: workflows are rigid, so they are obsolete.** Rigidity is the point for sequences that must always run together, such as "book the appointment, then send the confirmation message." A workflow encodes that business rule once, and every agent inherits it. The problem appears only when a workflow tries to model a conversation, with its choices, interruptions, and changes of mind. Branches multiply until the workflow becomes a fragile state machine that nobody can review.
+
+The conclusion is not "workflows or intent." Use workflows for fixed sequences, and let intent-based planning decide when to run them.
+
+## Understand Why an API Description Is Not Enough
+
+This section shows what an OpenAPI contract tells an agent, what it leaves out, and why the gap causes most agent failures.
+
+An OpenAPI contract describes transport: paths, parameters, schemas, status codes, and security. HAPI turns that description into MCP tools without code, and an agent can call them. The contract still leaves four questions unanswered:
+
+* **When is this operation the right choice?** `bookAppointment` and `rescheduleAppointment` accept similar inputs. Nothing in the schema says which one fits "move my appointment to Friday."
+* **What does it change?** A `POST /professionals/search` request looks like a write. Without a hint, clients ask for confirmation on every search, and users learn to click **Allow** without reading.
+* **What must already be true?** The booking endpoint accepts a `slotId`. The schema does not say that a person must choose that slot from a fresh availability result, so the model invents or reuses one.
+* **What does a failure mean?** A `409 Conflict` on booking means "the slot was taken; ask for another one." Without that meaning, the agent retries the same call.
+
+An intent-based contract answers these questions with metadata that HAPI compiles into the HAPI Capability Graph (HCG). The graph does not replace the API; it adds the decision layer the API never had.
+
+## Describe Intent and Effects in the Contract
+
+This section shows you how to tell HAPI when each operation applies and what it changes, so discovery and confirmations behave correctly.
+
+1. Write a verb-first summary and a description that names the source of each input.
+
+    ```yaml
+    paths:
+      /appointments:
+        post:
+          operationId: bookAppointment
+          summary: Book an appointment for the patient
+          description: |
+            Books a confirmed appointment in the selected professional's free slot.
+            Use the `slotId` returned by getAvailability; a constructed value returns `400`.
+    ```
+
+    HAPI search matches tool names, descriptions, and arguments word by word. A precise summary in the language of your users makes the tool easy to find, and OrcA lists that first sentence in its catalog of tools that are not loaded yet.
+
+1. Add intent, effects, and tool hints.
+
+    ```yaml
+          x-destructiveHint: false
+          x-hapi-capability: [Healthcare/Appointments/Booking]
+          x-hapi-intent:
+            use-when:
+              - The patient selected a professional and a free slot and confirmed the details.
+            avoid-when:
+              - The patient wants to move an existing appointment.
+          x-hapi-effects:
+            mode: create
+            side-effecting: true
+            destructive: false
+            idempotent: false
+            requires-confirmation: true
+    ```
+
+    The `x-hapi-intent` statements separate booking from rescheduling. `requires-confirmation: true` adds a `mutation-confirmation` gate that every plan reports. `x-destructiveHint: false` tells MCP clients that a booking creates data without destroying any.
+
+1. Mark read-only searches that use `POST`.
+
+    ```yaml
+      /professionals/search:
+        post:
+          operationId: searchProfessionals
+          x-readOnlyHint: true
+          x-destructiveHint: false
+          x-hapi-effects: { mode: read }
+    ```
+
+    HAPI treats every `POST` as destructive unless the contract says otherwise. OrcA asks for confirmation before any tool that is not read-only, so this hint removes a confirmation from every search.
+
+## Model State as Facts and Transitions
+
+This section shows you how to describe each operation as an atomic transition between business states, which is what lets a planner build workflows on demand.
+
+1. Add `x-hapi-planning` to the booking operation.
+
+    ```yaml
+          x-hapi-planning:
+            requires:
+              - predicate: patient.identity.verified
+              - predicate: professional.selected
+              - predicate: slot.selected
+              - predicate: appointment.details.confirmed
+            produces:
+              - predicate: appointment.booked
+            cost: 1
+    ```
+
+    A fact is a lowercase predicate that names verified business state. The operation stays atomic: it needs four facts and produces one. The planner chains atomic transitions into a route for the current state, so the workflow is computed, not authored.
+
+1. Keep searches and selections apart.
+
+    ```yaml
+      /professionals/search:
+        post:
+          operationId: searchProfessionals
+          x-hapi-planning:
+            produces:
+              - predicate: professionals.consulted
+    ```
+
+    A search produces `professionals.consulted`, never `professional.selected`. A person makes the selection, so the plan pauses and asks instead of picking the first result.
+
+1. Declare the facts that only people establish.
+
+    ```yaml
+    x-hapi-client-facts:
+      - predicate: patient.identity.verified
+        description: The phone number comes from the chat channel, never from typed text.
+      - predicate: professional.selected
+        description: The patient picked one professional from the search results.
+      - predicate: slot.selected
+        description: The patient picked one free slot.
+      - predicate: appointment.details.confirmed
+        description: The patient confirmed the appointment summary.
+    ```
+
+    The declaration tells every client who must establish each fact. It never makes a fact true; `capability_plan` still accepts only facts the client verified.
+
+1. Give business failures a meaning.
+
+    ```yaml
+          responses:
+            "409":
+              description: The slot was taken; ask the patient to pick another slot.
+              x-hapi-outcome:
+                produces:
+                  - predicate: slot.unavailable
+                removes:
+                  - predicate: slot.selected
+    ```
+
+    The outcome removes `slot.selected`, so the next plan asks for a new slot instead of retrying a call that cannot succeed.
+
+## Wrap Fixed Sequences in a Planning-Eligible Workflow
+
+This section shows you how Arazzo and intent-based contracts work together: the workflow guarantees a fixed sequence, and the planner decides when to run it.
+
+1. Add `x-hapi-planning` to an Arazzo workflow that always runs as one unit.
+
+    ```yaml
+    arazzo: 1.1.0
+    info: { title: Clinic workflows, version: 1.0.0 }
+    sourceDescriptions:
+      - name: clinic
+        url: ./clinic.openapi.yaml
+        type: openapi
+    workflows:
+      - workflowId: bookAndShowAppointments
+        summary: Book an appointment and show the patient's upcoming appointments
+        x-hapi-planning:
+          requires:
+            - predicate: patient.identity.verified
+            - predicate: professional.selected
+            - predicate: slot.selected
+            - predicate: appointment.details.confirmed
+          produces:
+            - predicate: appointment.booked
+        steps:
+          - stepId: book
+            operationId: $sourceDescriptions.clinic.bookAppointment
+            successCriteria: [{ condition: $statusCode == 201 }]
+          - stepId: show
+            operationId: $sourceDescriptions.clinic.listPatientAppointments
+            successCriteria: [{ condition: $statusCode == 200 }]
+    ```
+
+    HAPI serves the workflow as one MCP tool and, because the workflow has resolved steps and no dynamic branching, adds it to the graph as one atomic transition. Nested workflows and dynamic success or failure branches are not planning-eligible.
+
+1. Validate the workflow in strict mode.
+
+    ```console
+    $ hapi arazzo validate ./clinic.arazzo.yaml --strict
+    ```
+
+    HAPI compares the workflow's facts with the facts of its steps. In this example, the second step produces a fact the workflow does not declare, so the command reports a warning similar to the following and exits with code `1`:
+
+    ```
+    Valid Arazzo 1.1 document: 1 workflow(s), 1 source(s)
+    warning ARAZZO_PLANNING_PRODUCES_INCOMPLETE at /workflows/0/x-hapi-planning: Workflow steps produce facts the workflow does not declare: appointments.consulted
+    ```
+
+1. Add the missing fact and validate again.
+
+    ```yaml
+          produces:
+            - predicate: appointment.booked
+            - predicate: appointments.consulted
+    ```
+
+    The command now prints only the validation summary and exits with code `0`. The consistency check keeps the workflow honest: a workflow cannot claim less, or more, than its steps do.
+
+## Verify the Plan Before Any Agent Calls the API
+
+This section shows you how to prove, offline, that the contract produces the questions and routes you expect.
+
+1. Compile and audit the contract.
+
+    ```console
+    $ hapi graph compile ./clinic.openapi.yaml --out clinic.graph.json
+    $ hapi graph audit clinic.graph.json
+    ```
+
+    The audit lists orphan requirements, client-verified facts, candidate goals, and a reachability check for each goal. With the client facts declared, every goal reports `planned` and the result is `clean`. Without them, booking reports `clarification-required (goal-unreachable, missing-planning-facts)`, which is the contract telling you that nobody establishes the selections.
+
+1. Simulate the request before the patient chooses anything.
+
+    ```console
+    $ hapi graph simulate clinic.graph.json --initial-fact patient.identity.verified --goal-fact appointment.booked
+    ```
+
+    The outcome is `clarification-required` with the diagnostic `missing-planning-facts`. The planner refuses to guess the professional or the slot.
+
+1. Simulate the request after the patient chooses and confirms.
+
+    ```console
+    $ hapi graph simulate clinic.graph.json \
+        --initial-fact patient.identity.verified \
+        --initial-fact professional.selected \
+        --initial-fact slot.selected \
+        --initial-fact appointment.details.confirmed \
+        --goal-fact appointment.booked \
+        --satisfied-gate mutation-confirmation \
+        --eligible-operation bookAppointment
+    ```
+
+    The outcome is `planned` with one step, `operation:bookAppointment`. Without `--eligible-operation`, the plan reports the unsatisfied `operation-authorization` gate, because authorization is a hard gate, not a cost the planner can trade away.
+
+## Watch an Agent Re-Plan in OrcA
+
+This section shows you the runtime loop: the agent interprets intent, the graph constrains it, and a failure leads to a new question instead of a retry.
+
+1. Serve the contract with the capability graph and planning.
+
+    ```console
+    $ hapi serve --specs ./clinic.openapi.yaml --capability-graph --capability-planning --port 3000
+    ```
+
+    HAPI defers the operation tools, adds `tool_search`, and exposes the read-only `capability_context` and `capability_plan` tools. Neither tool calls your API, stores state, or grants authorization.
+
+1. Add the server to OrcA and start a chat.
+
+    In the **MCP Servers** view, select **Add External MCP Server…**, enter the URL `http://localhost:3000/mcp`, and connect. Then ask in the **Chat** tab:
+
+    ```
+    Book me with a pediatrician next Tuesday afternoon.
+    ```
+
+    OrcA asks `capability_context` with your message and shows the goal `appointment.booked` with its required facts in the **Context** tab. It loads the tools the result points to before the model answers.
+
+1. Answer the agent's questions.
+
+    The agent asks you to choose a professional and a slot, then summarizes the details. OrcA asks for your approval before the booking call, because the tool is not read-only.
+
+1. Observe a failed booking.
+
+    If the slot was taken, the API returns `409`. The response description tells the agent to ask for another slot, and the declared outcome removes `slot.selected` from the verified state. The agent asks you to pick again; it does not retry the same call. Open the **Traffic** view to see each step, which model round caused it, and what it cost.
+
+The same loop serves Clooney. An AI teammate that answers patients needs exactly this contract: clear goals, explicit questions, confirmations it cannot skip, and failures that turn into the next question.
+
+## Troubleshoot Intent-Based Contracts
+
+This section maps common symptoms to the contract change that fixes them.
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| Every booking plan returns `clarification-required`, even with all choices made. | Requirements that no operation produces and no client fact declares. | Run `hapi graph audit` and add `x-hapi-client-facts`. |
+| The agent picks the first search result for the user. | A search produces a selection fact. | Produce a consultation fact and declare the selection as a client fact. |
+| The agent retries a booking after `409`. | The failure has no outcome or guidance. | Add `x-hapi-outcome` and a response description that names the next question. |
+| Every search asks for confirmation. | A read-only `POST` without hints. | Add `x-readOnlyHint: true` and `x-destructiveHint: false`. |
+| `hapi arazzo validate --strict` exits with code `1`. | Workflow facts disagree with its steps. | Declare every fact the steps produce, require, or remove. |
+| The workflow does not appear as a plan step. | Nested workflows or dynamic branching. | Split the workflow, or keep it as a tool outside planning. |
+
+## Frequently Asked Questions
+
+This section answers the questions readers ask most often about this topic.
+
+### What Is an Intent-Based API?
+
+An intent-based API contract adds a decision layer to an API description: when each operation applies, what it changes, which verified facts it requires and produces, and what a failure means. HAPI compiles this metadata into a capability graph, so an agent can map a request to a goal and receive a deterministic plan that names the missing information.
+
+### Are Arazzo Workflows and HAPI Intent-Based Contracts Redundant?
+
+No. Arazzo workflows encode fixed sequences that must always run together. Intent-based contracts let a planner decide which atomic operations, and which workflows, to run from the current state. A workflow with `x-hapi-planning` becomes one atomic step in those plans.
+
+### Are Arazzo Workflows All-or-Nothing?
+
+No. An Arazzo workflow stops at the first step whose success criteria fail, but earlier steps have already changed state in the source API. Neither Arazzo nor HAPI undoes earlier steps automatically, so compensation is a design decision.
+
+### Are API Workflows Idempotent?
+
+Only when every step is idempotent or carries an idempotency key. A step that creates a record with a new identifier is not idempotent, so running the workflow twice creates two records.
+
+### Is an OpenAPI Description Enough for AI Agents?
+
+It is enough to call an API, not to use it safely. OpenAPI describes paths, schemas, status codes, and security, but not when an operation is the right choice, what it changes, what must already be true, or what a failure means for the next step.
+
+### Does Intent-Based Planning Stop LLM Hallucinations?
+
+It limits their impact. The model still interprets the request, but permissions, prerequisites, ordering, and confirmations come from the contract and are enforced deterministically. The planner never invents facts; it accepts only facts the client verified and reports the missing ones.
+
+## Conclusion
+
+You compared deterministic workflows, free tool calling, and intent-based planning, and corrected three assumptions about workflows: they are not transactions, they are idempotent only when every step is, and their rigidity is valuable for fixed sequences. You made a contract intent-based with intent, effects, tool hints, facts, client facts, and failure outcomes, then wrapped a fixed sequence in a planning-eligible Arazzo workflow. You verified both offline with `hapi graph audit`, `hapi graph simulate`, and `hapi arazzo validate --strict`, and watched an agent re-plan in OrcA after a failure.
+
+APIs remain the foundation. Intent-based contracts add the decision layer that lets agents use them safely, and Arazzo workflows keep the sequences that must never change. Add `hapi graph audit` and `hapi arazzo validate --strict` to your Continuous Integration (CI) pipeline, and enrich the next contract in your portfolio one operation at a time.
+
+By combining intent-based contracts with Arazzo workflows, you achieve a balance between flexibility and control, enabling AI agents to act autonomously while respecting the rules and constraints defined in your API ecosystem.

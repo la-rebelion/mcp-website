@@ -1,0 +1,298 @@
+---
+title: "OrcA 0.4: An MCP Agent Harness in VS Code, for Any MCP Server"
+description: "OrcA 0.4 is a specialised harness for MCP and API work: connect any Streamable HTTP MCP server, load tools progressively to stop context bloat, edit the harness, and see capability context and plans. Free."
+authors: [adrian]
+date: 2026-10-05T00:00:00Z
+image: /animations/orca/OrcA-0.4-mcp-harness-poster.jpg
+tags: [mcp, vscode, tool-calling, agentic-ai, llm, oas, arazzo, best-practices]
+keywords:
+  - mcp agent harness
+  - progressive tool discovery
+  - mcp context bloat
+  - connect external mcp server vs code
+  - mcp tool search
+  - test any mcp server
+  - generate openapi from mcp server
+  - capability graph
+  - orca vs code extension
+---
+
+import Head from '@docusaurus/Head';
+import harnessVideo from '/animations/orca/OrcA-0.4-mcp-harness-web.mp4';
+import harnessPoster from '/animations/orca/OrcA-0.4-mcp-harness-poster.jpg';
+
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is an agent harness?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An agent harness is the software layer that runs an agent session. It prepares the instructions, context and tool definitions for the language model, applies approval rules, routes tool calls, and records what happened. OrcA 0.4 is a harness specialised for MCP and API work inside VS Code; it does not edit files or run a terminal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is progressive tool discovery in MCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Instead of sending every tool definition on every turn, the client sends a small search_tools tool plus a list of tool names, and loads full definitions only when they are needed. OrcA 0.4 searches with each message you send, loads matching tools before the model answers, appends them so prompt caches keep working, and resets them on New Chat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I reduce MCP context bloat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Serve your API with a search tool (for HAPI, --deferred-tool-search or --capability-graph) and keep orca.chat.toolDiscovery on auto, or set it to always to let OrcA search any server locally. The Harness tab shows the tokens your tools cost upfront compared with the full catalog."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can OrcA connect to MCP servers not built with HAPI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use Add External MCP Server… with a name, a Streamable HTTP URL and optional headers, or Import MCP Servers… from .vscode/mcp.json and your user mcp.json. External servers get chat, traffic, proxy capture and Add to VS Code. stdio and SSE servers are not supported."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get an OpenAPI contract for a hand-written MCP server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Generate Contract infers a deterministic OpenAPI 3.1 document from a connected server's tools, resources, resource templates and prompts. It is linked to the server, so Open Operation in Contract works, and OrcA marks the contract out of date when the server's tools change."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does OrcA 0.4 support OAuth-protected MCP servers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not yet. OrcA connects with static headers, such as a bearer token or an API key, stored in VS Code's secret storage. OAuth support is planned."
+      }
+    }
+  ]
+};
+
+export const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Connect any MCP server to OrcA and chat with progressive tool discovery in VS Code",
+  "totalTime": "PT3M",
+  "tool": [{ "@type": "HowToTool", "name": "Visual Studio Code" }, { "@type": "HowToTool", "name": "OrcA MCP extension 0.4" }],
+  "step": [
+    { "@type": "HowToStep", "name": "Install OrcA", "text": "Install OrcA MCP from the VS Code Marketplace (la-rebelion-labs.orca-mcp)." },
+    { "@type": "HowToStep", "name": "Add a server", "text": "In MCP Servers, choose Add External MCP Server… and enter a name, the Streamable HTTP URL and any headers, or Import MCP Servers… from mcp.json." },
+    { "@type": "HowToStep", "name": "Connect", "text": "Right-click the server and choose Connect. Hover it to see the Discovery line: progressive discovery and capability graph support." },
+    { "@type": "HowToStep", "name": "Tune the harness", "text": "Open OrcA › Harness to edit the instructions, the discovery mode and the confirmation policy, and compare the tokens sent upfront with the full catalog." },
+    { "@type": "HowToStep", "name": "Chat and inspect", "text": "Ask a multi-step question in OrcA › Chat. Cards show which tools were loaded and why; Context shows goals and plans; Traffic shows every call." }
+  ]
+};
+
+export const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "OrcA MCP",
+  "softwareVersion": "0.4.0",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux (Visual Studio Code)",
+  "description": "VS Code extension and specialised agent harness for MCP and API work: connect any Streamable HTTP MCP server, load tools progressively, edit the harness, see capability context and plans, and inspect every MCP tool call and LLM round.",
+  "url": "https://marketplace.visualstudio.com/items?itemName=la-rebelion-labs.orca-mcp",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "La Rebelion Labs", "url": "https://rebelion.la" }
+};
+
+export const videoJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "OrcA 0.4: an MCP agent harness in VS Code",
+  "description": "OrcA 0.4 walkthrough: external MCP servers, progressive tool discovery, the Harness and Context tabs in VS Code.",
+  "thumbnailUrl": `https://mcp.com.ai${harnessPoster}`,
+  "contentUrl": `https://mcp.com.ai${harnessVideo}`,
+  "uploadDate": "2026-10-05",
+  "duration": "PT1M1S"
+};
+
+<Head>
+  <script type="application/ld+json">{JSON.stringify(videoJsonLd)}</script>
+  <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+  <script type="application/ld+json">{JSON.stringify(howToJsonLd)}</script>
+  <script type="application/ld+json">{JSON.stringify(appJsonLd)}</script>
+</Head>
+
+**OrcA 0.4 turns VS Code into an agent harness for MCP and API work.** Connect any Streamable HTTP MCP server, not only HAPI ones. Let the agent load tools as the conversation moves instead of drowning in 40 schemas per turn. Read and edit exactly what the model is told, and see the goals, facts and plans behind a multi-step request. Still free, still no telemetry (by default).
+
+<!-- truncate -->
+
+## TL;DR
+
+- **What:** OrcA 0.4, a free VS Code extension to harness MCP and API work.
+- **The shift:** 0.3 showed you what your agent did. 0.4 shapes *what it receives*: instructions, tools and context. That is the job of a **harness**.
+- **New:** **External MCP servers** (any Streamable HTTP server), [**progressive tool discovery**](https://modelcontextprotocol.io/docs/2026-07-28/develop/clients/client-best-practices#progressive-tool-discovery), the **Harness** tab, the **Context** tab, and **Generate Contract** for hand-written servers.
+- **Why it matters:** fewer tokens per turn, fewer wrong tools, no more "I don't have access to that tool" when the tool is right there.
+- **Install:** search **OrcA MCP** in VS Code Extensions, or `code --install-extension la-rebelion-labs.orca-mcp`.
+
+<figure>
+  <video
+    src={harnessVideo}
+    poster={harnessPoster}
+    controls
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="none"
+    width="1280"
+    height="720"
+    style={{ width: '100%', height: 'auto', borderRadius: 8 }}
+    aria-label="OrcA 0.4 walkthrough: an MCP agent harness in VS Code with external servers, progressive tool discovery, and the Harness and Context tabs"
+  />
+  <figcaption>OrcA 0.4 walkthrough: external MCP servers, progressive tool discovery, and the Harness and Context tabs.</figcaption>
+</figure>
+
+## The problem: the agent can't see the right tool
+
+OrcA 0.3 gave you the traffic graph, and it showed a pattern we kept seeing in real sessions:
+
+- The model receives **every** tool schema on **every** turn. With a few servers, that is thousands of tokens before the user types a word.
+- Accuracy drops as the list grows. Similar tools (book vs. reschedule) get mixed up.
+- Hide tools to save tokens, and the agent finds the first step, then announces *"I don't have access to a tool to create the appointment"*, because it never learned the booking tool existed.
+- The instructions that drive all of this live in a setting nobody opens.
+
+These are not model problems. They are **harness** problems: what the model is given, when, and under which rules.
+
+## What is an agent harness?
+
+A harness is the software layer that runs an agent session. It prepares the instructions, context and tool definitions for the model, applies approvals, routes tool calls to the right place, and records what happened. VS Code ships general-purpose harnesses for coding.
+
+**OrcA is a specialised harness for MCP and API work.** It does not edit your files or type into your terminal. It connects models to MCP servers, decides which tools they see, enforces confirmations, explains business context, and shows every exchange. It is where you make sure your tools are *agent-ready* before Copilot, Claude, or an AI teammate like Clooney from [Clawne Me](https://clawne.me) uses them.
+
+## What's new in OrcA 0.4
+
+### 🔍 Progressive tool discovery: tools arrive when the conversation needs them
+
+When a server offers a search tool (HAPI's [`tool_search`](https://developers.openai.com/api/docs/guides/tools-tool-search), or any [`tool_search_tool*`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)), OrcA no longer sends every definition. Instead:
+
+- The model gets a small **`search_tools`** tool and, inside its description, a **catalog of tool names** that are not loaded yet. It knows `bookAppointment` exists before it needs it, even when the API speaks another language than the user.
+- **Before the model answers each message**, OrcA searches with your message and loads the matching tools. "Now book it" brings the booking tool.
+- The model can also search by intent, or load **exact tool names** from the catalog.
+- Discovered tools are **appended, never reordered**, so provider prompt caches keep working. **New Chat** resets them.
+- Chat cards say who loaded what: *search_tools*, *Tools loaded for your request*, or *Tools loaded from capability result*.
+
+**MCP Servers** marks progressive servers and their **deferred** tools; hover a server to read its **Discovery** line, for example *Progressive tool discovery: tool_search (8 of 11 tools deferred)*. Choose the behavior with `orca.chat.toolDiscovery`: `auto` (default), `always` (OrcA searches any server locally, even without a search tool), or `off` (0.3 behavior).
+
+### 🧰 The Harness tab: see and edit what the model is told
+
+The **OrcA** view gets a **Harness** tab next to Chat, Context and Activity:
+
+- **Instructions:** edit the chat's system prompt and save it for you or for the workspace; **Reset** brings back the default.
+- **Automatic guidance:** read, word for word, what OrcA adds (for example "search before saying a tool is unavailable").
+- **Settings:** discovery mode, search limit, tool rounds, and the confirmation policy.
+- **Token preview per server:** tools sent upfront vs. the full catalog. This is the context you save, as a number.
+
+No hidden prompts. If the agent behaves strangely, the first place to look is now one click away.
+
+### 🌐 External MCP servers: bring any Streamable HTTP server
+
+OrcA is no longer HAPI-only:
+
+- **Add External MCP Server…**: a name, a Streamable HTTP URL, optional headers.
+- **Import MCP Servers…** from `.vscode/mcp.json` and your user `mcp.json` (stdio and SSE entries are listed as not supported).
+- External servers appear in a new **External** group with **Connect**, chat, Traffic, **Expose via Proxy**, **Add to VS Code**, **Edit** and **Remove**. Headers stay in VS Code's secret storage.
+- A server that answers `404`/`405` is reported as not speaking Streamable HTTP, instead of failing silently.
+
+### 📄 Generate Contract: a contract for hand-written servers
+
+Built your server by hand? **Generate Contract** infers a deterministic **OpenAPI 3.1** document from its tools, resources, resource templates and prompts. It is linked to the server, so **Open Operation in Contract**, Traffic details and chat tool cards work as they do for HAPI servers, and **Dry Run** works on it.
+
+When the server's tools change, it shows **contract out of date**; **Regenerate Contract** opens a diff and writes only when you choose **Save Changes**.
+
+### 🧭 The Context tab: goals, facts and plans
+
+On HAPI servers served with `--capability-graph --capability-planning`, the **Context** tab shows the business map behind a request:
+
+- With each message, OrcA asks `capability_context` (read-only) and lists the candidate goals, the facts each step requires, and the gates, such as a confirmation. The tools it names are loaded for the model.
+- **Plan This Goal** asks `capability_plan` with the facts you have verified, and shows the steps, the missing facts and the unsatisfied gates.
+- **From Chat** keeps the results the conversation produced, with **Show in Traffic**.
+
+Nothing is executed from this tab. It answers "what has to be true before the agent can book this?" in plain view.
+
+### ✨ Smaller things that add up
+
+- **Activity** now records what you do with MCP servers: adding, importing, editing and removing servers; connections (with the catalog size or the failure reason); header changes (names only); contract generation; proxy exposure; and **New Chat**.
+- **Clearer HAPI API errors:** when the HAPI API rate-limits or fails, OrcA names the API and the mode, retries after a rate limit, offers **Switch to Local Mode**, and keeps your local and external servers listed.
+- **Filter Contracts…** filters the Contracts view as you type.
+- **Dry Run** opens as a preview tab in the current editor group.
+
+## OrcA 0.4 compared with 0.3
+
+| Question | OrcA 0.3 | OrcA 0.4 |
+| --- | --- | --- |
+| Which servers can I use? | HAPI servers | Any Streamable HTTP MCP server, added or imported |
+| Which tools does the model receive? | All of them, every turn | Only what the conversation needs, plus a catalog of names |
+| Can the agent find a tool for the next step? | Only if it was already sent | Loaded per message, by search, or from capability context |
+| What is the model told? | Hidden in a setting | Harness tab: instructions, automatic guidance, settings |
+| What must be true before a multi-step action? | Not visible | Context tab: goals, facts, gates, plans |
+| Is there a contract for a hand-written server? | No | Generate Contract (OpenAPI 3.1), with drift detection |
+
+## How to give an agent progressive tools in VS Code (3 minutes)
+
+1. **Install OrcA** from the VS Code Marketplace.
+2. **Add a server:** in **MCP Servers**, choose **Add External MCP Server…** (or **Run with HAPI** on an OpenAPI file, served with a search tool).
+3. **Connect:** right-click the server → **Connect**, then hover it to read the **Discovery** line.
+4. **Tune the harness:** open **OrcA → Harness**, check the instructions and compare the tokens sent upfront with the full catalog.
+5. **Chat:** ask a multi-step question, such as "find a pediatrician next Tuesday, then book the first slot". Watch the cards load the right tools at each step, the **Context** tab explain the goal, and **Traffic** record every call.
+
+## Make your own APIs harness-friendly
+
+The harness can only be as good as the contracts behind it. If you own the API, two guides show how to make it agent-ready with HAPI, no code required:
+
+- [How to Design OpenAPI Contracts That Guide AI Agents](/guides/design-openapi-contracts-that-guide-ai-agents): discoverable operations, read-only hints, intent, effects and planning facts.
+- [How to Make APIs AI-Ready with Intent-Based Contracts and Arazzo Workflows](/guides/intent-based-ai-api-ai-ready): when to use fixed workflows and when to let a deterministic planner decide.
+- [How to Build and Manage MCP-Based Agents from Your API Contracts](/guides/build-and-manage-mcp-based-agents): the whole lifecycle, from contract to deployed agent.
+
+## Private by design, as before
+
+- **No telemetry** by default and no vendor AI SDKs.
+- The chat only contacts the provider you selected, or VS Code's own models.
+- API keys and server headers live in [VS Code's secret storage](https://code.visualstudio.com/api/extension-capabilities/common-capabilities#data-storage).
+- Traffic stays in memory with secrets redacted; nothing is written to disk until you save a session.
+
+## Good to know
+
+- OrcA connects to **Streamable HTTP** servers only; stdio and SSE are not supported.
+- **OAuth-protected** servers are still not supported; static headers work.
+- HAPI servers behave as in 0.3; `orca.chat.toolDiscovery: off` restores the 0.3 tool list exactly.
+
+## Frequently asked questions
+
+**What is an agent harness?**
+The layer that runs an agent session: it prepares instructions, context and tools for the model, applies approvals, routes tool calls and records what happened. OrcA 0.4 is a harness specialised for MCP and API work; it does not edit files or run a terminal.
+
+**What is progressive tool discovery in MCP?**
+Sending a small `search_tools` tool and a catalog of tool names instead of every definition, then loading full definitions as the conversation needs them. OrcA searches with each message, appends discovered tools to keep prompt caches valid, and resets them on **New Chat**.
+
+**How do I reduce MCP context bloat?**
+Serve your API with a search tool (for HAPI, `--deferred-tool-search` or `--capability-graph`) and keep `orca.chat.toolDiscovery` on `auto`, or use `always` to let OrcA search any server. The **Harness** tab shows the tokens you save.
+
+**Can OrcA connect to MCP servers not built with HAPI?**
+Yes: **Add External MCP Server…** or **Import MCP Servers…** from `mcp.json`, for any Streamable HTTP server. stdio and SSE are not supported.
+
+**Can I get an OpenAPI contract for a hand-written MCP server?**
+Yes: **Generate Contract** infers an OpenAPI 3.1 document from the server's catalog, links it to the server, and flags it when the tools change.
+
+**Does OrcA 0.4 support OAuth-protected MCP servers?**
+Not yet. Static headers such as a bearer token or an API key work today and are stored in VS Code's secret storage.
+
+## Get OrcA 0.4
+
+- ⬇️ **Install:** [OrcA MCP on the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=la-rebelion-labs.orca-mcp), or `code --install-extension la-rebelion-labs.orca-mcp`.
+- 📘 **Guide:** [VS Code extension (OrcA)](https://docs.mcp.com.ai/integrations/vscode).
+- 🧭 **Concepts:** [How OrcA works](https://docs.mcp.com.ai/components/orca/how-it-works).
+- 📡 **Missed 0.3?** [OrcA 0.3: See Every MCP Tool Call and LLM Round in VS Code](/orca/0-3-mcp-traffic-analyzer-chat-vscode).
+
+0.3 let you see the conversation between your agent and your tools. 0.4 lets you shape it.
+
+*Be HAPI, and enjoy building!*
