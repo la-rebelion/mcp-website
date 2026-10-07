@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@site/src/components/ui/dialog';
+import { useNativeFormSink } from '@site/src/lib/hubspot';
 import { X, Mail, Zap, Code, MessageSquare, Bot } from 'lucide-react';
 
 interface ExitIntentModalProps {
@@ -7,26 +8,25 @@ interface ExitIntentModalProps {
   onClose: () => void;
 }
 
-// @note: This form is structured as static HTML for HubSpot compliance
-// We use inline preventDefault in the form element to avoid navigation while allowing HubSpot to track
+// @note: Native static <form> (no JS on submit) so the HubSpot tracking code collects it as a non-HubSpot form.
 // See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
 
 export const ExitIntentModal = ({ open, onClose }: ExitIntentModalProps) => {
-  const [showThankYou, setShowThankYou] = useState(false);
+  const { submitted, reset, formProps, sink } = useNativeFormSink();
 
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) onClose();
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setShowThankYou(true);
-    setTimeout(() => {
-      setShowThankYou(false);
+  useEffect(() => {
+    if (!submitted) return;
+    const timer = setTimeout(() => {
+      reset();
       onClose();
     }, 2000);
-    return false;
-  };
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitted]);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -69,14 +69,14 @@ export const ExitIntentModal = ({ open, onClose }: ExitIntentModalProps) => {
           </div>
         </div>
 
-        {showThankYou ? (
+        {submitted ? (
           <div className="mcpExitThanks">
             <Mail className="mcpExitThanksIcon" />
             <h3>Thank you for subscribing!</h3>
             <p>We'll keep you updated on the latest HAPI Stack developments.</p>
           </div>
         ) : (
-          <form method="POST" action="#" onSubmit={handleFormSubmit} className="mcpExitForm">
+          <form {...formProps} className="mcpExitForm">
             <input type="email" name="email" placeholder="Enter your email address" required className="mcpExitInput" />
             <div className="mcpExitActions">
               <input type="submit" value="Get Updates" className="mcpExitBtnPrimary" />
@@ -89,6 +89,7 @@ export const ExitIntentModal = ({ open, onClose }: ExitIntentModalProps) => {
         )}
 
         <p className="mcpExitFooter">No spam, ever. Unsubscribe at any time. We respect your privacy.</p>
+        {sink}
       </DialogContent>
     </Dialog>
   );

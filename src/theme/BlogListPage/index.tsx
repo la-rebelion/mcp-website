@@ -17,6 +17,7 @@ import type { Props } from '@theme/BlogListPage';
 import BlogPostItems from '@theme/BlogPostItems';
 import BlogListPageStructuredData from '@theme/BlogListPage/StructuredData';
 import Link from '@docusaurus/Link';
+import { useNativeFormSink } from '@site/src/lib/hubspot';
 import { ExitIntentModal } from '@site/src/components/ExitIntentModal';
 import { useExitIntent } from "@site/src/hooks/useExitIntent";
 import { DemoRequestModal } from '@site/src/components/DemoRequestModal';
@@ -137,8 +138,8 @@ function BadgeRow(): ReactNode {
 }
 
 function NewsletterAndDemo() {
-  const [subscribed, setSubscribed] = useState(false);
-  const [requested, setRequested] = useState(false);
+  const newsletter = useNativeFormSink();
+  const demo = useNativeFormSink();
   return (
     <section className="mcpSection mcpSection--alt">
       <div className="container">
@@ -147,15 +148,10 @@ function NewsletterAndDemo() {
             <div className="mcpPanel">
               <h3>Get the HAPI MCP Briefing</h3>
               <p>Tactical updates on MCP, OpenAPI-first patterns, and how teams ship AI without rewrites.</p>
-              {subscribed ? (
+              {newsletter.submitted ? (
                 <p className="mcpSuccess">Thanks! Check your inbox to confirm.</p>
               ) : (
-                <form
-                  className="mcpForm"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setSubscribed(true);
-                  }}>
+                <form className="mcpGetTheBriefing" {...newsletter.formProps}>
                   <input className="mcpInput" type="email" name="email" placeholder="you@company.com" required />
                   <button className="button button--primary" type="submit">Subscribe</button>
                 </form>
@@ -166,15 +162,10 @@ function NewsletterAndDemo() {
             <div className="mcpPanel">
               <h3>Request a Demo</h3>
               <p>See HAPI MCP in action — from spec to MCP tools to OrcA-run workflows across QBot and chatMCP.</p>
-              {requested ? (
+              {demo.submitted ? (
                 <p className="mcpSuccess">Thanks! We’ll reach out shortly.</p>
               ) : (
-                <form
-                  className="mcpForm"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setRequested(true);
-                  }}>
+                <form className="mcpRequestDemo" {...demo.formProps}>
                   <input className="mcpInput" type="text" name="name" placeholder="Full name" required />
                   <input className="mcpInput" type="email" name="email" placeholder="you@company.com" required />
                   <button className="button mcpBtnSecondary" type="submit">Request demo</button>
@@ -184,6 +175,8 @@ function NewsletterAndDemo() {
           </div>
         </div>
       </div>
+      {newsletter.sink}
+      {demo.sink}
     </section>
   );
 }

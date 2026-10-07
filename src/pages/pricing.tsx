@@ -1,13 +1,10 @@
 import React, { useState, type ReactNode } from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
-import { useLocation } from "@docusaurus/router";
 import { CheckCircle } from "lucide-react";
 import { selfServePlans, pricingFaqs } from "@site/src/data/hapiPricing";
-import {
-  type BillingEndpoints,
-  useBillingEndpoints,
-} from "@site/src/lib/billing";
+import { BOOKING_URL } from "@site/src/lib/booking";
+import { useNativeFormSink } from "@site/src/lib/hubspot";
 import "@site/src/css/pricing.css";
 
 const faqJsonLd = {
@@ -20,13 +17,7 @@ const faqJsonLd = {
   })),
 };
 
-function PlanCard({
-  plan,
-  billingEndpoints,
-}: {
-  plan: (typeof selfServePlans)[number];
-  billingEndpoints: BillingEndpoints;
-}) {
+function PlanCard({ plan }: { plan: (typeof selfServePlans)[number] }) {
   return (
     <article className="pricingPlan">
       <header>
@@ -53,18 +44,12 @@ function PlanCard({
           Use HAPI free
         </a>
       ) : plan.checkoutPlan ? (
-        <form
-          className="pricingCheckoutForm"
-          method="post"
-          action={billingEndpoints.checkout}
+        <a
+          className="button button--lg button--primary"
+          href={BOOKING_URL}
         >
-          <input type="hidden" name="plan" value={plan.checkoutPlan} />
-          <input
-            type="submit"
-            className="button button--lg button--primary"
-            value={`Choose ${plan.name}`}
-          />
-        </form>
+          Book a call to start {plan.name}
+        </a>
       ) : (
         <a
           className="button button--lg button--primary"
@@ -139,10 +124,8 @@ function ApiUnitEstimator(): ReactNode {
 }
 
 export default function Pricing(): ReactNode {
-  const billingEndpoints = useBillingEndpoints();
-  const productionConversationReceived =
-    new URLSearchParams(useLocation().search).get("conversation") ===
-    "received";
+  const { submitted: productionConversationReceived, formProps, sink } =
+    useNativeFormSink();
 
   return (
     <Layout
@@ -219,11 +202,7 @@ export default function Pricing(): ReactNode {
             </div>
             <div className="pricingPlans">
               {selfServePlans.map((plan) => (
-                <PlanCard
-                  key={plan.id}
-                  plan={plan}
-                  billingEndpoints={billingEndpoints}
-                />
+                <PlanCard key={plan.id} plan={plan} />
               ))}
             </div>
             <p className="pricingFinePrint">
@@ -332,17 +311,13 @@ export default function Pricing(): ReactNode {
                 </p>
                 <a
                   className="button button--lg pricingButtonSecondary"
-                  href="/pricing#production-conversation"
+                  href={BOOKING_URL}
                 >
-                  Send another request
+                  Book a call
                 </a>
               </div>
             ) : (
-              <form
-                className="pricingForm"
-                method="post"
-                action={billingEndpoints.salesLead}
-              >
+              <form className="pricingForm" {...formProps}>
                 <div className="pricingFormGrid">
                   <label>
                     Name
@@ -434,6 +409,7 @@ export default function Pricing(): ReactNode {
           </div>
         </section>
       </main>
+      {sink}
     </Layout>
   );
 }

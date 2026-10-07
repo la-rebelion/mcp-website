@@ -219,6 +219,7 @@ const config: Config = {
       //... other Algolia params
     },
   } satisfies Preset.ThemeConfig,
+  clientModules: [require.resolve("./src/clientModules/hubspotRoute.ts")],
   scripts: [
     {
       src: "https://js.hsforms.net/forms/embed/v2.js",

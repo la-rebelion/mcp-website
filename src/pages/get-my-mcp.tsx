@@ -1,13 +1,13 @@
-import React, { useState, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import Head from '@docusaurus/Head';
 import { CheckCircle } from 'lucide-react';
 import '@site/src/css/forms-pages.css';
+import { useNativeFormSink } from '@site/src/lib/hubspot';
 
-// @note: This form is structured as static HTML for HubSpot compliance
-// We use inline preventDefault in the form element to avoid navigation while allowing HubSpot to track
-// See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
+// @note: Native static <form> (no JS on submit) so the HubSpot tracking code collects it as a non-HubSpot form.
+// The hidden iframe sink keeps the page in place. See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
 
 const diyCons = [
   'Hours or days reading protocol docs',
@@ -46,31 +46,7 @@ const steps = [
 ];
 
 export default function GetMyMcp(): ReactNode {
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validate = (form: HTMLFormElement): Record<string, string> => {
-    const data = new FormData(form);
-    const next: Record<string, string> = {};
-    const email = String(data.get('email') || '').trim();
-    if (!email) next.email = 'Email is required.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = 'Enter a valid email address.';
-    const firstname = String(data.get('firstname') || '').trim();
-    if (!firstname) next.firstname = 'Your name is required.';
-    return next;
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const found = validate(e.currentTarget);
-    if (Object.keys(found).length > 0) {
-      setErrors(found);
-      return false;
-    }
-    setErrors({});
-    setSubmitted(true);
-    return false;
-  };
+  const { submitted, formProps, sink } = useNativeFormSink();
 
   return (
     <Layout
@@ -225,7 +201,7 @@ export default function GetMyMcp(): ReactNode {
                 </p>
               </div>
             ) : (
-              <form method="POST" action="#" onSubmit={handleSubmit} noValidate>
+              <form {...formProps} className="mcpGetMyMCP">
 
                 {/* Contact */}
                 <p className="mcpGetMcpFormTitle">Tell us about your project</p>
@@ -244,11 +220,8 @@ export default function GetMyMcp(): ReactNode {
                       type="text"
                       placeholder="First name"
                       required
-                      className={`mcpExitInput${errors.firstname ? ' is-invalid' : ''}`}
+                      className="mcpExitInput"
                     />
-                    {errors.firstname && (
-                      <div className="mcpFieldError">{errors.firstname}</div>
-                    )}
                   </div>
                   <div className="mcpFormSection" style={{ marginBottom: 0 }}>
                     <label htmlFor="gm-email" className="mcpLabel">
@@ -260,11 +233,8 @@ export default function GetMyMcp(): ReactNode {
                       type="email"
                       placeholder="you@company.com"
                       required
-                      className={`mcpExitInput${errors.email ? ' is-invalid' : ''}`}
+                      className="mcpExitInput"
                     />
-                    {errors.email && (
-                      <div className="mcpFieldError">{errors.email}</div>
-                    )}
                   </div>
                 </div>
 
@@ -588,6 +558,7 @@ export default function GetMyMcp(): ReactNode {
           )}
         </div>
       </section>
+      {sink}
     </Layout>
   );
 }

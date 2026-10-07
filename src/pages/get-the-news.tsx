@@ -1,8 +1,9 @@
-import React, { useState, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
 import { CheckCircle } from 'lucide-react';
 import '@site/src/css/forms-pages.css';
+import { useNativeFormSink } from '@site/src/lib/hubspot';
 
 const benefits = [
   {
@@ -27,18 +28,11 @@ const benefits = [
   },
 ];
 
-// @note: This form is structured as static HTML for HubSpot compliance
-// We use inline preventDefault in the form element to avoid navigation while allowing HubSpot to track
-// See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
+// @note: Native static <form> (no JS on submit) so the HubSpot tracking code collects it as a non-HubSpot form.
+// The hidden iframe sink keeps the page in place. See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
 
 export default function GetTheNews(): ReactNode {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
-    return false;
-  };
+  const { submitted, formProps, sink } = useNativeFormSink();
 
   return (
     <Layout
@@ -89,7 +83,7 @@ export default function GetTheNews(): ReactNode {
                   <h2 className="mcpNewsFormTitle">Get the Newsletter</h2>
                   <p className="mcpNewsFormSubtitle">One focused email per week. Unsubscribe anytime.</p>
 
-                  <form method="POST" action="#" onSubmit={handleSubmit} className="mcpExitForm">
+                  <form {...formProps} className="mcpSubscribeToNews">
                     <div className="mcpFormGrid" style={{ marginBottom: '0.6rem' }}>
                       <div>
                         <label htmlFor="gtn-firstname" className="mcpLabel">First Name</label>
@@ -188,6 +182,7 @@ export default function GetTheNews(): ReactNode {
           </div>
         </div>
       </section>
+      {sink}
     </Layout>
   );
 }

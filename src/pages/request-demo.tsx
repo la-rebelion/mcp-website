@@ -1,8 +1,9 @@
-import React, { useState, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
 import { CheckCircle } from 'lucide-react';
 import '@site/src/css/forms-pages.css';
+import { useNativeFormSink } from '@site/src/lib/hubspot';
 
 const whatToExpect = [
   {
@@ -45,39 +46,11 @@ const guarantees = [
   },
 ];
 
-// @note: This form is structured as static HTML for HubSpot compliance
-// We use inline preventDefault in the form element to avoid navigation while allowing HubSpot to track
-// See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
+// @note: Native static <form> (no JS on submit) so the HubSpot tracking code collects it as a non-HubSpot form.
+// The hidden iframe sink keeps the page in place. See: https://knowledge.hubspot.com/forms/use-non-hubspot-forms
 
 export default function RequestDemo(): ReactNode {
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validate = (form: HTMLFormElement): Record<string, string> => {
-    const data = new FormData(form);
-    const next: Record<string, string> = {};
-
-    const email = String(data.get('email') || '').trim();
-    if (!email) next.email = 'Work email is required.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = 'Enter a valid email address.';
-
-    const phone = String(data.get('phone') || '').trim();
-    if (phone && !/^[+()\d\s-]{7,}$/.test(phone)) next.phone = 'Enter a valid phone number.';
-
-    return next;
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const found = validate(e.currentTarget);
-    if (Object.keys(found).length > 0) {
-      setErrors(found);
-      return false;
-    }
-    setErrors({});
-    setSubmitted(true);
-    return false;
-  };
+  const { submitted, formProps, sink } = useNativeFormSink();
 
   return (
     <Layout
@@ -128,7 +101,7 @@ export default function RequestDemo(): ReactNode {
                   <h2 className="mcpDemoFormTitle">Request Your Demo</h2>
                   <p className="mcpDemoFormSubtitle">We'll reach out within 1 business day.</p>
 
-                  <form method="POST" action="#" onSubmit={handleSubmit} noValidate className="mcpExitForm">
+                  <form {...formProps} className="mcpRequestDemo">
 
                     <div className="mcpFormGrid" style={{ marginBottom: '0.6rem' }}>
                       <div>
@@ -161,14 +134,9 @@ export default function RequestDemo(): ReactNode {
                       type="email"
                       placeholder="you@company.com"
                       required
-                      className={`mcpExitInput${errors.email ? ' is-invalid' : ''}`}
-                      style={{ marginBottom: errors.email ? 0 : '0.6rem' }}
+                      className="mcpExitInput"
+                      style={{ marginBottom: '0.6rem' }}
                     />
-                    {errors.email && (
-                      <div className="mcpFieldError" style={{ marginBottom: '0.6rem' }}>
-                        {errors.email}
-                      </div>
-                    )}
 
                     <div className="mcpFormGrid" style={{ marginBottom: '0.6rem' }}>
                       <div>
@@ -199,14 +167,9 @@ export default function RequestDemo(): ReactNode {
                       name="phone"
                       type="tel"
                       placeholder="+1 (555) 123-4567"
-                      className={`mcpExitInput${errors.phone ? ' is-invalid' : ''}`}
-                      style={{ marginBottom: errors.phone ? 0 : '0.6rem' }}
+                      className="mcpExitInput"
+                      style={{ marginBottom: '0.6rem' }}
                     />
-                    {errors.phone && (
-                      <div className="mcpFieldError" style={{ marginBottom: '0.6rem' }}>
-                        {errors.phone}
-                      </div>
-                    )}
 
                     <label htmlFor="rd-message" className="mcpLabel">What would you like to see?</label>
                     <textarea
@@ -280,6 +243,7 @@ export default function RequestDemo(): ReactNode {
           </div>
         </div>
       </section>
+      {sink}
     </Layout>
   );
 }
