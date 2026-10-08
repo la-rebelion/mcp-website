@@ -4,10 +4,127 @@
         <title>The control plane for MCP in real environments Blog</title>
         <link>https://mcp.com.ai/es</link>
         <description>The control plane for MCP in real environments Blog</description>
-        <lastBuildDate>Mon, 05 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 07 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>es</language>
+        <item>
+            <title><![CDATA[Ask, Plan, Act: Agent Roles That Decide What Your MCP Agent May Do]]></title>
+            <link>https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode</link>
+            <guid>https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode</guid>
+            <pubDate>Wed, 07 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[OrcA's Ask, Plan and Act roles control what an AI agent may do with your MCP servers: explore safely, review a plan, then act. Learn why roles matter even with a capability graph, and when to use each one.]]></description>
+            <content:encoded><![CDATA[
+<p><strong>An AI agent with access to your API can read data and change it. The question is not whether it <em>can</em> do something, but whether it <em>should, right now</em>.</strong> OrcA answers that with three roles: <strong>Ask</strong>, <strong>Plan</strong> and <strong>Act</strong>. You choose how much the agent may do in each conversation, and OrcA enforces it in the tools the model receives, not only in its instructions.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tldr">TL;DR<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#tldr" class="hash-link" aria-label="Enlace directo al TL;DR" title="Enlace directo al TL;DR" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Ask:</strong> the agent explores and answers with read-only tools. Nothing can change.</li>
+<li class=""><strong>Plan:</strong> the agent investigates, uses capability planning, and ends with a numbered plan for you to review. Nothing can change.</li>
+<li class=""><strong>Act:</strong> the agent gets every tool. Changes still ask for your approval by default.</li>
+<li class=""><strong>Enforced, not suggested:</strong> in Ask and Plan, tools that change data are never sent to the model, so it cannot call them.</li>
+<li class=""><strong>Works with any MCP server</strong>, and gets better with a HAPI capability graph.</li>
+<li class=""><strong>Available since OrcA 0.5</strong>, in the Chat header and the Harness tab.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-problem-one-mode-for-every-intention">The problem: one mode for every intention<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#the-problem-one-mode-for-every-intention" class="hash-link" aria-label="Enlace directo al The problem: one mode for every intention" title="Enlace directo al The problem: one mode for every intention" translate="no">​</a></h2>
+<p>People talk to an assistant with different intentions, often in the same conversation:</p>
+<ol>
+<li class="">"What appointments do I have?" They want an answer.</li>
+<li class="">"How would I move the one on Tuesday?" They want to see what it takes.</li>
+<li class="">"Move it to Friday at 10." They want it done.</li>
+</ol>
+<p>Most chat setups give the model the same tools for all three. If every tool is available, a question can still end in an action: the model "helpfully" reschedules while you were only asking how. Instructions such as "don't change anything unless asked" help, but a model can misread or ignore them.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="an-analogy-the-rule-book-and-the-instructions-at-the-desk">An analogy: the rule book and the instructions at the desk<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#an-analogy-the-rule-book-and-the-instructions-at-the-desk" class="hash-link" aria-label="Enlace directo al An analogy: the rule book and the instructions at the desk" title="Enlace directo al An analogy: the rule book and the instructions at the desk" translate="no">​</a></h2>
+<p>Picture the reception desk of a clinic.</p>
+<ul>
+<li class=""><strong>The capability graph is the clinic's rule book.</strong> "To book, you need an identified patient, a chosen doctor, a chosen time, and the patient's confirmation." It is true for everyone, every day. It describes the API.</li>
+<li class=""><strong>The role is what you tell the assistant at the desk today:</strong>
+<ul>
+<li class=""><strong>Ask:</strong> "Just answer questions. Don't touch the calendar."</li>
+<li class=""><strong>Plan:</strong> "Work out what needs to happen and show me first. Don't touch the calendar yet."</li>
+<li class=""><strong>Act:</strong> "Go ahead and book it." The rule book still applies, and you still approve the changes.</li>
+</ul>
+</li>
+</ul>
+<p>The rule book cannot know whether <em>you</em> want changes today. Only you can, and the role is how you say it.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-roles-still-matter-with-a-capability-graph">Why roles still matter with a capability graph<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#why-roles-still-matter-with-a-capability-graph" class="hash-link" aria-label="Enlace directo al Why roles still matter with a capability graph" title="Enlace directo al Why roles still matter with a capability graph" translate="no">​</a></h2>
+<p>The <a class="" href="https://mcp.com.ai/es/guides/design-openapi-contracts-that-guide-ai-agents">HAPI Capability Graph</a> tells an agent what each operation requires and produces, and computes plans. So why add roles?</p>
+<ol>
+<li class=""><strong>The graph advises; it does not prevent.</strong> <code>capability_context</code> and <code>capability_plan</code> are read-only guidance. With every tool loaded, a model can still skip the plan and call the cancellation tool directly. Roles remove that possibility: in Ask and Plan, the model never receives tools that change data.</li>
+<li class=""><strong>Not every server has a graph.</strong> Ask and Plan rely on the standard MCP read-only hint, so they protect any server, including third-party ones.</li>
+<li class=""><strong>The API is the same; your intention changes.</strong> The same contract serves "show me", "plan it" and "do it". The graph describes the API; the role describes the conversation.</li>
+<li class=""><strong>Plans need a human checkpoint.</strong> A computed plan is still a proposal. Plan mode makes the review an explicit step, and <strong>Proceed</strong> turns it into action.</li>
+</ol>
+<table><thead><tr><th></th><th>Capability graph</th><th>Role</th><th>Approvals</th></tr></thead><tbody><tr><td>Answers</td><td>What does the API need, and in what order?</td><td>What may the agent do right now?</td><td>Should I confirm this specific call?</td></tr><tr><td>Decided by</td><td>The contract author</td><td>You, per conversation</td><td>You, per tool or per workspace</td></tr><tr><td>Enforcement</td><td>Advice to the model</td><td>Tools hidden from the model</td><td>OrcA asks before calling</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-each-role-does-in-orca">What each role does in OrcA<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#what-each-role-does-in-orca" class="hash-link" aria-label="Enlace directo al What each role does in OrcA" title="Enlace directo al What each role does in OrcA" translate="no">​</a></h2>
+<table><thead><tr><th></th><th>Ask</th><th>Plan</th><th>Act</th></tr></thead><tbody><tr><td>Tools the model receives</td><td>Read-only tools, tool search, <code>capability_context</code> and <code>capability_plan</code></td><td>Same as Ask</td><td>Every tool</td></tr><tr><td>Can it change data?</td><td>No</td><td>No</td><td>Yes, with approval by default</td></tr><tr><td>How it uses the graph</td><td>To explain what an action would need</td><td>To build a plan: goal, steps, missing facts, confirmations</td><td>To follow the plan and re-plan after a failure</td></tr><tr><td>Ends with</td><td>An answer</td><td>A numbered plan and a <strong>Proceed</strong> button</td><td>The result, or the next question</td></tr></tbody></table>
+<p>Three details make roles reliable rather than decorative:</p>
+<ul>
+<li class=""><strong>Hidden everywhere.</strong> A tool a role hides is removed from the request, from the catalog of tools not loaded yet, and from search results.</li>
+<li class=""><strong>Refused if named.</strong> If an old message makes the model call a hidden tool, OrcA refuses the call and tells the model which role is active.</li>
+<li class=""><strong>Remembered per chat.</strong> Each conversation keeps its role, and saved chats restore it. New chats start with the role in <code>orca.chat.role</code>.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="when-to-use-each-role">When to use each role<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#when-to-use-each-role" class="hash-link" aria-label="Enlace directo al When to use each role" title="Enlace directo al When to use each role" translate="no">​</a></h2>
+<p><strong>Use Ask when you explore or test.</strong></p>
+<ul>
+<li class="">"What can this API do?", "Which pediatricians work in Morelia?", "What are my appointments?"</li>
+<li class="">When you connect a new or unfamiliar MCP server and want to see how the model uses it, with zero risk.</li>
+<li class="">When you demo OrcA or share the chat with someone less familiar with the API.</li>
+</ul>
+<p><strong>Use Plan before multi-step or irreversible changes.</strong></p>
+<ul>
+<li class="">"Move my Tuesday appointment to Friday", "Book for my daughter and cancel mine".</li>
+<li class="">When you want to see the order of steps, the missing information (a slot? a confirmation?), and which calls will ask for approval.</li>
+<li class="">When you review a contract: Plan shows whether the capability graph leads to the right steps.</li>
+</ul>
+<p><strong>Use Act when the steps are clear.</strong></p>
+<ul>
+<li class="">After Plan, with <strong>Proceed</strong>.</li>
+<li class="">For simple, routine actions where a plan adds nothing.</li>
+</ul>
+<p>A typical session flows <strong>Ask → Plan → Proceed (Act)</strong>: understand, review, then do.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-use-roles-in-orca">How to use roles in OrcA<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#how-to-use-roles-in-orca" class="hash-link" aria-label="Enlace directo al How to use roles in OrcA" title="Enlace directo al How to use roles in OrcA" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Connect a server</strong> in <strong>MCP Servers</strong> and open <strong>OrcA › Chat</strong>.</li>
+<li class=""><strong>Pick the role</strong> above the conversation: <strong>Ask</strong>, <strong>Plan</strong> or <strong>Act</strong>. The same control is in the <strong>Harness</strong> tab.</li>
+<li class=""><strong>In Plan</strong>, read the numbered plan. When it looks right, click <strong>Proceed</strong>: OrcA switches to Act and sends "Proceed with the plan."</li>
+<li class=""><strong>In Act</strong>, approve each change on its card: <strong>Allow Once</strong>, <strong>Allow for This Session</strong>, <strong>Always Allow in This Workspace</strong>, <strong>Never Allow</strong> or <strong>Deny</strong>.</li>
+<li class=""><strong>Set the default</strong> for new chats with <code>orca.chat.role</code> (<code>ask</code>, <code>plan</code> or <code>act</code>; the default is <code>act</code>).</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="roles-facts-and-approvals-work-together">Roles, facts and approvals work together<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#roles-facts-and-approvals-work-together" class="hash-link" aria-label="Enlace directo al Roles, facts and approvals work together" title="Enlace directo al Roles, facts and approvals work together" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Facts carry across roles.</strong> On capability-graph servers, the Context tab keeps the facts of the chat. Facts you verify while you Ask or Plan are still there when you Act, so the plan does not start over.</li>
+<li class=""><strong>Approvals still apply in Act.</strong> The Harness tab's presets (Request approval, Auto-approve read-only, Allow all) and your workspace rules decide when OrcA asks before a call. The role decides which tools exist; approvals decide when to check with you.</li>
+<li class=""><strong>Traffic shows everything.</strong> Every model round and tool call, in every role, is recorded in OrcA Traffic.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="make-your-api-role-friendly">Make your API role-friendly<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#make-your-api-role-friendly" class="hash-link" aria-label="Enlace directo al Make your API role-friendly" title="Enlace directo al Make your API role-friendly" translate="no">​</a></h2>
+<p>Roles rely on one piece of contract metadata: whether a tool is read-only. HAPI marks <code>GET</code> operations as read-only and every <code>POST</code>, <code>PUT</code>, <code>PATCH</code> and <code>DELETE</code> operation as potentially destructive. If your search runs over <code>POST</code>, add <code>x-readOnlyHint: true</code>, or Ask and Plan will hide it. <a class="" href="https://mcp.com.ai/es/guides/design-openapi-contracts-that-guide-ai-agents">How to Design OpenAPI Contracts That Guide AI Agents</a> covers this, and OrcA's agent-readiness checks flag it in the editor.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="frequently-asked-questions">Frequently asked questions<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#frequently-asked-questions" class="hash-link" aria-label="Enlace directo al Frequently asked questions" title="Enlace directo al Frequently asked questions" translate="no">​</a></h2>
+<p><strong>What are the Ask, Plan and Act roles in OrcA?</strong>
+Chat roles that decide what an AI agent may do with your MCP servers. Ask answers with read-only tools, Plan ends with a plan without changing anything, and Act may use every tool, with approvals.</p>
+<p><strong>Why use roles if I already have a capability graph?</strong>
+The graph describes what the API needs and in what order, but it never prevents a call. The role decides what the agent may do now, and in Ask and Plan the model never receives tools that change data. Roles also protect servers without a graph.</p>
+<p><strong>Is a role just an instruction in the prompt?</strong>
+No. OrcA removes hidden tools from the request, the deferred catalog and search results, and refuses calls to them. The instruction only explains the role to the model.</p>
+<p><strong>When should I use Ask, Plan or Act?</strong>
+Ask to explore or test, Plan before multi-step or irreversible changes, and Act when the steps are clear, usually after Plan with Proceed.</p>
+<p><strong>How do roles relate to tool approvals?</strong>
+Roles decide which tools exist; approvals decide when OrcA asks before using them. In Act, the default preset asks before any tool that may change data.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="try-it">Try it<a href="https://mcp.com.ai/es/orca/ask-plan-act-agent-roles-mcp-vscode#try-it" class="hash-link" aria-label="Enlace directo al Try it" title="Enlace directo al Try it" translate="no">​</a></h2>
+<ul>
+<li class="">⬇️ <strong>Install:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=la-rebelion-labs.orca-mcp" target="_blank" rel="noopener noreferrer" class="">OrcA MCP on the VS Code Marketplace</a>, or <code>code --install-extension la-rebelion-labs.orca-mcp</code>.</li>
+<li class="">🧭 <strong>The harness behind it:</strong> <a class="" href="https://mcp.com.ai/es/orca/0-4-mcp-agent-harness-progressive-tool-discovery-vscode">OrcA 0.4: An MCP Agent Harness in VS Code</a>.</li>
+<li class="">📘 <strong>Agent-ready contracts:</strong> <a class="" href="https://mcp.com.ai/es/guides/intent-based-ai-api-ai-ready">How to Make APIs AI-Ready with Intent-Based Contracts and Arazzo Workflows</a>.</li>
+</ul>
+<p>The graph knows the way. The role decides whether to take it today.</p>
+<p><em>Be HAPI, and enjoy building!</em></p>]]></content:encoded>
+            <category>MCP</category>
+            <category>VS Code</category>
+            <category>Agentic AI</category>
+            <category>Tool Calling</category>
+            <category>Best Practices</category>
+            <category>LLM</category>
+            <category>Guide</category>
+        </item>
         <item>
             <title><![CDATA[OrcA 0.4: An MCP Agent Harness in VS Code, for Any MCP Server]]></title>
             <link>https://mcp.com.ai/es/orca/0-4-mcp-agent-harness-progressive-tool-discovery-vscode</link>
@@ -3646,179 +3763,6 @@ Sometimes controlled hybrid environments.</p>
             <category>Platform Engineering</category>
             <category>MCP at Scale</category>
             <category>Architecture</category>
-        </item>
-        <item>
-            <title><![CDATA[The Codex Desktop App: A Paradigm Shift in Developer Tooling]]></title>
-            <link>https://mcp.com.ai/es/openai-codex-desktop-app</link>
-            <guid>https://mcp.com.ai/es/openai-codex-desktop-app</guid>
-            <pubDate>Fri, 06 Mar 2026 13:41:20 GMT</pubDate>
-            <description><![CDATA[OpenAI's Codex desktop app introduces a new model of software development where developers orchestrate multiple AI agents working in parallel, marking a shift from traditional IDE-centric workflows to agent-driven coding environments.]]></description>
-            <content:encoded><![CDATA[<p>Something subtle but massive just happened in developer tooling. The IDE Is No Longer the Center of Development — Agent Orchestration Is.</p>
-<p>For decades, the <strong>IDE was the center of software development</strong>. Everything revolved around it:
-edit → run → debug → commit.</p>
-<p>Now something else is emerging.</p>
-<p>A <strong>control plane for AI agents</strong>.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-quiet-shift-from-ai-assistants-to-ai-teams">The Quiet Shift: From AI Assistants to AI Teams<a href="https://mcp.com.ai/es/openai-codex-desktop-app#the-quiet-shift-from-ai-assistants-to-ai-teams" class="hash-link" aria-label="Enlace directo al The Quiet Shift: From AI Assistants to AI Teams" title="Enlace directo al The Quiet Shift: From AI Assistants to AI Teams" translate="no">​</a></h2>
-<p>For the past few years, most AI coding tools followed a simple pattern:</p>
-<p><strong>Developer + AI assistant</strong></p>
-<p>Think of tools like Copilot or inline AI suggestions.</p>
-<p>You write the code.
-The AI helps.</p>
-<p>But the Codex app introduces a different model entirely.</p>
-<p>Instead of one assistant, you manage <strong><a href="https://sidsaladi.substack.com/p/openai-codex-101-the-complete-guide" target="_blank" rel="noopener noreferrer" class="">multiple AI agents working in parallel</a></strong>.</p>
-<p>Example workflow:</p>
-<ul>
-<li class="">Agent 1 implements a new feature</li>
-<li class="">Agent 2 writes unit tests</li>
-<li class="">Agent 3 refactors the database layer</li>
-<li class="">Agent 4 reviews the changes</li>
-</ul>
-<p>All happening simultaneously on the same codebase.</p>
-<p>Each agent runs in <strong>its own isolated environment</strong>, often using Git worktrees to avoid conflicts.</p>
-<p>Your job is no longer to write every line.</p>
-<p>Your job becomes <strong>orchestrating the work.</strong></p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-codex-app-a-command-center-for-software-development">The Codex App: A Command Center for Software Development<a href="https://mcp.com.ai/es/openai-codex-desktop-app#the-codex-app-a-command-center-for-software-development" class="hash-link" aria-label="Enlace directo al The Codex App: A Command Center for Software Development" title="Enlace directo al The Codex App: A Command Center for Software Development" translate="no">​</a></h2>
-<p><a href="https://openai.com/codex/" target="_blank" rel="noopener noreferrer" class="">OpenAI describes the Codex app</a> as a <strong>command center for agentic coding</strong> where multiple tasks run across projects in parallel.</p>
-<p><a href="https://apps.microsoft.com/detail/9plm9xgg6vks?hl=en-US&amp;gl=US" target="_blank" rel="noopener noreferrer" class=""><img decoding="async" loading="lazy" src="https://store-images.s-microsoft.com/image/apps.65440.14314868180609929.d16a8a92-f430-4bdc-bfbc-a30127e3aa42.59fa753a-d54a-42b6-b86a-41c062fa2e9b?h=307" alt="OpenAI Codex App" class="img_ev3q"></a></p>
-<p>Instead of working file-by-file, developers can:</p>
-<ul>
-<li class="">spin up agents for tasks</li>
-<li class="">monitor progress across projects</li>
-<li class="">review diffs generated by agents</li>
-<li class="">approve or reject changes</li>
-<li class="">automate long-running development tasks</li>
-</ul>
-<p>The system organizes agents into threads and projects so you can track work across many workflows at once.</p>
-<p>In other words:</p>
-<p>You manage <strong>software production</strong>, not just code editing.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-this-matters-more-than-it-looks">Why This Matters More Than It Looks<a href="https://mcp.com.ai/es/openai-codex-desktop-app#why-this-matters-more-than-it-looks" class="hash-link" aria-label="Enlace directo al Why This Matters More Than It Looks" title="Enlace directo al Why This Matters More Than It Looks" translate="no">​</a></h2>
-<p>The real disruption isn’t the tool.</p>
-<p>It’s the <strong>change in the developer role.</strong></p>
-<p>Traditionally:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Human writes code</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">AI helps with autocomplete</span><br></span></code></pre></div></div>
-<p>Now:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Human orchestrates agents</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Agents write most of the code</span><br></span></code></pre></div></div>
-<p>The human moves up a level of abstraction.</p>
-<p>From <strong>implementation → coordination</strong>.</p>
-<p>This is similar to how DevOps changed operations:</p>
-<ul>
-<li class="">admins stopped managing individual servers</li>
-<li class="">they orchestrated infrastructure with automation</li>
-</ul>
-<p>Now developers may stop writing every line and start <strong>orchestrating intelligent workers</strong>.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-ide-is-becoming-secondary">The IDE Is Becoming Secondary<a href="https://mcp.com.ai/es/openai-codex-desktop-app#the-ide-is-becoming-secondary" class="hash-link" aria-label="Enlace directo al The IDE Is Becoming Secondary" title="Enlace directo al The IDE Is Becoming Secondary" translate="no">​</a></h2>
-<p>One of the most interesting signals from early Codex users is that some projects were completed <strong>without opening an IDE at all</strong>.</p>
-<p>The workflow looked like:</p>
-<ol>
-<li class="">Define tasks</li>
-<li class="">Launch agents</li>
-<li class="">Review diffs</li>
-<li class="">Merge results</li>
-</ol>
-<p>The IDE becomes a <strong>verification environment</strong>, not the main workspace.</p>
-<p>Or as some engineers are starting to describe it:</p>
-<p><strong>The IDE is where code gets reviewed, not where it gets written.</strong></p>
-<hr>
-<h1>A New Category of Dev Tools Is Emerging</h1>
-<p>We are entering a new category of developer infrastructure:</p>
-<p><strong>Agent orchestration platforms.</strong></p>
-<p>Think about the layers forming:</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-1--models">Layer 1 — Models<a href="https://mcp.com.ai/es/openai-codex-desktop-app#layer-1--models" class="hash-link" aria-label="Enlace directo al Layer 1 — Models" title="Enlace directo al Layer 1 — Models" translate="no">​</a></h3>
-<p>LLMs capable of coding and reasoning.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-2--agents">Layer 2 — Agents<a href="https://mcp.com.ai/es/openai-codex-desktop-app#layer-2--agents" class="hash-link" aria-label="Enlace directo al Layer 2 — Agents" title="Enlace directo al Layer 2 — Agents" translate="no">​</a></h3>
-<p>Autonomous systems executing tasks.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-3--orchestration">Layer 3 — Orchestration<a href="https://mcp.com.ai/es/openai-codex-desktop-app#layer-3--orchestration" class="hash-link" aria-label="Enlace directo al Layer 3 — Orchestration" title="Enlace directo al Layer 3 — Orchestration" translate="no">​</a></h3>
-<p>Tools coordinating many agents together.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-4--interfaces">Layer 4 — Interfaces<a href="https://mcp.com.ai/es/openai-codex-desktop-app#layer-4--interfaces" class="hash-link" aria-label="Enlace directo al Layer 4 — Interfaces" title="Enlace directo al Layer 4 — Interfaces" translate="no">​</a></h3>
-<p>Control panels for supervising the system.</p>
-<p>The Codex desktop app sits in <strong>layer 3 and 4</strong>.</p>
-<p>And that’s where the biggest opportunities may appear.</p>
-<hr>
-<h1>Why This Matters for the AI Ecosystem</h1>
-<p>If agents become the primary actors in development, something else becomes critical:</p>
-<p><strong>Standardized ways for agents to access tools, APIs, and data.</strong></p>
-<p>Agents don’t just write code.</p>
-<p>They need to:</p>
-<ul>
-<li class="">query APIs</li>
-<li class="">access services</li>
-<li class="">interact with infrastructure</li>
-<li class="">call tools</li>
-<li class="">coordinate with other agents</li>
-</ul>
-<p>This means the future dev stack likely needs:</p>
-<ul>
-<li class="">agent-native APIs</li>
-<li class="">standardized tool interfaces</li>
-<li class="">structured orchestration protocols</li>
-</ul>
-<p>Without that, every agent ecosystem becomes fragmented.</p>
-<hr>
-<h1>The Bigger Pattern: Agent Operating Systems</h1>
-<p>What we’re starting to see is the early version of something bigger:</p>
-<p><strong>Agent operating systems.</strong></p>
-<p>Where the developer:</p>
-<ul>
-<li class="">assigns goals</li>
-<li class="">delegates tasks</li>
-<li class="">supervises execution</li>
-</ul>
-<p>And the agents perform the work.</p>
-<p>This pattern is emerging across tools:</p>
-<ul>
-<li class="">AI coding agents</li>
-<li class="">research agents</li>
-<li class="">automation agents</li>
-<li class="">DevOps agents</li>
-</ul>
-<p>The orchestration layer becomes the <strong>new control plane of software development</strong>.</p>
-<hr>
-<h1>The Role of Developers in the Agent Era</h1>
-<p>The developer role is evolving.</p>
-<p>Not disappearing.</p>
-<p>But changing.</p>
-<p>Instead of:</p>
-<p>👨‍💻 writing code all day</p>
-<p>Developers increasingly become:</p>
-<p>🧑‍✈️ <strong>supervisors of intelligent systems</strong></p>
-<p>They define architecture, intent, and constraints.</p>
-<p>The agents implement.</p>
-<hr>
-<h1>The Next Generation of Developer Tools</h1>
-<p>If this trajectory continues, developer tooling may look very different in the next few years.</p>
-<p>Instead of:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Editor</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Terminal</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Debugger</span><br></span></code></pre></div></div>
-<p>We may see tools centered around:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Agent dashboards</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Task orchestration</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Workflow supervision</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Execution logs</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Diff approval systems</span><br></span></code></pre></div></div>
-<p>Less editing.</p>
-<p>More orchestration.</p>
-<hr>
-<h1>The Bigger Question</h1>
-<p>The real question now isn’t whether AI will write code.</p>
-<p>That’s already happening.</p>
-<p>The real question is:</p>
-<p><strong>Who controls the agents?</strong></p>
-<p>Because once agents become the workers of software development, the most important infrastructure becomes:</p>
-<ul>
-<li class="">orchestration layers</li>
-<li class="">agent ecosystems</li>
-<li class="">tool interoperability</li>
-</ul>
-<p>And that’s where the next generation of developer platforms will compete.</p>
-<hr>
-<h1>Final Thought</h1>
-<p>We are moving from:</p>
-<p>👨‍💻 developer + AI assistant</p>
-<p>to</p>
-<p>🧑‍✈️ developer supervising a <strong>team of AI agents</strong>.</p>
-<p>And if that continues, the tools we use will change accordingly.</p>
-<p>The next generation of dev tooling will likely look less like editors…</p>
-<p>and more like <strong>control panels for agent workflows</strong>.</p>]]></content:encoded>
-            <category>Agentic AI</category>
         </item>
     </channel>
 </rss>
